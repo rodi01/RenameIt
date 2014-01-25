@@ -1,0 +1,68 @@
+// (ctrl cmd r)
+// Rename layer(s) like a boss
+
+// The Brain
+function rename(layerName, currIdx) {
+    var per     = basename.search("%"),
+    interSize   = 0
+    isN         = true;
+
+    // Interator 
+    if (per != -1 && per != basename.length && (basename[per + 1] == "N" || basename[per + 1] == "n")) {
+        isN = basename[per + 1] == "N";
+        
+        for (var i = per + 1; i < basename.length; ++i) {
+            if (isN) {
+                if (basename[i] != "N") break
+            } else if (basename[i] != "n") break;
+            
+            ++interSize;
+        }
+
+    }
+
+    var inter       = isN ? selection.length() + 1 : 0,
+    newLayerName    = basename;
+
+    if (interSize > 0) {
+        var interStr = (isN ? currIdx + 1 : selection.length() - currIdx).toString(10);
+
+        while (interStr.length < interSize)
+            interStr = "0" + interStr;
+
+        newLayerName = newLayerName.substr(0, per) + interStr + newLayerName.substr(per + 1 + interSize);
+    }
+
+        // Add to current name
+        if (newLayerName[0] == "+")
+            newLayerName = layerName + basename.substring(1);
+
+        // Wild Card Selector
+        var wildCard = newLayerName.search("\\*");
+        if (wildCard != -1)
+            newLayerName = newLayerName.substr(0, wildCard) + layerName + newLayerName.substr(wildCard + 1);
+        
+        // Return new name
+        return newLayerName;
+    }
+
+if (selection.length() > 0)
+{   
+    // Show dialog
+    var basename = [doc askForUserInput:'Rename Layer(s): eg. Item %N' initialValue:'Layer'].toString();    
+    
+    // Run on all selections
+    for (var i=0; i<selection.length(); i++) {
+        var layer = selection[i];
+        var name = rename([layer name], i);
+        [layer setName:name];
+    }
+}
+else
+{
+    // No layer selected
+    [doc showMessage: "Rename it: You need to select at least one layer"];
+}
+
+
+// Run 
