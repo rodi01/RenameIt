@@ -3,9 +3,9 @@
 
 Sketch plugin to rename layers like a boss. It’s a port of the awesome photoshop plugin called [Renamy](http://www.renamy.com/)
 
-Demo
+Demo Video
 ==
-[![Video Demo](http://secure-b.vimeocdn.com/ts/462/215/462215169_960.jpg)](http://vimeo.com/85064841)
+[![Demo Video](http://secure-b.vimeocdn.com/ts/462/215/462215169_960.jpg)](http://vimeo.com/85064841)
 
 Features
 ==
