@@ -15,6 +15,8 @@ Features
 
 - **Move Original Text**: Type "\*" to keep the original anywhere in the new name (e.g., Option \* icon).
 
+- **Add Width and Height**: Type "%w" or "%h" to add the width or height of the layer  (e.g., Icon %w x %h). *Great addition by @GU5TAF*
+
 Installation
 ==
-Just [download the latest release](https://github.com/rodi01/RenameIt/archive/v1.0.zip), and double click Rename It.sketchplugin to have Sketch install it for you.
+Just [download the latest release](https://github.com/rodi01/RenameIt/archive/v1.1.zip), and double click Rename It.sketchplugin to have Sketch install it for you.

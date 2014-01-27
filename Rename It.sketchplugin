@@ -2,20 +2,20 @@
 // Rename layer(s) like a boss
 
 // The Brain
-function rename(layerName, currIdx) {
+function rename(layerName, currIdx, width, height) {
     var per     = basename.search("%"),
     interSize   = 0
     isN         = true;
 
-    // Interator 
+    // Interator
     if (per != -1 && per != basename.length && (basename[per + 1] == "N" || basename[per + 1] == "n")) {
         isN = basename[per + 1] == "N";
-        
+
         for (var i = per + 1; i < basename.length; ++i) {
             if (isN) {
                 if (basename[i] != "N") break
             } else if (basename[i] != "n") break;
-            
+
             ++interSize;
         }
 
@@ -41,20 +41,29 @@ function rename(layerName, currIdx) {
         var wildCard = newLayerName.search("\\*");
         if (wildCard != -1)
             newLayerName = newLayerName.substr(0, wildCard) + layerName + newLayerName.substr(wildCard + 1);
-        
+
+        // Add Width and/or height
+        // Props to GU5TAF (https://github.com/rodi01/RenameIt/issues/1)
+        newLayerName = newLayerName.replace(new RegExp("%w", "ig"), width);
+        newLayerName = newLayerName.replace(new RegExp("%h", "ig"), height);
+
         // Return new name
         return newLayerName;
     }
 
+// Run
 if (selection.length() > 0)
-{   
+{
     // Show dialog
-    var basename = [doc askForUserInput:'Rename Layer(s): eg. Item %N' initialValue:'Layer'].toString();    
-    
+    var basename = [doc askForUserInput:'Rename Layer(s): eg. Item %N, Item %W, Item %H' initialValue:'Layer'].toString();
+
     // Run on all selections
     for (var i=0; i<selection.length(); i++) {
-        var layer = selection[i];
-        var name = rename([layer name], i);
+        var layer = selection[i],
+        	frame = [layer frame],
+            width = [frame width],
+            height = [frame height];
+        var name = rename([layer name], i, width, height);
         [layer setName:name];
     }
 }
@@ -63,6 +72,3 @@ else
     // No layer selected
     [doc showMessage: "Rename it: You need to select at least one layer"];
 }
-
-
-// Run 
