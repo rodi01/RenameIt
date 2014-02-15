@@ -55,7 +55,7 @@ function rename(layerName, currIdx, width, height) {
 if (selection.length() > 0)
 {
     // Show dialog
-    var basename = [doc askForUserInput:'Rename Layer(s): eg. Item %N, Item %W, Item %H' initialValue:'Layer'].toString();
+    var basename = [doc askForUserInput:'Number %N | Width %W | Height %H | + Add' initialValue:'New name(s)'].toString();
 
     // Run on all selections
     for (var i=0; i<selection.length(); i++) {
