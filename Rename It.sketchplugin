@@ -37,10 +37,8 @@ function rename(layerName, currIdx, width, height) {
     if (newLayerName[0] == "+")
         newLayerName = layerName + basename.substring(1);
 
-    // Wild Card Selector
-    var wildCard = newLayerName.search("\\*");
-    if (wildCard != -1)
-        newLayerName = newLayerName.substr(0, wildCard) + layerName + newLayerName.substr(wildCard + 1);
+     // Move original text
+    newLayerName = newLayerName.replace(new RegExp("%curr", "ig"), layerName);
 
     // Add Width and/or height
     // Props to GU5TAF (https://github.com/rodi01/RenameIt/issues/1)
@@ -55,7 +53,7 @@ function rename(layerName, currIdx, width, height) {
 if (selection.length() > 0)
 {
     // Show dialog
-    var basename = [doc askForUserInput:'Number %N | Width %W | Height %H | + Add' initialValue:'New name(s)'].toString();
+    var basename = [doc askForUserInput:'%w | %h | + text | %curr | %N | %NN | %n | %nn' initialValue:'New name(s)'].toString();
 
     // Run on all selections
     for (var i=0; i<selection.length(); i++) {
