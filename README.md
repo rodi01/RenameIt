@@ -9,11 +9,11 @@ Demo Video
 
 Features
 ==
-- **Add Name**: Type “+” and the text to add at the end of the layer name (e.g., + button).
+- **Add Name**: Type “+” and the text to add at the end of the current layer name (e.g., + button).
 
-- **Sequence**:  Type “%N” to name layer in sequence. You can also use “%n” for reverse order. The more Ns you add the more digits it will add (e.g. , Item %NN).
+- **Sequence**:  Type “%n” to name layer in sequence. You can also use “%-n” for reverse order. The more Ns you add the more digits it will add (e.g. , %nnn = 001 etc.).
 
-- **Move Original Text**: Type "\*" to keep the original anywhere in the new name (e.g., Option \* icon).
+- **Move Original Text**: Type "%curr" to keep the original anywhere in the new name (e.g., prefix %curr suffix).
 
 - **Add Width and Height**: Type "%w" or "%h" to add the width or height of the layer  (e.g., Icon %w x %h). *Great addition by @GU5TAF*
 
