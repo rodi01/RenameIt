@@ -1,48 +1,46 @@
 // (ctrl cmd r)
 // Rename layer(s) like a boss
 
-// The Brain
 function rename(layerName, currIdx, width, height) {
-    var per     = basename.search("%"),
-    interSize   = 0
-    isN         = true;
-
-    // Interator
-    if (per != -1 && per != basename.length && (basename[per + 1] == "N" || basename[per + 1] == "n")) {
-        isN = basename[per + 1] == "N";
-
-        for (var i = per + 1; i < basename.length; ++i) {
-            if (isN) {
-                if (basename[i] != "N") break
-            } else if (basename[i] != "n") break;
-
-            ++interSize;
-        }
-
-    }
-
-    var inter       = isN ? selection.length() + 1 : 0,
-    newLayerName    = basename;
-
-    if (interSize > 0) {
-        var interStr = (isN ? currIdx + 1 : selection.length() - currIdx).toString(10);
-
-        while (interStr.length < interSize)
-            interStr = "0" + interStr;
-
-        newLayerName = newLayerName.substr(0, per) + interStr + newLayerName.substr(per + 1 + interSize);
-    }
+    newLayerName = basename;
 
     // Add to current name
     if (newLayerName[0] == "+")
         newLayerName = layerName + basename.substring(1);
 
-     // Move original text
-    newLayerName = newLayerName.replace(new RegExp("%curr", "ig"), layerName);
+    // Loop
+    reg = new RegExp("(%-?n{1,})","ig"); // eg. %n, %-nn, %nNn
+    var matches = [];
+    var result;
+    while((result = reg.exec(newLayerName)) !== null) // loop through matches and push to array
+        matches.push(result[0]);
 
-    // Add Width and/or height
-    // Props to GU5TAF (https://github.com/rodi01/RenameIt/issues/1)
+    matches.forEach(function(match){
+        var index;
+        var n_length;
+        if (/(%n)/i.test(match)){ // top to bottom
+            index = ((currIdx)-selection.length())*(-1);
+            n_length = match.length-1
+        }
+            
+        else if (/(%-n)/i.test(match)){ // bottom to top
+            index = currIdx+1;
+            n_length = match.length-2
+        }
+
+        var interStr = index.toString();
+        while (n_length > interStr.length)
+            interStr = "0" + interStr;
+        
+        newLayerName = newLayerName.replace(match, interStr);
+
+    });
+
+    // Original text
+    newLayerName = newLayerName.replace(new RegExp("%curr", "ig"), layerName);
+    // Width
     newLayerName = newLayerName.replace(new RegExp("%w", "ig"), width);
+    // Height
     newLayerName = newLayerName.replace(new RegExp("%h", "ig"), height);
 
     // Return new name
@@ -50,10 +48,9 @@ function rename(layerName, currIdx, width, height) {
 }
 
 // Run
-if (selection.length() > 0)
-{
+if (selection.length() > 0){
     // Show dialog
-    var basename = [doc askForUserInput:'%w | %h | + text | %curr | %N | %NN | %n | %nn' initialValue:'New name(s)'].toString();
+    var basename = [doc askForUserInput:'%w | %h | + text | %curr | %n | %-n' initialValue:'New name(s)'].toString();
 
     // Run on all selections
     for (var i=0; i<selection.length(); i++) {
@@ -67,9 +64,6 @@ if (selection.length() > 0)
         // Success message
         [doc showMessage: "Rename it: Updated "+selection.length()+" layer(s)"];
     }
-}
-else
-{
-    // No layer selected
+} else {  // No layer selected
     [doc showMessage: "Rename it: You need to select at least one layer"];
 }
