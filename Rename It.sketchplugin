@@ -8,24 +8,28 @@ function rename(layerName, currIdx, width, height) {
     isN         = true;
 
     // Interator
-    if (per != -1 && per != basename.length && (basename[per + 1] == "N" || basename[per + 1] == "n")) {
-        isN = basename[per + 1] == "N";
+    if (per != -1 && per != basename.length()) {
+        perLetter = [[basename substringFromIndex:per+1] substringToIndex:1];
+        if (perLetter == "N" || perLetter == "n") {
+            isN = perLetter == "N";
 
-        for (var i = per + 1; i < basename.length; ++i) {
-            if (isN) {
-                if (basename[i] != "N") break
-            } else if (basename[i] != "n") break;
+            for (var i = per + 1; i < basename.length(); ++i) {
+                letter = [[basename substringFromIndex:i] substringToIndex:1];
+                if (isN) {
+                    if (letter != "N") break
+                } else if (letter != "n") break;
 
-            ++interSize;
+                ++interSize;
+            }
         }
 
     }
 
-    var inter       = isN ? selection.length() + 1 : 0,
+    var inter       = isN ? selection.count() + 1 : 0,
     newLayerName    = basename;
 
     if (interSize > 0) {
-        var interStr = (isN ? currIdx + 1 : selection.length() - currIdx).toString(10);
+        var interStr = (isN ? currIdx + 1 : selection.count() - currIdx).toString(10);
 
         while (interStr.length < interSize)
             interStr = "0" + interStr;
@@ -52,22 +56,22 @@ function rename(layerName, currIdx, width, height) {
 }
 
 // Run
-if (selection.length() > 0)
+if (selection.count() > 0)
 {
     // Show dialog
     var basename = [doc askForUserInput:'Number %N | Width %W | Height %H | + Add' initialValue:'New name(s)'].toString();
 
     // Run on all selections
-    for (var i=0; i<selection.length(); i++) {
+    for (var i=0; i<selection.count(); i++) {
         var layer = selection[i],
-        	frame = [layer frame],
+            frame = [layer frame],
             width = [frame width],
             height = [frame height];
         var name = rename([layer name], i, width, height);
         [layer setName:name];
         
         // Success message
-        [doc showMessage: "Rename it: Updated "+selection.length()+" layer(s)"];
+        [doc showMessage: "Rename it: Updated "+selection.count()+" layer(s)"];
     }
 }
 else
