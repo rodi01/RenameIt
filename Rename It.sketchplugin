@@ -38,7 +38,8 @@ function rename(layerName, currIdx, width, height) {
     }
 
     // Add to current name
-    if (newLayerName[0] == "+")
+	var plusSign = newLayerName.search("\\+");
+    if (plusSign != -1)
         newLayerName = layerName + basename.substring(1);
 
     // Wild Card Selector
