@@ -3,39 +3,24 @@
 
 // The Brain
 function rename(layerName, currIdx, width, height) {
-    var per     = basename.search("%"),
-    interSize   = 0,
-    isN         = true;
-
+	var newLayerName = basename;
+	
     // Interator
-    if (per != -1 && per != basename.length()) {
-        perLetter = [[basename substringFromIndex:per+1] substringToIndex:1];
-        if (perLetter == "N" || perLetter == "n") {
-            isN = perLetter == "N";
-
-            for (var i = per + 1; i < basename.length(); ++i) {
-                letter = [[basename substringFromIndex:i] substringToIndex:1];
-                if (isN) {
-                    if (letter != "N") break
-                } else if (letter != "n") break;
-
-                ++interSize;
-            }
-        }
-
-    }
-
-    var inter       = isN ? selection.count() + 1 : 0,
-    newLayerName    = basename;
-
-    if (interSize > 0) {
-        var interStr = (isN ? currIdx + 1 : selection.count() - currIdx).toString(10);
-
-        while (interStr.length < interSize)
-            interStr = "0" + interStr;
-
-        newLayerName = newLayerName.substr(0, per) + interStr + newLayerName.substr(per + 1 + interSize);
-    }
+    var nInterators = newLayerName.match(/%N+/ig),
+		totalItems = selection.count();
+		
+	if (nInterators != null) {
+		var i = 0;
+		
+		function replaceNumber(match)
+		{
+			var nnSize = match.length - 1,
+				letter = match.charAt(1),
+				num	= (letter == "N") ? currIdx + 1 : totalItems - currIdx;
+			return paddy(num, nnSize);
+		}
+		newLayerName = newLayerName.replace(/\%n+/ig, replaceNumber);
+	}
 
 	// Replace plus
 	newLayerName = newLayerName.replace(/(\\\+)|\+/, function(_, a) { return a || layerName; });	
@@ -48,16 +33,20 @@ function rename(layerName, currIdx, width, height) {
 
 	// Replace escaped asterisks
 	newLayerName = newLayerName.replace(/\\\*/g, "*");
-	
-	// Replace escaped percentage
-	newLayerName = newLayerName.replace(/\\\%/g, "%");
-	
+		
 	// Add Width and/or height
-    newLayerName = newLayerName.replace(/%w/g, width);
-    newLayerName = newLayerName.replace(/%h/g, height);
+    newLayerName = newLayerName.replace(/%w/ig, width);
+    newLayerName = newLayerName.replace(/%h/ig, height);
 
     // Return new name
     return newLayerName;
+}
+
+// Zero Fill Helper
+function paddy(n, p, c) {
+    var pad_char = typeof c !== 'undefined' ? c : '0';
+    var pad = new Array(1 + p).join(pad_char);
+    return (pad + n).slice(-pad.length);
 }
 
 // Run
