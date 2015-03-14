@@ -4,36 +4,43 @@
 // The Brain
 function rename(layerName, currIdx, width, height) {
 	var newLayerName = basename;
-	
+
     // Interator
     var nInterators = newLayerName.match(/%N+/ig),
 		totalItems = selection.count();
-		
+
 	if (nInterators != null) {
 		var i = 0;
-		
+
 		function replaceNumber(match)
 		{
 			var nnSize = match.length - 1,
 				letter = match.charAt(1),
 				num	= (letter == "N") ? currIdx + 1 : totalItems - currIdx;
+
+				// Check weather or not the number is bigger than the nnSizes (works up to 999)
+				if (num > 99 && (nnSize == 1 || nnSize == 2))
+					nnSize = 3
+				else if (num > 9 && nnSize == 1)
+					nnSize = 2
+
 			return paddy(num, nnSize);
 		}
 		newLayerName = newLayerName.replace(/\%n+/ig, replaceNumber);
 	}
 
 	// Replace plus
-	newLayerName = newLayerName.replace(/(\\\+)|\+/, function(_, a) { return a || layerName; });	
+	newLayerName = newLayerName.replace(/(\\\+)|\+/, function(_, a) { return a || layerName; });
 
 	// Replace escaped plus
 	newLayerName = newLayerName.replace(/\\\+/g, "+");
-	
+
 	// Replace asterisks
 	newLayerName = newLayerName.replace(/(\\\*)|\*/g, function(_, a) { return a || layerName; });
 
 	// Replace escaped asterisks
 	newLayerName = newLayerName.replace(/\\\*/g, "*");
-		
+
 	// Add Width and/or height
     newLayerName = newLayerName.replace(/%w/ig, width);
     newLayerName = newLayerName.replace(/%h/ig, height);
@@ -63,7 +70,7 @@ if (selection.count() > 0)
             height = [frame height];
         var name = rename([layer name], i, width, height);
         [layer setName:name];
-        
+
         // Success message
         [doc showMessage: "Rename it: Updated "+selection.count()+" layer(s)"];
     }
