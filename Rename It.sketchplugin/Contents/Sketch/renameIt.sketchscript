@@ -1,5 +1,5 @@
 // The Brain
-function rename(layerName, currIdx, width, height, selectionCount, basename) {
+function rename(layerName, currIdx, width, height, selectionCount, basename, startsFrom) {
 	var newLayerName = basename;
 
   // Interator
@@ -16,7 +16,8 @@ function rename(layerName, currIdx, width, height, selectionCount, basename) {
 		{
 			var nnSize = match.length - 1,
 				letter = match.charAt(1),
-				num	= (letter == "N") ? currIdx + 1 : totalItems - currIdx;
+				num	= (letter == "N") ? currIdx : totalItems - currIdx - 1;
+				num += startsFrom;
 
 				// Check weather or not the number is bigger than the nnSizes (works up to 9999)
 				if (num > 999 && (nnSize == 1 || nnSize == 2 || nnSize == 3))
@@ -86,6 +87,32 @@ function paddy(n, p, c) {
     return (pad + n).slice(-pad.length);
 }
 
+
+function createDialog()
+{
+	var alert = COSAlertWindow.new();
+
+	function createTextFieldWithLavel(label,defaultValue) {
+			alert.addTextLabelWithValue(label);
+			alert.addTextFieldWithValue(defaultValue);
+	}
+
+	alert.setMessageText("Rename Selected Layers");
+	alert.setInformativeText("Helpers: \nNumber Sequence: %N or %n \nDimensions: %W %H \nMove Original Layer Name: *");
+
+	// Name
+	createTextFieldWithLavel("Name:","");
+
+	// Interator
+	createTextFieldWithLavel("Starts Number Sequence From:","1");
+
+	// Actions buttons.
+	alert.addButtonWithTitle('OK');
+	alert.addButtonWithTitle('Cancel');
+
+	return alert;
+}
+
 // Run
 var renameSelectedLayers = function(context) {
 	var selection = context.selection
@@ -93,24 +120,42 @@ var renameSelectedLayers = function(context) {
 	var doc = context.document
   if (selectionCount > 0)
   {
-      // Show dialog
-      var basename = [doc askForUserInput:'Number %N | Width %W | Height %H | + Add' initialValue:'New name(s)'].toString();
-      // Run on all selections
-      for (var i=0; i<selectionCount; i++) {
-          var layer = selection[i],
-              frame = [layer frame],
-              width = [frame width],
-              height = [frame height];
-          var name = rename([layer name], i, width, height, selectionCount, basename);
-          [layer setName:name];
+		// Show dialog
+		var alert = createDialog();
+		var options=handleAlertResponse(alert,alert.runModal());
+		if (!options.startsFrom) options.startsFrom = 1;
 
-          // Success message
-          [doc showMessage: "Rename it: Updated "+selectionCount+" layer(s)"];
-      }
+    // Run on all selections
+    for (var i=0; i<selectionCount; i++) {
+        var layer = selection[i],
+            frame = [layer frame],
+            width = [frame width],
+            height = [frame height];
+        var name = rename([layer name], i, width, height, selectionCount, options.basename, options.startsFrom);
+        [layer setName:name];
+
+    // Success message
+        [doc showMessage: "Rename it: Updated "+selectionCount+" layer(s)"];
+    }
   }
   else
   {
       // No layer selected
       [doc showMessage: "Rename it: You need to select at least one layer"];
   }
+}
+
+function handleAlertResponse(alert, responseCode) {
+		if (responseCode == "1000") {
+				function valAtIndex (view, index) {
+						return parseInt(view.viewAtIndex(index).stringValue());
+				}
+
+				return {
+						basename: alert.viewAtIndex(1).stringValue(),
+						startsFrom: valAtIndex(alert,3)
+				}
+		}
+
+		return null;
 }
