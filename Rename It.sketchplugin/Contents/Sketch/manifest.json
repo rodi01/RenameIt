@@ -14,12 +14,20 @@
       "script" : "renameIt.sketchscript",
       "handler" : "renameSelectedLayers",
       "shortcut" : "ctrl cmd r"
+    },
+    {
+      "name" : "Find and Replace",
+      "identifier" : "find",
+      "script" : "findReplace.sketchscript",
+      "handler" : "findReplace",
+      "shortcut" : "ctrl option cmd r"
     }
   ],
   "menu": {
     "title": "Rename It",
     "items": [
-      "rename"
+      "rename",
+      "find"
     ]
   }
 }
