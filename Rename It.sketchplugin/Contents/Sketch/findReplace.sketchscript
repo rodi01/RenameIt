@@ -8,7 +8,7 @@ function createDialog()
 	}
 
 	alert.setMessageText("Find & Replace");
-	alert.setInformativeText("Find and replace a text in a layer * CASE SENSITIVE *");
+	alert.setInformativeText("Find and replace text in the selected layer(s) * CASE SENSITIVE *");
 
 	// Name
 	createTextFieldWithLavel("Find:","");
