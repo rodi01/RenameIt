@@ -1,14 +1,11 @@
-// (ctrl cmd r)
-// Rename layer(s) like a boss
-
 // The Brain
-function rename(layerName, currIdx, width, height) {
+function rename(layerName, currIdx, width, height, selectionCount, basename) {
 	var newLayerName = basename;
 
   // Interator
   var nInterators = newLayerName.match(/%N+/ig),
 			aInterators = newLayerName.match(/%A/ig),
-			totalItems = selection.count();
+			totalItems = selectionCount;
 
 
 	// Number Interator
@@ -21,8 +18,10 @@ function rename(layerName, currIdx, width, height) {
 				letter = match.charAt(1),
 				num	= (letter == "N") ? currIdx + 1 : totalItems - currIdx;
 
-				// Check weather or not the number is bigger than the nnSizes (works up to 999)
-				if (num > 99 && (nnSize == 1 || nnSize == 2))
+				// Check weather or not the number is bigger than the nnSizes (works up to 9999)
+				if (num > 999 && (nnSize == 1 || nnSize == 2 || nnSize == 3))
+					nnSize = 4
+				else if (num > 99 && (nnSize == 1 || nnSize == 2))
 					nnSize = 3
 				else if (num > 9 && nnSize == 1)
 					nnSize = 2
@@ -88,26 +87,30 @@ function paddy(n, p, c) {
 }
 
 // Run
-if (selection.count() > 0)
-{
-    // Show dialog
-    var basename = [doc askForUserInput:'Number %N | Width %W | Height %H | + Add' initialValue:'New name(s)'].toString();
+var renameSelectedLayers = function(context) {
+	var selection = context.selection
+	var selectionCount = [selection count]
+	var doc = context.document
+  if (selectionCount > 0)
+  {
+      // Show dialog
+      var basename = [doc askForUserInput:'Number %N | Width %W | Height %H | + Add' initialValue:'New name(s)'].toString();
+      // Run on all selections
+      for (var i=0; i<selectionCount; i++) {
+          var layer = selection[i],
+              frame = [layer frame],
+              width = [frame width],
+              height = [frame height];
+          var name = rename([layer name], i, width, height, selectionCount, basename);
+          [layer setName:name];
 
-    // Run on all selections
-    for (var i=0; i<selection.count(); i++) {
-        var layer = selection[i],
-            frame = [layer frame],
-            width = [frame width],
-            height = [frame height];
-        var name = rename([layer name], i, width, height);
-        [layer setName:name];
-
-        // Success message
-        [doc showMessage: "Rename it: Updated "+selection.count()+" layer(s)"];
-    }
-}
-else
-{
-    // No layer selected
-    [doc showMessage: "Rename it: You need to select at least one layer"];
+          // Success message
+          [doc showMessage: "Rename it: Updated "+selectionCount+" layer(s)"];
+      }
+  }
+  else
+  {
+      // No layer selected
+      [doc showMessage: "Rename it: You need to select at least one layer"];
+  }
 }
