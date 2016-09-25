@@ -2,7 +2,7 @@ function createDialog()
 {
 	var alert = COSAlertWindow.new();
 
-	function createTextFieldWithLavel(label,defaultValue) {
+	function createTextFieldWithLabel(label,defaultValue) {
 			alert.addTextLabelWithValue(label);
 			alert.addTextFieldWithValue(defaultValue);
 	}
@@ -11,10 +11,16 @@ function createDialog()
 	alert.setInformativeText("Find and replace text in the selected layer(s) * CASE SENSITIVE *");
 
 	// Name
-	createTextFieldWithLavel("Find:","");
+	createTextFieldWithLabel("Find:","");
+	var firstField = alert.viewAtIndex(1)
 
 	// Interator
-	createTextFieldWithLavel("Replace with:","");
+	createTextFieldWithLabel("Replace with:","");
+	var secondField = alert.viewAtIndex(3)
+
+	// Set first responder
+	alert.alert().window().setInitialFirstResponder(firstField)
+	firstField.setNextKeyView(secondField)
 
 	// Actions buttons.
 	alert.addButtonWithTitle('OK');
