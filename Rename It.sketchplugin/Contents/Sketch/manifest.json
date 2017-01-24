@@ -13,14 +13,18 @@
       "identifier" : "rename",
       "script" : "renameIt.sketchscript",
       "handler" : "renameSelectedLayers",
-      "shortcut" : "ctrl cmd r"
+      "shortcut" : "ctrl cmd r",
+      "description" : "Rename layer(s) or artboard(s) all at once.",
+      "icon" : "icons/renameit_ic.png"
     },
     {
-      "name" : "Find and Replace",
+      "name" : "Find & Replace Layers Names",
       "identifier" : "find",
       "script" : "findReplace.sketchscript",
       "handler" : "findReplace",
-      "shortcut" : "ctrl option cmd r"
+      "shortcut" : "ctrl option cmd r",
+      "description" : "Find and replace text on layer(s) or artboard(s) names.",
+      "icon" : "icons/find_replace_ic.png"
     }
   ],
   "menu": {
