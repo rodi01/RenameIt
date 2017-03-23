@@ -3,7 +3,7 @@
   "description": "Sketch plugin to rename layers like a boss.",
   "author": "Rodrigo Soares",
   "homepage": "https://github.com/rodi01/RenameIt",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "identifier": "ninja.taptap.rename-it",
   "compatibleVersion": "3.3.2",
   "bundleVersion": 1,
@@ -14,7 +14,7 @@
       "script" : "renameIt.sketchscript",
       "handler" : "renameSelectedLayers",
       "shortcut" : "ctrl cmd r",
-      "description" : "Rename layer(s) or artboard(s) all at once.",
+      "description" : "Rename Selected layer(s) or artboard(s) all at once.",
       "icon" : "icons/renameit_ic.png"
     },
     {
@@ -23,7 +23,7 @@
       "script" : "findReplace.sketchscript",
       "handler" : "findReplace",
       "shortcut" : "ctrl option cmd r",
-      "description" : "Find and replace text on layer(s) or artboard(s) names.",
+      "description" : "Find and replace text on selected layer(s) or artboard(s) names.",
       "icon" : "icons/find_replace_ic.png"
     }
   ],
