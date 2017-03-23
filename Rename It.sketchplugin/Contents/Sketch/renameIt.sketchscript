@@ -98,7 +98,7 @@ function createDialog()
 	}
 
 	alert.setMessageText("Rename Selected Layers");
-	alert.setInformativeText("Helpers: \nNumber Sequence: %N or %n \nDimensions: %W %H \nMove Original Layer Name: *");
+	alert.setInformativeText("Helpers: \nNumber Sequence: %N Descending | %n Ascending \nDimensions: %W %H \nMove Original Layer Name: *");
 
 	// Name
 	createTextFieldWithLabel("Name:","");
