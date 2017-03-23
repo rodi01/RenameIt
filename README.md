@@ -1,7 +1,7 @@
  Rename It
 ========
 
-Sketch plugin to rename layers like a boss. It’s a port of the awesome photoshop plugin called [Renamy](http://www.renamy.com/)
+Sketch plugin to rename layers like a boss.
 
 # Rename Selected Layers
 ### Multiple Layers
