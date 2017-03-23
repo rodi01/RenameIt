@@ -42,3 +42,7 @@ Find any text in selected layer(s) and replace it. This feature is **CASE SENSIT
 You can access it from the menu **Plugins -> Rename It -> Find and Replace** or use the shortcut **⌃+⌥+⌘+R**
 
 ![Find & Replace](http://x.rodrigosoares.me.s3.amazonaws.com/images/renameIt/Find%20Replace.gif)
+
+
+#Install
+[![Install Rename It with Sketchpacks](http://sketchpacks-com.s3.amazonaws.com/assets/badges/sketchpacks-badge-install.png "Install Rename It with Sketchpacks")](https://sketchpacks.com/rodi01/renameit/install)
