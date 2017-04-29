@@ -49,7 +49,6 @@ var findReplace = function(context) {
 		// Show dialog
 		var alert = createDialog();
 		var options=handleAlertResponse(alert,alert.runModal());
-    log(options)
 
     // Run on all selections
     for (var i=0; i<selectionCount; i++) {

@@ -1,7 +1,6 @@
 // The Brain
 function rename(layerName, currIdx, width, height, selectionCount, basename, startsFrom) {
 	var newLayerName = basename;
-
   // Interator
   var nInterators = newLayerName.match(/%N+/ig),
 			aInterators = newLayerName.match(/%A/ig),
@@ -119,6 +118,28 @@ function createDialog()
 	return alert;
 }
 
+// Check if interger
+function isInt(value) {
+  return !isNaN(value) &&
+         parseInt(Number(value)) == value &&
+         !isNaN(parseInt(value, 10));
+}
+
+function handleAlertResponse(alert, responseCode) {
+		if (responseCode == "1000") {
+				function valAtIndex (view, index) {
+						return parseInt(view.viewAtIndex(index).stringValue());
+				}
+
+				return {
+						basename: alert.viewAtIndex(1).stringValue(),
+						startsFrom: valAtIndex(alert,3)
+				}
+		}
+
+		return null;
+}
+
 // Run
 var renameSelectedLayers = function(context) {
 	var selection = context.selection
@@ -129,7 +150,7 @@ var renameSelectedLayers = function(context) {
 		// Show dialog
 		var alert = createDialog();
 		var options=handleAlertResponse(alert,alert.runModal());
-		if (!options.startsFrom) options.startsFrom = 1;
+		if (!isInt(options.startsFrom)) options.startsFrom = 1;
 
     // Run on all selections
     for (var i=0; i<selectionCount; i++) {
@@ -149,19 +170,4 @@ var renameSelectedLayers = function(context) {
       // No layer selected
       [doc showMessage: "Rename it: You need to select at least one layer"];
   }
-}
-
-function handleAlertResponse(alert, responseCode) {
-		if (responseCode == "1000") {
-				function valAtIndex (view, index) {
-						return parseInt(view.viewAtIndex(index).stringValue());
-				}
-
-				return {
-						basename: alert.viewAtIndex(1).stringValue(),
-						startsFrom: valAtIndex(alert,3)
-				}
-		}
-
-		return null;
 }
