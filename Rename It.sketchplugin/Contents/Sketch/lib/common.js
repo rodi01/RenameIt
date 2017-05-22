@@ -1,0 +1,216 @@
+//
+// Rename It
+// by Rodrigo Soares
+// http://github.com/rodi01/RenameIt
+//
+
+var RI = {
+  init: function(context, command) {
+    this.doc = context.document;
+    this.data = {};
+    this.hashData(context.selection);
+    this.extend(context);
+    this.pluginRoot = this.scriptPath
+      .stringByDeletingLastPathComponent()
+      .stringByDeletingLastPathComponent()
+      .stringByDeletingLastPathComponent();
+    this.pluginSketch = this.pluginRoot + "/Contents/Sketch/lib";
+    this.resources = this.pluginRoot + '/Contents/Resources';
+    coscript.setShouldKeepAround(false);
+    if (command && command == "init") {
+      return false;
+    }
+    this.window = this.document.window();
+    if (this.data.selectionCount > 0)
+    {
+      if (command == "renameIt") {
+            this.renamePanel();
+      }
+    } else {
+      // No layer selected
+      this.doc.showMessage("Rename it: You need to select at least one layer");
+    }
+
+  },
+  extend: function(options, target) {
+    var target = target || this;
+    for (var key in options) {
+      target[key] = options[key];
+    }
+    return target;
+  }
+};
+
+// Data
+RI.extend({
+  hashData: function(selection) {
+    this.data.selectionCount = selection.count();
+    this.data.selection = [];
+
+    // Layers
+    for (var i=0; i < this.data.selectionCount; i++) {
+      var layer = selection[i],
+          name  = [layer name];
+      this.data.selection[i] = {}
+      this.data.selection[i].layer = layer
+      this.data.selection[i].name = "" + name
+      this.data.selection[i].idx = i
+      log('layer: ' + this.data.selection[i])
+    }
+  }
+});
+
+// UI
+RI.extend({
+  RIPanel: function(options) {
+    var self = this,
+      options = this.extend(options, {
+        url: this.resources + "/panel/renameUI.html",
+        width: 418,
+        height: 405,
+        hiddenClose: false,
+        data: {},
+        callback: function(data) {
+          return data;
+        }
+      }),
+      result = false;
+    options.url = encodeURI("file://" + options.url);
+
+    var frame = NSMakeRect(0, 0, options.width, (options.height + 32)),
+      titleBgColor = [NSColor colorWithCalibratedWhite: 1 alpha: 1],
+      contentBgColor = [NSColor colorWithCalibratedWhite: 0.973 alpha: 1];
+
+    if (options.identifier) {
+      var threadDictionary = NSThread.mainThread().threadDictionary();
+      if (threadDictionary[options.identifier]) {
+        return false;
+      }
+    }
+
+    var Panel = [[NSPanel alloc] init]
+    [Panel setFrame:NSMakeRect(0, 0, options.width, options.height) display:true]
+    [Panel setBackgroundColor:contentBgColor]
+    [Panel setTitlebarAppearsTransparent:true]
+    [Panel setMovableByWindowBackground:true]
+    [[Panel standardWindowButton:NSWindowCloseButton] setHidden:false]
+    [[Panel standardWindowButton:NSWindowMiniaturizeButton] setHidden:true]
+    [[Panel standardWindowButton:NSWindowZoomButton] setHidden:true]
+
+
+    var uiView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, options.width, options.height)]
+      uiView.setWantsLayer(true)
+      [[Panel contentView] addSubview:uiView]
+
+    var webView = WebView.alloc().initWithFrame(NSMakeRect(0, 0, options.width, options.height)),
+      windowObject = webView.windowScriptObject();
+
+    var delegate = new MochaJSDelegate({
+      "webView:didFinishLoadForFrame:": (function(webView, webFrame) {
+        log("data2: "+ options.data);
+        var RIAction = [
+            "function RIAction(hash, data) {",
+              "if(data){ window.RIData = encodeURI(JSON.stringify(data)); }",
+              "window.location.hash = hash;",
+            "};"
+          ].join(""),
+          DOMReady = [
+              "$(",
+                  "function(){",
+                      "initView(" + JSON.stringify(options.data) + ")",
+                  "}",
+              ");"
+          ].join("");
+        windowObject.evaluateWebScript(RIAction);
+        windowObject.evaluateWebScript(DOMReady);
+      }),
+      "webView:didChangeLocationWithinPageForFrame:": (function(webView, webFrame) {
+        var request = NSURL.URLWithString(webView.mainFrameURL()).fragment();
+        log(request);
+        if (request == "submit") {
+          var data = JSON.parse(decodeURI(windowObject.valueForKey("RIData")));
+          // Close
+          Panel.orderOut(nil);
+          NSApp.stopModal();
+
+          options.callback(data);
+          result = true;
+        }
+        if (request == "closePanel") {
+          windowObject.evaluateWebScript("window.location.hash = 'close';");
+        }
+        if (request == 'onWindowDidBlur') {
+          RI.addFirstMouseAcceptor(webView, uiView);
+        }
+        if (request == "close") {
+            Panel.orderOut(nil);
+            NSApp.stopModal();
+        }
+        if (request == "focus") {
+          var point = Panel.currentEvent().locationInWindow(),
+            y = NSHeight(Panel.frame()) - point.y - 32;
+          windowObject.evaluateWebScript("lookupItemInput(" + point.x + ", " + y + ")");
+        }
+        windowObject.evaluateWebScript("window.location.hash = '';");
+      })
+    });
+
+    var contentView = Panel.contentView();
+    contentView.setWantsLayer(true);
+    contentView.layer().setFrame(contentView.frame());
+    contentView.layer().setMasksToBounds(true);
+
+    webView.setBackgroundColor(contentBgColor);
+    webView.setFrameLoadDelegate_(delegate.getClassInstance());
+    webView.setMainFrameURL_(options.url);
+
+    uiView.addSubview(webView);
+
+    var closeButton = Panel.standardWindowButton(NSWindowCloseButton);
+    closeButton.setCOSJSTargetFunction(function (sender) {
+      var request = NSURL.URLWithString(webView.mainFrameURL()).fragment();
+      if (options.identifier) {
+        threadDictionary.removeObjectForKey(options.identifier);
+      }
+      self.wantsStop = true;
+        Panel.orderOut(nil);
+        NSApp.stopModal();
+    });
+    closeButton.setAction("callAction:");
+
+
+    var titlebarView = contentView.superview().titlebarViewController().view(),
+      titlebarContainerView = titlebarView.superview();
+
+    var smallTitle = [[NSTextField alloc] initWithFrame:NSMakeRect((options.width-200)/2, 1, 200, 20)]
+    smallTitle.setEditable(false)
+    smallTitle.setAlignment(NSCenterTextAlignment);
+    smallTitle.setBordered(false)
+    var fontManager = [NSFontManager sharedFontManager];
+    var boldItalic = [fontManager fontWithFamily:@"San Francisco Display"
+                                          traits:NSUnboldFontMask
+                                          weight:5
+                                            size:15];
+    [smallTitle setFont: boldItalic]
+    [smallTitle setTextColor:[NSColor colorWithCalibratedRed: 0.416 green: 0.455 blue: 0.502 alpha: 1]]
+    [smallTitle setDrawsBackground:false]
+    [smallTitle setStringValue:"Rename Selected Layers"]
+    [titlebarView addSubview:smallTitle]
+
+    NSApp.runModalForWindow(Panel);
+    return result;
+  },
+  renamePanel: function() {
+    var self = this;
+    return this.RIPanel({
+      width: 480,
+      height: 410,
+      data: this.data,
+      callback: function(data) {
+        log("Name: " + data.name);
+        log("Sequence: " + data.sequence);
+      }
+    });
+
+  }
+});

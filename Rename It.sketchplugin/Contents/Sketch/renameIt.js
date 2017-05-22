@@ -1,3 +1,6 @@
+@import "lib/common.js";
+@import "lib/MochaJSDelegate.js";
+
 // The Brain
 function rename(layerName, currIdx, width, height, selectionCount, basename, startsFrom) {
 	var newLayerName = basename;
@@ -77,6 +80,11 @@ function rename(layerName, currIdx, width, height, selectionCount, basename, sta
 
     // Return new name
     return newLayerName;
+}
+
+var renameV3 = function(context) {
+	
+	RI.init(context, "renameIt");
 }
 
 // Zero Fill Helper
@@ -160,7 +168,7 @@ var renameSelectedLayers = function(context) {
             height = [frame height];
         var name = rename([layer name], i, width, height, selectionCount, options.basename, options.startsFrom);
         [layer setName:name];
-		
+
 		// Prevent textlayer name from being renamed after editing
 		layer.nameIsFixed = 1;
 

@@ -55,7 +55,7 @@ var findReplace = function(context) {
         var layer = selection[i];
         var name = replaceText([layer name], i, options.findText, options.replaceWith, doc);
         [layer setName:name];
-		
+
 		// Prevent textlayer name from being renamed after editing
 		layer.nameIsFixed = 1;
 
