@@ -1,42 +1,76 @@
-var nameInput = $("#name"),
-    sequenceInput = $("#sequence"),
-    keywordsBtns = $(".keywordBtn"),
-    clearBtn = $("#clearBtn"),
-    debugEl = $("#debug"),
-    debug = false;
+$(document).ready(function() {
+  var nameInput = $("#name"),
+      sequenceInput = $("#sequence"),
+      keywordsBtns = $(".keywordBtn"),
+      clearBtn = $("#clearBtn"),
+      debugEl = $("#debug"),
+      debug = false;
 
-// Debug
-debugEl.style.visibility = (debug) ? "visible" : "hidden";
+  // Debug
+  debugEl.attr('visibility', (debug) ? "visible" : "hidden");
 
-clearBtn.onclick = function(e) {
-  nameInput.value = "";
-  nameInput.focus();
-  this.style.visibility = "hidden";
-};
-document.onkeypress = function (e) {
-  var code = (e.keyCode ? e.keyCode : e.which);
-  if(code == 13) { submit(); }
-};
-nameInput.onkeyup = function() {
-  clearBtn.style.visibility = (this.value.length) ? "visible" : "hidden";
-};
-
-[].forEach.call(keywordsBtns, function (el) {
-  var link = el.getElementsByTagName("a")[0];
-
-  link.onclick = function(e) {
-    nameInput.value = nameInput.value + link.getAttribute("data-char");
+  clearBtn.click(function(event) {
+    nameInput.val("");
     nameInput.focus();
-    clearBtn.style.visibility = "visible";
-    e.preventDefault();
-  };
+    $(this).removeClass('show');
+    rename();
+  });
+
+  $(document).keypress(function(event) {
+    var code = (event.keyCode ? event.keyCode : event.which);
+    if(code == 13) { $("#submitBtn").trigger('click'); }
+  });
+  nameInput.keyup(function(event) {
+    var value = $(this).val()
+    if (value.length > 0)
+      clearBtn.addClass('show');
+    else
+      clearBtn.removeClass('show');
+
+    rename();
+  });
+
+  sequenceInput.on('change', function(event) {
+    rename();
+  });
+
+  keywordsBtns.children('a').click(function(event) {
+    var nameValue = nameInput.val();
+    var dataChar = $(this).attr('data-char');
+    nameInput.val(nameValue + dataChar);
+    nameInput.focus();
+    clearBtn.addClass('show');
+    rename();
+    event.preventDefault();
+  });
+
+  nameInput.focus();
+
+  $('#submitBtn').click(function(event) {
+    RIAction('submit', {name: nameInput.val(), sequence: sequenceInput.val()});
+  });
+  $('#cancelBtn').click(function(event) {
+    RIAction('close', null);
+  });
 });
 
-nameInput.focus();
-
-function submit() {
-  RIAction('submit', {name: nameInput.value, sequence: sequenceInput.value});
+// Parse Data
+var selectiondata;
+var initView = function(data) {
+  console.log("data: " + data);
+  selectiondata = data;
 }
-function cancel() {
-  RIAction('close', null);
+
+window.onfocus = function(){
+  if (typeof RIAction != 'undefined') RIAction('focus');
+};
+
+function rename() {
+  if (selectiondata == undefined || $('#name').val() == "") return;
+  var renamed = [];
+  for (var i = 0; i < selectiondata.selectionCount; i++) {
+      var currentData = selectiondata.selection[i];
+       renamed[i] = RI.rename(currentData.name, i, currentData.width, currentData.height, selectiondata.selectionCount, $('#name').val(), parseInt($('#sequence').val()));
+  }
+  $('#preview').html("Preview: <strong>" + renamed.join(", ") + "</strong>");
 }

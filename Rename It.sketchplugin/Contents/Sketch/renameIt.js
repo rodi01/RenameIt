@@ -1,3 +1,4 @@
+@import "lib/rename.js";
 @import "lib/common.js";
 @import "lib/MochaJSDelegate.js";
 
@@ -83,7 +84,7 @@ function rename(layerName, currIdx, width, height, selectionCount, basename, sta
 }
 
 var renameV3 = function(context) {
-	
+
 	RI.init(context, "renameIt");
 }
 

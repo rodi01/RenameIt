@@ -10,16 +10,8 @@
   <link href="assets/css/normalize.css" rel="stylesheet">
   <link href="assets/css/app.css" rel="stylesheet">
   <script type="text/javascript" src="assets/js/jquery-2.2.4.min.js"></script>
-  <script type="text/javascript">
-    window.onfocus = function(){
-      RIAction('focus');
-    };
-    var selectiondata;
-    var initView = function(data) {
-      console.log("data: " + data);
-      selectiondata = data;
-    }
-  </script>
+  <script type="text/javascript" src="../../Sketch/lib/rename.js"></script>
+  <script type="text/javascript" src="assets/js/app.js"></script>
 
 </head>
 
@@ -28,7 +20,7 @@
     <div class="inputWrapper inputName">
       <label for="name">Name:</label>
       <span class="inputClearWrapper">
-        <input type="text" id="name" />
+        <input type="text" id="name" autocomplete="off" />
         <span id="clearBtn" title="Clear"></span>
       </span>
     </div>
@@ -42,22 +34,21 @@
       <span class="title">Keywords</span>
       <span class="helper right">Click on the keywords to add</span>
       <ul class="keywords">
-        <li class="keywordBtn"><a href="#" id="currentLayer" data-char="*">Current Layer Name</a></li>
-        <li class="keywordBtn"><a href="#" id="layerWidth" data-char="%W">Layer Width</a></li>
-        <li class="keywordBtn"><a href="#" data-char="%H" id="layerHeight">Layer Height</a></li>
-        <li class="keywordBtn"><a href="#" data-char="%n" id="sequenceAsc">Num. Sequence ASC</a></li>
-        <li class="keywordBtn"><a href="#" data-char="%N" id="sequenceDesc">Num. Sequence DESC</a></li>
-        <li class="keywordBtn"><a href="#" data-char="%A" id="sequenceAlpha">Alphabet Sequence</a></li>
+        <li class="keywordBtn"><a href="#" id="currentLayer" data-char="*" data-tooltip="Shortcut: *">Current Layer Name</a></li>
+        <li class="keywordBtn"><a href="#" id="layerWidth" data-char="%W" data-tooltip="Shortcut: %w">Layer Width</a></li>
+        <li class="keywordBtn"><a href="#" data-char="%H" id="layerHeight" data-tooltip="Shortcut: %h">Layer Height</a></li>
+        <li class="keywordBtn"><a href="#" data-char="%n" id="sequenceAsc" data-tooltip="Shortcut: %n">Num. Sequence ASC</a></li>
+        <li class="keywordBtn"><a href="#" data-char="%N" id="sequenceDesc" data-tooltip="Shortcut: %N">Num. Sequence DESC</a></li>
+        <li class="keywordBtn"><a href="#" data-char="%A" id="sequenceAlpha" data-tooltip="Shortcut: %A">Alphabet Sequence</a></li>
       </ul>
       <div id="preview">Preview:</div>
     </div>
     <div id="footer">
-      <button id="cancel" class="grey" onclick="cancel()">Cancel</button>
-      <button id="submit" onclick="submit()">Save</button>
+      <button id="cancelBtn" class="grey">Cancel</button>
+      <button id="submitBtn">Save</button>
     </div>
     <div id="debug"></div>
   </div>
 
-  <script type="text/javascript" src="assets/js/app.js"></script>
 </body>
 </html>

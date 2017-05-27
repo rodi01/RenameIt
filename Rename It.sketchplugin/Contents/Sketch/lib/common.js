@@ -4,7 +4,7 @@
 // http://github.com/rodi01/RenameIt
 //
 
-var RI = {
+RI.extend({
   init: function(context, command) {
     this.doc = context.document;
     this.data = {};
@@ -24,37 +24,34 @@ var RI = {
     if (this.data.selectionCount > 0)
     {
       if (command == "renameIt") {
-            this.renamePanel();
+          this.renamePanel();
       }
     } else {
       // No layer selected
       this.doc.showMessage("Rename it: You need to select at least one layer");
     }
-
-  },
-  extend: function(options, target) {
-    var target = target || this;
-    for (var key in options) {
-      target[key] = options[key];
-    }
-    return target;
   }
-};
+});
 
 // Data
 RI.extend({
   hashData: function(selection) {
     this.data.selectionCount = selection.count();
     this.data.selection = [];
-
     // Layers
     for (var i=0; i < this.data.selectionCount; i++) {
       var layer = selection[i],
-          name  = [layer name];
+          name  = [layer name],
+          frame = [layer frame],
+          width = [frame width],
+          height = [frame height];
+
       this.data.selection[i] = {}
       this.data.selection[i].layer = layer
       this.data.selection[i].name = "" + name
       this.data.selection[i].idx = i
+      this.data.selection[i].width = width
+      this.data.selection[i].height = height
       log('layer: ' + this.data.selection[i])
     }
   }
@@ -207,8 +204,13 @@ RI.extend({
       height: 410,
       data: this.data,
       callback: function(data) {
-        log("Name: " + data.name);
-        log("Sequence: " + data.sequence);
+        for (var i = 0; i < self.data.selectionCount; i++) {
+          var currentData = self.data.selection[i];
+          currentData.layer.name = RI.rename(currentData.name, i, currentData.width, currentData.height, self.data.selectionCount, data.name, parseInt(data.sequence));
+        }
+        var totalSelectedStr = (self.data.selectionCount>1) ? (self.data.selectionCount + " Layers") : (self.data.selectionCount + " Layer");
+        var doc = self.doc
+        [doc showMessage: "Rename it: Updated " + totalSelectedStr ];
       }
     });
 
