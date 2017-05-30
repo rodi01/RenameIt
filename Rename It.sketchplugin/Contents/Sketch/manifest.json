@@ -5,7 +5,7 @@
   "homepage": "https://github.com/rodi01/RenameIt",
   "version": "3.0.0",
   "identifier": "com.taptap.ninja.rename-it",
-  "compatibleVersion": "3.4",
+  "compatibleVersion": "4.0",
   "bundleVersion": 1,
   "commands" : [
     {
