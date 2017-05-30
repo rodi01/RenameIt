@@ -106,3 +106,15 @@ RI.extend({
            !isNaN(parseInt(value, 10));
   }
 });
+
+// Find Replace
+RI.extend({
+  replaceText: function(layerName,findText, replaceWith, caseSensitive) {
+    function escapeRegExp(str) {
+      return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    }
+    var reg = caseSensitive ? new RegExp(escapeRegExp(findText), "g") : new RegExp(escapeRegExp(findText), "gi");
+    var found = layerName.match(reg);
+    return layerName.replace(reg, replaceWith);
+  }
+});

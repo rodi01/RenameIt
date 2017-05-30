@@ -26,6 +26,9 @@ RI.extend({
       if (command == "renameIt") {
           this.renamePanel();
       }
+      if (command == "findAndReplace") {
+          this.findReplacePanel();
+      }
     } else {
       // No layer selected
       this.doc.showMessage("Rename it: You need to select at least one layer");
@@ -52,7 +55,6 @@ RI.extend({
       this.data.selection[i].idx = i
       this.data.selection[i].width = width
       this.data.selection[i].height = height
-      log('layer: ' + this.data.selection[i])
     }
   }
 });
@@ -104,7 +106,6 @@ RI.extend({
 
     var delegate = new MochaJSDelegate({
       "webView:didFinishLoadForFrame:": (function(webView, webFrame) {
-        log("data2: "+ options.data);
         var RIAction = [
             "function RIAction(hash, data) {",
               "if(data){ window.RIData = encodeURI(JSON.stringify(data)); }",
@@ -123,7 +124,6 @@ RI.extend({
       }),
       "webView:didChangeLocationWithinPageForFrame:": (function(webView, webFrame) {
         var request = NSURL.URLWithString(webView.mainFrameURL()).fragment();
-        log(request);
         if (request == "submit") {
           var data = JSON.parse(decodeURI(windowObject.valueForKey("RIData")));
           // Close
@@ -175,7 +175,6 @@ RI.extend({
     });
     closeButton.setAction("callAction:");
 
-
     var titlebarView = contentView.superview().titlebarViewController().view(),
       titlebarContainerView = titlebarView.superview();
 
@@ -199,7 +198,7 @@ RI.extend({
   },
   renamePanel: function() {
     var self = this;
-    return this.RIPanel({
+    return self.RIPanel({
       width: 480,
       height: 410,
       data: this.data,
@@ -213,6 +212,26 @@ RI.extend({
         [doc showMessage: "Rename it: Updated " + totalSelectedStr ];
       }
     });
+  }
+});
 
+RI.extend({
+  findReplacePanel: function(){
+    var self = this;
+    return self.RIPanel({
+      width: 418,
+      height: 285,
+      data: this.data,
+      url: this.resources + "/panel/find_replace.html",
+      callback: function(data) {
+        for (var i = 0; i < self.data.selectionCount; i++) {
+          var currentData = self.data.selection[i];
+          currentData.layer.name = RI.replaceText(currentData.name, data.find, data.replace, data.caseSensitive);
+        }
+        var totalSelectedStr = (self.data.selectionCount>1) ? (self.data.selectionCount + " Layers") : (self.data.selectionCount + " Layer");
+        var doc = self.doc
+        [doc showMessage: "Rename it: Updated " + totalSelectedStr ];
+      }
+    });
   }
 });

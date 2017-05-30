@@ -12,7 +12,7 @@
       "name" : "Rename Selected Layers",
       "identifier" : "renameV3",
       "script" : "renameIt.js",
-      "handler" : "renameV3",
+      "handler" : "rename",
       "shortcut" : "ctrl cmd r",
       "description" : "Rename Selected layer(s) or artboard(s) all at once.",
       "icon" : "icons/renameit_ic.png"
@@ -20,8 +20,8 @@
     {
       "name" : "Find & Replace Layers Names",
       "identifier" : "find",
-      "script" : "findReplace.js",
-      "handler" : "findReplace",
+      "script" : "renameIt.js",
+      "handler" : "findAndReplace",
       "shortcut" : "ctrl option cmd r",
       "description" : "Find and replace text on selected layer(s) or artboard(s) names.",
       "icon" : "icons/find_replace_ic.png"

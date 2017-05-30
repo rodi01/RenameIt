@@ -57,7 +57,6 @@ $(document).ready(function() {
 // Parse Data
 var selectiondata;
 var initView = function(data) {
-  console.log("data: " + data);
   selectiondata = data;
 }
 

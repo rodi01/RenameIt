@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Find and Replace Layers Names</title>
+
+  <link href="assets/css/normalize.css" rel="stylesheet">
+  <link href="assets/css/app.css" rel="stylesheet">
+  <script type="text/javascript" src="assets/js/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="../../Sketch/lib/rename.js"></script>
+  <script type="text/javascript" src="assets/js/find_app.js"></script>
+
+</head>
+
+<body class="findReplace">
+  <div class="container">
+    <div class="inputWrapper inputName">
+      <label for="find">Find:</label>
+      <span class="right caseSensitiveWrapper"><input type="checkbox" id="caseSensitive" checked /> <label for="caseSensitive">case sensitive</label></span>
+      <span class="inputClearWrapper">
+        <input type="text" id="find" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <span class="clearBtn" title="Clear" data-input="find"></span>
+      </span>
+    </div>
+    <div class="inputWrapper inputName">
+      <label for="replace">Replace With:</label>
+      <span class="inputClearWrapper">
+        <input type="text" id="replace" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <span class="clearBtn" title="Clear" data-input="replace"></span>
+      </span>
+    </div>
+
+    <div id="preview">Preview:</div>
+    <div id="footer">
+      <button id="cancelBtn" class="grey">Cancel</button>
+      <button id="submitBtn">Rename</button>
+    </div>
+  </div>
+</body>
+</html>
