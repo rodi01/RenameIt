@@ -4,8 +4,8 @@
   "author": "Rodrigo Soares",
   "homepage": "https://github.com/rodi01/RenameIt",
   "version": "3.0.0",
-  "identifier": "ninja.taptap.rename-it",
-  "compatibleVersion": "3.3.2",
+  "identifier": "com.taptap.ninja.rename-it",
+  "compatibleVersion": "3.4",
   "bundleVersion": 1,
   "commands" : [
     {
