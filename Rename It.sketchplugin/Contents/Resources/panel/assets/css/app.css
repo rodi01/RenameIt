@@ -51,23 +51,23 @@ input[type="number"] {
 .inputRight { justify-content: flex-end; }
 #sequence { width: 60px; }
 textarea:focus, input:focus{
-    outline: none; border: #42B4E3 1px solid;
+    outline: none; border: #5FBEEE 1px solid;
 }
 .caseSensitiveWrapper {}
 #footer { display: flex; }
 .helper { font-size: 13px; display: none; }
 button {
-  background: #42B4E3; border-radius: 4px; border: 0;
+  background: #5FBEEE; border-radius: 4px; border: 0;
   color: #fff; width: 114px; height: 32px; font-size: 15px;
 }
-button:active { background-color: #3797BF; }
+button:active { background-color: #52A5CF; }
 button.grey { background: rgba(106,116,128,0.55); }
 button.grey:active { background: rgba(106,116,128,0.8); }
 #cancelBtn { align-self: flex-start; }
 #submitBtn { margin-left: auto; }
 #footer { background-color: #fff; padding: 8px 16px; margin: 0 -16px; }
 
-#preview { margin-top: 8px; font-style: italic; font-size: 12px; color: #42B4E3; text-overflow: ellipsis; white-space:nowrap; overflow: hidden;}
+#preview { margin-top: 8px; font-style: italic; font-size: 12px; color: #5FBEEE; text-overflow: ellipsis; white-space:nowrap; overflow: hidden;}
 #preview strong { font-weight: bold; }
 #debug { position: absolute; background-color: rgba(255, 255, 255, 0.5); bottom: -1px; width: 200px; padding: 16px; border: 1px solid #42B4E3; font-size: 11px; left: 50%; margin-left: -100px; visibility: hidden;}
 
