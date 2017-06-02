@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>Rename It</title>
+        <link>https://raw.githubusercontent.com/rodi01/RenameIt/master/appcast.xml</link>
+        <description>Sketch plugin to rename layers like a boss.</description>
+        <language>en</language>
+        <item>
+            <title>Version 2.0.6</title>
+            <description>
+                <![CDATA[
+                    <ul>
+                        <li>Support for new plugin update engine</li>
+                    </ul>
+                ]]>
+            </description>
+            <pubDate>Fri, 02 Jun 2017 07:55:40 -0800</pubDate>
+            <enclosure url="https://github.com/rodi01/RenameIt/blob/master/RenameIt.zip?raw=true" sparkle:version="2.0.6" type="application/octet-stream" />
+        </item>
+    </channel>
+</rss>
