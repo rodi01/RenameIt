@@ -6,6 +6,7 @@
   "version": "3.0.0",
   "identifier": "com.taptap.ninja.rename-it",
   "compatibleVersion": "4.0",
+  "appcast": "https://raw.githubusercontent.com/rodi01/RenameIt/master/appcast.xml",
   "bundleVersion": 1,
   "commands" : [
     {
