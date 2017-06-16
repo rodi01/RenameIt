@@ -1,3 +1,4 @@
+
 body {
   font-family: -apple-system, "Helvetica Neue", "Lucida Grande";
   color: #6A7480; font-size: 16px; overflow: hidden;
@@ -40,7 +41,7 @@ a, a:hover { text-decoration: none; color: #fff;  }
 input[type="text"],
 input[type="number"] {
   background: #FFFFFF; box-shadow: 0 0 1px 0 rgba(0,0,0,0.32); padding: 0 8px;
-  border-radius: 3px; height: 32px; border: 1px solid transparent;
+  border-radius: 3px; height: 32px; border: 1px solid transparent; color: #383F47;
 }
 .inputWrapper { display: flex; }
 .inputClearWrapper { flex: 1; display:inline-block; position: relative; }
