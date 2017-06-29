@@ -1,0 +1,136 @@
+
+body {
+  font-family: -apple-system, "Helvetica Neue", "Lucida Grande";
+  color: #6A7480; font-size: 16px; overflow: hidden;
+}
+.group:before,
+.group:after {
+  content: "";
+  display: table;
+}
+
+ul {
+  list-style: inside; margin: 0; padding: 0;
+}
+li { margin: 0; padding: 0; list-style: none; }
+.group:after {
+  clear: both;
+}
+.right { float: right; }
+.left { float: left; }
+
+.container {
+  padding: 40px 16px 0; background-color: #F8F8F8;
+}
+
+.keywords {
+  display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; margin-top: 12px;
+
+}
+.keywordBtn {
+  display: block; margin: 6px;
+  color: #fff; font-size: 14px;
+}
+.keywordBtn a { display: block; padding: 8px 16px; background-color: #6A7480;  border-radius: 50px; cursor: default;}
+.keywordBtn a:active { background-color: #484E57; }
+#keywordsWrapper {
+  padding: 16px; margin: 16px -16px 0; border-top: 1px solid rgba(106,116,128,0.10);
+}
+.inputWrapper { padding: 4px 0; }
+a, a:hover { text-decoration: none; color: #fff;  }
+input[type="text"],
+input[type="number"] {
+  background: #FFFFFF; box-shadow: 0 0 1px 0 rgba(0,0,0,0.32); padding: 0 8px;
+  border-radius: 3px; height: 32px; border: 1px solid transparent; color: #383F47;
+}
+.inputWrapper { display: flex; }
+.inputClearWrapper { flex: 1; display:inline-block; position: relative; }
+.inputClearWrapper input { width: 96%; padding: 0 2%;}
+#clearBtn, .clearBtn { cursor: default; position: absolute; display: block; width: 16px; height: 16px; top: 8px; right: 6px; background: url(../images/clear_icon.png) no-repeat; background-size: 100%; visibility: hidden; }
+#clearBtn.show, .clearBtn.show { visibility: visible;}
+.inputWrapper label { line-height: 30px; margin-right: 4px; }
+.inputRight { justify-content: flex-end; }
+#sequence { width: 60px; }
+textarea:focus, input:focus{
+    outline: none; border: #5FBEEE 1px solid;
+}
+.caseSensitiveWrapper {}
+#footer { display: flex; }
+.helper { font-size: 13px; display: none; }
+button {
+  background: #5FBEEE; border-radius: 4px; border: 0;
+  color: #fff; width: 114px; height: 32px; font-size: 15px;
+}
+button:active { background-color: #52A5CF; }
+button.grey { background: rgba(106,116,128,0.55); }
+button.grey:active { background: rgba(106,116,128,0.8); }
+#cancelBtn { align-self: flex-start; }
+#submitBtn { margin-left: auto; }
+#footer { background-color: #fff; padding: 8px 16px; margin: 0 -16px; }
+
+#preview { margin-top: 8px; font-style: italic; font-size: 12px; color: #5FBEEE; text-overflow: ellipsis; white-space:nowrap; overflow: hidden;}
+#preview strong { font-weight: bold; }
+#debug { position: absolute; background-color: rgba(255, 255, 255, 0.5); bottom: -1px; width: 200px; padding: 16px; border: 1px solid #42B4E3; font-size: 11px; left: 50%; margin-left: -100px; visibility: hidden;}
+
+.findReplace .inputWrapper { display: block; }
+.findReplace .inputClearWrapper { display: block; }
+.findReplace .inputWrapper + .inputWrapper { margin-top: 8px; }
+.findReplace #preview { margin: 16px 0; }
+
+
+/* Tooltip */
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]:before {
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  margin-bottom: 5px;
+  margin-left: -60px;
+  padding: 7px;
+  width: 100px;
+  border-radius: 6px;
+  background-color: hsla(0, 0%, 20%, 0.9);
+  color: #fff;
+  content: attr(data-tooltip);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  margin-left: -5px;
+  width: 0;
+  border-top: 5px solid #000;
+  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: " ";
+  font-size: 0;
+  line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+  visibility: visible;
+  opacity: 1;
+}

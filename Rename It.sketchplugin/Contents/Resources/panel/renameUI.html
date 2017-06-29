@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rename Selected Layers</title>
+
+  <link href="assets/css/normalize.css" rel="stylesheet">
+  <link href="assets/css/app.css" rel="stylesheet">
+  <script type="text/javascript" src="assets/js/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="../../Sketch/lib/rename.js"></script>
+  <script type="text/javascript" src="assets/js/app.js"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="inputWrapper inputName">
+      <label for="name">Name:</label>
+      <span class="inputClearWrapper">
+        <input type="text" id="name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <span id="clearBtn" title="Clear"></span>
+      </span>
+    </div>
+
+    <div class="inputWrapper inputRight">
+      <label for="sequence">Start Sequence from:</label>
+      <input type="number" id="sequence" value="1" min="0" step="1" />
+    </div>
+
+    <div id="keywordsWrapper">
+      <span class="title">Keywords</span>
+      <span class="helper right">Click on the keywords to add</span>
+      <ul class="keywords">
+        <li class="keywordBtn"><a href="#" id="currentLayer" data-char="*" data-tooltip="Shortcut: *">Current Layer Name</a></li>
+        <li class="keywordBtn"><a href="#" id="layerWidth" data-char="%W" data-tooltip="Shortcut: %w">Layer Width</a></li>
+        <li class="keywordBtn"><a href="#" data-char="%H" id="layerHeight" data-tooltip="Shortcut: %h">Layer Height</a></li>
+        <li class="keywordBtn"><a href="#" data-char="%n" id="sequenceAsc" data-tooltip="Shortcut: %n">Num. Sequence ASC</a></li>
+        <li class="keywordBtn"><a href="#" data-char="%N" id="sequenceDesc" data-tooltip="Shortcut: %N">Num. Sequence DESC</a></li>
+        <li class="keywordBtn"><a href="#" data-char="%A" id="sequenceAlpha" data-tooltip="Shortcut: %A">Alphabet Sequence</a></li>
+      </ul>
+      <div id="preview">Preview:</div>
+    </div>
+    <div id="footer">
+      <button id="cancelBtn" class="grey">Cancel</button>
+      <button id="submitBtn">Rename</button>
+    </div>
+    <div id="debug"></div>
+  </div>
+
+</body>
+</html>
