@@ -1,0 +1,274 @@
+@import "normalize";
+
+// Variables
+$primary-color: #383F47;
+$light-grey-color: #F7F7F7;
+$dark-purple-color: #281C38;
+$blue-color: #5FBEEE;
+$purple-color: #9264CB;
+$dark-grey: #6A7480;
+$font-stack: "omnes-pro", sans-serif;
+
+
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html {
+    color: $primary-color;
+    font-family: $font-stack;
+    font-size: 1em;
+    line-height: 1.4;
+}
+a, a:link, a:hover {
+  text-decoration: none; color: inherit;
+}
+ul, ol {
+  list-style: none inside; padding: 0; margin: 0;
+}
+
+/*
+ * Remove text-shadow in selection highlight:
+ * https://twitter.com/miketaylr/status/12228805301
+ *
+ * These selection rule sets have to be separate.
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+    vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+    resize: vertical;
+}
+
+/* ==========================================================================
+   Browser Upgrade Prompt
+   ========================================================================== */
+
+.browserupgrade {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+h1, h2, h3 {
+  font-weight: 100; font-style: normal; margin: 0;
+}
+
+.flex { display: flex; }
+
+header {
+  padding: 0; /*height: 90vh;*/ display: flex; align-items: center; justify-content: center;
+  background: $dark-purple-color; text-align: center; color: #fff;
+  .wrapper {  }
+  h1 {
+    font-size: 40px; padding-top: 127px;
+    background: url(../img/logo.png) no-repeat 50% 0; background-size: 149px 127px;
+   }
+  h2 { font-size: 28px; opacity: 0.7; margin: 16px 0 24px; }
+  small { display: block; margin-top: 24px; }
+}
+
+#installBtn {
+  height: 64px; line-height: 60px; display: inline-block; width: 352px;
+  font-size: 30px;  background: $blue-color; border-radius: 100px;
+}
+
+.keyword {
+  display: inline-block; width: 42px; height: 32px;
+  color: #fff; font-size: 18px; border-radius: 4px; text-align: center; line-height: 30px; background-color: $purple-color;
+}
+.leftCol { padding: 0 16px 0 32px; }
+.rightCol { padding: 0 32px 0 16px; }
+
+.sequence { background-color: $light-grey-color; }
+
+ul .keyword { margin-right: 4px; }
+section {
+  .wrapper { padding: 96px 0; max-width: 1024px; margin: 0 auto; }
+  h1 { font-size: 40px; color: $dark-grey; }
+  h2 { font-size: 22px; }
+  h3 { font-size: 24px; color: $dark-grey; margin-top: 32px; }
+  h3 + ul { margin-top: 8px; }
+  li { margin-bottom: 8px; }
+  img.illustration { margin-top: 64px; }
+}
+
+.keywordsList { font-size: 22px; }
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 100;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.layerImgWrapper {
+  margin-top: 44px; position: relative;
+  img {
+    position: absolute;
+    &.layersProcessed {
+      opacity: 0;
+      animation-name: fade;
+      animation-duration: 5s;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+      animation-fill-mode: none;
+      animation-play-state: running;
+    }
+    &.layers {  }
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Hide visually and from screen readers
+ */
+
+.hidden {
+    display: none !important;
+}
+
+/*
+ * Hide only visually, but have it available for screen readers:
+ * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ */
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element
+ * to be focusable when navigated to via the keyboard:
+ * https://www.drupal.org/node/897638
+ */
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+/*
+ * Hide visually and from screen readers, but maintain layout
+ */
+
+.invisible {
+    visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+    /* Style adjustments for viewports that meet the condition */
+}

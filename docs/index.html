@@ -1,0 +1,98 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Rename It - Sketch plugin that batch renames layers and a lot more.</title>
+  <meta name="description" content="Sketch plugin that batch renames layers and a lot more.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://use.typekit.net/omj1com.js"></script>
+  <script>
+    try {
+      Typekit.load({
+        async: true
+      });
+    } catch (e) {}
+  </script>
+  <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+  <!-- Place favicon.ico in the root directory -->
+  <link rel="stylesheet" href="static/css/main.min.css">
+</head>
+<!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+<header>
+  <div class="wrapper">
+    <h1>Rename It</h1>
+    <h2>Keep your Sketch files orgnized.<br>Batch renaming layers and artboards has never been so easy.</h2>
+    <a href="#install" id="installBtn">Install Plugin</a>
+    <small>Version: 3.0</small>
+  </div>
+</header>
+<section class="sequence">
+  <div class="wrapper flex">
+    <div class="leftCol">
+      <h1>Rename in Sequence</h1>
+      <h2>Sequencelly rename layers in either ascending
+      or descending order.</h2>
+      <h3>Keywords</h3>
+      <ul class="keywordsList">
+        <li><span class="keyword">%n</span> Asceding numbered sequence</li>
+        <li><span class="keyword">%N</span> Descending numbered sequence</li>
+        <li><span class="keyword">%A</span> Alphabet  sequence</li>
+      </ul>
+      <h3>Pro Tip</h3>
+      <ul class="keywordsList">
+        <li><span class="keyword">%nn</span> This will output 01, 02, 03 and so on</li>
+        <li><span class="keyword">%a</span> Lowercase alphabet sequence</li>
+      </ul>
+
+    </div>
+    <div class="rightCol">
+      <img src="static/img/sequence.png" alt="Rename Sequence" width="506" class="illustration" />
+    </div>
+  </div>
+</section>
+
+<section class="currentLayer">
+  <div class="wrapper flex">
+    <div class="leftCol">
+      <h1>Current Layer Name</h1>
+      <h2>The keyword <span class="keyword">*</span> will copy the current selected layer(s) name.</h2>
+      <div class="layerImgWrapper">
+        <img src="static/img/currentLayers.png" alt="Layers" width="368" class="layersNormal" />
+        <img src="static/img/currentLayersProcessed.png" alt="Layers" width="368" class="layersProcessed" />
+      </div>
+
+    </div>
+    <div class="rightCol">
+      <img src="static/img/current.png" alt="Current Layer Name" width="506" class="illustration" />
+    </div>
+  </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="static/js/plugins.js"></script>
+<script src="static/js/main.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+  (function(b, o, i, l, e, r) {
+    b.GoogleAnalyticsObject = l;
+    b[l] || (b[l] =
+      function() {
+        (b[l].q = b[l].q || []).push(arguments)
+      });
+    b[l].l = +new Date;
+    e = o.createElement(i);
+    r = o.getElementsByTagName(i)[0];
+    e.src = 'https://www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e, r)
+  }(window, document, 'script', 'ga'));
+  ga('create', 'UA-XXXXX-X', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</html>
