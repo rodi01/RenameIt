@@ -113,7 +113,7 @@ h1, h2, h3 {
 .flex { display: flex; }
 
 header {
-  padding: 0; /*height: 90vh;*/ display: flex; align-items: center; justify-content: center;
+  padding: 0; height: 85vh; display: flex; align-items: center; justify-content: center;
   background: $dark-purple-color; text-align: center; color: #fff;
   .wrapper {  }
   h1 {
@@ -133,10 +133,10 @@ header {
   display: inline-block; width: 42px; height: 32px;
   color: #fff; font-size: 18px; border-radius: 4px; text-align: center; line-height: 30px; background-color: $purple-color;
 }
-.leftCol { padding: 0 16px 0 32px; }
-.rightCol { padding: 0 32px 0 16px; }
+.leftCol { padding: 0 16px 0 32px; min-width: 430px; }
+.rightCol { padding: 0 32px 0 16px; position: relative; }
 
-.sequence { background-color: $light-grey-color; }
+.odd { background-color: $light-grey-color; }
 
 ul .keyword { margin-right: 4px; }
 section {
@@ -151,41 +151,96 @@ section {
 
 .keywordsList { font-size: 22px; }
 
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 100;
-  }
-  100% {
-    opacity: 0;
-  }
-}
 .layerImgWrapper {
   margin-top: 44px; position: relative;
   img {
     position: absolute;
-    &.layersProcessed {
-      opacity: 0;
-      animation-name: fade;
-      animation-duration: 5s;
-      animation-iteration-count: infinite;
-      animation-direction: alternate;
-      animation-fill-mode: none;
-      animation-play-state: running;
-    }
-    &.layers {  }
+    &.layersProcessed { display: none; }
   }
-
 
 }
 
+.currentLayer {
+  .layerImgWrapper { height: 220px; }
+}
 
 
+.keywordsBtns {
+  width: 664px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; margin: 32px auto;
+  li {
+    background: url(../img/buttonsHelpers.png) no-repeat; background-size: 633px 214px; text-indent: -999em; height: 70px; padding: 0; margin: 5px 12px; }
+  .currLayerBtn { width: 218px; }
+  .layerWidthBtn { width: 187px; background-position: -239px 0; }
+  .layerHeightBtn { width: 187px; background-position: -447px 0; }
+  .numAscBtn { width: 235px; background-position: -70px -72px; }
+  .numDescBtn { width: 236px; background-position: -327px -72px; }
+  .alphaBtn { width: 236px; background-position: -198px -144px; }
+}
+
+/* Tooltip */
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]:before {
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  margin-bottom: 5px;
+  margin-left: -60px;
+  padding: 7px;
+  width: 100px;
+  border-radius: 6px;
+  background-color: hsla(0, 0%, 20%, 0.9);
+  color: #fff;
+  content: attr(data-tooltip);
+  text-indent: 0;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  margin-left: -5px;
+  width: 0;
+  border-top: 5px solid #000;
+  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: " ";
+  font-size: 0;
+  line-height: 0;
+}
+
+/* Show tooltip content on hover */
+.showTooltip:after,
+.showTooltip::before
+ {
+  visibility: visible;
+  opacity: 1;
+}
 
 
-
+.textField {
+  position: absolute; top: 116px; left: 104px; width: 200px; height: 24px;
+  background-color: #fff;
+}
 
 
 

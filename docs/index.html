@@ -31,7 +31,7 @@
     <small>Version: 3.0</small>
   </div>
 </header>
-<section class="sequence">
+<section class="sequence odd">
   <div class="wrapper flex">
     <div class="leftCol">
       <h1>Rename in Sequence</h1>
@@ -66,10 +66,48 @@
         <img src="static/img/currentLayersProcessed.png" alt="Layers" width="368" class="layersProcessed" />
       </div>
 
+      <h3>Pro Tip</h3>
+      <ul class="keywordsList">
+        <li>If you need to use "*" as text, you can escape it like so <span class="keyword">'*</span></li>
+      </ul>
+
     </div>
     <div class="rightCol">
       <img src="static/img/current.png" alt="Current Layer Name" width="506" class="illustration" />
     </div>
+  </div>
+</section>
+
+<section class="width_height odd">
+  <div class="wrapper flex">
+    <div class="leftCol">
+      <h1>Width and Height</h1>
+      <h2>The width <span class="keyword">%W</span> and height <span class="keyword">%H</span> of a layer.</h2>
+      <div class="layerImgWrapper">
+        <img src="static/img/icons_normal.png" alt="Icons" width="400" class="layersNormal" />
+        <img src="static/img/icons_processed.png" alt="Icons" width="400" class="layersProcessed" />
+      </div>
+
+    </div>
+    <div class="rightCol">
+      <img src="static/img/width_height.png" alt="Width and Height" width="506" class="illustration" />
+      <div class="textField" id="widthTxtFld" data-write="Icon %Wx%H"></div>
+    </div>
+  </div>
+</section>
+
+<section class="width_height">
+  <div class="wrapper">
+    <h1>Helpers</h1>
+    <h2>The keywords buttons are helpers so you don’t have to remember all the keywords</h2>
+    <ul class="keywordsBtns">
+      <li class="currLayerBtn" data-tooltip="Shortcut: *">Current Layer Name</li>
+      <li class="layerWidthBtn" data-tooltip="Shortcut: %w">Layer Width</li>
+      <li class="layerHeightBtn" data-tooltip="Shortcut: %h">Layer Height</li>
+      <li class="numAscBtn" data-tooltip="Shortcut: %n">Num. Sequence ASC</li>
+      <li class="numDescBtn" data-tooltip="Shortcut: %N">Num. Sequence DESC</li>
+      <li class="alphaBtn" data-tooltip="Shortcut: %A">Alphabet Sequence</li>
+    </ul>
   </div>
 </section>
 
