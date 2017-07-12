@@ -17,5 +17,17 @@
             <pubDate>Fri, 02 Jun 2017 07:55:40 -0800</pubDate>
             <enclosure url="https://github.com/rodi01/RenameIt/blob/master/RenameIt.zip?raw=true" sparkle:version="2.0.6" type="application/octet-stream" />
         </item>
+        <item>
+            <title>Version 2.0.7</title>
+            <description>
+                <![CDATA[
+                    <ul>
+                        <li>Add ability to rename root artboard of selected layer. Thanks @JBLatenight</li>
+                    </ul>
+                ]]>
+            </description>
+            <pubDate>Wed, 12 Jul 2017 13:36:51 -0800</pubDate>
+            <enclosure url="https://github.com/rodi01/RenameIt/blob/master/RenameIt.zip?raw=true" sparkle:version="2.0.7" type="application/octet-stream" />
+        </item>
     </channel>
 </rss>
