@@ -41,5 +41,17 @@
             <pubDate>Wed, 12 Jul 2017 13:36:51 -0800</pubDate>
             <enclosure url="https://github.com/rodi01/RenameIt/archive/2.0.7.zip?raw=true" sparkle:version="2.0.7" type="application/octet-stream" />
         </item>
+        <item>
+            <title>Version 2.0.8</title>
+            <description>
+                <![CDATA[
+                    <ul>
+                        <li>Quick fix the shorcut that was overwritting the Sketch default one. </li>
+                    </ul>
+                ]]>
+            </description>
+            <pubDate>Mon, 17 Jul 2017 07:11:53 -0800</pubDate>
+            <enclosure url="https://github.com/rodi01/RenameIt/archive/2.0.8.zip?raw=true" sparkle:version="2.0.8" type="application/octet-stream" />
+        </item>
     </channel>
 </rss>
