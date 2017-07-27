@@ -10,12 +10,20 @@
   "bundleVersion": 1,
   "commands": [{
       "name": "Rename Selected Layers",
-      "identifier": "renameV3",
+      "identifier": "rename",
       "script": "renameIt.js",
       "handler": "rename",
       "shortcut": "ctrl cmd r",
       "description": "Rename Selected layer(s) or artboard(s) all at once.",
       "icon": "icons/renameit_ic.png"
+    },
+    {
+      "name" : "Rename Selected Artboard",
+      "identifier" : "renameArtboard",
+      "script": "renameIt.js",
+      "handler": "renameArtboard",
+      "description" : "Rename Selected artboard(s) at the root of the currently selected item",
+      "icon" : "icons/renameit_ic.png"
     },
     {
       "name": "Find & Replace Layers Names",
@@ -31,8 +39,8 @@
     "title": "Rename It",
     "items": [
       "rename",
-      "find",
-      "renameV3"
+      "renameArtboard",
+      "find"
     ]
   }
 }

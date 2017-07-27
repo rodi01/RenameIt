@@ -11,3 +11,8 @@ var findAndReplace = function(context) {
 
 	RI.init(context, "findAndReplace");
 }
+
+var renameArtboard = function(context) {
+
+	RI.init(context, "renameArtboard");
+}

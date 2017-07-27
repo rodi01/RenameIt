@@ -118,3 +118,9 @@ RI.extend({
     return layerName.replace(reg, replaceWith);
   }
 });
+
+RI.extend({
+  renameArtboard: function() {
+    
+  }
+});

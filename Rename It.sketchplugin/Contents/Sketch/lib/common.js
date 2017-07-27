@@ -24,10 +24,31 @@ RI.extend({
     if (this.data.selectionCount > 0)
     {
       if (command == "renameIt") {
+        this.data.windowTitle = "Rename Selected Layers"
           this.renamePanel();
       }
       if (command == "findAndReplace") {
+          this.data.windowTitle = "Find & Replace"
           this.findReplacePanel();
+      }
+      if (command == "renameArtboard") {
+        var firstArtboard;
+        context.selection.some(function (el) {
+          while (el && (el.class() != "MSArtboardGroup")) {
+            el = el.parentGroup();
+ 		       }
+           if(el) {
+             firstArtboard = el;
+             return true;
+           }
+           return false;
+        });
+        if (!firstArtboard) {
+         return;
+        }
+        this.hashData(NSArray.arrayWithObject(firstArtboard));
+        this.data.windowTitle = "Rename Selected Artboards"
+        this.renamePanel();
       }
     } else {
       // No layer selected
@@ -190,7 +211,7 @@ RI.extend({
     [smallTitle setFont: boldItalic]
     [smallTitle setTextColor:[NSColor colorWithCalibratedRed: 0.416 green: 0.455 blue: 0.502 alpha: 1]]
     [smallTitle setDrawsBackground:false]
-    [smallTitle setStringValue:"Rename Selected Layers"]
+    [smallTitle setStringValue:options.data.windowTitle]
     [titlebarView addSubview:smallTitle]
 
     NSApp.runModalForWindow(Panel);
