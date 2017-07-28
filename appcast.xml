@@ -60,12 +60,12 @@
                 <ul>
                     <li>New user interface</li>
                     <li>Easier way to add keywords</li>
-                    <li>Case sensitive when find and replace layers names</li>
+                    <li>Case sensitive toggle when finding and replacing layers names</li>
                 </ul>
             ]]>
           </description>
-          <pubDate>Mon, 29 May 2017 20:49:40 -0800</pubDate>
-          <enclosure url="https://github.com/rodi01/RenameIt/blob/master/RenameIt.zip?raw=true" sparkle:version="3.0" type="application/octet-stream"/>
+          <pubDate>Wed, 02 Aug 2017 08:53:38 -0800</pubDate>
+          <enclosure url="https://github.com/rodi01/RenameIt/archive/3.0.zip?raw=true" sparkle:version="3.0" type="application/octet-stream"/>
         </item>
     </channel>
 </rss>
