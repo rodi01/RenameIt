@@ -32,24 +32,22 @@ RI.extend({
           this.findReplacePanel();
       }
       if (command == "renameArtboard") {
-        var firstArtboard;
+        var aBoards = [NSMutableArray new]
         context.selection.some(function (el) {
           while (el && (el.class() != "MSArtboardGroup")) {
             el = el.parentGroup();
  		       }
-           if(el) {
-             firstArtboard = el;
-             return true;
-           }
-           return false;
+           if(el)
+            [aBoards addObject:el]
         });
-        if (!firstArtboard) {
-         return;
-        }
-        this.hashData(NSArray.arrayWithObject(firstArtboard));
+        if (aBoards.length <= 0)
+          return;
+
+        var orderedSet = [NSOrderedSet orderedSetWithArray:aBoards];
+        this.hashData([orderedSet array]);
         this.data.windowTitle = "Rename Selected Artboards"
         this.renamePanel();
-      }
+    }
     } else {
       // No layer selected
       this.doc.showMessage("Rename it: You need to select at least one layer");
