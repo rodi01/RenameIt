@@ -1,35 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
-  <channel>
-    <title>Rename It</title>
-    <link>https://raw.githubusercontent.com/rodi01/RenameIt/master/appcast.xml</link>
-    <description>Sketch plugin to rename layers like a boss.</description>
-    <language>en</language>
-    <item>
-      <title>Version 2.0.6</title>
-      <description>
-        <![CDATA[
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>Rename It</title>
+        <link>https://raw.githubusercontent.com/rodi01/RenameIt/master/appcast.xml</link>
+        <description>Sketch plugin to rename layers like a boss.</description>
+        <language>en</language>
+        <item>
+            <title>Version 2.0.6</title>
+            <description>
+                <![CDATA[
                     <ul>
                         <li>Support for new plugin update engine</li>
                     </ul>
                 ]]>
-      </description>
-      <pubDate>Fri, 02 Jun 2017 07:55:40 -0800</pubDate>
-      <enclosure url="https://github.com/rodi01/RenameIt/blob/master/RenameIt.zip?raw=true" sparkle:version="2.0.6" type="application/octet-stream"/>
-    </item>
-    <item>
-      <title>Version 3.0</title>
-      <description>
-        <![CDATA[
-            <ul>
-                <li>New user interface</li>
-                <li>Easier way to add keywords</li>
-                <li>Case sensitive when find and replace layers names</li>
-            </ul>
-        ]]>
-      </description>
-      <pubDate>Mon, 29 May 2017 20:49:40 -0800</pubDate>
-      <enclosure url="https://github.com/rodi01/RenameIt/blob/master/RenameIt.zip?raw=true" sparkle:version="3.0" type="application/octet-stream"/>
-    </item>
-  </channel>
+            </description>
+            <pubDate>Fri, 02 Jun 2017 07:55:40 -0800</pubDate>
+            <enclosure url="https://github.com/rodi01/RenameIt/blob/master/RenameIt.zip?raw=true" sparkle:version="2.0.6" type="application/octet-stream" />
+        </item>
+        <item>
+            <title>Version 2.0.7</title>
+            <description>
+                <![CDATA[
+                    <ul>
+                        <li>Add ability to rename root artboard of selected layer. Thanks @JBLatenight</li>
+                    </ul>
+                ]]>
+            </description>
+            <pubDate>Wed, 12 Jul 2017 13:36:51 -0800</pubDate>
+            <enclosure url="https://github.com/rodi01/RenameIt/archive/2.0.7.zip?raw=true" sparkle:version="2.0.7" type="application/octet-stream" />
+        </item>
+        <item>
+            <title>Version 2.0.7.1</title>
+            <description>
+                <![CDATA[
+                    <ul>
+                        <li>Add ability to rename root artboard of selected layer. Thanks @JBLatenight</li>
+                    </ul>
+                ]]>
+            </description>
+            <pubDate>Wed, 12 Jul 2017 13:36:51 -0800</pubDate>
+            <enclosure url="https://github.com/rodi01/RenameIt/archive/2.0.7.zip?raw=true" sparkle:version="2.0.7" type="application/octet-stream" />
+        </item>
+        <item>
+            <title>Version 2.0.8</title>
+            <description>
+                <![CDATA[
+                    <ul>
+                        <li>Quick fix the shorcut that was overwritting the Sketch default one. </li>
+                    </ul>
+                ]]>
+            </description>
+            <pubDate>Mon, 17 Jul 2017 07:11:53 -0800</pubDate>
+            <enclosure url="https://github.com/rodi01/RenameIt/archive/2.0.8.zip?raw=true" sparkle:version="2.0.8" type="application/octet-stream" />
+        </item>
+        <item>
+          <title>Version 3.0</title>
+          <description>
+            <![CDATA[
+                <ul>
+                    <li>New user interface</li>
+                    <li>Easier way to add keywords</li>
+                    <li>Case sensitive when find and replace layers names</li>
+                </ul>
+            ]]>
+          </description>
+          <pubDate>Mon, 29 May 2017 20:49:40 -0800</pubDate>
+          <enclosure url="https://github.com/rodi01/RenameIt/blob/master/RenameIt.zip?raw=true" sparkle:version="3.0" type="application/octet-stream"/>
+        </item>
+    </channel>
 </rss>
