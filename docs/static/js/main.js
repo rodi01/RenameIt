@@ -1,46 +1,71 @@
 (function() {
-  var layersNormal = $(".layersNormal"),
-      layersProcessed  = $('.layersProcessed');
-  var interval =  setInterval(function () {
+  var clDone, clNormal, clTyped, interval, layersNormal, layersProcessed, showNext, toggleLayer, whDone, whNormal, whTyped;
+  layersNormal = $('.layersNormal');
+  layersProcessed = $('.layersProcessed');
+  interval = setInterval((function() {
     if (layersNormal.is(':hidden')) {
       layersNormal.fadeIn();
       layersProcessed.fadeOut();
     } else {
       layersProcessed.fadeIn();
       layersNormal.fadeOut();
-    };
-
-  }, 5000);
-
-  function showNext(el) {
-    var nextTo = el.next();
-    if (nextTo.length == 0) nextTo = el.siblings(":first");
-    setTimeout( function(){
+    }
+  }), 5000);
+  showNext = function(el) {
+    var nextTo;
+    nextTo = el.next();
+    if (nextTo.length === 0) {
+      nextTo = el.siblings(':first');
+    }
+    setTimeout((function() {
       el.addClass('showTooltip');
       el.siblings().removeClass('showTooltip');
       showNext(nextTo);
-    }, 3000);
-  }
-
+    }), 3000);
+  };
   showNext($('.currLayerBtn'));
-
-}());
-
-jQuery.getScript("static/js/typed.min.js")
-	.done(function() {
-		console.log("loaded");
-    var typed = new Typed("#widthTxtFld", {
-        typeSpeed: 40,
-        loop: true,
-        strings: [$('#widthTxtFld').data("write")],
-        backDelay: 6000,
-        fadeOut: true
-      });
-});
-
-// jQuery.getScript("static/js/typed.min.js").done(function() {
-//   var typed = new Typed("#widthTxtFld", {
-//     typeSpeed: 40,
-//     loop: true,
-//     strings: [$('widthTxtFld').data("write")]
-//   });
+  whDone = $('.wh_done');
+  whNormal = $('.wh_normal');
+  toggleLayer = function(toShow, toHide) {
+    toShow.addClass('show').removeClass('hide');
+    return toHide.addClass('hide').removeClass('show');
+  };
+  whTyped = new Typed('#widthTxtFld', {
+    typeSpeed: 40,
+    startDelay: 1000,
+    loop: true,
+    backSpeed: 40,
+    backDelay: 6000,
+    strings: [$('#widthTxtFld').data('write')],
+    onComplete: function(self) {
+      $('#whPreview').text($('#whPreview').data('write'));
+      toggleLayer(whDone, whNormal);
+      return false;
+    },
+    onLastStringBackspaced: function(self) {
+      $('#whPreview').text('');
+      toggleLayer(whNormal, whDone);
+      return false;
+    }
+  });
+  clDone = $('.cl_done');
+  clNormal = $('.cl_normal');
+  clTyped = new Typed('#clTextField', {
+    typeSpeed: 50,
+    startDelay: 1000,
+    loop: true,
+    backSpeed: 40,
+    backDelay: 6000,
+    strings: [$('#clTextField').data('write')],
+    onComplete: function(self) {
+      $('#clPreview').text($('#clPreview').data('write'));
+      toggleLayer(clDone, clNormal);
+      return false;
+    },
+    onLastStringBackspaced: function(self) {
+      $('#clPreview').text('');
+      toggleLayer(clNormal, clDone);
+      return false;
+    }
+  });
+})();

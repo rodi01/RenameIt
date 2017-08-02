@@ -237,10 +237,38 @@ section {
 }
 
 
-.textField {
-  position: absolute; top: 116px; left: 104px; width: 200px; height: 24px;
-  background-color: #fff;
+.textFieldWrapper {
+  position: absolute; top: 116px; left: 104px; width: 200px; height: 24px; background-color: #fff;
 }
+
+.show { opacity: 1; }
+.hide { opacity: 0; }
+.preview { position: absolute; left: 45px; top: 397px;
+  font-style: italic; font-size: 13px; color: #5FBEEE; text-overflow: ellipsis; white-space:nowrap; background-color: #F8F8F8; width: 344px; height: 13px; }
+.preview span { font-weight: 300; }
+
+.typed-cursor{
+  opacity: 1;
+  animation: typedjsBlink 0.7s infinite;
+  -webkit-animation: typedjsBlink 0.7s infinite;
+          animation: typedjsBlink 0.7s infinite;
+}
+@keyframes typedjsBlink{
+  50% { opacity: 0.0; }
+}
+@-webkit-keyframes typedjsBlink{
+  0% { opacity: 1; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1; }
+}
+
+.typed-fade-out{
+  opacity: 0;
+  transition: opacity .25s;
+  -webkit-animation: 0;
+          animation: 0;
+}
+
 
 
 
