@@ -87,8 +87,7 @@ function paddy(n, p, c) {
 }
 
 
-function createDialog(selection)
-{
+function createDialog(selection, suggestedName) {
 	var alert = COSAlertWindow.new();
 
 	function createTextFieldWithLabel(label,defaultValue) {
@@ -103,7 +102,7 @@ function createDialog(selection)
 	alert.setInformativeText("Helpers: \nNumber Sequence: %N Descending | %n Ascending \nDimensions: %W %H \nMove Original Layer Name: *");
 
 	// Name
-	createTextFieldWithLabel("Name:","");
+	createTextFieldWithLabel("Name:", suggestedName);
 	var firstField = alert.viewAtIndex(1)
 
 	// Interator
@@ -143,6 +142,45 @@ function handleAlertResponse(alert, responseCode) {
 		return null;
 }
 
+function getNames(layers) {
+	var names = [];
+	var l = layers.count();
+
+	while (l--) {
+		names[l] = layers[l].name();
+	}
+	return names;
+}
+
+function sortStrings(array) {
+	var clone = [NSMutableArray arrayWithArray:array];
+	return clone.sort();
+}
+
+function findCommonPrefix(array) {
+	var sorted = sortStrings(array);
+	var first = sorted[0];
+	var last = sorted.lastObject();
+
+	if (first == last) {
+		return first;
+	}
+
+	var length = first.length();
+	var i = 0;
+
+	while (i < length && first.charAt(i) == last.charAt(i)) {
+		i++;
+	}
+	return first.substring(0, i);
+}
+
+function findSuggestedName(layers) {
+	var names = getNames(layers);
+	var common = findCommonPrefix(names);
+	return !common ? "" : (common.trim() + " %n");
+}
+
 // Run
 var renameSelectedObjects = function(context, selection) {
 	var selectionCount = [selection count]
@@ -150,7 +188,7 @@ var renameSelectedObjects = function(context, selection) {
   if (selectionCount > 0)
   {
 		// Show dialog
-		var alert = createDialog(selection);
+		var alert = createDialog(selection, findSuggestedName(selection));
 		var options=handleAlertResponse(alert,alert.runModal());
 		if (!isInt(options.startsFrom)) options.startsFrom = 1;
 
