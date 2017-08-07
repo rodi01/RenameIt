@@ -22,6 +22,7 @@
       "identifier" : "renameArtboard",
       "script": "renameIt.js",
       "handler": "renameArtboard",
+      "shortcut": "shift ctrl option r",
       "description" : "Rename Selected artboard(s) at the root of the currently selected item",
       "icon" : "icons/renameit_ic.png"
     },
