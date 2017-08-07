@@ -1,6 +1,4 @@
-@import "normalize";
-
-// Variables
+@import "normalize"; // Variables
 $primary-color: #383F47;
 $light-grey-color: #F7F7F7;
 $dark-purple-color: #281C38;
@@ -8,26 +6,51 @@ $blue-color: #5FBEEE;
 $purple-color: #9264CB;
 $dark-grey: #6A7480;
 $font-stack: "omnes-pro", sans-serif;
+$header-bg: linear-gradient(-180deg, #381A5F 0%, #281C38 100%);
+$breakpoint-1: 1024px;
+$breakpoint-2: 570px;
+$breakpoint-3: 414px;
 
+// Buttons
+$button-pad: 24px;
+$button-height: 64px;
 
+@mixin buttonShadow($shadow...) {
+  @if length($shadow) == 0 {
+    $shadow: 0px 25px 30px -20px rgba(34, 90, 90, .6),  0px 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  box-shadow: $shadow;
+}
+
+@mixin buttonIcon($iconUrl) {
+  &::before {
+    background-image: url($iconUrl);
+  }
+}
 
 /* ==========================================================================
    Base styles: opinionated defaults
    ========================================================================== */
-
 html {
-    color: $primary-color;
-    font-family: $font-stack;
-    font-size: 1em;
-    line-height: 1.4;
-}
-a, a:link, a:hover {
-  text-decoration: none; color: inherit;
-}
-ul, ol {
-  list-style: none inside; padding: 0; margin: 0;
+  color: $primary-color;
+  font-family: $font-stack;
+  font-size: 1em;
+  line-height: 1.4;
 }
 
+a,
+a:hover,
+a:link {
+  text-decoration: none;
+  color: inherit;
+}
+
+ol,
+ul {
+  list-style: none inside;
+  padding: 0;
+  margin: 0;
+}
 /*
  * Remove text-shadow in selection highlight:
  * https://twitter.com/miketaylr/status/12228805301
@@ -35,164 +58,309 @@ ul, ol {
  * These selection rule sets have to be separate.
  * Customize the background color to match your design.
  */
-
 ::-moz-selection {
-    background: #b3d4fc;
-    text-shadow: none;
+  background: #b3d4fc;
+  text-shadow: none;
 }
 
 ::selection {
-    background: #b3d4fc;
-    text-shadow: none;
+  background: #b3d4fc;
+  text-shadow: none;
 }
-
 /*
  * A better looking default horizontal rule
  */
-
 hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
 }
-
 /*
  * Remove the gap between audio, canvas, iframes,
  * images, videos and the bottom of their containers:
  * https://github.com/h5bp/html5-boilerplate/issues/440
  */
-
 audio,
 canvas,
 iframe,
 img,
 svg,
 video {
-    vertical-align: middle;
+  vertical-align: middle;
 }
-
 /*
  * Remove default fieldset styles.
  */
-
 fieldset {
-    border: 0;
-    margin: 0;
-    padding: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
 }
-
 /*
  * Allow only vertical resizing of textareas.
  */
-
 textarea {
-    resize: vertical;
+  resize: vertical;
 }
-
 /* ==========================================================================
    Browser Upgrade Prompt
    ========================================================================== */
-
 .browserupgrade {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
 }
-
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-h1, h2, h3 {
-  font-weight: 100; font-style: normal; margin: 0;
+h1,
+h2,
+h3 {
+  font-weight: 100;
+  font-style: normal;
+  margin: 0;
 }
 
-.flex { display: flex; }
+.flex {
+  display: flex;
+}
+
+.collumnWrapper {
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
+
+  @media only screen and (max-width: $breakpoint-1) {
+    display: block; text-align: center; padding-top: 16px;
+  }
+}
 
 header {
-  padding: 0; height: 85vh; display: flex; align-items: center; justify-content: center;
-  background: $dark-purple-color; text-align: center; color: #fff;
-  .wrapper {  }
+  padding: 0;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: $header-bg;
+  text-align: center;
+  color: #fff;
+
   h1 {
-    font-size: 40px; padding-top: 127px;
-    background: url(../img/logo.png) no-repeat 50% 0; background-size: 149px 127px;
-   }
-  h2 { font-size: 28px; opacity: 0.7; margin: 16px 0 24px; }
-  small { display: block; margin-top: 24px; }
+    font-size: 40px;
+    padding-top: 127px;
+    background: url("../img/logo.png") no-repeat 50% 0;
+    background-size: 149px 127px;
+  }
+
+  h2 {
+    font-size: 28px;
+    opacity: 0.7;
+    margin: 16px 0 24px;
+  }
+
+  small {
+    display: block;
+    margin-top: 24px;
+  }
 }
 
 #installBtn {
-  height: 64px; line-height: 60px; display: inline-block; width: 352px;
-  font-size: 30px;  background: $blue-color; border-radius: 100px;
+  width: 270px;
+  background: $blue-color;
+  color: #fff;
+  background-image: linear-gradient(-1deg, #5FBEEE 34%, #4FCFBC 100%);
 }
 
 .keyword {
-  display: inline-block; width: 42px; height: 32px;
-  color: #fff; font-size: 18px; border-radius: 4px; text-align: center; line-height: 30px; background-color: $purple-color;
+  display: inline-block;
+  width: 42px;
+  height: 32px;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 4px;
+  text-align: center;
+  line-height: 30px;
+  background-color: $purple-color;
+  @media only screen and (max-width: $breakpoint-3) {
+      font-size: 16px;
+    }
 }
-.leftCol { padding: 0 16px 0 32px; min-width: 430px; }
-.rightCol { padding: 0 32px 0 16px; position: relative; }
 
-.odd { background-color: $light-grey-color; }
+.leftCol {
+  padding: 0 16px 0 32px;
+  min-width: 430px;
+  @media only screen and (max-width: $breakpoint-1) {
+      display: inline-block; margin: 0 auto; min-width: auto; padding: 0;
+  }
+}
 
-ul .keyword { margin-right: 4px; }
+.rightCol {
+  padding: 0 32px 0 16px;
+  position: relative;
+  @media only screen and (max-width: $breakpoint-1) {
+      padding: 0;
+    }
+}
+
+.odd {
+  background-color: $light-grey-color;
+}
+
+ul .keyword {
+  margin-right: 4px;
+}
+
+.wrapper {
+  padding: 112px 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  @media only screen and (max-width: $breakpoint-1) {
+    padding: 64px 16px;
+  }
+  h1,
+  h2 {
+    text-align: center;
+  }
+}
+
 section {
-  .wrapper { padding: 96px 0; max-width: 1024px; margin: 0 auto; }
-  h1 { font-size: 40px; color: $dark-grey; }
-  h2 { font-size: 22px; }
-  h3 { font-size: 24px; color: $dark-grey; margin-top: 32px; }
-  h3 + ul { margin-top: 8px; }
-  li { margin-bottom: 8px; }
-  img.illustration { margin-top: 64px; }
+  h1 {
+    font-size: 40px;
+    color: $dark-grey;
+    @media only screen and (max-width: $breakpoint-3) {
+      font-size: 32px;
+    }
+  }
+
+  h2 {
+    font-size: 22px;
+    padding-top: 8px;
+    @media only screen and (max-width: $breakpoint-3) {
+      font-size: 18px;
+    }
+  }
+
+  h3 {
+    font-size: 24px;
+    color: $dark-grey;
+    margin-top: 32px;
+    @media only screen and (max-width: $breakpoint-1) {
+      margin-top: 16px;
+    }
+
+  }
+
+  h3 + ul {
+    margin-top: 8px;
+  }
+
+  li {
+    margin-bottom: 8px;
+  }
+
+  img.illustration {
+    margin-top: 32px;
+    width: 100%;
+    max-width: 506px;
+  }
 }
 
-.keywordsList { font-size: 22px; }
+.keywordsList {
+  font-size: 22px;
+
+  @media only screen and (max-width: $breakpoint-1) {
+    text-align: left;
+    + h3 { margin-top: 40px; }
+  }
+  @media only screen and (max-width: $breakpoint-3) {
+    font-size: 16px;
+  }
+}
 
 .layerImgWrapper {
-  margin-top: 44px; position: relative;
+  margin-top: 44px;
+  position: relative;
+
   img {
     position: absolute;
-    &.layersProcessed { display: none; }
+    width: 100%;
+    left: 0; top: 0;
+    &.layersProcessed {
+      display: none;
+    }
+  }
+  @media only screen and (max-width: $breakpoint-1) {
+      margin-top: 24px;
+      display: flex;
+      flex-flow: wrap;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+
+      img { position: static; }
+  }
+}
+
+.width_height {
+  img { max-width: 400px; }
+ }
+
+.currentLayer {
+  .layerImgWrapper {
+    height: 220px;
+    img {
+      max-width: 368px;
+     }
+  }
+}
+
+.viewWrapper { display: inline-block; position: relative; }
+$keywordsBtn-height: 48px;
+
+.keywordsBtns {
+  max-width: 664px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 32px auto;
+
+  li {
+    height: $keywordsBtn-height;
+    padding: 0 24px;
+    background-color: #6A747F;
+    margin: 24px 8px 0;
+    color: #fff;
+    text-align: center;
+    border-radius: $keywordsBtn-height / 2;
+    line-height: $keywordsBtn-height - 2;
+    @include buttonShadow;
+    font: {
+      family: -apple-system, sans-serif;
+      size: 21px;
+    }
   }
 
 }
-
-.currentLayer {
-  .layerImgWrapper { height: 220px; }
-}
-
-
-.keywordsBtns {
-  width: 664px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; margin: 32px auto;
-  li {
-    background: url(../img/buttonsHelpers.png) no-repeat; background-size: 633px 214px; text-indent: -999em; height: 70px; padding: 0; margin: 5px 12px; }
-  .currLayerBtn { width: 218px; }
-  .layerWidthBtn { width: 187px; background-position: -239px 0; }
-  .layerHeightBtn { width: 187px; background-position: -447px 0; }
-  .numAscBtn { width: 235px; background-position: -70px -72px; }
-  .numDescBtn { width: 236px; background-position: -327px -72px; }
-  .alphaBtn { width: 236px; background-position: -198px -144px; }
-}
-
 /* Tooltip */
 /* Add this attribute to the element that needs a tooltip */
 [data-tooltip] {
   position: relative;
   z-index: 2;
 }
-
 /* Hide the tooltip content by default */
-[data-tooltip]:before,
-[data-tooltip]:after {
+[data-tooltip]:after,
+[data-tooltip]:before {
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.5s ease-in-out;
 }
-
 /* Position tooltip above the element */
 [data-tooltip]:before {
   position: absolute;
@@ -211,7 +379,6 @@ section {
   font-size: 14px;
   line-height: 1.2;
 }
-
 /* Triangle hack to make tooltip look like a speech bubble */
 [data-tooltip]:after {
   position: absolute;
@@ -227,103 +394,284 @@ section {
   font-size: 0;
   line-height: 0;
 }
-
 /* Show tooltip content on hover */
-.showTooltip:after,
-.showTooltip::before
- {
+.showTooltip::before,
+.showTooltip:after {
   visibility: visible;
   opacity: 1;
 }
 
-
 .textFieldWrapper {
-  position: absolute; top: 116px; left: 104px; width: 200px; height: 24px; background-color: #fff;
+  position: absolute;
+  top: 116px - 32px;
+  left: 86px;
+  width: 200px;
+  height: 24px;
+  background-color: #fff;
+  text-align: left;
+  @media only screen and (max-width: $breakpoint-2) {
+      display: none;
+    }
 }
 
-.show { opacity: 1; }
-.hide { opacity: 0; }
-.preview { position: absolute; left: 45px; top: 397px;
-  font-style: italic; font-size: 13px; color: #5FBEEE; text-overflow: ellipsis; white-space:nowrap; background-color: #F8F8F8; width: 344px; height: 13px; }
-.preview span { font-weight: 300; }
+.show {
+  opacity: 1;
+  display: inline-block;
+}
 
-.typed-cursor{
+.hide {
+  opacity: 0;
+  display: none;
+}
+
+.preview {
+  position: absolute;
+  left: 28px;
+  top: 397px - 32px;
+  font-style: italic;
+  font-size: 13px;
+  color: #5FBEEE;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: #F8F8F8;
+  width: 344px;
+  height: 13px;
+  text-align: left;
+  @media only screen and (max-width: $breakpoint-2) {
+      display: none;
+    }
+}
+
+.preview span {
+  font-weight: 300;
+}
+
+.typed-cursor {
   opacity: 1;
   animation: typedjsBlink 0.7s infinite;
   -webkit-animation: typedjsBlink 0.7s infinite;
-          animation: typedjsBlink 0.7s infinite;
+  animation: typedjsBlink 0.7s infinite;
 }
-@keyframes typedjsBlink{
-  50% { opacity: 0.0; }
+@keyframes typedjsBlink {
+  50% {
+    opacity: 0.0;
+  }
 }
-@-webkit-keyframes typedjsBlink{
-  0% { opacity: 1; }
-  50% { opacity: 0.0; }
-  100% { opacity: 1; }
+@-webkit-keyframes typedjsBlink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
-.typed-fade-out{
+.typed-fade-out {
   opacity: 0;
-  transition: opacity .25s;
+  transition: opacity 0.25s;
   -webkit-animation: 0;
-          animation: 0;
+  animation: 0;
+}
+
+#howInstall {
+  background: #9264CB;
+  background-image: linear-gradient(-179deg, #9263CB 32%, #6EA6C6 100%);
+  color: #fff;
+  text-align: center;
+
+  h1,
+  h3 {
+    color: #FFF;
+  }
+}
+
+.downloadList {
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  flex-flow: row;
+
+  @media only screen and (max-width: $breakpoint-1) {
+      display: block;
+    }
+
+  h3 {
+    margin-bottom: 16px;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  img {
+    width: 100%; max-width: 679px;
+  }
+
+  li {
+    flex: 1;
+    margin: 16px;
+    @media only screen and (max-width: $breakpoint-1) {
+      margin: 56px 0;
+      &:first-child { margin-top: 16px; }
+    }
+  }
+
+  li:nth-child(2) {
+    flex: 2;
+  }
+}
+
+// Buttons
+a.button {
+  @include buttonShadow;
+  display: inline-block;
+  position: relative;
+  min-width: 220px;
+  background-image: linear-gradient(0deg, #DBDBDB 0%, #E4EBF0 100%);
+  padding: 0 $button-pad;
+  border-radius: $button-height / 2;
+  height: $button-height;
+  font: 700 24px/1 -apple-system, sans-serif;
+  line-height: $button-height;
+  color: #383F47;
+  text-align: center;
+    transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    @include buttonShadow(0px 10px 20px -10px rgba(0,0,0,0.3));
+  }
+
+  em {
+    padding-left: $button-pad;
+    margin-left: $button-pad;
+    display: inline-block;
+    height: $button-height;
+    font-style: normal;
+    border-left: 1px solid rgba(0,0,0,0.09);
+  }
+
+
+}
+
+a.hasIcon::before {
+  width: 40px;
+  height: $button-height;
+  display: inline-block;
+  content: ".";
+  background: transparent url("../img/fork_icon.svg") 50% 50% no-repeat;
+  text-indent: -999em;
+  margin-right: 16px;
+}
+
+#starIt {
+  @include buttonIcon("../img/star_icon.svg");
+}
+
+#directDownload {
+  @include buttonIcon("../img/download_icon.svg");
+}
+
+.sketchRunner {
+  @include buttonShadow;
+  border-radius: 5px;
+}
+
+// Opensource
+.openSource {
+  background-color: #6EA6C6;
+  background-image: linear-gradient(0deg, #6EA6C6 0%, #4FCFBC 99%);
+  color: #FFF;
+  text-align: center;
+
+  h1 {
+    color: #FFF;
+  }
+
+  p {
+    color: #fff; font-size: 24px; padding-top: 24px;
+    a:link, a:visited { color: $light-grey-color; border-bottom: dotted 1px $light-grey-color; }
+  }
+
+  .button {
+    margin: 24px 16px 0; min-width: 200px;
+  }
 }
 
 
+// Sketchpacks
+#sketchpacksBtn {
+  background-image: linear-gradient(-180deg, #BC11BB 0%, #333399 100%);
+  color: #fff;
+  @include buttonIcon("../img/sketchpacks_icon.svg");
+}
 
+// Share Section
+.shareDonate {
+  background-image: $header-bg; color: #fff; text-align: center;
+  h1 { color: #fff; }
+  .button {
+    margin: 24px 16px 0; min-width: 200px;
+    color: #fff;
+  }
+  p { margin-top: 32px; }
+  a.followMe:link, a.followMe:visited { color: $light-grey-color; border-bottom: dotted 1px $light-grey-color; }
+}
+
+#facebookBtn {
+  background-image: linear-gradient(0deg, #344D85 0%, #3B5998 100%);
+  @include buttonIcon("../img/facebook_icon.svg");
+}
+#twitterBtn {
+  background-image: linear-gradient(0deg, #1C98E6 0%, #1DA1F2 100%);
+  @include buttonIcon("../img/twitter_icon.svg");
+}
 
 /* ==========================================================================
    Helper classes
    ========================================================================== */
-
 /*
  * Hide visually and from screen readers
  */
-
 .hidden {
-    display: none !important;
+  display: none !important;
 }
-
 /*
  * Hide only visually, but have it available for screen readers:
  * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
  */
-
 .visuallyhidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
-
 /*
  * Extends the .visuallyhidden class to allow the element
  * to be focusable when navigated to via the keyboard:
  * https://www.drupal.org/node/897638
  */
-
 .visuallyhidden.focusable:active,
 .visuallyhidden.focusable:focus {
-    clip: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    position: static;
-    width: auto;
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
 }
-
 /*
  * Hide visually and from screen readers, but maintain layout
  */
-
 .invisible {
-    visibility: hidden;
+  visibility: hidden;
 }
-
 /*
  * Clearfix: contain floats
  *
@@ -335,23 +683,14 @@ section {
  * 2. The use of `table` rather than `block` is only necessary if using
  *    `:before` to contain the top-margins of child elements.
  */
-
-.clearfix:before,
-.clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
+.clearfix:after,
+.clearfix:before {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
 }
 
 .clearfix:after {
-    clear: both;
-}
-
-/* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
-
-@media only screen and (min-width: 35em) {
-    /* Style adjustments for viewports that meet the condition */
+  clear: both;
 }

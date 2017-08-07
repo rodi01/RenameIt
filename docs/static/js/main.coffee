@@ -74,4 +74,17 @@ do ->
       toggleLayer clNormal, clDone
       false
 
+  # Github stats
+  $.get 'https://api.github.com/repos/rodi01/renameit', (data) ->
+    $('#forkIt em').text data.forks
+    $('#starIt em').text data.stargazers_count
+    return
+
+  # Scroll To
+  $("a[href*=\\#]").click (e) ->
+    e.preventDefault()
+    dest = $(this).attr('href')
+    $('html,body').animate { scrollTop: $(dest).offset().top }, 'slow'
+    return
+
   return

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="29px" viewBox="0 0 30 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>star_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Website" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-783.000000, -4262.000000)" fill-rule="nonzero" fill="#383F47">
+            <g id="Group-14" transform="translate(0.000000, 3999.000000)">
+                <g id="download_btn" transform="translate(751.000000, 238.000000)">
+                    <g id="Group-15" transform="translate(32.000000, 23.000000)">
+                        <path d="M15.9715921,2.6110335 L20.0202336,10.9169465 L29.0720632,12.2494828 C29.9597916,12.3806651 30.3143375,13.4853585 29.672064,14.1191763 L23.1211466,20.584394 L24.6675122,29.7146844 C24.818876,30.6108668 23.8902385,31.293015 23.0966011,30.8704698 L15.0006818,26.5607849 L6.90339886,30.8718506 C6.1097615,31.2943958 5.18112396,30.6108668 5.33248779,29.7146844 L6.87885338,20.584394 L0.327936014,14.1191763 C-0.314337525,13.4853585 0.0402083774,12.3792843 0.927936771,12.2494828 L9.97976639,10.9169465 L14.0284079,2.6110335 C14.4265902,1.79632217 15.5747735,1.79632217 15.9715921,2.6110335 Z" id="star_icon"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -68,4 +68,16 @@
       return false;
     }
   });
+  $.get('https://api.github.com/repos/rodi01/renameit', function(data) {
+    $('#forkIt em').text(data.forks);
+    $('#starIt em').text(data.stargazers_count);
+  });
+  $("a[href*=\\#]").click(function(e) {
+    var dest;
+    e.preventDefault();
+    dest = $(this).attr('href');
+    $('html,body').animate({
+      scrollTop: $(dest).offset().top
+    }, 'slow');
+  });
 })();
