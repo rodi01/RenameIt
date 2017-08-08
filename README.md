@@ -1,50 +1,69 @@
  Rename It
 ========
 
-Sketch plugin to rename layers like a boss.
+Keep your Sketch files organized, batch rename layers and artboards.
+[Checkout the website](http://rodi01.github.io/RenameIt/)
 
 ## Rename Selected Layers
-#### Multiple Layers
-Rename Multiple layers at once. You can access it from the menu **Plugins -> Rename It -> Rename Selected Layers** or use the shortcut **⌃+⌘+R**
+<img src="docs/static/img/renameLayersShortcut.png" width="300">
 
-![Rename Multiple Layers](http://x.rodrigosoares.me.s3.amazonaws.com/images/renameIt/Rename%20Multiple%20Layers.gif)
+### Multiple Layers
+Rename Multiple layers at once.
 
-#### Sequence
-Type “%N” to name layer in sequence. You can also use “%n” for reverse order. The more Ns you add the more digits it will add (e.g. , Item %N ==> Item 1, Item 2, Item 3).
-You can also set where to start the sequence from.
+![Rename Multiple Layers](/docs/static/img/gifs/batch_rename.gif)
 
-![Rename in Sequence](http://x.rodrigosoares.me.s3.amazonaws.com/images/renameIt/Sequence.gif)
+### Sequence
+Sequentially rename layers in either ascending or descending order.
 
-#### Move Original Layer Name
-Type "\*" to keep the original anywhere in the new name (e.g., Option \* icon).
+![Rename in Sequence](/docs/static/img/gifs/sequence_rename.gif)
 
-![Original Text](http://x.rodrigosoares.me.s3.amazonaws.com/images/renameIt/Original%20Name.gif)
+- **Keyword %n** -  Ascending numbered sequence
+- **Keyword %N** -  Descending numbered sequence
+- **Keyword %A** -  Alphabet sequence
 
-#### Add Width and Height
-Type "%w" or "%h" to add the width or height of the layer  (e.g., Icon %w x %h). *Great addition by @GU5TAF*
+##### Pro Tip
+- **Keyword %nn** -  This will output 01, 02, 03 and so on
+- **Keyword "%a** -  Lowercase alphabet sequence
 
-![Width and Height](http://x.rodrigosoares.me.s3.amazonaws.com/images/renameIt/Width%20and%20Height.gif)
+### Current Layer Name
+The keyword  **\*** will copy the current selected layer(s) name.
 
-#### Alphabetical Letters Sequence
-Type "%a" or "%A" (for uppercase letters) to name layers with letters alphabetically. (e.g., Item %a ==> Item a, Item b, Item c)
+![Current Layer Name](/docs/static/img/gifs/current_layer.gif)
 
-![Alphabetical Sequence](http://x.rodrigosoares.me.s3.amazonaws.com/images/renameIt/Alphabetical.gif)
+### Add Width and Height
+Rename layer(s) with the width **%W** and height **%H** of a layer.
+
+![Width and Height](/docs/static/img/gifs/width_height.gif)
 
 ###### NOTE: “\*” and “%” can be escaped with a backslash “\\”
 
-#### Bonus Round
-Combine keywords for renaming awesomeness
-
-![Bonus](http://x.rodrigosoares.me.s3.amazonaws.com/images/renameIt/Bonus.gif)
-
 ## Find & Replace in Selected Layers
-Find any text in selected layer(s) and replace it. This feature is **CASE SENSITIVE**.
-You can access it from the menu **Plugins -> Rename It -> Find and Replace** or use the shortcut **⌃+⌥+⌘+R**
+<img src="docs/static/img/findReplaceShortcut.png" width="320">
 
-![Find & Replace](http://x.rodrigosoares.me.s3.amazonaws.com/images/renameIt/Find%20Replace.gif)
+Easily replace any word(s) or character(s) from your layers. This feature can be used on multiple layers at once.
 
+![Find & Replace](/docs/static/img/gifs/find_replace.gif)
+
+## Rename Artboards
+<img src="docs/static/img/renameArtboardShortcut.png" width="350">
+
+Rename selected artboards works the same way as rename selected layers. You don't need to select the artboard, it will automatically find the artboard of the select layer(s).
+
+![Rename Artboards](/docs/static/img/gifs/artboard_rename.gif)
 
 ## Install
-[![Install Rename It with Sketchpacks](http://sketchpacks-com.s3.amazonaws.com/assets/badges/sketchpacks-badge-install.png "Install Rename It with Sketchpacks")](https://sketchpacks.com/rodi01/renameit/install)
+### Sketchpacks
+[![Sketchpacks](/docs/static/img/sketchpack_btn.png "Install Rename It with Sketchpacks")](https://sketchpacks.com/rodi01/renameit/install)
 
-[![Works with Sketch Runner](http://bit.ly/RunnerBadgeBlue "Works with Sketch Runner")](http://bit.ly/SketchRunnerWebsite)
+### Sketch Runner
+![Sketch Runner](/docs/static/img/sketch_runner_hq.gif)
+
+### Direct Download
+[![Direct Download](/docs/static/img/download_btn.png "Direct Download")](https://github.com/rodi01/RenameIt/archive/master.zip)
+
+## More Info
+Rename It is maintained by Rodrigo Soares, follow me [@rodi01](https://twitter.com/rodi01)
+
+[Checkout the website for more](http://rodi01.github.io/RenameIt/)
+
+MIT License © Rodrigo Soares.
