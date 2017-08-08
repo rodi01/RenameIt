@@ -47,7 +47,7 @@ Replace any word(s) or character(s) from selected layers.
 ## Rename Artboards
 <img src="docs/static/img/renameArtboardShortcut.png" width="350">
 
-Rename selected artboards works the same way as rename selected layers. You don't need to select the artboard, it will automatically find the artboard of the select layer(s).
+Rename selected artboards works the same way as rename selected layers. You don't need to select the artboard, it will automatically find the artboard of the selected layer(s).
 
 ![Rename Artboards](/docs/static/img/gifs/artboard_rename.gif)
 
