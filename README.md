@@ -40,7 +40,7 @@ Rename layer(s) with the width **%W** and height **%H** of a layer.
 ## Find & Replace in Selected Layers
 <img src="docs/static/img/findReplaceShortcut.png" width="320">
 
-Easily replace any word(s) or character(s) from your layers. This feature can be used on multiple layers at once.
+Replace any word(s) or character(s) from selected layers.
 
 ![Find & Replace](/docs/static/img/gifs/find_replace.gif)
 
