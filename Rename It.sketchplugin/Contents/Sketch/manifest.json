@@ -3,44 +3,44 @@
   "description": "Sketch plugin to rename layers like a boss.",
   "author": "Rodrigo Soares",
   "homepage": "https://github.com/rodi01/RenameIt",
-  "version": "2.0.8",
-  "identifier": "ninja.taptap.rename-it",
+  "version": "3.0.0",
+  "identifier": "com.taptap.ninja.rename-it",
+  "compatibleVersion": "4.0",
   "appcast": "https://raw.githubusercontent.com/rodi01/RenameIt/master/appcast.xml",
-  "compatibleVersion": "3.3.2",
   "bundleVersion": 1,
-  "commands" : [
-    {
-      "name" : "Rename Selected Layers",
-      "identifier" : "rename",
-      "script" : "renameIt.sketchscript",
-      "handler" : "renameSelectedLayers",
-      "shortcut" : "ctrl cmd r",
-      "description" : "Rename Selected layer(s) or artboard(s) all at once.",
-      "icon" : "icons/renameit_ic.png"
+  "commands": [{
+      "name": "Rename Selected Layers",
+      "identifier": "rename",
+      "script": "renameIt.js",
+      "handler": "rename",
+      "shortcut": "ctrl cmd r",
+      "description": "Rename Selected layer(s) or artboard(s) all at once.",
+      "icon": "icons/renameit_ic.png"
     },
     {
       "name" : "Rename Selected Artboard",
       "identifier" : "renameArtboard",
-      "script" : "renameIt.sketchscript",
-      "handler" : "renameSelectedArtboard",
+      "script": "renameIt.js",
+      "handler": "renameArtboard",
+      "shortcut": "shift ctrl option r",
       "description" : "Rename Selected artboard(s) at the root of the currently selected item",
       "icon" : "icons/renameit_ic.png"
     },
     {
-      "name" : "Find & Replace Layers Names",
-      "identifier" : "find",
-      "script" : "findReplace.sketchscript",
-      "handler" : "findReplace",
-      "shortcut" : "ctrl option cmd r",
-      "description" : "Find and replace text on selected layer(s) or artboard(s) names.",
-      "icon" : "icons/find_replace_ic.png"
+      "name": "Find & Replace Layers Names",
+      "identifier": "find",
+      "script": "renameIt.js",
+      "handler": "findAndReplace",
+      "shortcut": "ctrl option cmd r",
+      "description": "Find and replace text on selected layer(s) or artboard(s) names.",
+      "icon": "icons/find_replace_ic.png"
     }
   ],
   "menu": {
     "title": "Rename It",
     "items": [
-      "renameArtboard",
       "rename",
+      "renameArtboard",
       "find"
     ]
   }

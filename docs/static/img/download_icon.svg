@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="36px" viewBox="0 0 30 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>download_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Website" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-1091.000000, -3606.000000)" fill-rule="nonzero" fill="#383F47">
+            <g id="Group-14" transform="translate(0.000000, 3348.000000)">
+                <g id="download_btn" transform="translate(1048.000000, 238.000000)">
+                    <g id="download_icon" transform="translate(43.000000, 20.000000)">
+                        <path d="M29.6470588,12.7058824 L21.1764706,12.7058824 L21.1764706,0 L8.47058824,0 L8.47058824,12.7058824 L0,12.7058824 L14.8235294,27.5294118 L29.6470588,12.7058824 Z M0,31.7647059 L0,36 L29.6470588,36 L29.6470588,31.7647059 L0,31.7647059 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

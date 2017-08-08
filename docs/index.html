@@ -18,6 +18,7 @@
   <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
   <!-- Place favicon.ico in the root directory -->
   <link rel="stylesheet" href="static/css/main.min.css">
+  <script src="static/js/typed.min.js" charset="utf-8"></script>
 </head>
 <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -26,22 +27,24 @@
 <header>
   <div class="wrapper">
     <h1>Rename It</h1>
-    <h2>Keep your Sketch files orgnized.<br>Batch renaming layers and artboards has never been so easy.</h2>
-    <a href="#install" id="installBtn">Install Plugin</a>
+    <h2>Keep your Sketch files organized, batch rename layers and artboards.</h2>
+    <a href="#howInstall" class="button" id="installBtn">Install Plugin</a>
     <small>Version: 3.0</small>
   </div>
 </header>
-<section class="sequence">
-  <div class="wrapper flex">
+
+<!-- Sequence Section -->
+<section class="sequence odd">
+  <div class="wrapper">
+  <h1>Rename in Sequence</h1>
+  <h2>Sequentially rename layers in either ascending or descending order.</h2>
+  <div class="collumnWrapper">
     <div class="leftCol">
-      <h1>Rename in Sequence</h1>
-      <h2>Sequencelly rename layers in either ascending
-      or descending order.</h2>
       <h3>Keywords</h3>
       <ul class="keywordsList">
-        <li><span class="keyword">%n</span> Asceding numbered sequence</li>
+        <li><span class="keyword">%n</span> Ascending numbered sequence</li>
         <li><span class="keyword">%N</span> Descending numbered sequence</li>
-        <li><span class="keyword">%A</span> Alphabet  sequence</li>
+        <li><span class="keyword">%A</span> Alphabet sequence</li>
       </ul>
       <h3>Pro Tip</h3>
       <ul class="keywordsList">
@@ -54,22 +57,180 @@
       <img src="static/img/sequence.png" alt="Rename Sequence" width="506" class="illustration" />
     </div>
   </div>
+  </div>
 </section>
 
+<!-- Current Layer Section -->
 <section class="currentLayer">
-  <div class="wrapper flex">
-    <div class="leftCol">
-      <h1>Current Layer Name</h1>
-      <h2>The keyword <span class="keyword">*</span> will copy the current selected layer(s) name.</h2>
-      <div class="layerImgWrapper">
-        <img src="static/img/currentLayers.png" alt="Layers" width="368" class="layersNormal" />
-        <img src="static/img/currentLayersProcessed.png" alt="Layers" width="368" class="layersProcessed" />
-      </div>
+  <div class="wrapper">
+    <h1>Current Layer Name</h1>
+    <h2>The keyword <span class="keyword">*</span> will copy the current selected layer(s) name.</h2>
+    <div class="collumnWrapper">
+      <div class="leftCol">
+        <div class="layerImgWrapper">
+          <img src="static/img/currentLayers.png" alt="Layers" width="368" class="cl_normal" />
+          <img src="static/img/currentLayersProcessed.png" alt="Layers" width="368" class="cl_done hide" />
+        </div>
 
+        <h3>Pro Tip</h3>
+        <ul class="keywordsList">
+          <li>If you need to use "*" as text, you can escape it like so <span class="keyword">\*</span></li>
+        </ul>
+
+      </div>
+      <div class="rightCol">
+        <div class="viewWrapper">
+          <img src="static/img/current.png" alt="Current Layer Name" width="506" class="illustration" />
+          <div class="textFieldWrapper">
+            <span class="textField" id="clTextField" data-write="User*"></span>
+          </div>
+          <span class="preview">Preview: <span id="clPreview" data-write="UserAvatar, UserName"></span></span>
+        </div>
+      </div>
     </div>
-    <div class="rightCol">
-      <img src="static/img/current.png" alt="Current Layer Name" width="506" class="illustration" />
+  </div>
+</section>
+
+<!-- Width and Height Section -->
+<section class="width_height odd">
+  <div class="wrapper">
+    <h1>Width and Height</h1>
+    <h2>Rename layer with the width <span class="keyword">%W</span> and height <span class="keyword">%H</span> of a layer.</h2>
+
+    <div class="collumnWrapper">
+      <div class="leftCol">
+        <div class="layerImgWrapper">
+          <img src="static/img/icons_normal.png" alt="Icons" width="400" class="wh_normal" />
+          <img src="static/img/icons_processed.png" alt="Icons" width="400" class="wh_done hide" />
+        </div>
+
+      </div>
+      <div class="rightCol">
+        <div class="viewWrapper">
+          <img src="static/img/width_height.png" alt="Width and Height" width="506" class="illustration" />
+          <div class="textFieldWrapper">
+            <span class="textField" id="widthTxtFld" data-write="Icon %Wx%H"></span>
+          </div>
+          <span class="preview">Preview: <span id="whPreview" data-write="Icon 16x16, Icon 32x32, Icon 48x48, Icon 64x64"></span></span>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- Helpers Section -->
+<section class="helpers">
+  <div class="wrapper">
+    <h1>Helpers</h1>
+    <h2>The keywords buttons are helpers so you don’t have to remember all the keywords.</h2>
+    <ul class="keywordsBtns">
+      <li class="currLayerBtn" data-tooltip="Shortcut: *">Current Layer Name</li>
+      <li class="layerWidthBtn" data-tooltip="Shortcut: %w">Layer Width</li>
+      <li class="layerHeightBtn" data-tooltip="Shortcut: %h">Layer Height</li>
+      <li class="numAscBtn" data-tooltip="Shortcut: %n">Num. Sequence ASC</li>
+      <li class="numDescBtn" data-tooltip="Shortcut: %N">Num. Sequence DESC</li>
+      <li class="alphaBtn" data-tooltip="Shortcut: %A">Alphabet Sequence</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Find and Replace -->
+<section class="findReplace odd">
+  <div class="wrapper">
+    <h1>Find &amp; Replace</h1>
+    <h2>Replace any word(s) or character(s) from selected layers.</h2>
+    <img src="static/img/find_replace.png" alt="Find and Replace" width="506" class="illustration findReplaceImg" />
+  </div>
+</section>
+
+<!-- Rename Artboards -->
+<section class="renameArtboards">
+  <div class="wrapper">
+    <h1>Rename Artboards</h1>
+    <h2>Rename selected artboards works the same way as rename selected layers. You don't need to select the artboard, it will automatically find the artboard of the selected layer(s).</h2>
+    <img src="static/img/renameArtboards.png" alt="Rename Artboards" width="506" class="illustration" />
+  </div>
+</section>
+
+<!-- Keyboard Shorcuts -->
+<section class="keyboardShorcuts odd">
+  <div class="wrapper">
+    <h1>Keyboard Shorcuts</h1>
+
+    <ul>
+      <li>
+        <div>
+          <h3>Rename Selected Layers</h3>
+          <img src="static/img/renameLayersShortcut.png" alt="Rename Selected Layers Shorcut" class="illustration layersImg" />
+        </div>
+        <div>
+          <h3>Find &amp; Replace</h3>
+          <img src="static/img/findReplaceShortcut.png" alt="Find &amp; Replace Shortcut" class="illustration findImg" />
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Rename Selected Artboards</h3>
+          <img src="static/img/renameArtboardShortcut.png" alt="Rename Selected Artboards Shorcut" class="illustration artboardImg" />
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Menu Bar</h3>
+          <img src="static/img/menuBar.png" alt="Menu Bar" class="illustration menuImg" />
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- How to Install Section -->
+<section id="howInstall" class="odd">
+  <div class="wrapper">
+    <h1>How to Install</h1>
+    <h2>Choose one of the options bellow:</h2>
+    <ul class="downloadList">
+      <li>
+        <h3>Sketchpacks</h3>
+        <a class="button hasIcon" id="sketchpacksBtn" href="https://sketchpacks.com/rodi01/renameit/install">Sketchpacks</a>
+      </li>
+      <li>
+        <h3>Sketch Runner</h3>
+        <img class="sketchRunner" src="static/img/sketch_runner_hq.gif" />
+      </li>
+      <li>
+        <h3>Direct Download</h3>
+        <!-- Place this tag where you want the button to render. -->
+        <a class="button hasIcon" id="directDownload" href="https://github.com/rodi01/RenameIt/archive/master.zip" aria-label="Download rodi01/RenameIt on GitHub">Download</a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- Open Source Section -->
+<section class="openSource">
+  <div class="wrapper">
+        <h1>Open Source</h1>
+        <h2>Fork and contribute</h2>
+        <a class="button hasIcon" id="forkIt" href="https://github.com/rodi01/RenameIt/fork" aria-label="Fork rodi01/RenameIt on GitHub">Fork<em>0</em></a>
+        <a class="button hasIcon" id="starIt" href="https://github.com/rodi01/RenameIt" aria-label="Star rodi01/RenameIt on GitHub">Star<em>0</em></a>
+        <p>Found a bug? Create an <a href="https://github.com/rodi01/RenameIt/issues">Issue on Github</a> or send me a message on <a href="https://twitter.com/rodi01">Twitter</a>.</p>
+  </div>
+</section>
+
+<!-- Share and Donate Section -->
+<section class="shareDonate">
+  <div class="wrapper">
+      <div class="collumnWrapper">
+        <div class="leftCol">
+          <h1>Share</h1>
+          <h2>Help spread the love</h2>
+          <a class="button hasIcon" id="facebookBtn" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Frodi01.github.io%2FRenameIt%2F&amp;src=sdkpreparse">Facebook</a>
+          <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Frodi01.github.io%2FRenameIt%2F&via=rodi01&text=Rename%20it%21%20Keep%20your%20Sketch%20files%20organized%2C%20batch%20rename%20layers%20and%20artboards." class="button hasIcon" id="twitterBtn">Twitter</a>
+        </div>
+      </div>
+      <p>Rename It is maintained by Rodrigo Soares, follow me <a href="https://twitter.com/rodi01" class="followMe">@rodi01</a></p>
+      <small>MIT License © Rodrigo Soares.</small>
   </div>
 </section>
 
@@ -79,20 +240,14 @@
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
-  (function(b, o, i, l, e, r) {
-    b.GoogleAnalyticsObject = l;
-    b[l] || (b[l] =
-      function() {
-        (b[l].q = b[l].q || []).push(arguments)
-      });
-    b[l].l = +new Date;
-    e = o.createElement(i);
-    r = o.getElementsByTagName(i)[0];
-    e.src = 'https://www.google-analytics.com/analytics.js';
-    r.parentNode.insertBefore(e, r)
-  }(window, document, 'script', 'ga'));
-  ga('create', 'UA-XXXXX-X', 'auto');
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-104184459-1', 'auto');
   ga('send', 'pageview');
+
 </script>
 
 </html>
