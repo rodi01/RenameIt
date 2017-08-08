@@ -197,7 +197,7 @@ RI.extend({
     var titlebarView = contentView.superview().titlebarViewController().view(),
       titlebarContainerView = titlebarView.superview();
 
-    var smallTitle = [[NSTextField alloc] initWithFrame:NSMakeRect((options.width-200)/2, 1, 200, 20)]
+    var smallTitle = [[NSTextField alloc] initWithFrame:NSMakeRect((options.width-200)/2, 1, 200, 23)]
     smallTitle.setEditable(false)
     smallTitle.setAlignment(NSCenterTextAlignment);
     smallTitle.setBordered(false)

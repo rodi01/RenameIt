@@ -139,9 +139,12 @@ h3 {
   }
 }
 
+h1+h2 { width: 80%; margin: 0 auto; }
+
 header {
   padding: 0;
   height: 85vh;
+  min-height: 450px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -159,7 +162,7 @@ header {
   h2 {
     font-size: 28px;
     opacity: 0.7;
-    margin: 16px 0 24px;
+    width: 100%;
   }
 
   small {
@@ -170,6 +173,7 @@ header {
 
 #installBtn {
   width: 270px;
+  margin-top: 32px;
   background: $blue-color;
   color: #fff;
   background-image: linear-gradient(-1deg, #5FBEEE 34%, #4FCFBC 100%);
@@ -226,7 +230,6 @@ ul .keyword {
     text-align: center;
   }
 }
-
 section {
   h1 {
     font-size: 40px;
@@ -264,8 +267,11 @@ section {
 
   img.illustration {
     margin-top: 32px;
-    width: 100%;
-    max-width: 506px;
+    @media only screen and (max-width: $breakpoint-1) {
+      width: 100%;
+      max-width: 506px;
+    }
+
   }
 }
 
@@ -305,7 +311,7 @@ section {
   }
 }
 
-.width_height {
+.width_height .layerImgWrapper {
   img { max-width: 400px; }
  }
 
@@ -628,6 +634,42 @@ a.hasIcon::before {
   background-image: linear-gradient(0deg, #1C98E6 0%, #1DA1F2 100%);
   @include buttonIcon("../img/twitter_icon.svg");
 }
+
+.findReplace, .renameArtboards { text-align: center; }
+
+.keyboardShorcuts {
+  text-align: center;
+  h3 { color: $blue-color; }
+  img {
+    margin-top: 16px !important;
+  }
+  img.layersImg { max-width: 300px; }
+  img.findImg { max-width: 402px; }
+  img.artboardImg { max-width: 449px; }
+  img.menuImg { max-width: 600px; }
+
+  ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    div {
+      margin: 0 24px;
+
+      @media only screen and (max-width: $breakpoint-1) {
+        margin: 0;
+      }
+
+    }
+
+    @media only screen and (max-width: $breakpoint-1) {
+      display: block;
+
+    }
+
+  }
+
+}
+
 
 /* ==========================================================================
    Helper classes
