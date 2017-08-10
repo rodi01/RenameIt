@@ -3,7 +3,7 @@
   "description": "Sketch plugin to rename layers like a boss.",
   "author": "Rodrigo Soares",
   "homepage": "https://github.com/rodi01/RenameIt",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "identifier": "com.taptap.ninja.rename-it",
   "compatibleVersion": "4.0",
   "appcast": "https://raw.githubusercontent.com/rodi01/RenameIt/master/appcast.xml",

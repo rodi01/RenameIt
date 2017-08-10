@@ -120,7 +120,8 @@ RI.extend({
 });
 
 RI.extend({
-  renameArtboard: function() {
-    
+  isArtboard: function(el) {
+    var className = el.class();
+    return (className == "MSSymbolMaster") || (className == "MSArtboardGroup");
   }
 });

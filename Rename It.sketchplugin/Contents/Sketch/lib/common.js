@@ -34,7 +34,7 @@ RI.extend({
       if (command == "renameArtboard") {
         var aBoards = [NSMutableArray new]
         context.selection.some(function (el) {
-          while (el && (el.class() != "MSArtboardGroup")) {
+          while (el && !RI.isArtboard(el)) {
             el = el.parentGroup();
  		       }
            if(el)
@@ -50,7 +50,7 @@ RI.extend({
     }
     } else {
       // No layer selected
-      this.doc.showMessage("Rename it: You need to select at least one layer");
+      this.doc.showMessage("Rename it: You need to select at least one layer or artboard");
     }
   }
 });
