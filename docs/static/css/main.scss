@@ -624,6 +624,8 @@ a.hasIcon::before {
   }
   p { margin-top: 32px; }
   a.followMe:link, a.followMe:visited { color: $light-grey-color; border-bottom: dotted 1px $light-grey-color; }
+
+  a + h1 { margin-top: 64px; }
 }
 
 #facebookBtn {
@@ -633,6 +635,11 @@ a.hasIcon::before {
 #twitterBtn {
   background-image: linear-gradient(0deg, #1C98E6 0%, #1DA1F2 100%);
   @include buttonIcon("../img/twitter_icon.svg");
+}
+
+#donateBtn {
+  background-image: linear-gradient(0deg, #9263CB -15%, #6EA6C6 100%);
+  @include buttonIcon("../img/heart_icon.svg");
 }
 
 .findReplace, .renameArtboards { text-align: center; }

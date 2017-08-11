@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="21px" viewBox="0 0 24 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>heart_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Button/Icon/Twitter" transform="translate(-8.000000, -21.000000)" fill-rule="nonzero" fill="#FFFFFF">
+            <g id="heart_icon" transform="translate(8.000000, 21.000000)">
+                <path d="M22.023,1.977 C19.3875,-0.6585 15.1125,-0.6585 12.477,1.977 C12.2955,2.1585 12.156,2.3655 12,2.5605 C11.844,2.3655 11.7045,2.1585 11.523,1.977 C8.8875,-0.6585 4.6125,-0.6585 1.977,1.977 C-0.6585,4.6125 -0.6585,8.8875 1.977,11.523 L12,21 L22.023,11.523 C24.6585,8.8875 24.6585,4.6125 22.023,1.977 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
