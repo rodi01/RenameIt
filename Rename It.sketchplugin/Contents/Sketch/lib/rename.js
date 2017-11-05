@@ -16,7 +16,7 @@ var RI = {
 
 // Rename
 RI.extend({
-  rename: function(layerName, currIdx, width, height, selectionCount, inputName, startsFrom) {
+  rename: function(layerName, currIdx, width, height, selectionCount, inputName, startsFrom, pageName) {
     var newLayerName = inputName;
     // Interator
     var nInterators = newLayerName.match(/%N+/ig),
@@ -89,11 +89,14 @@ RI.extend({
     newLayerName = newLayerName.replace(/\\\*/g, "*");
 
     // Add Width and/or height
-      newLayerName = newLayerName.replace(/%w/ig, width);
-      newLayerName = newLayerName.replace(/%h/ig, height);
+    newLayerName = newLayerName.replace(/%w/ig, width);
+    newLayerName = newLayerName.replace(/%h/ig, height);
 
-      // Return new name
-      return newLayerName;
+    // Page Name
+    newLayerName = newLayerName.replace(/%p/ig, pageName);
+
+    // Return new name
+    return newLayerName;
   },
   paddy: function(n, p, c) {
       var pad_char = typeof c !== 'undefined' ? c : '0';

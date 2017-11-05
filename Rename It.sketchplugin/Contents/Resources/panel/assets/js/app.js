@@ -3,11 +3,10 @@ $(document).ready(function() {
       sequenceInput = $("#sequence"),
       keywordsBtns = $(".keywordBtn"),
       clearBtn = $("#clearBtn"),
-      debugEl = $("#debug"),
       debug = false;
 
   // Debug
-  debugEl.attr('visibility', (debug) ? "visible" : "hidden");
+  $("#debug").css('display', (debug) ? "block" : "none");
 
   clearBtn.click(function(event) {
     nameInput.val("");
@@ -69,7 +68,7 @@ function rename() {
   var renamed = [];
   for (var i = 0; i < selectiondata.selectionCount; i++) {
       var currentData = selectiondata.selection[i];
-       renamed[i] = RI.rename(currentData.name, i, currentData.width, currentData.height, selectiondata.selectionCount, $('#name').val(), parseInt($('#sequence').val()));
+      renamed[i] = RI.rename(currentData.name, i, currentData.width, currentData.height, selectiondata.selectionCount, $('#name').val(), parseInt($('#sequence').val()), selectiondata.pageName);
   }
   $('#preview').html("Preview: <strong>" + renamed.join(", ") + "</strong>");
 }
