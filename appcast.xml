@@ -83,5 +83,17 @@
           <pubDate>Mon, 07 Aug 2017 23:43:06 -0800</pubDate>
           <enclosure url="https://github.com/rodi01/RenameIt/archive/3.0.1.zip?raw=true" sparkle:version="3.0.1" type="application/octet-stream"/>
         </item>
+        <item>
+          <title>Version 3.0.2</title>
+          <description>
+            <![CDATA[
+                <ul>
+                    <li>Added Page Name as rename option</li>
+                </ul>
+            ]]>
+          </description>
+          <pubDate>Mon, 06 Nov 2017 10:59:14 -0800</pubDate>
+          <enclosure url="https://github.com/rodi01/RenameIt/archive/3.0.2.zip?raw=true" sparkle:version="3.0.2" type="application/octet-stream"/>
+        </item>
     </channel>
 </rss>

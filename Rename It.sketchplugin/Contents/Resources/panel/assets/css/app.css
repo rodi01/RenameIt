@@ -70,7 +70,7 @@ button.grey:active { background: rgba(106,116,128,0.8); }
 
 #preview { margin-top: 8px; font-style: italic; font-size: 12px; color: #5FBEEE; text-overflow: ellipsis; white-space:nowrap; overflow: hidden;}
 #preview strong { font-weight: bold; }
-#debug { position: absolute; background-color: rgba(255, 255, 255, 0.5); bottom: -1px; width: 200px; padding: 16px; border: 1px solid #42B4E3; font-size: 11px; left: 50%; margin-left: -100px; visibility: hidden;}
+#debug { position: absolute; background-color: red; color: #fff; bottom: 0; width: 400px; padding: 8px; font-size: 11px; z-index: 100; display: none;}
 
 .findReplace .inputWrapper { display: block; }
 .findReplace .inputClearWrapper { display: block; }

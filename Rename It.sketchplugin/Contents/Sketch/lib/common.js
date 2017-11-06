@@ -21,6 +21,11 @@ RI.extend({
       return false;
     }
     this.window = this.document.window();
+
+    // Page Name
+    this.data.pageName = "" + this.doc.currentPage().name();
+
+
     if (this.data.selectionCount > 0)
     {
       if (command == "renameIt") {
@@ -224,7 +229,7 @@ RI.extend({
       callback: function(data) {
         for (var i = 0; i < self.data.selectionCount; i++) {
           var currentData = self.data.selection[i];
-          currentData.layer.name = RI.rename(currentData.name, i, currentData.width, currentData.height, self.data.selectionCount, data.name, parseInt(data.sequence));
+          currentData.layer.name = RI.rename(currentData.name, i, currentData.width, currentData.height, self.data.selectionCount, data.name, parseInt(data.sequence), self.data.pageName);
         }
         var totalSelectedStr = (self.data.selectionCount>1) ? (self.data.selectionCount + " Layers") : (self.data.selectionCount + " Layer");
         var doc = self.doc
