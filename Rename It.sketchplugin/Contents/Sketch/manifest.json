@@ -3,7 +3,7 @@
   "description": "Keep your Sketch files organized, batch rename layers and artboards.",
   "author": "Rodrigo Soares",
   "homepage": "https://github.com/rodi01/RenameIt",
-  "version": "3.1",
+  "version": "3.0.2",
   "identifier": "com.taptap.ninja.rename-it",
   "compatibleVersion": "4.0",
   "appcast": "https://raw.githubusercontent.com/rodi01/RenameIt/master/appcast.xml",
