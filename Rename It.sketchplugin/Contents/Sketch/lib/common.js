@@ -69,6 +69,8 @@ RI.extend({
     for (var i=0; i < this.data.selectionCount; i++) {
       var layer = selection[i],
           name  = [layer name],
+          parentArtboard = [layer parentArtboard],
+          parentName = [parentArtboard name],
           frame = [layer frame],
           width = [frame width],
           height = [frame height];
@@ -79,6 +81,7 @@ RI.extend({
       this.data.selection[i].idx = i
       this.data.selection[i].width = width
       this.data.selection[i].height = height
+      this.data.selection[i].parentName = parentName
     }
   }
 });
@@ -229,7 +232,7 @@ RI.extend({
       callback: function(data) {
         for (var i = 0; i < self.data.selectionCount; i++) {
           var currentData = self.data.selection[i];
-          currentData.layer.name = RI.rename(currentData.name, i, currentData.width, currentData.height, self.data.selectionCount, data.name, parseInt(data.sequence), self.data.pageName);
+          currentData.layer.name = RI.rename(currentData.name, i, currentData.width, currentData.height, self.data.selectionCount, data.name, parseInt(data.sequence), self.data.pageName, currentData.parentName);
         }
         var totalSelectedStr = (self.data.selectionCount>1) ? (self.data.selectionCount + " Layers") : (self.data.selectionCount + " Layer");
         var doc = self.doc
