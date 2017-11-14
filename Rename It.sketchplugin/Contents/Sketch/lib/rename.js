@@ -91,6 +91,9 @@ RI.extend({
     // Add Width and/or height
     newLayerName = newLayerName.replace(/%w/ig, width);
     newLayerName = newLayerName.replace(/%h/ig, height);
+    
+    // Add Layer Parent Name
+    newLayerName = newLayerName.replace(/%o/ig, parentName);
 
     // Page Name
     newLayerName = newLayerName.replace(/%p/ig, pageName);
