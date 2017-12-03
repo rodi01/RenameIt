@@ -1,0 +1,42 @@
+{
+  "name": "Rename-It",
+  "description": "Keep your Sketch files organized, batch rename layers and artboards.",
+  "author": "Rodrigo Soares",
+  "identifier": "com.taptap.ninja.rename-it",
+  "version": "3.2.0",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/rodi01/RenameIt"
+  },
+  "engines": {
+    "sketch": ">=4.0"
+  },
+  "skpm": {
+    "name": "Rename-It",
+    "manifest": "src/manifest.json",
+    "main": "Rename It.sketchplugin"
+  },
+  "scripts": {
+    "build": "skpm-build",
+    "watch": "skpm-build --watch",
+    "start": "skpm-build --watch --run",
+    "postinstall": "npm run build && skpm-link"
+  },
+  "devDependencies": {
+    "@skpm/builder": "^0.1.3",
+    "@skpm/extract-loader": "^1.0.1",
+    "babel-plugin-react-html-attrs": "^2.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "css-loader": "^0.28.7",
+    "html-loader": "^0.5.1"
+  },
+  "resources": [
+    "resources/**/*.js"
+  ],
+  "dependencies": {
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-router-dom": "^4.2.2",
+    "sketch-module-web-view": "^0.2.0"
+  }
+}
