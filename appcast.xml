@@ -3,7 +3,7 @@
 @Date:   2017-11-06T11:04:20-08:00
 @Project: Rename It
 @Last modified by:   rodrigo
-@Last modified time: 2017-12-02T21:49:44-08:00
+@Last modified time: 2017-12-02T21:59:09-08:00
 -->
 
 
@@ -106,6 +106,15 @@
           <enclosure url="https://github.com/rodi01/RenameIt/archive/3.0.2.zip?raw=true" sparkle:version="3.0.2" type="application/octet-stream"/>
         </item>
         <item>
+          <title>Version 3.3.0</title>
+          <description>
+            <![CDATA[
+                <ul>
+                    <li>Updated to skpm</li>
+                </ul>
+            ]]>
+          </description>
+          <pubDate>Sat, 02 Dec 2017 21:58:49 -0800</pubDate>
           <enclosure url="https://github.com/rodi01/RenameIt/releases/download/v3.3.0/Rename It.sketchplugin.zip" sparkle:version="3.3.0"/>
         </item>
     </channel>
