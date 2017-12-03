@@ -8,6 +8,7 @@
 import rename  from "./Rename"
 import findReplace from "./FindReplace"
 import WebUI from 'sketch-module-web-view'
+import { exclamations } from './Constants';
 
 export default function theUI(context, data, options) {
   const webUI = new WebUI(context, require(`../../resources/webview.html`), {
@@ -46,10 +47,11 @@ export default function theUI(context, data, options) {
             startsFrom: Number(d.startsFrom),
             pageName: data.pageName
           };
-          layer = context.selection[opts.currIdx];
-          layer.name = rename(opts);
+          const layer = data.selection[opts.currIdx].layer
+          layer.name = rename(opts)
         })
         webUI.close()
+        showUpdatedMessage(data)
       },
       onClickFindReplace: (o) => {
         const d = JSON.parse(o);
@@ -61,10 +63,11 @@ export default function theUI(context, data, options) {
             replaceWith: d.replaceText,
             caseSensitive: Boolean(d.caseSensitive)
           }
-          layer = context.selection[opts.currIdx];
-          layer.name = findReplace(opts);
+          const layer = data.selection[opts.currIdx].layer
+          layer.name = findReplace(opts)
         });
         webUI.close()
+        showUpdatedMessage(data)
       }
     }
   })
@@ -81,4 +84,9 @@ function hexToNSColor(hex) {
 	    b = parseInt(hex.substring(4, 6), 16) / 255,
 	    a = 1;
 	return NSColor.colorWithRed_green_blue_alpha(r, g, b, a);
+}
+
+function showUpdatedMessage(data) {
+  const layerStr = (data.selectionCount > 1 || data.selectionCount == 0) ? "Layers" : "Layer"
+  data.doc.showMessage(`${exclamations[Math.floor(Math.random()*exclamations.length)]} ${data.selectionCount} ${layerStr} renamed.`);
 }
