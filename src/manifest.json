@@ -7,7 +7,7 @@
       "identifier": "renameit.rename",
       "shortcut": "ctrl cmd r",
       "description": "Rename Selected layer(s) or artboard(s) all at once.",
-      "icon": "icons/renameit_ic.png",
+      "icon": "renameit_ic.png",
       "script": "./commandRenameLayer.js"
     },
     {
@@ -16,7 +16,7 @@
       "script": "commandFindReplace.js",
       "shortcut": "ctrl option cmd r",
       "description": "Find and replace text on selected layer(s) or artboard(s) names.",
-      "icon": "icons/find_replace_ic.png"
+      "icon": "find_replace_ic.png"
     },
     {
       "name" : "Rename Selected Artboard",
@@ -24,7 +24,7 @@
       "script": "commandRenameArtboard.js",
       "shortcut": "shift ctrl option r",
       "description" : "Rename Selected artboard(s) at the root of the currently selected item",
-      "icon" : "icons/renameit_ic.png"
+      "icon" : "renameit_ic.png"
     }
   ],
   "menu": {
