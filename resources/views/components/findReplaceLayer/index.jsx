@@ -2,11 +2,12 @@
  * @Author: Rodrigo Soares <rodrigo>
  * @Date:   2017-11-27T17:02:27-08:00
  * @Project: Rename It
- * @Last modified time: 2017-12-02T18:14:06-08:00
+ * @Last modified time: 2017-12-02T21:18:07-08:00
  */
 import React from 'react'
 import Input from '../Input'
 import findReplace from '../../../../src/lib/FindReplace'
+import pluginCall from 'sketch-module-web-view/client'
 import Preview from '../Preview'
 
 class FindReplaceLayer extends React.Component {
@@ -89,8 +90,8 @@ class FindReplaceLayer extends React.Component {
 
   onSubmit() {
     const d = {
-      find: this.state.findValue,
-      replace: this.state.replaceValue,
+      findText: this.state.findValue,
+      replaceText: this.state.replaceValue,
       caseSensitive: this.state.caseSensitive
     }
 

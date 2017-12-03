@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares <rodrigo>
  * @Date:   2017-11-17T20:46:17-08:00
  * @Project: Rename It
- * @Last modified time: 2017-12-02T19:19:05-08:00
+ * @Last modified time: 2017-12-02T21:22:22-08:00
  */
 
 import rename  from "./Rename"
@@ -56,6 +56,7 @@ export default function theUI(context, data, options) {
         data.selection.forEach((item) => {
           const opts = {
             layerName: item.name,
+            currIdx: item.idx,
             findText: d.findText,
             replaceWith: d.replaceText,
             caseSensitive: Boolean(d.caseSensitive)
@@ -63,6 +64,7 @@ export default function theUI(context, data, options) {
           layer = context.selection[opts.currIdx];
           layer.name = findReplace(opts);
         });
+        webUI.close()
       }
     }
   })

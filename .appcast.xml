@@ -1,6 +1,105 @@
+<!--
+@Author: Rodrigo Soares <rodrigo>
+@Date:   2017-12-02T20:46:11-08:00
+@Project: Rename It
+@Last modified by:   rodrigo
+@Last modified time: 2017-12-02T21:00:45-08:00
+-->
+
+
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
+    <item>
+        <title>Version 2.0.6</title>
+        <description>
+            <![CDATA[
+                <ul>
+                    <li>Support for new plugin update engine</li>
+                </ul>
+            ]]>
+        </description>
+        <pubDate>Fri, 02 Jun 2017 07:55:40 -0800</pubDate>
+        <enclosure url="https://github.com/rodi01/RenameIt/blob/master/RenameIt.zip?raw=true" sparkle:version="2.0.6" type="application/octet-stream" />
+    </item>
+    <item>
+        <title>Version 2.0.7</title>
+        <description>
+            <![CDATA[
+                <ul>
+                    <li>Add ability to rename root artboard of selected layer. Thanks @JBLatenight</li>
+                </ul>
+            ]]>
+        </description>
+        <pubDate>Wed, 12 Jul 2017 13:36:51 -0800</pubDate>
+        <enclosure url="https://github.com/rodi01/RenameIt/archive/2.0.7.zip?raw=true" sparkle:version="2.0.7" type="application/octet-stream" />
+    </item>
+    <item>
+        <title>Version 2.0.7.1</title>
+        <description>
+            <![CDATA[
+                <ul>
+                    <li>Add ability to rename root artboard of selected layer. Thanks @JBLatenight</li>
+                </ul>
+            ]]>
+        </description>
+        <pubDate>Wed, 12 Jul 2017 13:36:51 -0800</pubDate>
+        <enclosure url="https://github.com/rodi01/RenameIt/archive/2.0.7.zip?raw=true" sparkle:version="2.0.7" type="application/octet-stream" />
+    </item>
+    <item>
+        <title>Version 2.0.8</title>
+        <description>
+            <![CDATA[
+                <ul>
+                    <li>Quick fix the shorcut that was overwritting the Sketch default one. </li>
+                </ul>
+            ]]>
+        </description>
+        <pubDate>Mon, 17 Jul 2017 07:11:53 -0800</pubDate>
+        <enclosure url="https://github.com/rodi01/RenameIt/archive/2.0.8.zip?raw=true" sparkle:version="2.0.8" type="application/octet-stream" />
+    </item>
+    <item>
+      <title>Version 3.0</title>
+      <description>
+        <![CDATA[
+            <ul>
+                <li>New user interface</li>
+                <li>Easier way to add keywords</li>
+                <li>Case sensitive toggle when finding and replacing layers names</li>
+                <li>A lot more to come</li>
+            </ul>
+        ]]>
+      </description>
+      <pubDate>Mon, 07 Aug 2017 23:43:06 -0800</pubDate>
+      <enclosure url="https://github.com/rodi01/RenameIt/archive/3.0.zip?raw=true" sparkle:version="3.0" type="application/octet-stream"/>
+    </item>
+    <item>
+      <title>Version 3.0.1</title>
+      <description>
+        <![CDATA[
+            <ul>
+                <li>New user interface</li>
+                <li>Easier way to add keywords</li>
+                <li>Case sensitive toggle when finding and replacing layers names</li>
+                <li>A lot more to come</li>
+            </ul>
+        ]]>
+      </description>
+      <pubDate>Mon, 07 Aug 2017 23:43:06 -0800</pubDate>
+      <enclosure url="https://github.com/rodi01/RenameIt/archive/3.0.1.zip?raw=true" sparkle:version="3.0.1" type="application/octet-stream"/>
+    </item>
+    <item>
+      <title>Version 3.0.2</title>
+      <description>
+        <![CDATA[
+            <ul>
+                <li>Added Page Name as rename option</li>
+            </ul>
+        ]]>
+      </description>
+      <pubDate>Mon, 06 Nov 2017 10:59:14 -0800</pubDate>
+      <enclosure url="https://github.com/rodi01/RenameIt/archive/3.0.2.zip?raw=true" sparkle:version="3.0.2" type="application/octet-stream"/>
+    </item>
     <item>
       <enclosure url="https://github.com/rodi01/RenameIt/releases/download/v3.2.1-0/Rename It.sketchplugin.zip" sparkle:version="3.2.1-0"/>
     </item>
