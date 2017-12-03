@@ -1,15 +1,5 @@
-<!--
-@Author: Rodrigo Soares <rodrigo>
-@Date:   2017-11-06T11:04:20-08:00
-@Project: Rename It
-@Last modified by:   rodrigo
-@Last modified time: 2017-12-02T21:59:09-08:00
--->
-
-
-
-<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
     <channel>
         <title>Rename It</title>
         <link>https://raw.githubusercontent.com/rodi01/RenameIt/master/appcast.xml</link>
