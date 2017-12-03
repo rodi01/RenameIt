@@ -28,3 +28,5 @@ export const mockData = {
   ],
     windowTitle: "Rename Selected Layers"
 };
+
+export const exclamations = ["Boo-yah!", "Olé!", "Hooray!", "Great Success!", "Abracadabra!", "Geronimo!"]

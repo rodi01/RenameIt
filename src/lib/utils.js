@@ -10,16 +10,30 @@
  * @param  {Object} context Sketch context
  * @return {Object}         Parsed Data
  */
-export function parseData(context) {
-  const selection = context.selection;
+export function parseData(context, onlyArtboards = false) {
+  let selection = context.selection;
+
+  if (onlyArtboards) {
+    let aBoards = []
+    selection.forEach((el) => {
+      while (el && !isArtboard(el)) {
+        el = el.parentGroup();
+ 		  }
+      if(el)
+        aBoards.push(el)
+    })
+    selection = Array.from(new Set(aBoards))
+  }
+
   let data = {
     doc: context.document,
     pageName: `${context.document.currentPage().name()}`,
-    selectionCount: selection.count(),
+    selectionCount: (Array.isArray(selection)) ? selection.length : selection.count(),
     selection: []
   }
   selection.forEach((layer, i) => {
     data.selection[i] = {
+      layer: layer,
       name: `${layer.name()}`,
       frame: layer.frame(),
       idx: i,
@@ -27,6 +41,7 @@ export function parseData(context) {
       height: layer.frame().height()
     }
   });
+
   return data;
 }
 
@@ -35,15 +50,6 @@ export function parseData(context) {
  * @param  {Object}  layer The layers
  * @return {Boolean}
  */
-export function isArtboard(layer) {
+function isArtboard(layer) {
   return layer instanceof MSArtboardGroup || layer instanceof MSSymbolMaster;
-}
-
-/**
- * Check if selextion exists
- * @param  {Object}  context The sketch Object
- * @return {Boolean}
- */
-export function hasSelection(context) {
-  return context.selection.count() > 0;
 }

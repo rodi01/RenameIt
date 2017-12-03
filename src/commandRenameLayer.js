@@ -4,17 +4,18 @@
  * @Project: Rename It
  * @Last modified time: 2017-12-02T15:12:54-08:00
  */
-import {hasSelection, parseData} from './lib/utils'
+import { parseData } from './lib/utils'
 import theUI from './lib/TheUI'
 
 export default function(context) {
+  const data = parseData(context)
+
   // Return if there is no selection and show message
-  if (!hasSelection(context)) {
+  if (data.selectionCount <= 0) {
     context.document.showMessage("Rename it: You need to select at least one layer or artboard");
     return;
   }
 
-  const data = parseData(context)
   const options = {
     identifier: "renameLayers.ui",
     title: "Rename Selected Layers",
