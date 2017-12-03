@@ -38,21 +38,17 @@ class RenameLayer extends React.Component {
   }
 
   onChange(event) {
-    this.setState({valueAttr: event.target.value})
+    this.setState({valueAttr: event.target.value}, () => this.previewUpdate())
     if (this.state.valueAttr.length > 0) {
       this.setState({showClear: 'show'});
     }
-  }
-
-  onKeyUp() {
-    this.previewUpdate()
   }
 
   onChangeSequence(event) {
     this.setState({
       sequence: event.target.value,
       inputFocus: false
-    });
+    }, () => this.previewUpdate());
   }
 
   clearInput() {
@@ -60,7 +56,7 @@ class RenameLayer extends React.Component {
       valueAttr: '',
       showClear: '',
       inputFocus: true
-    });
+    }, () => this.previewUpdate());
   }
 
   onButtonClicked(event) {
@@ -70,8 +66,8 @@ class RenameLayer extends React.Component {
       valueAttr: val,
       inputFocus: true,
       showClear: 'show'
-    });
-    this.previewUpdate()
+    }, () => this.previewUpdate());
+
   }
 
   onCancel() {
@@ -97,7 +93,8 @@ class RenameLayer extends React.Component {
         selectionCount: data.selectionCount,
         inputName: this.state.valueAttr,
         startsFrom: Number(this.state.sequence),
-        pageName: data.pageName
+        pageName: data.pageName,
+        parentName: item.parentName
       };
       renamed.push(rename(options));
     });
@@ -113,7 +110,6 @@ class RenameLayer extends React.Component {
       autoFocus:true,
       value: this.state.valueAttr,
       onChange: this.onChange.bind(this),
-      onKeyUp: this.onKeyUp.bind(this),
       showClear: this.state.showClear,
       onClear: this.clearInput.bind(this),
       inputFocus: this.state.inputFocus
@@ -125,7 +121,6 @@ class RenameLayer extends React.Component {
       forName:"Start Sequence from:",
       wrapperClass:"inputRight",
       value: this.state.sequence,
-      onKeyUp: this.onKeyUp.bind(this),
       autoFocus:false,
       onChange: this.onChangeSequence.bind(this),
     }
@@ -138,6 +133,7 @@ class RenameLayer extends React.Component {
       { id: "sequenceDesc", char: "%N", text: "Num. Sequence DESC" },
       { id: "sequenceAlpha", char: "%A", text: "Alphabet Sequence" },
       { id: "pageName", char: "%p", text: "Page Name" },
+      { id: "parentName", char: "%o", text: "Parent Name" },
     ];
 
     const listItems = buttons.map((d) => <li key={d.id} className="keywordBtn"><KeywordButton {...d} click={this.onButtonClicked.bind(this)} /></li>);

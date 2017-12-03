@@ -30,7 +30,7 @@ export default class Input extends React.Component {
       <div class={`inputWrapper ${this.props.wrapperClass}`}>
         <label for={this.props.id}>{this.props.forName}</label>
         <span class={clearBtnClass}>
-          <input type={this.props.type} id={this.props.id} value={this.props.value} onChange={this.props.onChange} onKeyUp={this.props.onKeyUp} autoFocus={this.props.autoFocus} ref={(ip) => this.myInp = ip} autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" min="0" />
+          <input type={this.props.type} id={this.props.id} value={this.props.value} onChange={this.props.onChange} autoFocus={this.props.autoFocus} ref={(ip) => this.myInp = ip} autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" min="0" />
           {clearBtn}
         </span>
     </div>

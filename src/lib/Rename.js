@@ -83,6 +83,9 @@
    // Page Name
    newLayerName = newLayerName.replace(/%p/ig, options.pageName);
 
+   // Parent Name
+   newLayerName = newLayerName.replace(/%o/ig, options.parentName);
+
    // Return new name
    return newLayerName;
  }

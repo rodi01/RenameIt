@@ -48,17 +48,13 @@ class FindReplaceLayer extends React.Component {
         replaceValue: !isFind ? event.target.value : this.state.replaceValue,
         findFocus: false,
         replaceFocus: false
-      });
+      }, () => this.previewUpdate());
 
       if (this.state.findValue.length > 0)
           this.setState({findClear: 'show'});
 
       if (this.state.replaceValue.length > 0)
           this.setState({replaceClear: 'show'});
-  }
-
-  onKeyUp() {
-    this.previewUpdate()
   }
 
   clearInput(event) {
@@ -68,20 +64,19 @@ class FindReplaceLayer extends React.Component {
         findClear: '',
         replaceFocus: false,
         findFocus: true
-      });
+      }, () => this.previewUpdate());
     } else {
       this.setState({
         replaceValue: '',
         replaceClear: '',
         findFocus: false,
         replaceFocus: true
-      });
+      }, () => this.previewUpdate());
     }
   }
 
   onCaseSensitiveChange(event) {
-    this.setState({ caseSensitive: event.target.checked })
-    this.previewUpdate()
+    this.setState({ caseSensitive: event.target.checked }, () => this.previewUpdate())
   }
 
   onCancel() {
@@ -121,7 +116,6 @@ class FindReplaceLayer extends React.Component {
       autoFocus:true,
       value: this.state.findValue,
       onChange: this.onChange.bind(this),
-      onKeyUp: this.onKeyUp.bind(this),
       showClear: this.state.findClear,
       onClear: this.clearInput.bind(this),
       inputFocus: this.state.findFocus
@@ -135,7 +129,6 @@ class FindReplaceLayer extends React.Component {
       autoFocus:false,
       value: this.state.replaceValue,
       onChange: this.onChange.bind(this),
-      onKeyUp: this.onKeyUp.bind(this),
       showClear: this.state.replaceClear,
       onClear: this.clearInput.bind(this),
       inputFocus: this.state.replaceFocus
