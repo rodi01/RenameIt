@@ -14,7 +14,7 @@
   "skpm": {
     "name": "Rename-It",
     "manifest": "src/manifest.json",
-    "main": "Rename It.sketchplugin"
+    "main": "Rename-It.sketchplugin"
   },
   "scripts": {
     "build": "skpm-build",
