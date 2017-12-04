@@ -113,5 +113,8 @@
         <item>
           <enclosure url="https://github.com/rodi01/RenameIt/releases/download/v3.4.0/Rename-It.sketchplugin.zip" sparkle:version="3.4.0"/>
         </item>
+        <item>
+          <enclosure url="https://github.com/rodi01/RenameIt/releases/download/v3.4.1/Rename-It.sketchplugin.zip" sparkle:version="3.4.1"/>
+        </item>
     </channel>
 </rss>
