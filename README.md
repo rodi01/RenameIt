@@ -30,12 +30,22 @@ The keyword  **%\*** will copy the current selected layer(s) name.
 
 ![Current Layer Name](/docs/static/img/gifs/current_layer.gif)
 
+### Layer Name Case
+You can use the **%\*** with combination of letters to convert the layer name case.
+
+- **Keyword %\*u%** -  Convert to UPPER CASE
+- **Keyword %\*l%** -  Convert to lower case
+- **Keyword %\*t%** -  Convert to Tile Case
+- **Keyword %\*uf%** -  Convert to Upper first word
+- **Keyword %\*c%** -  Convert to camelCase (This will remove the spaces)
+
+
 ### Add Width and Height
 Rename layer(s) with the width **%W** and height **%H** of a layer.
 
 ![Width and Height](/docs/static/img/gifs/width_height.gif)
 
-###### NOTE: “\*” and “%” can be escaped with a backslash “\\”
+###### NOTE: “%” can be escaped with a backslash “\\”
 
 ## Find & Replace in Selected Layers
 <img src="docs/static/img/findReplaceShortcut.png" width="320">
