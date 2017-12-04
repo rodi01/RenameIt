@@ -137,7 +137,7 @@ class FindReplaceLayer extends React.Component {
     return (
       <div class="container findReplace">
         <span class="caseSensitiveWrapper">
-          <input type="checkbox" id="caseSensitive" checked={this.state.caseSensitive} onChange={this.onCaseSensitiveChange.bind(this)} onKeyUp={this.onKeyUp.bind(this)} />
+          <input type="checkbox" id="caseSensitive" checked={this.state.caseSensitive} onChange={this.onCaseSensitiveChange.bind(this)} />
           <label for="caseSensitive"> case sensitive</label>
         </span>
         <Input {...findInputAttr} />
