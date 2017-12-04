@@ -33,11 +33,11 @@ The keyword  **%\*** will copy the current selected layer(s) name.
 ### Layer Name Case
 You can use the **%\*** with combination of letters to convert the layer name case.
 
-- **Keyword %\*u%** -  Convert to UPPER CASE
-- **Keyword %\*l%** -  Convert to lower case
-- **Keyword %\*t%** -  Convert to Tile Case
-- **Keyword %\*uf%** -  Convert to Upper first word
-- **Keyword %\*c%** -  Convert to camelCase (This will remove the spaces)
+- **Keyword %\*u%** -  Convert to **UPPER CASE**
+- **Keyword %\*l%** -  Convert to **lower case**
+- **Keyword %\*t%** -  Convert to **Tile Case**
+- **Keyword %\*uf%** -  Convert to **Upper first word**
+- **Keyword %\*c%** -  Convert to **camelCase** (This will remove the spaces)
 
 
 ### Add Width and Height
