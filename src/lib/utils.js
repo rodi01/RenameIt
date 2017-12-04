@@ -38,7 +38,8 @@ export function parseData(context, onlyArtboards = false) {
       frame: layer.frame(),
       idx: i,
       width: layer.frame().width(),
-      height: layer.frame().height()
+      height: layer.frame().height(),
+      parentName: `${layer.parentGroup().name()}`
     }
   });
 

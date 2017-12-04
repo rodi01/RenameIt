@@ -45,7 +45,8 @@ export default function theUI(context, data, options) {
             selectionCount: data.selectionCount,
             inputName: d.str,
             startsFrom: Number(d.startsFrom),
-            pageName: data.pageName
+            pageName: data.pageName,
+            parentName: item.parentName
           };
           const layer = data.selection[opts.currIdx].layer
           layer.name = rename(opts)

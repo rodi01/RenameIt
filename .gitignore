@@ -1,9 +1,9 @@
 .tern-project
 
 # build artefacts
-Rename-it.sketchplugin/Contents/Sketch
-Rename-it.sketchplugin/Contents/Resources/_webpack_resources
-Rename-it.sketchplugin/Contents/Resources/*.js
+#Rename-it.sketchplugin/Contents/Sketch
+#Rename-it.sketchplugin/Contents/Resources/_webpack_resources
+#Rename-it.sketchplugin/Contents/Resources/*.js
 
 # npm
 node_modules

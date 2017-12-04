@@ -65,7 +65,7 @@
 <section class="currentLayer">
   <div class="wrapper">
     <h1>Current Layer Name</h1>
-    <h2>The keyword <span class="keyword">*</span> will copy the current selected layer(s) name.</h2>
+    <h2>The keyword <span class="keyword">%*</span> will copy the current selected layer(s) name.</h2>
     <div class="collumnWrapper">
       <div class="leftCol">
         <div class="layerImgWrapper">
@@ -73,17 +73,17 @@
           <img src="static/img/currentLayersProcessed.png" alt="Layers" width="368" class="cl_done hide" />
         </div>
 
-        <h3>Pro Tip</h3>
+        <!-- <h3>Pro Tip</h3>
         <ul class="keywordsList">
           <li>If you need to use "*" as text, you can escape it like so <span class="keyword">\*</span></li>
-        </ul>
+        </ul> -->
 
       </div>
       <div class="rightCol">
         <div class="viewWrapper">
           <img src="static/img/current.png" alt="Current Layer Name" width="506" class="illustration" />
           <div class="textFieldWrapper">
-            <span class="textField" id="clTextField" data-write="User*"></span>
+            <span class="textField" id="clTextField" data-write="User%*"></span>
           </div>
           <span class="preview">Preview: <span id="clPreview" data-write="UserAvatar, UserName"></span></span>
         </div>
@@ -125,7 +125,7 @@
     <h1>Helpers</h1>
     <h2>The keywords buttons are helpers so you don’t have to remember all the keywords.</h2>
     <ul class="keywordsBtns">
-      <li class="currLayerBtn" data-tooltip="Shortcut: *">Current Layer Name</li>
+      <li class="currLayerBtn" data-tooltip="Shortcut: %*">Layer Name</li>
       <li class="layerWidthBtn" data-tooltip="Shortcut: %w">Layer Width</li>
       <li class="layerHeightBtn" data-tooltip="Shortcut: %h">Layer Height</li>
       <li class="numAscBtn" data-tooltip="Shortcut: %n">Num. Sequence ASC</li>
@@ -202,7 +202,7 @@
       <li>
         <h3>Direct Download</h3>
         <!-- Place this tag where you want the button to render. -->
-        <a class="button hasIcon" id="directDownload" href="https://github.com/rodi01/RenameIt/archive/master.zip" aria-label="Download rodi01/RenameIt on GitHub">Download</a>
+        <a class="button hasIcon" id="directDownload" href="https://github.com/rodi01/RenameIt/releases/latest" aria-label="Download rodi01/RenameIt on GitHub">Download</a>
       </li>
     </ul>
   </div>

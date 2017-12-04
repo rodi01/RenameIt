@@ -1,0 +1,44 @@
+{
+  "compatibleVersion": 3,
+  "bundleVersion": 1,
+  "commands": [
+    {
+      "name": "Rename Selected Layers",
+      "identifier": "renameit.rename",
+      "shortcut": "ctrl cmd r",
+      "description": "Rename Selected layer(s) or artboard(s) all at once.",
+      "icon": "renameit_ic.png",
+      "script": "commandRenameLayer.js"
+    },
+    {
+      "name": "Find & Replace Layers Names",
+      "identifier": "renameit.find",
+      "script": "commandFindReplace.js",
+      "shortcut": "ctrl option cmd r",
+      "description": "Find and replace text on selected layer(s) or artboard(s) names.",
+      "icon": "find_replace_ic.png"
+    },
+    {
+      "name": "Rename Selected Artboard",
+      "identifier": "renameit.renameArtboard",
+      "script": "commandRenameArtboard.js",
+      "shortcut": "shift ctrl option r",
+      "description": "Rename Selected artboard(s) at the root of the currently selected item",
+      "icon": "renameit_ic.png"
+    }
+  ],
+  "menu": {
+    "title": "Rename It",
+    "items": [
+      "renameit.rename",
+      "renameit.renameArtboard",
+      "renameit.find"
+    ]
+  },
+  "version": "3.4.0",
+  "description": "Keep your Sketch files organized, batch rename layers and artboards.",
+  "name": "Rename-It",
+  "disableCocoaScriptPreprocessor": true,
+  "appcast": "https://raw.githubusercontent.com/rodi01/RenameIt/master/.appcast.xml",
+  "author": "Rodrigo Soares"
+}

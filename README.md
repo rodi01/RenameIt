@@ -26,7 +26,7 @@ Sequentially rename layers in either ascending or descending order.
 - **Keyword "%a** -  Lowercase alphabet sequence
 
 ### Current Layer Name
-The keyword  **\*** will copy the current selected layer(s) name.
+The keyword  **%\*** will copy the current selected layer(s) name.
 
 ![Current Layer Name](/docs/static/img/gifs/current_layer.gif)
 
@@ -59,7 +59,7 @@ Rename selected artboards works the same way as rename selected layers. You don'
 ![Sketch Runner](/docs/static/img/sketch_runner_hq.gif)
 
 ### Direct Download
-[![Direct Download](/docs/static/img/download_btn.png "Direct Download")](https://github.com/rodi01/RenameIt/archive/master.zip)
+[![Direct Download](/docs/static/img/download_btn.png "Direct Download")](https://github.com/rodi01/RenameIt/releases/latest)
 
 ## More Info
 Rename It is maintained by Rodrigo Soares, follow me [@rodi01](https://twitter.com/rodi01)
