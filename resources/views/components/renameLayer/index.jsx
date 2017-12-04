@@ -126,7 +126,7 @@ class RenameLayer extends React.Component {
     }
 
     const buttons = [
-      { id: "currentLayer", char: "*", text: "Current Layer Name" },
+      { id: "currentLayer", char: "%*", text: "Layer Name" },
       { id: "layerWidth", char: "%w", text: "Layer Width" },
       { id: "layerHeight", char: "%h", text: "Layer Height" },
       { id: "sequenceAsc", char: "%n", text: "Num. Sequence ASC" },
