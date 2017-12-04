@@ -111,7 +111,7 @@ export default function rename(options) {
    // UpperCase First
    name = name.replace(/%\*uf%/ig, changeCase.upperCaseFirst(layerName))
 
-   // UpperCase First
+   // Camel Case
    name = name.replace(/%\*c%/ig, changeCase.camelCase(layerName))
 
 
