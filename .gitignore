@@ -1,5 +1,5 @@
 .tern-project
-
+publish.sh
 # build artefacts
 #Rename-it.sketchplugin/Contents/Sketch
 #Rename-it.sketchplugin/Contents/Resources/_webpack_resources
