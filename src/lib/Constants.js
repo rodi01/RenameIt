@@ -5,6 +5,7 @@
  */
 
 export const testData = false;
+export const mixpanelId = "d7b7059c7b41c6faf64cb0c694b8f6a3"
 
 export const mockData = {
   doc:{},

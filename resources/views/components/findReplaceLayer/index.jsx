@@ -5,6 +5,8 @@
  * @Last modified time: 2017-12-02T21:18:07-08:00
  */
 import React from 'react'
+import mixpanel from 'mixpanel-browser';
+import { mixpanelId } from '../../../../src/lib/Constants'
 import Input from '../Input'
 import findReplace from '../../../../src/lib/FindReplace'
 import pluginCall from 'sketch-module-web-view/client'
@@ -24,6 +26,9 @@ class FindReplaceLayer extends React.Component {
       previewData: []
     };
     this.enterFunction = this.enterFunction.bind(this);
+
+    // Tracking
+    mixpanel.init(mixpanelId)
   }
 
   enterFunction(event) {
@@ -58,6 +63,7 @@ class FindReplaceLayer extends React.Component {
   }
 
   clearInput(event) {
+    const whichInput = (event.target.previousSibling.id === "find") ? "find" : "replace"
     if (event.target.previousSibling.id === "find") {
       this.setState({
         findValue: '',
@@ -73,6 +79,9 @@ class FindReplaceLayer extends React.Component {
         replaceFocus: true
       }, () => this.previewUpdate());
     }
+
+    // Track clear event
+    mixpanel.track('clear', { 'input': `${whichInput}` })
   }
 
   onCaseSensitiveChange(event) {
@@ -89,6 +98,12 @@ class FindReplaceLayer extends React.Component {
       replaceText: this.state.replaceValue,
       caseSensitive: this.state.caseSensitive
     }
+
+    // Track input
+    mixpanel.track('input', {
+      'find': `${this.state.findValue}`,
+      'replace': `${this.state.replaceValue}`
+    })
 
     pluginCall('onClickFindReplace', JSON.stringify(d));
   }

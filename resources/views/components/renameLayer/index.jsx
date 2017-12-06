@@ -5,6 +5,8 @@
  * @Last modified time: 2017-12-02T19:17:06-08:00
  */
 import React from 'react';
+import mixpanel from 'mixpanel-browser'
+import { mixpanelId } from '../../../../src/lib/Constants'
 import rename from '../../../../src/lib/Rename'
 import Input from '../Input'
 import KeywordButton from '../KeywordButton'
@@ -21,7 +23,10 @@ class RenameLayer extends React.Component {
       inputFocus: false,
       previewData: []
     };
-    this.enterFunction = this.enterFunction.bind(this);
+    this.enterFunction = this.enterFunction.bind(this)
+
+    // Tracking
+    mixpanel.init(mixpanelId)
   }
   enterFunction(event) {
     // Check if enter key was pressed
@@ -57,6 +62,9 @@ class RenameLayer extends React.Component {
       showClear: '',
       inputFocus: true
     }, () => this.previewUpdate());
+
+    // Track clear event
+    mixpanel.track('clear', { 'input': 'rename' })
   }
 
   onButtonClicked(event) {
@@ -68,6 +76,11 @@ class RenameLayer extends React.Component {
       showClear: 'show'
     }, () => this.previewUpdate());
 
+    // Track button event
+    mixpanel.track('keywordButton', {
+      'name': `${event.target.id}`,
+      'value': `${event.target.dataset.char}`
+    })
   }
 
   onCancel() {
@@ -79,6 +92,10 @@ class RenameLayer extends React.Component {
       str: this.state.valueAttr,
       startsFrom: this.state.sequence
     }
+
+    // Track input event
+    mixpanel.track('input', { 'rename': `${this.state.valueAttr}` })
+
     pluginCall('onClickRename', JSON.stringify(d));
   }
 
