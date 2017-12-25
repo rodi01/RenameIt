@@ -8,7 +8,8 @@
 import rename  from "./Rename"
 import findReplace from "./FindReplace"
 import WebUI from 'sketch-module-web-view'
-import { exclamations } from './Constants';
+import { addRenameHistory, addFindHistory, addReplaceHistory, getHistory } from './History'
+import { exclamations } from './Constants'
 
 export default function theUI(context, data, options) {
   const webUI = new WebUI(context, require(`../../resources/webview.html`), {
@@ -29,7 +30,10 @@ export default function theUI(context, data, options) {
         webUI.eval(`window.redirectTo="${whereTo}"`)
       },
       getData: () => {
+        const history = getHistory()
+        console.log(JSON.stringify(history))
         webUI.eval(`window.data=${JSON.stringify(data)}`)
+        webUI.eval(`window.dataHistory=${JSON.stringify(history)}`)
       },
       close: () => {
         webUI.close();
@@ -53,6 +57,7 @@ export default function theUI(context, data, options) {
         })
         webUI.close()
         showUpdatedMessage(data)
+        addRenameHistory(d.str)
       },
       onClickFindReplace: (o) => {
         const d = JSON.parse(o);
@@ -69,6 +74,8 @@ export default function theUI(context, data, options) {
         });
         webUI.close()
         showUpdatedMessage(data)
+        addFindHistory(d.findText)
+        addReplaceHistory(d.replaceText)
       }
     }
   })

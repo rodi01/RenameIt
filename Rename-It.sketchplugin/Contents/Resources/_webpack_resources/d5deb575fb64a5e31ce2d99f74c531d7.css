@@ -54,10 +54,10 @@ input[type="number"] {
 }
 .inputWrapper { display: flex; }
 .inputClearWrapper { flex: 1; display:inline-block; position: relative; }
-.inputClearWrapper input { width: 96%; padding: 0 2%;}
+.inputClearWrapper input { width: 100%; padding: 0 2%;}
 #clearBtn, .clearBtn { cursor: default; position: absolute; display: block; width: 16px; height: 16px; top: 8px; right: 6px; background: url(5030edd9e6ae8a189fe9a7d474081312.png) no-repeat; background-size: 100%; visibility: hidden; }
 #clearBtn.show, .clearBtn.show { visibility: visible;}
-.inputWrapper label { line-height: 30px; margin-right: 4px; }
+.inputWrapper label { line-height: 30px; margin-right: 4px; font-weight: normal; }
 .inputRight { justify-content: flex-end; }
 #sequence { width: 60px; }
 textarea:focus, input:focus{
@@ -91,60 +91,16 @@ button.grey:active { background: rgba(106,116,128,0.8); }
 .findReplace .inputWrapper + .inputWrapper { margin-top: 8px; }
 .findReplace #preview { margin: 16px 0; }
 
+.icon_history { display: inline-block; width: 16px; height: 14px; background-image: url(5a079a8c1e846abe1e2634a176ebb4ac.svg); margin-top: 3px; }
+.inputWrapper .dropdown-toggle {
+    width: 48px;
+    height: 24px;
+    border-radius: 40px;
+    background-color: #B4BAC0;
+    border-color: #B4BAC0;
+  }
+.inputWrapper .dropdown-toggle .caret { margin-top: -5px; }
+.inputWrapper .dropdown {
+    position: absolute; top: 4px; right: 6px; }
 
-/* Tooltip */
-/* Add this attribute to the element that needs a tooltip */
-[data-tooltip] {
-  position: relative;
-  z-index: 2;
-  cursor: pointer;
-}
-
-/* Hide the tooltip content by default */
-[data-tooltip]:before,
-[data-tooltip]:after {
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Position tooltip above the element */
-[data-tooltip]:before {
-  position: absolute;
-  bottom: 115%;
-  left: 50%;
-  margin-bottom: 5px;
-  margin-left: -60px;
-  padding: 7px;
-  width: 100px;
-  border-radius: 6px;
-  background-color: hsla(0, 0%, 20%, 0.9);
-  color: #fff;
-  content: attr(data-tooltip);
-  text-align: center;
-  font-size: 14px;
-  line-height: 1.2;
-}
-
-/* Triangle hack to make tooltip look like a speech bubble */
-[data-tooltip]:after {
-  position: absolute;
-  bottom: 115%;
-  left: 50%;
-  margin-left: -5px;
-  width: 0;
-  border-top: 5px solid #000;
-  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
-  border-right: 5px solid transparent;
-  border-left: 5px solid transparent;
-  content: " ";
-  font-size: 0;
-  line-height: 0;
-}
-
-/* Show tooltip content on hover */
-[data-tooltip]:hover:before,
-[data-tooltip]:hover:after {
-  visibility: visible;
-  opacity: 1;
-}
+  .btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary, .open>.dropdown-toggle.btn-primary:hover, .open>.dropdown-toggle.btn-primary:focus { background-color: #6A7480; border-color: #6A7480; }

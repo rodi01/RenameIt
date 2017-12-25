@@ -7984,40 +7984,56 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * @Author: Rodrigo Soares <rodrigo>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * @Date:   2017-11-15T23:06:38-08:00
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * @Project: Rename It
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * @Last modified by:   rodrigo
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * @Last modified time: 2017-11-16T11:15:26-08:00
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var HistoryDropdown = function (_React$Component) {
+  _inherits(HistoryDropdown, _React$Component);
 
-var KeywordButton = function (_React$Component) {
-  _inherits(KeywordButton, _React$Component);
+  function HistoryDropdown(props) {
+    _classCallCheck(this, HistoryDropdown);
 
-  function KeywordButton(props) {
-    _classCallCheck(this, KeywordButton);
+    var _this = _possibleConstructorReturn(this, (HistoryDropdown.__proto__ || Object.getPrototypeOf(HistoryDropdown)).call(this, props));
 
-    return _possibleConstructorReturn(this, (KeywordButton.__proto__ || Object.getPrototypeOf(KeywordButton)).call(this, props));
+    _this.onTargetSelect = _this.onTargetSelect.bind(_this);
+    _this.state = { historyString: '' };
+    return _this;
   }
 
-  _createClass(KeywordButton, [{
+  _createClass(HistoryDropdown, [{
+    key: 'onTargetSelect',
+    value: function () {
+      function onTargetSelect(target) {
+        this.props.handleHistory(target);
+      }
+
+      return onTargetSelect;
+    }()
+  }, {
     key: 'render',
     value: function () {
       function render() {
-        var tooltip = _react2['default'].createElement(_reactBootstrap.Tooltip, { id: 'tooltip' }, 'Shortcut: ', this.props.char);
-        return _react2['default'].createElement(_reactBootstrap.OverlayTrigger, { placement: 'top', overlay: tooltip }, _react2['default'].createElement('a', { href: '#', id: this.props.id, 'data-char': this.props.char, 'data-tooltip': 'Shortcut: ' + String(this.props.char), onClick: this.props.click }, this.props.text));
+        var _this2 = this;
+
+        var menuItems = this.props.menuData.map(function (d, idx) {
+          return _react2['default'].createElement(_reactBootstrap.MenuItem, { key: '' + String(idx), eventKey: '' + String(d), onSelect: function () {
+              function onSelect() {
+                return _this2.onTargetSelect(d);
+              }
+
+              return onSelect;
+            }() }, d);
+        });
+        return _react2['default'].createElement(_reactBootstrap.Dropdown, { id: this.props.dropdownId, pullRight: true }, _react2['default'].createElement(_reactBootstrap.Dropdown.Toggle, { bsStyle: 'primary', bsSize: 'xsmall' }, _react2['default'].createElement('span', { className: 'icon_history' })), _react2['default'].createElement(_reactBootstrap.Dropdown.Menu, { className: 'dropMenu' }, menuItems));
       }
 
       return render;
     }()
   }]);
 
-  return KeywordButton;
+  return HistoryDropdown;
 }(_react2['default'].Component);
 
-exports['default'] = KeywordButton;
+exports['default'] = HistoryDropdown;
 
 /***/ }),
 /* 129 */

@@ -37,8 +37,10 @@
     "change-case": "^3.0.1",
     "mixpanel-browser": "^2.14.0",
     "react": "^16.1.1",
+    "react-bootstrap": "^0.31.5",
     "react-dom": "^16.1.1",
     "react-router-dom": "^4.2.2",
+    "sketch-module-user-preferences": "^1.0.2",
     "sketch-module-web-view": "^0.2.0"
   }
 }

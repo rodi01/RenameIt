@@ -10,8 +10,9 @@ import { mixpanelId } from '../../src/lib/Constants'
 import ReactDOM from 'react-dom'
 import { HashRouter, Redirect } from 'react-router-dom';
 import Routes from './routes'
-import { testData, mockData } from '../../src/lib/Constants';
+import { testData, mockData, mockHistory } from '../../src/lib/Constants'
 import pluginCall from 'sketch-module-web-view/client'
+
 
 // Init Mixpanel
 mixpanel.init(mixpanelId);
@@ -19,6 +20,7 @@ mixpanel.init(mixpanelId);
 // Get data
 if (testData && window.data == undefined) {
   window.data = mockData
+  window.dataHistory = mockHistory
 } else {
   pluginCall('getData')
   pluginCall('getLocation')

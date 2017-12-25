@@ -118,6 +118,13 @@ class RenameLayer extends React.Component {
     this.setState({ previewData: renamed })
   }
 
+  handleHistory(str) {
+    this.setState({
+      valueAttr: str,
+      inputFocus: true
+    }, () => this.previewUpdate());
+  }
+
   render() {
     const nameInputAttr = {
       id: "name",
@@ -129,7 +136,10 @@ class RenameLayer extends React.Component {
       onChange: this.onChange.bind(this),
       showClear: this.state.showClear,
       onClear: this.clearInput.bind(this),
-      inputFocus: this.state.inputFocus
+      inputFocus: this.state.inputFocus,
+      dataHistory: window.dataHistory.renameHistory,
+      showHistory: true,
+      handleHistory: this.handleHistory.bind(this)
     }
 
     const sequenceInputAttr = {

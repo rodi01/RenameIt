@@ -6,7 +6,8 @@
  * @Last modified time: 2017-12-02T17:57:44-08:00
  */
 
-import React from 'react';
+import React from 'react'
+import HistoryDropdown from './HistoryDropdown'
 
 export default class Input extends React.Component {
   constructor(props) {
@@ -21,9 +22,13 @@ export default class Input extends React.Component {
   render() {
     let clearBtn = null;
     let clearBtnClass = null;
+    let historyDropdown = null;
     if (this.props.showClear != undefined) {
       clearBtn = <span id="clearBtn" title="Clear" className={this.props.showClear} onClick={this.props.onClear}></span>;
       clearBtnClass = "inputClearWrapper";
+    }
+    if (this.props.showHistory != undefined) {
+      historyDropdown = <HistoryDropdown menuData={this.props.dataHistory} dropdownId={`${this.props.id}-dd`} handleHistory={this.props.handleHistory}></HistoryDropdown>
     }
 
     return (
@@ -31,9 +36,9 @@ export default class Input extends React.Component {
         <label for={this.props.id}>{this.props.forName}</label>
         <span class={clearBtnClass}>
           <input type={this.props.type} id={this.props.id} value={this.props.value} onChange={this.props.onChange} autoFocus={this.props.autoFocus} ref={(ip) => this.myInp = ip} autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" min="0" />
-          {clearBtn}
+          {historyDropdown}
         </span>
-    </div>
-  );
+      </div>
+    );
   }
 }

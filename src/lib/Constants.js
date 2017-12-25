@@ -28,6 +28,12 @@ export const mockData = {
     },
   ],
     windowTitle: "Rename Selected Layers"
-};
+}
+
+export const mockHistory = {
+  renameHistory: ["Hello", "World", "Item %N", "icon %wX%h", "Boo Hoo"],
+  findHistory: [],
+  replaceHistory: [],
+}
 
 export const exclamations = ["Boo-yah!", "Olé!", "Hooray!", "Great Success!", "Abracadabra!", "Geronimo!"]
