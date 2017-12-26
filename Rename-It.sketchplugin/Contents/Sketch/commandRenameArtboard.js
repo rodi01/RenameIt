@@ -308,7 +308,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-exports['default'] = function (context) {
+exports["default"] = function (context) {
   var data = (0, _utils.parseData)(context, true);
 
   // Return if there is no selection and show message
@@ -322,9 +322,10 @@ exports['default'] = function (context) {
     title: "Rename Selected Artboards",
     redirectTo: "/rename",
     width: 480,
-    height: 430
+    height: 446
+
     // Load UI
-  };(0, _TheUI2['default'])(context, data, options);
+  };(0, _TheUI2["default"])(context, data, options);
 };
 
 var _utils = __webpack_require__(7);
@@ -333,7 +334,7 @@ var _TheUI = __webpack_require__(8);
 
 var _TheUI2 = _interopRequireDefault(_TheUI);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 /***/ }),
 /* 7 */

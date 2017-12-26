@@ -1,19 +1,20 @@
-/**
- * @Author: Rodrigo Soares <rodrigo>
- * @Date:   2017-10-28T08:09:29-07:00
- * @Project: Rename It
- * @Last modified time: 2017-12-02T15:12:54-08:00
+/*
+ * @Author: Rodrigo Soares 
+ * @Date: 2017-12-26 13:14:56 
+ * @Last Modified by:   Rodrigo Soares 
+ * @Last Modified time: 2017-12-26 13:14:56 
  */
-import { parseData } from './lib/utils'
-import theUI from './lib/TheUI'
+
+import { parseData } from "./lib/utils"
+import theUI from "./lib/TheUI"
 
 export default function(context) {
   const data = parseData(context)
 
   // Return if there is no selection and show message
   if (data.selectionCount <= 0) {
-    context.document.showMessage("Rename it: You need to select at least one layer or artboard");
-    return;
+    context.document.showMessage("Rename it: You need to select at least one layer or artboard")
+    return
   }
 
   const options = {
@@ -21,9 +22,8 @@ export default function(context) {
     title: "Rename Selected Layers",
     redirectTo: "/rename",
     width: 480,
-    height: 446
+    height: 446,
   }
-
 
   // Load UI
   theUI(context, data, options)
