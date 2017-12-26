@@ -11,7 +11,9 @@
     },
     "editor.tabSize": 2,
     "prettier.semi": false,
-    "prettier.singleQuote": true,
+    "prettier.singleQuote": false,
     "prettier.trailingComma": "es5",
+    "prettier.bracketSpacing": true,
+    "prettier.arrowParens": "always",
     "editor.formatOnSave": true
 }

@@ -27,6 +27,12 @@
       "shortcut": "shift ctrl option r",
       "description": "Rename Selected artboard(s) at the root of the currently selected item",
       "icon": "renameit_ic.png"
+    },
+    {
+      "name": "Settings",
+      "identifier": "renameit.settings",
+      "script": "commandSettings.js",
+      "description": "Rename it settings"
     }
   ],
   "menu": {
@@ -34,7 +40,9 @@
     "items": [
       "renameit.rename",
       "renameit.renameArtboard",
-      "renameit.find"
+      "renameit.find",
+      "-",
+      "renameit.settings"
     ]
   },
   "version": "3.5.1",

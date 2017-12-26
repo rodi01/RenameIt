@@ -4,125 +4,138 @@
  * @Project: Rename It
  * @Last modified time: 2017-12-02T19:17:06-08:00
  */
-import React from 'react';
-import mixpanel from 'mixpanel-browser'
-import { mixpanelId } from '../../../../src/lib/Constants'
-import rename from '../../../../src/lib/Rename'
-import Input from '../Input'
-import KeywordButton from '../KeywordButton'
-import pluginCall from 'sketch-module-web-view/client'
-import Preview from '../Preview'
+import React from "react"
+import pluginCall from "sketch-module-web-view/client"
+import mixpanel from "mixpanel-browser"
+import { mixpanelId } from "../../../../src/lib/Constants"
+import rename from "../../../../src/lib/Rename"
+import Input from "../Input"
+import KeywordButton from "../KeywordButton"
+import Preview from "../Preview"
 
 class RenameLayer extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      valueAttr: '',
-      showClear: '',
+      valueAttr: "",
+      showClear: "",
       sequence: 1,
       inputFocus: false,
-      previewData: []
-    };
+      previewData: [],
+    }
     this.enterFunction = this.enterFunction.bind(this)
 
     // Tracking
     mixpanel.init(mixpanelId)
   }
-  enterFunction(event) {
-    // Check if enter key was pressed
-    if(event.keyCode === 13) {
-      this.onSubmit();
-    }
-  }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.enterFunction, false);
+    document.addEventListener("keydown", this.enterFunction, false)
   }
-  componentWillUnmount(){
-    document.removeEventListener("keydown", this.enterFunction, false);
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.enterFunction, false)
   }
 
   onChange(event) {
-    this.setState({valueAttr: event.target.value}, () => this.previewUpdate())
+    this.setState({ valueAttr: event.target.value }, () => this.previewUpdate())
     if (this.state.valueAttr.length > 0) {
-      this.setState({showClear: 'show'});
+      this.setState({ showClear: "show" })
     }
   }
 
   onChangeSequence(event) {
-    this.setState({
-      sequence: event.target.value,
-      inputFocus: false
-    }, () => this.previewUpdate());
-  }
-
-  clearInput() {
-    this.setState({
-      valueAttr: '',
-      showClear: '',
-      inputFocus: true
-    }, () => this.previewUpdate());
-
-    // Track clear event
-    mixpanel.track('clear', { 'input': 'rename' })
+    this.setState(
+      {
+        sequence: event.target.value,
+        inputFocus: false,
+      },
+      () => this.previewUpdate()
+    )
   }
 
   onButtonClicked(event) {
-    event.preventDefault();
+    event.preventDefault()
     const val = `${this.state.valueAttr}${event.target.dataset.char}`
-    this.setState({
-      valueAttr: val,
-      inputFocus: true,
-      showClear: 'show'
-    }, () => this.previewUpdate());
+    this.setState(
+      {
+        valueAttr: val,
+        inputFocus: true,
+        showClear: "show",
+      },
+      () => this.previewUpdate()
+    )
 
     // Track button event
-    mixpanel.track('keywordButton', {
-      'name': `${event.target.id}`,
-      'value': `${event.target.dataset.char}`
+    mixpanel.track("keywordButton", {
+      name: `${event.target.id}`,
+      value: `${event.target.dataset.char}`,
     })
   }
 
   onCancel() {
-    pluginCall('close')
+    pluginCall("close")
   }
 
   onSubmit() {
     const d = {
       str: this.state.valueAttr,
-      startsFrom: this.state.sequence
+      startsFrom: this.state.sequence,
     }
 
     // Track input event
-    mixpanel.track('input', { 'rename': `${this.state.valueAttr}` })
+    mixpanel.track("input", { rename: `${this.state.valueAttr}` })
 
-    pluginCall('onClickRename', JSON.stringify(d));
+    pluginCall("onClickRename", JSON.stringify(d))
+  }
+
+  clearInput() {
+    this.setState(
+      {
+        valueAttr: "",
+        showClear: "",
+        inputFocus: true,
+      },
+      () => this.previewUpdate()
+    )
+
+    // Track clear event
+    mixpanel.track("clear", { input: "rename" })
+  }
+
+  enterFunction(event) {
+    // Check if enter key was pressed
+    if (event.keyCode === 13) {
+      this.onSubmit()
+    }
   }
 
   previewUpdate() {
-    let renamed = [];
-    data.selection.forEach((item) => {
+    const renamed = []
+    window.data.selection.forEach((item) => {
       const options = {
         layerName: item.name,
         currIdx: item.idx,
         width: item.width,
         height: item.height,
-        selectionCount: data.selectionCount,
+        selectionCount: window.data.selectionCount,
         inputName: this.state.valueAttr,
         startsFrom: Number(this.state.sequence),
-        pageName: data.pageName,
-        parentName: item.parentName
-      };
-      renamed.push(rename(options));
-    });
+        pageName: window.data.pageName,
+        parentName: item.parentName,
+      }
+      renamed.push(rename(options))
+    })
     this.setState({ previewData: renamed })
   }
 
   handleHistory(str) {
-    this.setState({
-      valueAttr: str,
-      inputFocus: true
-    }, () => this.previewUpdate());
+    this.setState(
+      {
+        valueAttr: str,
+        inputFocus: true,
+      },
+      () => this.previewUpdate()
+    )
   }
 
   render() {
@@ -131,7 +144,7 @@ class RenameLayer extends React.Component {
       type: "text",
       forName: "Name:",
       wrapperClass: "inputName",
-      autoFocus:true,
+      autoFocus: true,
       value: this.state.valueAttr,
       onChange: this.onChange.bind(this),
       showClear: this.state.showClear,
@@ -139,16 +152,16 @@ class RenameLayer extends React.Component {
       inputFocus: this.state.inputFocus,
       dataHistory: window.dataHistory.renameHistory,
       showHistory: true,
-      handleHistory: this.handleHistory.bind(this)
+      handleHistory: this.handleHistory.bind(this),
     }
 
     const sequenceInputAttr = {
-      id:"sequence",
+      id: "sequence",
       type: "number",
-      forName:"Start Sequence from:",
-      wrapperClass:"inputRight",
+      forName: "Start Sequence from:",
+      wrapperClass: "inputRight",
       value: this.state.sequence,
-      autoFocus:false,
+      autoFocus: false,
       onChange: this.onChangeSequence.bind(this),
     }
 
@@ -161,28 +174,34 @@ class RenameLayer extends React.Component {
       { id: "sequenceAlpha", char: "%A", text: "Alphabet Sequence" },
       { id: "pageName", char: "%p", text: "Page Name" },
       { id: "parentName", char: "%o", text: "Parent Name" },
-    ];
+    ]
 
-    const listItems = buttons.map((d) => <li key={d.id} className="keywordBtn"><KeywordButton {...d} click={this.onButtonClicked.bind(this)} /></li>);
+    const listItems = buttons.map((d) => (
+      <li key={d.id} className="keywordBtn">
+        <KeywordButton {...d} click={this.onButtonClicked.bind(this)} />
+      </li>
+    ))
 
     return (
-      <div class="container rename">
+      <div className="container rename">
         <Input {...nameInputAttr} />
         <Input {...sequenceInputAttr} />
 
         <div id="keywordsWrapper">
-          <span class="title">Keywords</span>
-          <ul class="keywords">
-            {listItems}
-          </ul>
+          <span className="title">Keywords</span>
+          <ul className="keywords">{listItems}</ul>
           <Preview data={this.state.previewData} />
         </div>
         <div id="footer">
-          <button id="cancelBtn" class="grey" onClick={this.onCancel}>Cancel</button>
-          <button id="submitBtn" onClick={this.onSubmit.bind(this)}>Rename</button>
+          <button id="cancelBtn" className="grey" onClick={this.onCancel}>
+            Cancel
+          </button>
+          <button id="submitBtn" onClick={this.onSubmit.bind(this)}>
+            Rename
+          </button>
         </div>
       </div>
-  )
+    )
   }
 }
 

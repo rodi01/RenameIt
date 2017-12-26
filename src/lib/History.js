@@ -1,23 +1,40 @@
-/**
- * @Author: Rodrigo Soares <rodrigo>
- * @Date:   2017-12-19T22:27:08-08:00
- * @Project: Rename It
- * @Last modified time: 2017-12-19T22:28:58-08:00
+/*
+ * @Author: Rodrigo Soares 
+ * @Date: 2017-12-25 16:57:22 
+ * @Last Modified by: Rodrigo Soares
+ * @Last Modified time: 2017-12-25 21:40:31
  */
 
-import prefsManager from 'sketch-module-user-preferences'
+import prefsManager from "sketch-module-user-preferences"
 
-const pluginId = 'rename-it'
+const pluginId = "rename-it"
 const MAX_HISTORY = 5
 const defaultPreferences = {
   renameHistory: [],
   findHistory: [],
   replaceHistory: [],
 }
-const preferences = prefsManager.getUserPreferences(
-  pluginId,
-  defaultPreferences
-)
+const preferences = prefsManager.getUserPreferences(pluginId, defaultPreferences)
+
+function sanitizeArray(arr) {
+  const a = []
+  arr.forEach((item) => {
+    a.push(`${item}`)
+  })
+  return a
+}
+
+function createArr(str, arr) {
+  const pos = arr.indexOf(str)
+  if (pos !== -1) arr.splice(pos, 1)
+  arr.unshift(str)
+
+  if (arr.length <= MAX_HISTORY) {
+    return arr
+  }
+
+  return arr.copyWithin(MAX_HISTORY, 0)
+}
 
 export function getHistory() {
   return {
@@ -28,20 +45,21 @@ export function getHistory() {
 }
 
 export function addRenameHistory(str) {
+  const arr = createArr(str, sanitizeArray(preferences.renameHistory))
   prefsManager.setUserPreferences(pluginId, {
-    renameHistory: createArr(str, preferences.renameHistory),
+    renameHistory: arr,
   })
 }
 
 export function addFindHistory(str) {
   prefsManager.setUserPreferences(pluginId, {
-    findHistory: createArr(str, preferences.findHistory),
+    findHistory: createArr(str, sanitizeArray(preferences.findHistory)),
   })
 }
 
 export function addReplaceHistory(str) {
   prefsManager.setUserPreferences(pluginId, {
-    replaceHistory: createArr(str, preferences.replaceHistory),
+    replaceHistory: createArr(str, sanitizeArray(preferences.replaceHistory)),
   })
 }
 
@@ -51,19 +69,4 @@ export function clearHistory() {
     findHistory: [],
     replaceHistory: [],
   })
-}
-
-function createArr(arr, str) {
-  const pos = arr.indexOf(str)
-  if (pos != -1) arr.splice(pos, 1)
-  arr.unshift(str)
-  return arr.slice(MAX_HISTORY)
-}
-
-function sanitizeArray(arr) {
-  let a = []
-  arr.forEach(function(item) {
-    a.push(`${item}`)
-  })
-  return a
 }
