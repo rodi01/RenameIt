@@ -5,16 +5,27 @@
  * @Last Modified time: 2017-12-25 21:49:01
  */
 import React from "react"
+import mixpanel from "mixpanel-browser"
 import { Dropdown, MenuItem } from "react-bootstrap"
+import { mixpanelId } from "../../../src/lib/Constants"
 
 class HistoryDropdown extends React.Component {
   constructor(props) {
     super(props)
     this.onTargetSelect = this.onTargetSelect.bind(this)
+
+    // Tracking
+    mixpanel.init(mixpanelId)
   }
 
   onTargetSelect(target) {
     this.props.handleHistory(target)
+  }
+
+  onToggle() {
+    mixpanel.track("history", {
+      dropdown: `${this.props.dropdownId}`,
+    })
   }
 
   render() {
@@ -33,7 +44,12 @@ class HistoryDropdown extends React.Component {
       )
     }
     return (
-      <Dropdown id={this.props.dropdownId} pullRight>
+      <Dropdown
+        id={this.props.dropdownId}
+        pullRight
+        onToggle={() => this.onToggle(this)}
+        dropup={this.props.dropup}
+      >
         <Dropdown.Toggle bsStyle="primary" bsSize="xsmall">
           <span className="icon_history" />
         </Dropdown.Toggle>

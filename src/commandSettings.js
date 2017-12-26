@@ -12,8 +12,8 @@ export default function(context) {
     identifier: "settings.ui",
     title: "Settings",
     redirectTo: "/settings",
-    width: 150,
-    height: 150,
+    width: 250,
+    height: 250,
   }
 
   theUI(context, null, options)

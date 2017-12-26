@@ -28,11 +28,12 @@ function createArr(str, arr) {
   const pos = arr.indexOf(str)
   if (pos !== -1) arr.splice(pos, 1)
   arr.unshift(str)
-  if (arr.length <= MAX_HISTORY) {
-    return arr
+  const newArr = arr.filter((entry) => entry.trim() !== "")
+  if (newArr.length <= MAX_HISTORY) {
+    return newArr
   }
 
-  return arr.slice(0, MAX_HISTORY)
+  return newArr.slice(0, MAX_HISTORY)
 }
 
 export function getHistory() {

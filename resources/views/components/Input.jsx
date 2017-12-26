@@ -35,6 +35,7 @@ class Input extends React.Component {
           menuData={this.props.dataHistory}
           dropdownId={`${this.props.id}-dd`}
           handleHistory={this.props.handleHistory}
+          dropup={this.props.dropup}
         />
       )
     }
@@ -61,6 +62,10 @@ class Input extends React.Component {
       </div>
     )
   }
+}
+
+Input.defaultProps = {
+  dropup: false,
 }
 
 export default Input

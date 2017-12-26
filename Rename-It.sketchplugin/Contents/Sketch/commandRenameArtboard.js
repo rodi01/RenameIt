@@ -535,6 +535,7 @@ function theUI(context, data, options) {
       onClearHistory: function () {
         function onClearHistory() {
           (0, _History.clearHistory)();
+          webUI.close();
         }
 
         return onClearHistory;
@@ -1333,11 +1334,14 @@ function createArr(str, arr) {
   var pos = arr.indexOf(str);
   if (pos !== -1) arr.splice(pos, 1);
   arr.unshift(str);
-  if (arr.length <= MAX_HISTORY) {
-    return arr;
+  var newArr = arr.filter(function (entry) {
+    return entry.trim() !== "";
+  });
+  if (newArr.length <= MAX_HISTORY) {
+    return newArr;
   }
 
-  return arr.slice(0, MAX_HISTORY);
+  return newArr.slice(0, MAX_HISTORY);
 }
 
 function getHistory() {
@@ -1468,7 +1472,7 @@ var exclamations = exports.exclamations = ["Boo-yah!", "Olé!", "Hooray!", "Grea
 /* 33 */
 /***/ (function(module, exports) {
 
-module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/e6c168b63a2f54d02cc54389365e87f4.html").path();
+module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/7fea1bcd2348791444a49a2aefb12240.html").path();
 
 /***/ })
 /******/ ]);

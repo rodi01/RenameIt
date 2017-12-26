@@ -130,6 +130,26 @@ class FindReplaceLayer extends React.Component {
     this.setState({ previewData: renamed })
   }
 
+  handleFindHistory(str) {
+    this.setState(
+      {
+        findValue: str,
+        findFocus: true,
+      },
+      () => this.previewUpdate()
+    )
+  }
+
+  handleReplaceHistory(str) {
+    this.setState(
+      {
+        replaceValue: str,
+        replaceFocus: true,
+      },
+      () => this.previewUpdate()
+    )
+  }
+
   render() {
     const findInputAttr = {
       id: "find",
@@ -142,6 +162,9 @@ class FindReplaceLayer extends React.Component {
       showClear: this.state.findClear,
       onClear: this.clearInput.bind(this),
       inputFocus: this.state.findFocus,
+      dataHistory: window.dataHistory.findHistory,
+      showHistory: true,
+      handleHistory: this.handleFindHistory.bind(this),
     }
 
     const replaceInputAttr = {
@@ -155,6 +178,10 @@ class FindReplaceLayer extends React.Component {
       showClear: this.state.replaceClear,
       onClear: this.clearInput.bind(this),
       inputFocus: this.state.replaceFocus,
+      dataHistory: window.dataHistory.replaceHistory,
+      showHistory: true,
+      handleHistory: this.handleReplaceHistory.bind(this),
+      dropup: true,
     }
 
     return (

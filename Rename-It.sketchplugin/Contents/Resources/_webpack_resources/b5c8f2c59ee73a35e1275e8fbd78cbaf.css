@@ -6,10 +6,6 @@
  * @Last modified time: 2017-12-02T18:00:37-08:00
  */
 
-html {
-  background-color: #f7f7f7;
-}
-
 body {
   font-family: -apple-system, "Helvetica Neue", "Lucida Grande";
   color: #6a7480;
@@ -114,7 +110,7 @@ input[type="number"] {
   height: 16px;
   top: 8px;
   right: 6px;
-  background: url(./images/clear_icon.png) no-repeat;
+  background: url(5030edd9e6ae8a189fe9a7d474081312.png) no-repeat;
   background-size: 100%;
   visibility: hidden;
 }
@@ -226,7 +222,7 @@ button.grey:active {
   display: inline-block;
   width: 16px;
   height: 14px;
-  background-image: url(./images/history_icon.svg);
+  background-image: url(5a079a8c1e846abe1e2634a176ebb4ac.svg);
   margin-top: 3px;
 }
 .inputWrapper .dropdown-toggle,
@@ -264,8 +260,4 @@ button.grey:active {
 .open > .dropup-toggle.btn-primary:focus {
   background-color: #6a7480;
   border-color: #6a7480;
-}
-
-.settings h5 {
-  margin-top: 0;
 }

@@ -6,6 +6,7 @@
  */
 import React from "react"
 import pluginCall from "sketch-module-web-view/client"
+import { Panel } from "react-bootstrap"
 import mixpanel from "mixpanel-browser"
 import { mixpanelId } from "../../../../src/lib/Constants"
 
@@ -23,10 +24,13 @@ class Settings extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <button className="grey" onClick={() => this.onClearHistory()}>
-          Clear History
-        </button>
+      <div className="container settings">
+        <Panel>
+          <h5>History Settings</h5>
+          <button className="grey btn-block" onClick={() => this.onClearHistory()}>
+            Clear History
+          </button>
+        </Panel>
       </div>
     )
   }

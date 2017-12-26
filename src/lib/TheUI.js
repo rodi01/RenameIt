@@ -100,6 +100,7 @@ export default function theUI(context, data, options) {
       },
       onClearHistory: () => {
         clearHistory()
+        webUI.close()
       },
     },
   })
