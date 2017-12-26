@@ -6,10 +6,10 @@
  */
 import React from "react"
 import mixpanel from "mixpanel-browser"
+import pluginCall from "sketch-module-web-view/client"
 import { mixpanelId } from "../../../../src/lib/Constants"
 import Input from "../Input"
 import findReplace from "../../../../src/lib/FindReplace"
-import pluginCall from "sketch-module-web-view/client"
 import Preview from "../Preview"
 
 class FindReplaceLayer extends React.Component {
@@ -29,13 +29,6 @@ class FindReplaceLayer extends React.Component {
 
     // Tracking
     mixpanel.init(mixpanelId)
-  }
-
-  enterFunction(event) {
-    // Check if enter key was pressed
-    if (event.keyCode === 13) {
-      this.onSubmit()
-    }
   }
 
   componentDidMount() {
@@ -61,6 +54,38 @@ class FindReplaceLayer extends React.Component {
     if (this.state.findValue.length > 0) this.setState({ findClear: "show" })
 
     if (this.state.replaceValue.length > 0) this.setState({ replaceClear: "show" })
+  }
+
+  onCaseSensitiveChange(event) {
+    this.setState({ caseSensitive: event.target.checked }, () => this.previewUpdate())
+  }
+
+  onCancel() {
+    pluginCall("close")
+  }
+
+  onSubmit() {
+    const d = {
+      findText: this.state.findValue,
+      replaceText: this.state.replaceValue,
+      caseSensitive: this.state.caseSensitive,
+    }
+
+    // Track input
+    mixpanel.track("input", {
+      find: `${this.state.findValue}`,
+      replace: `${this.state.replaceValue}`,
+    })
+
+    pluginCall("onClickFindReplace", JSON.stringify(d))
+  }
+
+  enterFunction(event) {
+    // Check if enter key was pressed
+
+    if (event.keyCode === 13) {
+      this.onSubmit()
+    }
   }
 
   clearInput(event) {
@@ -91,33 +116,9 @@ class FindReplaceLayer extends React.Component {
     mixpanel.track("clear", { input: `${whichInput}` })
   }
 
-  onCaseSensitiveChange(event) {
-    this.setState({ caseSensitive: event.target.checked }, () => this.previewUpdate())
-  }
-
-  onCancel() {
-    pluginCall("close")
-  }
-
-  onSubmit() {
-    const d = {
-      findText: this.state.findValue,
-      replaceText: this.state.replaceValue,
-      caseSensitive: this.state.caseSensitive,
-    }
-
-    // Track input
-    mixpanel.track("input", {
-      find: `${this.state.findValue}`,
-      replace: `${this.state.replaceValue}`,
-    })
-
-    pluginCall("onClickFindReplace", JSON.stringify(d))
-  }
-
   previewUpdate() {
-    let renamed = []
-    data.selection.forEach((item) => {
+    const renamed = []
+    window.data.selection.forEach((item) => {
       const options = {
         layerName: item.name,
         caseSensitive: this.state.caseSensitive,
@@ -157,21 +158,21 @@ class FindReplaceLayer extends React.Component {
     }
 
     return (
-      <div class="container findReplace">
-        <span class="caseSensitiveWrapper">
+      <div className="container findReplace">
+        <span className="caseSensitiveWrapper">
           <input
             type="checkbox"
             id="caseSensitive"
             checked={this.state.caseSensitive}
             onChange={this.onCaseSensitiveChange.bind(this)}
           />
-          <label for="caseSensitive">&nbsp;case sensitive</label>
+          <label htmlFor="caseSensitive">&nbsp;case sensitive</label>
         </span>
         <Input {...findInputAttr} />
         <Input {...replaceInputAttr} />
         <Preview data={this.state.previewData} />
         <div id="footer">
-          <button id="cancelBtn" class="grey" onClick={this.onCancel}>
+          <button id="cancelBtn" className="grey" onClick={this.onCancel}>
             Cancel
           </button>
           <button id="submitBtn" onClick={this.onSubmit.bind(this)}>

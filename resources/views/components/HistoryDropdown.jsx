@@ -18,17 +18,29 @@ class HistoryDropdown extends React.Component {
   }
 
   render() {
-    const menuItems = this.props.menuData.map((d, idx) => (
-      <MenuItem key={`menu-${idx}`} eventKey={`${d}`} onSelect={() => this.onTargetSelect(d)}>
-        {d}
-      </MenuItem>
-    ))
+    let menuItems
+    if (this.props.menuData.length > 0) {
+      menuItems = this.props.menuData.map((d, idx) => (
+        <MenuItem key={`menu-${idx}`} eventKey={`${d}`} onSelect={() => this.onTargetSelect(d)}>
+          {d}
+        </MenuItem>
+      ))
+    } else {
+      menuItems = (
+        <MenuItem key="disabled-menu" disabled>
+          Empty History
+        </MenuItem>
+      )
+    }
     return (
       <Dropdown id={this.props.dropdownId} pullRight>
         <Dropdown.Toggle bsStyle="primary" bsSize="xsmall">
           <span className="icon_history" />
         </Dropdown.Toggle>
-        <Dropdown.Menu className="dropMenu">{menuItems}</Dropdown.Menu>
+        <Dropdown.Menu className="dropMenu">
+          <MenuItem header>Previously Used</MenuItem>
+          {menuItems}
+        </Dropdown.Menu>
       </Dropdown>
     )
   }
