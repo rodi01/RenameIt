@@ -25,14 +25,14 @@
       "identifier": "renameit.renameArtboard",
       "script": "commandRenameArtboard.js",
       "shortcut": "shift ctrl option r",
-      "description": "Rename Selected artboard(s) at the root of the currently selected item",
+      "description": "Rename Selected artboard(s) at the root of the currently selected item.",
       "icon": "renameit_ic.png"
     },
     {
       "name": "Settings",
       "identifier": "renameit.settings",
       "script": "commandSettings.js",
-      "description": "Rename it settings"
+      "description": "Rename it settings."
     }
   ],
   "menu": {
