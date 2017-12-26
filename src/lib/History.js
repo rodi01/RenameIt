@@ -28,7 +28,6 @@ function createArr(str, arr) {
   const pos = arr.indexOf(str)
   if (pos !== -1) arr.splice(pos, 1)
   arr.unshift(str)
-  console.log(arr.length <= MAX_HISTORY)
   if (arr.length <= MAX_HISTORY) {
     return arr
   }
