@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares 
  * @Date: 2017-12-25 19:52:04 
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2017-12-25 21:49:01
+ * @Last Modified time: 2017-12-26 22:13:38
  */
 import React from "react"
 import mixpanel from "mixpanel-browser"
@@ -54,7 +54,7 @@ class HistoryDropdown extends React.Component {
           <span className="icon_history" />
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
-          <MenuItem header>Previously Used</MenuItem>
+          <MenuItem header>Recently used</MenuItem>
           {menuItems}
         </Dropdown.Menu>
       </Dropdown>

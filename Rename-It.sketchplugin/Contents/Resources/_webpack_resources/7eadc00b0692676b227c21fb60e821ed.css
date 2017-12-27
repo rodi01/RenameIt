@@ -82,6 +82,7 @@ a,
 a:hover {
   text-decoration: none;
   color: #fff;
+  cursor: default;
 }
 input[type="text"],
 input[type="number"] {
@@ -160,6 +161,7 @@ button,
   width: 114px;
   height: 32px;
   font-size: 15px;
+  cursor: default;
 }
 button:active {
   background-color: #52a5cf;
