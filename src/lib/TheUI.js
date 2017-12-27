@@ -104,4 +104,9 @@ export default function theUI(context, data, options) {
       },
     },
   })
+
+  // Title bar matches background
+  webUI.panel.titlebarAppearsTransparent = true
+  webUI.panel.titleVisibility = false
+  webUI.panel.styleMask.insert(NSWindowStyleMask.fullSizeContentView)
 }

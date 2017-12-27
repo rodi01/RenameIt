@@ -13,7 +13,7 @@ export default function(context) {
     title: "Settings",
     redirectTo: "/settings",
     width: 250,
-    height: 250,
+    height: 170,
   }
 
   theUI(context, null, options)

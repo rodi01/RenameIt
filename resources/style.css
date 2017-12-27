@@ -89,7 +89,7 @@ input[type="number"] {
   background: #ffffff;
   box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.32);
   padding: 0 8px;
-  border-radius: 3px;
+  border-radius: 4px;
   height: 32px;
   border: 1px solid transparent;
   color: #383f47;
@@ -270,4 +270,8 @@ button.grey:active {
 
 .settings h5 {
   margin-top: 0;
+  margin-bottom: 16px;
+}
+.panel-default {
+  border: none;
 }
