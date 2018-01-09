@@ -82,7 +82,8 @@ export default function theUI(context, data, options) {
       },
       onClickFindReplace: (o) => {
         const inputData = JSON.parse(o)
-        data.selection.forEach((item) => {
+        const selData = inputData.searchScope === "page" ? data.allLayers : data.selection
+        selData.forEach((item) => {
           const opts = {
             layerName: item.name,
             currIdx: item.idx,
@@ -90,7 +91,7 @@ export default function theUI(context, data, options) {
             replaceWith: inputData.replaceText,
             caseSensitive: Boolean(inputData.caseSensitive),
           }
-          const layer = data.selection[opts.currIdx].layer
+          const layer = selData[opts.currIdx].layer
           layer.name = findReplace(opts)
         })
         addFindHistory(inputData.findText)
@@ -108,5 +109,5 @@ export default function theUI(context, data, options) {
   // Title bar matches background
   webUI.panel.titlebarAppearsTransparent = true
   webUI.panel.titleVisibility = false
-  webUI.panel.styleMask.insert(NSWindowStyleMask.fullSizeContentView)
+  // webUI.panel.styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
 }

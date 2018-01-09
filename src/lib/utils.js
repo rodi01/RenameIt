@@ -1,50 +1,9 @@
-/**
- * @Author: Rodrigo Soares <rodrigo>
- * @Date:   2017-11-11T17:53:44-08:00
- * @Project: Rename It
- * @Last modified time: 2017-11-17T21:47:17-08:00
+/*
+ * @Author: Rodrigo Soares 
+ * @Date: 2018-01-03 17:48:48 
+ * @Last Modified by: Rodrigo Soares
+ * @Last Modified time: 2018-01-05 11:53:41
  */
-
-/**
- * Parse common data
- * @param  {Object} context Sketch context
- * @return {Object}         Parsed Data
- */
-export function parseData(context, onlyArtboards = false) {
-  let selection = context.selection;
-
-  if (onlyArtboards) {
-    let aBoards = []
-    selection.forEach((el) => {
-      while (el && !isArtboard(el)) {
-        el = el.parentGroup();
- 		  }
-      if(el)
-        aBoards.push(el)
-    })
-    selection = Array.from(new Set(aBoards))
-  }
-
-  let data = {
-    doc: context.document,
-    pageName: `${context.document.currentPage().name()}`,
-    selectionCount: (Array.isArray(selection)) ? selection.length : selection.count(),
-    selection: []
-  }
-  selection.forEach((layer, i) => {
-    data.selection[i] = {
-      layer: layer,
-      name: `${layer.name()}`,
-      frame: layer.frame(),
-      idx: i,
-      width: layer.frame().width(),
-      height: layer.frame().height(),
-      parentName: `${layer.parentGroup().name()}`
-    }
-  });
-
-  return data;
-}
 
 /**
  * Check if is artboard
@@ -52,5 +11,73 @@ export function parseData(context, onlyArtboards = false) {
  * @return {Boolean}
  */
 function isArtboard(layer) {
-  return layer instanceof MSArtboardGroup || layer instanceof MSSymbolMaster;
+  return layer instanceof MSArtboardGroup || layer instanceof MSSymbolMaster
+}
+
+function layerObject(layer, idx) {
+  return {
+    layer,
+    name: `${layer.name()}`,
+    frame: layer.frame(),
+    idx,
+    width: layer.frame().width(),
+    height: layer.frame().height(),
+    parentName: `${layer.parentGroup().name()}`,
+  }
+}
+
+/**
+ * Parse common data
+ * @param  {Object} context Sketch context
+ * @return {Object}         Parsed Data
+ */
+export function parseData(context, onlyArtboards = false) {
+  let contextData = context.selection
+
+  if (onlyArtboards) {
+    const aBoards = []
+    contextData.forEach((el) => {
+      while (el && !isArtboard(el)) {
+        el = el.parentGroup()
+      }
+      if (el) aBoards.push(el)
+    })
+    contextData = Array.from(new Set(aBoards))
+  }
+
+  const data = {
+    doc: context.document,
+    pageName: `${context.document.currentPage().name()}`,
+    selectionCount: Array.isArray(contextData) ? contextData.length : contextData.count(),
+    selection: [],
+  }
+  contextData.forEach((layer, i) => {
+    data.selection[i] = layerObject(layer, i)
+  })
+
+  return data
+}
+
+export function findReplaceData(context) {
+  const data = parseData(context)
+  const layers = data.doc.currentPage().layers()
+  data.allLayers = []
+  const aBoards = []
+
+  // Loop thru layers
+  layers.forEach((layer, i) => {
+    data.allLayers[i] = layerObject(layer, i)
+    if (isArtboard(layer)) {
+      aBoards.push(layer.layers())
+    }
+  })
+
+  console.log(aBoards)
+
+  // Loop thru artboards
+  // aBoards..forEach((layer, i) => {
+  //   data.allLayers[i + layer.length] = layerObject(layer, i + layer.length)
+  // })
+
+  return data
 }

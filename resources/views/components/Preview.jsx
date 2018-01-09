@@ -4,25 +4,27 @@
  * @Project: Rename It
  * @Last modified time: 2017-12-02T18:12:11-08:00
  */
-import React from 'react';
+import React from "react"
 
 export default class Preview extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      preview: ''
-    };
+      preview: "",
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      preview: nextProps.data.filter(val => val).join(', ')
-    });
+      preview: nextProps.data.filter((val) => val).join(", "),
+    })
   }
 
   render() {
     return (
-      <div id="preview">Preview: <strong>{this.state.preview}</strong></div>
-    );
+      <div id="preview">
+        Preview: <strong>{this.state.preview}</strong>
+      </div>
+    )
   }
 }
