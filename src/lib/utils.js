@@ -15,6 +15,7 @@ function isArtboard(layer) {
 }
 
 function layerObject(layer, idx) {
+  const parentName = layer.parentGroup() == null ? "" : layer.parentGroup().name()
   return {
     layer,
     name: `${layer.name()}`,
@@ -22,7 +23,7 @@ function layerObject(layer, idx) {
     idx,
     width: layer.frame().width(),
     height: layer.frame().height(),
-    parentName: `${layer.parentGroup().name()}`,
+    parentName: `${parentName}`,
   }
 }
 
@@ -60,24 +61,12 @@ export function parseData(context, onlyArtboards = false) {
 
 export function findReplaceData(context) {
   const data = parseData(context)
-  const layers = data.doc.currentPage().layers()
+  const layers = data.doc.currentPage().children()
   data.allLayers = []
-  const aBoards = []
 
-  // Loop thru layers
   layers.forEach((layer, i) => {
     data.allLayers[i] = layerObject(layer, i)
-    if (isArtboard(layer)) {
-      aBoards.push(layer.layers())
-    }
   })
-
-  console.log(aBoards)
-
-  // Loop thru artboards
-  // aBoards..forEach((layer, i) => {
-  //   data.allLayers[i + layer.length] = layerObject(layer, i + layer.length)
-  // })
 
   return data
 }

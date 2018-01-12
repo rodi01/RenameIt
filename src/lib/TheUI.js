@@ -6,7 +6,7 @@
  */
 import WebUI from "sketch-module-web-view"
 import rename from "./Rename"
-import findReplace from "./FindReplace"
+import { findReplace, matchString } from "./FindReplace"
 import {
   addRenameHistory,
   addFindHistory,
@@ -24,12 +24,10 @@ function hexToNSColor(hex) {
   return NSColor.colorWithRed_green_blue_alpha(r, g, b, a)
 }
 
-function showUpdatedMessage(data) {
-  const layerStr = data.selectionCount > 1 || data.selectionCount === 0 ? "Layers" : "Layer"
+function showUpdatedMessage(count, data) {
+  const layerStr = count === 1 ? "Layer" : "Layers"
   data.doc.showMessage(
-    `${exclamations[Math.floor(Math.random() * exclamations.length)]} ${
-      data.selectionCount
-    } ${layerStr} renamed.`
+    `${exclamations[Math.floor(Math.random() * exclamations.length)]} ${count} ${layerStr} renamed.`
   )
 }
 
@@ -78,11 +76,12 @@ export default function theUI(context, data, options) {
         })
         addRenameHistory(inputData.str)
         webUI.close()
-        showUpdatedMessage(data)
+        showUpdatedMessage(data.selectionCount, data)
       },
       onClickFindReplace: (o) => {
         const inputData = JSON.parse(o)
         const selData = inputData.searchScope === "page" ? data.allLayers : data.selection
+        let totalRenamed = 0
         selData.forEach((item) => {
           const opts = {
             layerName: item.name,
@@ -91,13 +90,16 @@ export default function theUI(context, data, options) {
             replaceWith: inputData.replaceText,
             caseSensitive: Boolean(inputData.caseSensitive),
           }
-          const layer = selData[opts.currIdx].layer
-          layer.name = findReplace(opts)
+          if (matchString(opts)) {
+            const layer = selData[opts.currIdx].layer
+            layer.name = findReplace(opts)
+            totalRenamed += 1
+          }
         })
         addFindHistory(inputData.findText)
         addReplaceHistory(inputData.replaceText)
         webUI.close()
-        showUpdatedMessage(data)
+        showUpdatedMessage(totalRenamed, data)
       },
       onClearHistory: () => {
         clearHistory()
@@ -109,5 +111,4 @@ export default function theUI(context, data, options) {
   // Title bar matches background
   webUI.panel.titlebarAppearsTransparent = true
   webUI.panel.titleVisibility = false
-  // webUI.panel.styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
 }
