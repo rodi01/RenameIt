@@ -51,6 +51,7 @@
     "react-dom": "^16.1.1",
     "react-router-dom": "^4.2.2",
     "sketch-module-user-preferences": "^1.0.2",
-    "sketch-module-web-view": "^0.2.0"
+    "sketch-module-web-view": "^0.2.6",
+    "skpm": "^1.0.13"
   }
 }

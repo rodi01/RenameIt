@@ -77,6 +77,7 @@ export default function theUI(context, data, options) {
         addRenameHistory(inputData.str)
         webUI.close()
         showUpdatedMessage(data.selectionCount, data)
+        WebUI.clean()
       },
       onClickFindReplace: (o) => {
         const inputData = JSON.parse(o)
@@ -100,10 +101,12 @@ export default function theUI(context, data, options) {
         addReplaceHistory(inputData.replaceText)
         webUI.close()
         showUpdatedMessage(totalRenamed, data)
+        WebUI.clean()
       },
       onClearHistory: () => {
         clearHistory()
         webUI.close()
+        WebUI.clean()
       },
     },
   })
