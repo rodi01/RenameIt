@@ -2,6 +2,9 @@
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
     <item>
+      <enclosure url="https://github.com/rodi01/RenameIt/releases/download/v3.7.2/Rename-It.sketchplugin.zip" sparkle:version="3.7.2"/>
+    </item>
+    <item>
       <enclosure url="https://github.com/rodi01/RenameIt/releases/download/v3.7.1/Rename-It.sketchplugin.zip" sparkle:version="3.7.1"/>
     </item>
     <item>
