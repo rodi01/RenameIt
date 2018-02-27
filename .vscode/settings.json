@@ -15,5 +15,6 @@
     "prettier.trailingComma": "es5",
     "prettier.bracketSpacing": true,
     "prettier.arrowParens": "always",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "eslint.enable": true
 }

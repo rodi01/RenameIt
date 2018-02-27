@@ -5,118 +5,110 @@
  * @Last modified time: 2017-12-02T10:17:35-08:00
  */
 
-import changeCase from 'change-case';
+import changeCase from "change-case"
 
- /**
-  * Rename layer name
-  * @param  {{layerName: string, currIdx: number, width: number, height: number, startsFrom: number, pageName: string, inputName: string}} options
-  * @return {string}         Renamed Layer Name
-  */
-export default function rename(options) {
- let newLayerName = options.inputName;
+function currentLayer(newLayerName, layerName) {
+  // UpperCase
+  let name = newLayerName.replace(/%\*u%/gi, changeCase.upperCase(layerName))
 
- // Interator
- const nInterators = newLayerName.match(/%N+/ig);
- const aInterators = newLayerName.match(/%A/ig);
+  // LowerCase
+  name = name.replace(/%\*l%/gi, changeCase.lowerCase(layerName))
 
- // Number Interator
- if (nInterators != null) {
-   // Replace Number
-   function replaceNumber(match) {
-     let nnSize = match.length - 1;
-     const letter = match.charAt(1);
-     let num = (letter == "N") ? options.currIdx : options.selectionCount - options.currIdx - 1;
-     num += options.startsFrom;
+  // Title Case
+  name = name.replace(/%\*t%/gi, changeCase.titleCase(layerName))
 
-     // Check weather or not the number is bigger than the nnSizes (works up to 9999)
-     if (num > 999 && (nnSize == 1 || nnSize == 2 || nnSize == 3))
-       nnSize = 4
-     else if (num > 99 && (nnSize == 1 || nnSize == 2))
-       nnSize = 3
-     else if (num > 9 && nnSize == 1)
-       nnSize = 2
+  // UpperCase First
+  name = name.replace(/%\*uf%/gi, changeCase.upperCaseFirst(layerName))
 
-     return paddy(num, nnSize);
-   }
+  // Camel Case
+  name = name.replace(/%\*c%/gi, changeCase.camelCase(layerName))
 
-   newLayerName = newLayerName.replace(/\%n+/ig, replaceNumber);
- }
+  // Layername
+  name = name.replace(/%\*/g, layerName)
 
- // Alpha Interator
- if (aInterators != null) {
-   const alphaStr = "abcdefghijklmnopqrstuvwxyz";
-   let alphaArr = alphaStr.split("");
-   const totalAlpha = alphaArr.length;
-
-   // Replace Alpha
-   function replaceAlpha(match)
-   {
-     const letter = match.charAt(1);
-     let alpha	= alphaArr[options.currIdx % totalAlpha];
-
-       if (options.currIdx >= totalAlpha)
-       {
-         var flIdx = Math.floor(currIdx / totalAlpha);
-         alpha = `${alphaArr[flIdx - 1]}${alpha}`
-       }
-
-     return (letter == "A") ? alpha.toUpperCase() : alpha
-   }
-
-   newLayerName = newLayerName.replace(/\%a/ig, replaceAlpha);
- }
-
- // Replace plus
- newLayerName = newLayerName.replace(/(\\\+)|\+/, (_, a) => { return a || options.layerName });
-
- // Replace escaped plus
- newLayerName = newLayerName.replace(/\\\+/g, "+");
-
- // Replace asterisks
- newLayerName = currentLayer(newLayerName, options.layerName)
-
- // Replace escaped asterisks
- // newLayerName = newLayerName.replace(/\\\*/g, "*");
-
- // Add Width and/or height
- newLayerName = newLayerName.replace(/%w/ig, options.width);
- newLayerName = newLayerName.replace(/%h/ig, options.height);
-
- // Page Name
- newLayerName = newLayerName.replace(/%p/ig, options.pageName);
-
- // Parent Name
- newLayerName = newLayerName.replace(/%o/ig, options.parentName);
-
- // Return new name
- return newLayerName;
+  return name
 }
 
- function paddy(n, p, c) {
-   let pad_char = typeof c !== 'undefined' ? c : '0';
-   let pad = new Array(1 + p).join(pad_char);
-   return (pad + n).slice(-pad.length);
- }
+function paddy(n, p, c) {
+  const padChar = typeof c !== "undefined" ? c : "0"
+  const pad = new Array(1 + p).join(padChar)
+  return (pad + n).slice(-pad.length)
+}
 
- function currentLayer(newLayerName, layerName) {
-   // UpperCase
-   let name = newLayerName.replace(/%\*u%/ig, changeCase.upperCase(layerName))
+/**
+ * Rename layer name
+ * @param  {{layerName: string, currIdx: number, width: number, height: number, startsFrom: number, pageName: string, inputName: string}} options
+ * @return {string}         Renamed Layer Name
+ */
+export default function rename(options) {
+  let newLayerName = options.inputName
 
-   // LowerCase
-   name = name.replace(/%\*l%/ig, changeCase.lowerCase(layerName))
+  // Interator
+  const nInterators = newLayerName.match(/%N+/gi)
+  const aInterators = newLayerName.match(/%A/gi)
 
-   // Title Case
-   name = name.replace(/%\*t%/ig, changeCase.titleCase(layerName))
+  // Number Interator
+  if (nInterators != null) {
+    /* eslint-disable */
+    // Replace Number
+    function replaceNumber(match) {
+      let nnSize = match.length - 1
+      const letter = match.charAt(1)
+      let num = letter == "N" ? options.currIdx : options.selectionCount - options.currIdx - 1
+      num += options.startsFrom
 
-   // UpperCase First
-   name = name.replace(/%\*uf%/ig, changeCase.upperCaseFirst(layerName))
+      // Check weather or not the number is bigger than the nnSizes (works up to 9999)
+      if (num > 999 && (nnSize === 1 || nnSize === 2 || nnSize === 3)) nnSize = 4
+      else if (num > 99 && (nnSize === 1 || nnSize === 2)) nnSize = 3
+      else if (num > 9 && nnSize == 1) nnSize = 2
 
-   // Camel Case
-   name = name.replace(/%\*c%/ig, changeCase.camelCase(layerName))
+      return paddy(num, nnSize)
+    }
+    /* eslint-enable */
 
+    newLayerName = newLayerName.replace(/%n+/gi, replaceNumber)
+  }
 
-   // Layername
-   name = name.replace(/%\*/g, layerName)
+  // Alpha Interator
+  if (aInterators != null) {
+    const alphaStr = "abcdefghijklmnopqrstuvwxyz"
+    const alphaArr = alphaStr.split("")
+    const totalAlpha = alphaArr.length
 
-   return name
- }
+    /* eslint-disable */
+    // Replace Alpha
+    function replaceAlpha(match) {
+      const letter = match.charAt(1)
+      let alpha = alphaArr[options.currIdx % totalAlpha]
+
+      if (options.currIdx >= totalAlpha) {
+        const flIdx = Math.floor(currIdx / totalAlpha)
+        alpha = `${alphaArr[flIdx - 1]}${alpha}`
+      }
+
+      return letter == "A" ? alpha.toUpperCase() : alpha
+    }
+    /* eslint-enable */
+
+    newLayerName = newLayerName.replace(/%a/gi, replaceAlpha)
+  }
+
+  // Replace asterisks
+  newLayerName = currentLayer(newLayerName, options.layerName)
+
+  // Replace escaped asterisks
+  // newLayerName = newLayerName.replace(/\\\*/g, "*");
+
+  // Add Width and/or height
+  newLayerName = newLayerName.replace(/%w/gi, options.width)
+  newLayerName = newLayerName.replace(/%h/gi, options.height)
+
+  // Page Name
+  newLayerName = newLayerName.replace(/%p/gi, options.pageName)
+
+  // Parent Name
+  newLayerName = newLayerName.replace(/%o/gi, options.parentName)
+
+  // Return new name
+  return newLayerName
+}
