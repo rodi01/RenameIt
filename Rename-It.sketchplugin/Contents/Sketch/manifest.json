@@ -13,15 +13,15 @@
       "script": "commandRenameLayer.js"
     },
     {
-      "name": "Find & Replace Layers Names",
+      "name": "Find and Replace Layers/Artboards Names",
       "identifier": "renameit.find",
       "script": "commandFindReplace.js",
       "shortcut": "ctrl option cmd r",
-      "description": "Find and replace text on selected layer(s) or artboard(s) names.",
+      "description": "Find and replace text on selected layer(s) and artboard(s) names.",
       "icon": "find_replace_ic.png"
     },
     {
-      "name": "Rename Selected Artboard",
+      "name": "Rename Selected Artboards",
       "identifier": "renameit.renameArtboard",
       "script": "commandRenameArtboard.js",
       "shortcut": "shift ctrl option r",
