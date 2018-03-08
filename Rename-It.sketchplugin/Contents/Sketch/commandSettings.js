@@ -421,7 +421,8 @@ function theUI(context, data, options) {
               inputName: inputData.str,
               startsFrom: Number(inputData.startsFrom),
               pageName: data.pageName,
-              parentName: item.parentName
+              parentName: item.parentName,
+              color: item.color
             };
             var layer = data.selection[opts.currIdx].layer;
             layer.name = (0, _Rename2["default"])(opts);
@@ -885,6 +886,9 @@ function rename(options) {
 
   // Parent Name
   newLayerName = newLayerName.replace(/%o/gi, options.parentName);
+
+  // Color
+  newLayerName = newLayerName.replace(/%c/gi, options.color);
 
   // Return new name
   return newLayerName;

@@ -36814,7 +36814,8 @@ var RenameLayer = function (_React$Component) {
             inputName: _this6.state.valueAttr,
             startsFrom: Number(_this6.state.sequence),
             pageName: window.data.pageName,
-            parentName: item.parentName
+            parentName: item.parentName,
+            color: item.color
           };
           renamed.push((0, _Rename2["default"])(options));
         });
@@ -36871,7 +36872,7 @@ var RenameLayer = function (_React$Component) {
           onChange: this.onChangeSequence.bind(this)
         };
 
-        var buttons = [{ id: "currentLayer", char: "%*", text: "Layer Name" }, { id: "layerWidth", char: "%w", text: "Layer Width" }, { id: "layerHeight", char: "%h", text: "Layer Height" }, { id: "sequenceAsc", char: "%n", text: "Num. Sequence ASC" }, { id: "sequenceDesc", char: "%N", text: "Num. Sequence DESC" }, { id: "sequenceAlpha", char: "%A", text: "Alphabet Sequence" }, { id: "pageName", char: "%p", text: "Page Name" }, { id: "parentName", char: "%o", text: "Parent Name" }];
+        var buttons = [{ id: "currentLayer", char: "%*", text: "Layer Name" }, { id: "layerWidth", char: "%w", text: "Layer Width" }, { id: "layerHeight", char: "%h", text: "Layer Height" }, { id: "sequenceAsc", char: "%n", text: "Num. Sequence ASC" }, { id: "sequenceDesc", char: "%N", text: "Num. Sequence DESC" }, { id: "sequenceAlpha", char: "%A", text: "Alphabet Sequence" }, { id: "pageName", char: "%p", text: "Page Name" }, { id: "parentName", char: "%o", text: "Parent Name" }, { id: "color", char: "%c", text: "Color" }];
 
         var listItems = buttons.map(function (d) {
           return _react2["default"].createElement("li", { key: d.id, className: "keywordBtn" }, _react2["default"].createElement(_KeywordButton2["default"], _extends({}, d, { click: _this8.onButtonClicked.bind(_this8) })));
@@ -37007,6 +37008,9 @@ function rename(options) {
 
   // Parent Name
   newLayerName = newLayerName.replace(/%o/gi, options.parentName);
+
+  // Color
+  newLayerName = newLayerName.replace(/%c/gi, options.color);
 
   // Return new name
   return newLayerName;

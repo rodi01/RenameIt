@@ -122,6 +122,7 @@ class RenameLayer extends React.Component {
         startsFrom: Number(this.state.sequence),
         pageName: window.data.pageName,
         parentName: item.parentName,
+        color: item.color,
       }
       renamed.push(rename(options))
     })
@@ -174,6 +175,7 @@ class RenameLayer extends React.Component {
       { id: "sequenceAlpha", char: "%A", text: "Alphabet Sequence" },
       { id: "pageName", char: "%p", text: "Page Name" },
       { id: "parentName", char: "%o", text: "Parent Name" },
+      { id: "color", char: "%c", text: "Color" },
     ]
 
     const listItems = buttons.map((d) => (

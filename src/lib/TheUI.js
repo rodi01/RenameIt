@@ -27,9 +27,7 @@ function hexToNSColor(hex) {
 function showUpdatedMessage(count, data) {
   const layerStr = count === 1 ? "Layer" : "Layers"
   data.doc.showMessage(
-    `${
-      exclamations[Math.floor(Math.random() * exclamations.length)]
-    } ${count} ${layerStr} renamed.`
+    `${exclamations[Math.floor(Math.random() * exclamations.length)]} ${count} ${layerStr} renamed.`
   )
 }
 
@@ -84,8 +82,7 @@ export default function theUI(context, data, options) {
       },
       onClickFindReplace: (o) => {
         const inputData = JSON.parse(o)
-        const selData =
-          inputData.searchScope === "page" ? data.allLayers : data.selection
+        const selData = inputData.searchScope === "page" ? data.allLayers : data.selection
         let totalRenamed = 0
         selData.forEach((item) => {
           const opts = {

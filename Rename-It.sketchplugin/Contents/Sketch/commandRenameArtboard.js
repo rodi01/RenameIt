@@ -361,6 +361,18 @@ function isArtboard(layer) {
   return layer instanceof MSArtboardGroup || layer instanceof MSSymbolMaster;
 }
 
+function getColor(layer) {
+  var color = "";
+  if (layer.isKindOfClass(MSTextLayer)) {
+    color = layer.textColor().immutableModelObject().hexValue();
+  }
+  if (layer.isKindOfClass(MSShapeGroup)) {
+    color = layer.style().fills()[0].color().immutableModelObject().hexValue();
+  }
+
+  return color;
+}
+
 function layerObject(layer, idx) {
   var parentName = layer.parentGroup() == null ? "" : layer.parentGroup().name();
   return {
@@ -370,7 +382,8 @@ function layerObject(layer, idx) {
     idx: idx,
     width: layer.frame().width(),
     height: layer.frame().height(),
-    parentName: "" + String(parentName)
+    parentName: "" + String(parentName),
+    color: "" + String(getColor(layer))
   };
 }
 
@@ -515,7 +528,8 @@ function theUI(context, data, options) {
               inputName: inputData.str,
               startsFrom: Number(inputData.startsFrom),
               pageName: data.pageName,
-              parentName: item.parentName
+              parentName: item.parentName,
+              color: item.color
             };
             var layer = data.selection[opts.currIdx].layer;
             layer.name = (0, _Rename2["default"])(opts);
@@ -979,6 +993,9 @@ function rename(options) {
 
   // Parent Name
   newLayerName = newLayerName.replace(/%o/gi, options.parentName);
+
+  // Color
+  newLayerName = newLayerName.replace(/%c/gi, options.color);
 
   // Return new name
   return newLayerName;

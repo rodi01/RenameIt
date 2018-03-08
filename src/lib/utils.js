@@ -35,8 +35,7 @@ function getColor(layer) {
 }
 
 function layerObject(layer, idx) {
-  const parentName =
-    layer.parentGroup() == null ? "" : layer.parentGroup().name()
+  const parentName = layer.parentGroup() == null ? "" : layer.parentGroup().name()
   return {
     layer,
     name: `${layer.name()}`,
@@ -45,7 +44,7 @@ function layerObject(layer, idx) {
     width: layer.frame().width(),
     height: layer.frame().height(),
     parentName: `${parentName}`,
-    color: getColor(layer),
+    color: `${getColor(layer)}`,
   }
 }
 
@@ -71,9 +70,7 @@ export function parseData(context, onlyArtboards = false) {
   const data = {
     doc: context.document,
     pageName: `${context.document.currentPage().name()}`,
-    selectionCount: Array.isArray(contextData)
-      ? contextData.length
-      : contextData.count(),
+    selectionCount: Array.isArray(contextData) ? contextData.length : contextData.count(),
     selection: [],
   }
   contextData.forEach((layer, i) => {
