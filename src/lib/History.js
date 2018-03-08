@@ -14,7 +14,10 @@ const defaultPreferences = {
   findHistory: [],
   replaceHistory: [],
 }
-const preferences = prefsManager.getUserPreferences(pluginId, defaultPreferences)
+const preferences = prefsManager.getUserPreferences(
+  pluginId,
+  defaultPreferences
+)
 
 function sanitizeArray(arr) {
   const a = []

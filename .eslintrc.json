@@ -2,7 +2,16 @@
   "extends": ["airbnb", "prettier"],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": ["error"],
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": false,
+        "singleQuote": false,
+        "trailingComma": "es5",
+        "bracketSpacing": true,
+        "arrowParens": "always"
+      }
+    ],
     "react/jsx-no-bind": {
       "ignoreRefs": false
     },

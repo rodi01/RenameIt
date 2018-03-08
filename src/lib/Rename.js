@@ -54,11 +54,15 @@ export default function rename(options) {
     function replaceNumber(match) {
       let nnSize = match.length - 1
       const letter = match.charAt(1)
-      let num = letter == "N" ? options.currIdx : options.selectionCount - options.currIdx - 1
+      let num =
+        letter == "N"
+          ? options.currIdx
+          : options.selectionCount - options.currIdx - 1
       num += options.startsFrom
 
       // Check weather or not the number is bigger than the nnSizes (works up to 9999)
-      if (num > 999 && (nnSize === 1 || nnSize === 2 || nnSize === 3)) nnSize = 4
+      if (num > 999 && (nnSize === 1 || nnSize === 2 || nnSize === 3))
+        nnSize = 4
       else if (num > 99 && (nnSize === 1 || nnSize === 2)) nnSize = 3
       else if (num > 9 && nnSize == 1) nnSize = 2
 
@@ -108,6 +112,9 @@ export default function rename(options) {
 
   // Parent Name
   newLayerName = newLayerName.replace(/%o/gi, options.parentName)
+
+  // Color
+  newLayerName = newLayerName.replace(/%c/gi, options.color)
 
   // Return new name
   return newLayerName
