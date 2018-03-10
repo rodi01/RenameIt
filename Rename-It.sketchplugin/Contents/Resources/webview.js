@@ -36872,7 +36872,7 @@ var RenameLayer = function (_React$Component) {
           onChange: this.onChangeSequence.bind(this)
         };
 
-        var buttons = [{ id: "currentLayer", char: "%*", text: "Layer Name" }, { id: "layerWidth", char: "%w", text: "Layer Width" }, { id: "layerHeight", char: "%h", text: "Layer Height" }, { id: "sequenceAsc", char: "%n", text: "Num. Sequence ASC" }, { id: "sequenceDesc", char: "%N", text: "Num. Sequence DESC" }, { id: "sequenceAlpha", char: "%A", text: "Alphabet Sequence" }, { id: "pageName", char: "%p", text: "Page Name" }, { id: "parentName", char: "%o", text: "Parent Name" }, { id: "color", char: "%c", text: "Color" }];
+        var buttons = [{ id: "currentLayer", char: "%*", text: "Layer Name" }, { id: "layerWidth", char: "%w", text: "Layer Width" }, { id: "layerHeight", char: "%h", text: "Layer Height" }, { id: "sequenceAsc", char: "%n", text: "Num. Sequence ASC" }, { id: "sequenceDesc", char: "%N", text: "Num. Sequence DESC" }, { id: "sequenceAlpha", char: "%A", text: "Alphabet Sequence" }, { id: "pageName", char: "%p", text: "Page Name" }, { id: "parentName", char: "%o", text: "Parent Name" }];
 
         var listItems = buttons.map(function (d) {
           return _react2["default"].createElement("li", { key: d.id, className: "keywordBtn" }, _react2["default"].createElement(_KeywordButton2["default"], _extends({}, d, { click: _this8.onButtonClicked.bind(_this8) })));

@@ -321,7 +321,7 @@ exports["default"] = function (context) {
     identifier: "renameLayers.ui",
     title: "Rename Selected Layers",
     redirectTo: "/rename",
-    width: 520,
+    width: 480,
     height: 446
 
     // Load UI
