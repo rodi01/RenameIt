@@ -431,11 +431,11 @@ var _Rename = __webpack_require__(12);
 
 var _Rename2 = _interopRequireDefault(_Rename);
 
-var _FindReplace = __webpack_require__(29);
+var _FindReplace = __webpack_require__(33);
 
-var _History = __webpack_require__(30);
+var _History = __webpack_require__(34);
 
-var _Constants = __webpack_require__(32);
+var _Constants = __webpack_require__(36);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -459,7 +459,7 @@ function showUpdatedMessage(count, data) {
 }
 
 function theUI(context, data, options) {
-  var webUI = new _sketchModuleWebView2["default"](context, __webpack_require__(33), {
+  var webUI = new _sketchModuleWebView2["default"](context, __webpack_require__(37), {
     identifier: options.indentifier, // to reuse the UI
     x: 0,
     y: 0,
@@ -868,7 +868,18 @@ var _changeCase = __webpack_require__(13);
 
 var _changeCase2 = _interopRequireDefault(_changeCase);
 
+var _titlecase = __webpack_require__(29);
+
+var _titlecase2 = _interopRequireDefault(_titlecase);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+/**
+ * @Author: Rodrigo Soares <rodrigo>
+ * @Date:   2017-11-17T17:23:24-08:00
+ * @Project: Rename It
+ * @Last modified time: 2017-12-02T10:17:35-08:00
+ */
 
 function currentLayer(newLayerName, layerName) {
   // UpperCase
@@ -878,7 +889,8 @@ function currentLayer(newLayerName, layerName) {
   name = name.replace(/%\*l%/gi, _changeCase2["default"].lowerCase(layerName));
 
   // Title Case
-  name = name.replace(/%\*t%/gi, _changeCase2["default"].titleCase(layerName));
+  name = name.replace(/%\*t%/gi, (0, _titlecase2["default"])(layerName));
+  // name = name.replace(/%\*t%/gi, changeCase.titleCase(layerName))
 
   // UpperCase First
   name = name.replace(/%\*uf%/gi, _changeCase2["default"].upperCaseFirst(layerName));
@@ -890,12 +902,7 @@ function currentLayer(newLayerName, layerName) {
   name = name.replace(/%\*/g, layerName);
 
   return name;
-} /**
-   * @Author: Rodrigo Soares <rodrigo>
-   * @Date:   2017-11-17T17:23:24-08:00
-   * @Project: Rename It
-   * @Last modified time: 2017-12-02T10:17:35-08:00
-   */
+}
 
 function paddy(n, p, c) {
   var padChar = typeof c !== "undefined" ? c : "0";
@@ -1271,6 +1278,201 @@ module.exports = function (str, locale) {
 
 /***/ }),
 /* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+ * To Title Case 2.1 – http://individed.com/code/to-title-case/
+ * Copyright © 2008–2013 David Gouch. Licensed under the MIT License.
+ *
+ * modifications by @rvagg Apr-2014
+ */
+
+//String.prototype.toTitleCase = function(){
+
+
+var smallWords = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
+
+
+module.exports = function toTitleCase(str){
+  return titleCase(str, smallWords)
+}
+
+
+module.exports.toTitleCase = module.exports
+
+
+var laxWords = __webpack_require__(30).concat(__webpack_require__(31)).concat(__webpack_require__(32))
+      .concat(smallWords.source.replace(/(^\^\(|\)\$$)/g, '').split('|'))
+      .concat(['is']) // a personal preference
+  , laxWordsRe = new RegExp('^(' + laxWords.join('|') + ')$', 'i')
+
+
+module.exports.toLaxTitleCase = function toLaxTitleCase(str){
+  return titleCase(str, laxWordsRe)
+}
+
+
+function titleCase (str, smallWords) {
+  if (!str)
+    return str
+  return str.replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, function(match, index, title){
+    if (index > 0 && index + match.length !== title.length &&
+      match.search(smallWords) > -1 && title.charAt(index - 2) !== ':' &&
+      (title.charAt(index + match.length) !== '-' || title.charAt(index - 1) === '-') &&
+      title.charAt(index - 1).search(/[^\s-]/) < 0) {
+      return match.toLowerCase();
+    }
+
+    if (match.substr(1).search(/[A-Z]|\../) > -1) {
+      return match;
+    }
+
+    return match.charAt(0).toUpperCase() + match.substr(1);
+  });
+}
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports) {
+
+module.exports = [ 'the', 'a', 'an', 'some' ]
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports) {
+
+module.exports = [
+    'a'
+  , 'abaft'
+  , 'aboard'
+  , 'about'
+  , 'above'
+  , 'absent'
+  , 'across'
+  , 'afore'
+  , 'after'
+  , 'against'
+  , 'along'
+  , 'alongside'
+  , 'amid'
+  , 'amidst'
+  , 'among'
+  , 'amongst'
+  , 'an'
+  , 'apropos'
+  , 'apud'
+  , 'around'
+  , 'as'
+  , 'aside'
+  , 'astride'
+  , 'at'
+  , 'athwart'
+  , 'atop'
+  , 'barring'
+  , 'before'
+  , 'behind'
+  , 'below'
+  , 'beneath'
+  , 'beside'
+  , 'besides'
+  , 'between'
+  , 'beyond'
+  , 'but'
+  , 'by'
+  , 'circa'
+  , 'concerning'
+  , 'despite'
+  , 'down'
+  , 'during'
+  , 'except'
+  , 'excluding'
+  , 'failing'
+  , 'following'
+  , 'for'
+  , 'forenenst'
+  , 'from'
+  , 'given'
+  , 'in'
+  , 'including'
+  , 'inside'
+  , 'into'
+  , 'like'
+  , 'mid'
+  , 'midst'
+  , 'minus'
+  , 'modulo'
+  , 'near'
+  , 'next'
+  , 'notwithstanding'
+  , 'o\''
+  , 'of'
+  , 'off'
+  , 'on'
+  , 'onto'
+  , 'opposite'
+  , 'out'
+  , 'outside'
+  , 'over'
+  , 'pace'
+  , 'past'
+  , 'per'
+  , 'plus'
+  , 'pro'
+  , 'qua'
+  , 'regarding'
+  , 'round'
+  , 'sans'
+  , 'save'
+  , 'since'
+  , 'than'
+  , 'through'
+  , 'throughout'
+  , 'thru'
+  , 'thruout'
+  , 'till'
+  , 'times'
+  , 'to'
+  , 'toward'
+  , 'towards'
+  , 'under'
+  , 'underneath'
+  , 'unlike'
+  , 'until'
+  , 'unto'
+  , 'up'
+  , 'upon'
+  , 'versus'
+  , 'via'
+  , 'vice'
+  , 'vis-à-vis'
+  , 'with'
+  , 'within'
+  , 'without'
+  , 'worth'
+]
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports) {
+
+module.exports = [
+    'as'
+  , 'because'
+  , 'for'
+  , 'and'
+  , 'nor'
+  , 'but'
+  , 'or'
+  , 'yet'
+  , 'so'
+]
+
+
+/***/ }),
+/* 33 */
 /***/ (function(module, exports) {
 
 Object.defineProperty(exports, "__esModule", {
@@ -1318,7 +1520,7 @@ function matchString(options) {
 }
 
 /***/ }),
-/* 30 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 Object.defineProperty(exports, "__esModule", {
@@ -1330,7 +1532,7 @@ exports.addFindHistory = addFindHistory;
 exports.addReplaceHistory = addReplaceHistory;
 exports.clearHistory = clearHistory;
 
-var _sketchModuleUserPreferences = __webpack_require__(31);
+var _sketchModuleUserPreferences = __webpack_require__(35);
 
 var _sketchModuleUserPreferences2 = _interopRequireDefault(_sketchModuleUserPreferences);
 
@@ -1409,7 +1611,7 @@ function clearHistory() {
 }
 
 /***/ }),
-/* 31 */
+/* 35 */
 /***/ (function(module, exports) {
 
 const SUITE_PREFIX = 'plugin.sketch.'
@@ -1454,7 +1656,7 @@ module.exports = {
 
 
 /***/ }),
-/* 32 */
+/* 36 */
 /***/ (function(module, exports) {
 
 Object.defineProperty(exports, "__esModule", {
@@ -1498,7 +1700,7 @@ var mockHistory = exports.mockHistory = {
 var exclamations = exports.exclamations = ["Boo-yah!", "Olé!", "Hooray!", "Great Success!", "Abracadabra!", "Geronimo!"];
 
 /***/ }),
-/* 33 */
+/* 37 */
 /***/ (function(module, exports) {
 
 module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/b25e3a854a0adefe39eff97baa1aac6e.html").path();

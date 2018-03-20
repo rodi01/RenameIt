@@ -6,6 +6,7 @@
  */
 
 import changeCase from "change-case"
+import toTitleCase from "titlecase"
 
 function currentLayer(newLayerName, layerName) {
   // UpperCase
@@ -15,7 +16,8 @@ function currentLayer(newLayerName, layerName) {
   name = name.replace(/%\*l%/gi, changeCase.lowerCase(layerName))
 
   // Title Case
-  name = name.replace(/%\*t%/gi, changeCase.titleCase(layerName))
+  name = name.replace(/%\*t%/gi, toTitleCase(layerName))
+  // name = name.replace(/%\*t%/gi, changeCase.titleCase(layerName))
 
   // UpperCase First
   name = name.replace(/%\*uf%/gi, changeCase.upperCaseFirst(layerName))
