@@ -681,132 +681,96 @@ var _Constants = __webpack_require__(42);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function hexToNSColor(hex) {
-  var r = parseInt(hex.substring(0, 2), 16) / 255;
-  var g = parseInt(hex.substring(2, 4), 16) / 255;
-  var b = parseInt(hex.substring(4, 6), 16) / 255;
-  var a = 1;
-  return NSColor.colorWithRed_green_blue_alpha(r, g, b, a);
+function showUpdatedMessage(count, data) {
+  var layerStr = count === 1 ? "Layer" : "Layers";
+  data.doc.showMessage(String(_Constants.exclamations[Math.floor(Math.random() * _Constants.exclamations.length)]) + " " + String(count) + " " + layerStr + " renamed.");
 } /**
    * @Author: Rodrigo Soares <rodrigo>
    * @Date:   2017-11-17T20:46:17-08:00
    * @Project: Rename It
    * @Last modified time: 2017-12-02T21:22:22-08:00
    */
-
-
-function showUpdatedMessage(count, data) {
-  var layerStr = count === 1 ? "Layer" : "Layers";
-  data.doc.showMessage(String(_Constants.exclamations[Math.floor(Math.random() * _Constants.exclamations.length)]) + " " + String(count) + " " + layerStr + " renamed.");
-}
-
 function theUI(context, data, options) {
-  var webUI = new _sketchModuleWebView2["default"](context, __webpack_require__(43), {
-    identifier: options.indentifier, // to reuse the UI
-    x: 0,
-    y: 0,
+  var winOpts = {
+    identifier: options.indentifier,
     title: options.title,
     width: options.width,
     height: options.height,
-    blurredBackground: false,
-    background: hexToNSColor("f7f7f7"),
-    onlyShowCloseButton: true,
-    hideTitleBar: false,
-    shouldKeepAround: true,
-    handlers: {
-      getLocation: function () {
-        function getLocation() {
-          var whereTo = options.redirectTo;
-          webUI.eval("window.redirectTo=\"" + String(whereTo) + "\"");
-        }
+    minimizable: false,
+    maximizable: false,
+    fullscreenable: false,
+    backgroundColor: "#f7f7f7"
+  };
 
-        return getLocation;
-      }(),
-      getData: function () {
-        function getData() {
-          var history = (0, _History.getHistory)();
-          webUI.eval("window.data=" + String(JSON.stringify(data)));
-          webUI.eval("window.dataHistory=" + String(JSON.stringify(history)));
-        }
+  var browserWindow = new _sketchModuleWebView2["default"](winOpts, "ultra-dark");
+  var contents = browserWindow.webContents;
 
-        return getData;
-      }(),
-      close: function () {
-        function close() {
-          webUI.close();
-        }
+  browserWindow.loadURL(__webpack_require__(43));
 
-        return close;
-      }(),
-      onClickRename: function () {
-        function onClickRename(o) {
-          var inputData = JSON.parse(o);
-          data.selection.forEach(function (item) {
-            var opts = {
-              layerName: item.name,
-              currIdx: item.idx,
-              width: item.width,
-              height: item.height,
-              selectionCount: data.selectionCount,
-              inputName: inputData.str,
-              startsFrom: Number(inputData.startsFrom),
-              pageName: data.pageName,
-              parentName: item.parentName
-            };
-            var layer = data.selection[opts.currIdx].layer;
-            layer.name = (0, _Rename2["default"])(opts);
-          });
-          (0, _History.addRenameHistory)(inputData.str);
-          webUI.close();
-          showUpdatedMessage(data.selectionCount, data);
-          _sketchModuleWebView2["default"].clean();
-        }
-
-        return onClickRename;
-      }(),
-      onClickFindReplace: function () {
-        function onClickFindReplace(o) {
-          var inputData = JSON.parse(o);
-          var selData = inputData.searchScope === "page" ? data.allLayers : data.selection;
-          var totalRenamed = 0;
-          selData.forEach(function (item) {
-            var opts = {
-              layerName: item.name,
-              currIdx: item.idx,
-              findText: inputData.findText,
-              replaceWith: inputData.replaceText,
-              caseSensitive: Boolean(inputData.caseSensitive)
-            };
-            if ((0, _FindReplace.matchString)(opts)) {
-              var layer = selData[opts.currIdx].layer;
-              layer.name = (0, _FindReplace.findReplace)(opts);
-              totalRenamed += 1;
-            }
-          });
-          (0, _History.addFindHistory)(inputData.findText);
-          (0, _History.addReplaceHistory)(inputData.replaceText);
-          webUI.close();
-          showUpdatedMessage(totalRenamed, data);
-          _sketchModuleWebView2["default"].clean();
-        }
-
-        return onClickFindReplace;
-      }(),
-      onClearHistory: function () {
-        function onClearHistory() {
-          (0, _History.clearHistory)();
-          webUI.close();
-          _sketchModuleWebView2["default"].clean();
-        }
-
-        return onClearHistory;
-      }()
-    }
+  contents.on("getLocation", function () {
+    var whereTo = options.redirectTo;
+    contents.executeJavaScript("window.redirectTo=\"" + String(whereTo) + "\"");
   });
 
-  // Title bar matches background
-  webUI.panel.titlebarAppearsTransparent = true;
-  webUI.panel.titleVisibility = false;
+  contents.on("getData", function () {
+    var history = (0, _History.getHistory)();
+    contents.executeJavaScript("window.data=" + String(JSON.stringify(data)) + "; window.dataHistory=" + String(JSON.stringify(history)) + ";");
+  });
+
+  contents.on("close", function () {
+    browserWindow.close();
+  });
+
+  contents.on("onClickRename", function (o) {
+    var inputData = JSON.parse(o);
+    data.selection.forEach(function (item) {
+      var opts = {
+        layerName: item.name,
+        currIdx: item.idx,
+        width: item.width,
+        height: item.height,
+        selectionCount: data.selectionCount,
+        inputName: inputData.str,
+        startsFrom: Number(inputData.startsFrom),
+        pageName: data.pageName,
+        parentName: item.parentName
+      };
+      var layer = data.selection[opts.currIdx].layer;
+      layer.name = (0, _Rename2["default"])(opts);
+    });
+    (0, _History.addRenameHistory)(inputData.str);
+    browserWindow.close();
+    showUpdatedMessage(data.selectionCount, data);
+  });
+
+  contents.on("onClickFindReplace", function (o) {
+    var inputData = JSON.parse(o);
+    var selData = inputData.searchScope === "page" ? data.allLayers : data.selection;
+    var totalRenamed = 0;
+    selData.forEach(function (item) {
+      var opts = {
+        layerName: item.name,
+        currIdx: item.idx,
+        findText: inputData.findText,
+        replaceWith: inputData.replaceText,
+        caseSensitive: Boolean(inputData.caseSensitive)
+      };
+      if ((0, _FindReplace.matchString)(opts)) {
+        var layer = selData[opts.currIdx].layer;
+        layer.name = (0, _FindReplace.findReplace)(opts);
+        totalRenamed += 1;
+      }
+    });
+    (0, _History.addFindHistory)(inputData.findText);
+    (0, _History.addReplaceHistory)(inputData.replaceText);
+    browserWindow.close();
+    showUpdatedMessage(totalRenamed, data);
+  });
+
+  contents.on("onClearHistory", function () {
+    (0, _History.clearHistory)();
+    browserWindow.close();
+  });
 }
 
 /***/ }),
