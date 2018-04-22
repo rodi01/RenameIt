@@ -25,34 +25,37 @@
     "format": "prettier --write '**/*.{js,jsx}'"
   },
   "devDependencies": {
-    "@skpm/builder": "^0.2.3",
-    "@skpm/extract-loader": "^1.0.1",
+    "@babel/cli": "^7.0.0-beta.44",
+    "@babel/core": "^7.0.0-beta.44",
+    "@skpm/babel-preset": "^0.1.1",
+    "@skpm/builder": "^0.2.12",
+    "@skpm/extract-loader": "^2.0.2",
     "babel-plugin-react-html-attrs": "^2.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "css-loader": "^0.28.7",
-    "eslint": "^4.14.0",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-prettier": "^2.4.0",
-    "eslint-plugin-react": "^7.5.1",
-    "html-loader": "^0.5.1",
-    "prettier": "^1.9.2"
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-react": "^7.7.0",
+    "html-loader": "^0.5.5",
+    "prettier": "^1.12.1"
   },
   "resources": [
     "resources/**/*.js"
   ],
   "dependencies": {
-    "change-case": "^3.0.1",
-    "mixpanel-browser": "^2.14.0",
-    "react": "^16.1.1",
-    "react-bootstrap": "^0.31.5",
-    "react-dom": "^16.1.1",
+    "change-case": "^3.0.2",
+    "mixpanel-browser": "^2.20.0",
+    "react": "^16.3.2",
+    "react-bootstrap": "^0.32.1",
+    "react-dom": "^16.3.2",
     "react-router-dom": "^4.2.2",
     "sketch-module-user-preferences": "^1.0.2",
-    "sketch-module-web-view": "^0.2.6",
-    "skpm": "^1.0.13",
+    "sketch-module-web-view": "^1.1.4",
+    "skpm": "^1.0.15",
     "titlecase": "^1.1.2"
   }
 }
