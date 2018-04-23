@@ -20,8 +20,8 @@ if (testData && window.data === undefined) {
   window.data = mockData
   window.dataHistory = mockHistory
 } else {
-  pluginCall("getData")
-  pluginCall("getLocation")
+  // pluginCall("getData")
+  // pluginCall("getLocation")
 }
 
 if (process.env.NODE_ENV === "production") {

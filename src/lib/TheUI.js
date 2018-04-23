@@ -33,10 +33,19 @@ export default function theUI(context, data, options) {
     maximizable: false,
     fullscreenable: false,
     backgroundColor: "#f7f7f7",
+    resizable: false,
   }
 
-  const browserWindow = new BrowserWindow(winOpts, "ultra-dark")
+  let browserWindow = new BrowserWindow(winOpts, "ultra-dark")
   const contents = browserWindow.webContents
+
+  contents.on("did-start-loading", () => {
+    contents.executeJavaScript(
+      `window.redirectTo="${options.redirectTo}";
+      window.data=${JSON.stringify(data)};
+      window.dataHistory=${JSON.stringify(getHistory())};`
+    )
+  })
 
   browserWindow.loadURL(require("../../resources/webview.html"))
 
@@ -69,6 +78,7 @@ export default function theUI(context, data, options) {
         startsFrom: Number(inputData.startsFrom),
         pageName: data.pageName,
         parentName: item.parentName,
+        show: false,
       }
       const layer = data.selection[opts.currIdx].layer
       layer.name = rename(opts)
@@ -107,7 +117,11 @@ export default function theUI(context, data, options) {
     browserWindow.close()
   })
 
-  // Title bar matches background
-  browserWindow.panel.titlebarAppearsTransparent = true
-  browserWindow.panel.titleVisibility = false
+  browserWindow.on("closed", () => {
+    browserWindow = null
+  })
+
+  browserWindow.once("ready-to-show", () => {
+    browserWindow.show()
+  })
 }
