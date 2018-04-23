@@ -4,6 +4,7 @@
   "author": "Rodrigo Soares",
   "identifier": "com.taptap.ninja.rename-it",
   "version": "3.7.3",
+  "homepage": "./rename",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/rodi01/RenameIt"
@@ -27,8 +28,9 @@
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.44",
     "@babel/core": "^7.0.0-beta.44",
+    "@babel/preset-react": "^7.0.0-beta.44",
     "@skpm/babel-preset": "^0.1.1",
-    "@skpm/builder": "^0.2.12",
+    "@skpm/builder": "^0.5.4",
     "@skpm/extract-loader": "^2.0.2",
     "babel-plugin-react-html-attrs": "^2.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -43,9 +45,7 @@
     "html-loader": "^0.5.5",
     "prettier": "^1.12.1"
   },
-  "resources": [
-    "resources/**/*.js"
-  ],
+  "resources": ["resources/**/*.js"],
   "dependencies": {
     "change-case": "^3.0.2",
     "mixpanel-browser": "^2.20.0",

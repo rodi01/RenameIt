@@ -106,4 +106,8 @@ export default function theUI(context, data, options) {
     clearHistory()
     browserWindow.close()
   })
+
+  // Title bar matches background
+  browserWindow.panel.titlebarAppearsTransparent = true
+  browserWindow.panel.titleVisibility = false
 }
