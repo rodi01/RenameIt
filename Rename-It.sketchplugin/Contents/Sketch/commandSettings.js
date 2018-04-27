@@ -3129,10 +3129,14 @@ function theUI(context, data, options) {
     resizable: false
   };
   var browserWindow = new _sketchModuleWebView.default(winOpts, "ultra-dark");
-  var contents = browserWindow.webContents;
-  contents.on("did-start-loading", function () {
-    contents.executeJavaScript("window.redirectTo=\"".concat(options.redirectTo, "\";\n      window.data=").concat(JSON.stringify(data), ";\n      window.dataHistory=").concat(JSON.stringify((0, _History.getHistory)()), ";"));
-  });
+  var contents = browserWindow.webContents; // contents.on("did-start-loading", () => {
+  //   contents.executeJavaScript(
+  //     `window.redirectTo="${options.redirectTo}";
+  //     window.data=${JSON.stringify(data)};
+  //     window.dataHistory=${JSON.stringify(getHistory())};`
+  //   )
+  // })
+
   browserWindow.loadURL(__webpack_require__(/*! ../../resources/webview.html */ "./resources/webview.html"));
   contents.on("getLocation", function () {
     var whereTo = options.redirectTo;

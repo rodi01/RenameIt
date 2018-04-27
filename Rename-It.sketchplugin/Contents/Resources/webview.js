@@ -54233,8 +54233,9 @@ _mixpanelBrowser.default.init(_Constants.mixpanelId); // Get data
 if (_Constants.testData && window.data === undefined) {
   window.data = _Constants.mockData;
   window.dataHistory = _Constants.mockHistory;
-} else {// pluginCall("getData")
-  // pluginCall("getLocation")
+} else {
+  (0, _client.default)("getData");
+  (0, _client.default)("getLocation");
 }
 
 if (false) {}

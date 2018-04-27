@@ -39,13 +39,13 @@ export default function theUI(context, data, options) {
   let browserWindow = new BrowserWindow(winOpts, "ultra-dark")
   const contents = browserWindow.webContents
 
-  contents.on("did-start-loading", () => {
-    contents.executeJavaScript(
-      `window.redirectTo="${options.redirectTo}";
-      window.data=${JSON.stringify(data)};
-      window.dataHistory=${JSON.stringify(getHistory())};`
-    )
-  })
+  // contents.on("did-start-loading", () => {
+  //   contents.executeJavaScript(
+  //     `window.redirectTo="${options.redirectTo}";
+  //     window.data=${JSON.stringify(data)};
+  //     window.dataHistory=${JSON.stringify(getHistory())};`
+  //   )
+  // })
 
   browserWindow.loadURL(require("../../resources/webview.html"))
 

@@ -4,7 +4,6 @@
   "author": "Rodrigo Soares",
   "identifier": "com.taptap.ninja.rename-it",
   "version": "3.8.0",
-  "homepage": "./rename",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/rodi01/RenameIt"
@@ -15,7 +14,8 @@
   "skpm": {
     "name": "Rename-It",
     "manifest": "src/manifest.json",
-    "main": "Rename-It.sketchplugin"
+    "main": "Rename-It.sketchplugin",
+    "assets": ["assets/**/*"]
   },
   "scripts": {
     "build": "skpm-build",
@@ -45,9 +45,7 @@
     "html-loader": "^0.5.5",
     "prettier": "^1.12.1"
   },
-  "resources": [
-    "resources/**/*.js"
-  ],
+  "resources": ["resources/**/*.js"],
   "dependencies": {
     "change-case": "^3.0.2",
     "mixpanel-browser": "^2.20.0",
