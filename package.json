@@ -53,6 +53,7 @@
   "dependencies": {
     "change-case": "^3.0.2",
     "mixpanel-browser": "^2.20.0",
+    "npm": "^6.0.0",
     "react": "^16.3.2",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.3.2",
