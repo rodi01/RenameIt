@@ -50,29 +50,17 @@ export default function theUI(context, data, options) {
     browserWindow = null
   })
 
-  contents.on("did-start-loading", () => {
+  const getData = () =>
     contents.executeJavaScript(
       `window.redirectTo="${options.redirectTo}";
         window.data=${JSON.stringify(data)};
         window.dataHistory=${JSON.stringify(getHistory())};`
     )
-  })
+
+  contents.on("did-start-loading", () => getData())
+  contents.on("getData", () => getData())
 
   browserWindow.loadURL(require("../../resources/webview.html"))
-
-  // contents.on("getLocation", () => {
-  //   const whereTo = options.redirectTo
-  //   contents.executeJavaScript(`window.redirectTo="${whereTo}"`)
-  // })
-
-  // contents.on("getData", () => {
-  //   const history = getHistory()
-  //   contents.executeJavaScript(
-  //     `window.data=${JSON.stringify(data)}; window.dataHistory=${JSON.stringify(
-  //       history
-  //     )};`
-  //   )
-  // })
 
   contents.on("close", () => {
     browserWindow.close()

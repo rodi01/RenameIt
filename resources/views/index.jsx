@@ -7,6 +7,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { HashRouter } from "react-router-dom"
+import pluginCall from "sketch-module-web-view/client"
 import mixpanel from "mixpanel-browser"
 import Routes from "./routes"
 import {
@@ -23,6 +24,8 @@ mixpanel.init(mixpanelId)
 if (testData && window.data === undefined) {
   window.data = mockData
   window.dataHistory = mockHistory
+} else if (window.data === undefined || window.dataHistory === undefined) {
+  pluginCall("getData")
 }
 
 if (process.env.NODE_ENV === "production") {

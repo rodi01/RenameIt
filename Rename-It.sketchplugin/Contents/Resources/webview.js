@@ -56263,6 +56263,8 @@ var _reactDom = _interopRequireDefault(__webpack_require__(/*! react-dom */ "./n
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
+var _client = _interopRequireDefault(__webpack_require__(/*! sketch-module-web-view/client */ "./node_modules/sketch-module-web-view/client.js"));
+
 var _mixpanelBrowser = _interopRequireDefault(__webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js"));
 
 var _routes = _interopRequireDefault(__webpack_require__(/*! ./routes */ "./resources/views/routes.jsx"));
@@ -56289,6 +56291,8 @@ _mixpanelBrowser.default.init(_Constants.mixpanelId); // Get data
 if (_Constants.testData && window.data === undefined) {
   window.data = _Constants.mockData;
   window.dataHistory = _Constants.mockHistory;
+} else if (window.data === undefined || window.dataHistory === undefined) {
+  (0, _client.default)("getData");
 }
 
 if (false) {}

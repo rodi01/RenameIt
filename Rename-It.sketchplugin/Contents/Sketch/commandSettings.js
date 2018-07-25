@@ -3202,22 +3202,18 @@ function theUI(context, data, options) {
   browserWindow.on("closed", function () {
     browserWindow = null;
   });
-  contents.on("did-start-loading", function () {
-    contents.executeJavaScript("window.redirectTo=\"".concat(options.redirectTo, "\";\n        window.data=").concat(JSON.stringify(data), ";\n        window.dataHistory=").concat(JSON.stringify((0, _History.getHistory)()), ";"));
-  });
-  browserWindow.loadURL(__webpack_require__(/*! ../../resources/webview.html */ "./resources/webview.html")); // contents.on("getLocation", () => {
-  //   const whereTo = options.redirectTo
-  //   contents.executeJavaScript(`window.redirectTo="${whereTo}"`)
-  // })
-  // contents.on("getData", () => {
-  //   const history = getHistory()
-  //   contents.executeJavaScript(
-  //     `window.data=${JSON.stringify(data)}; window.dataHistory=${JSON.stringify(
-  //       history
-  //     )};`
-  //   )
-  // })
 
+  var getData = function getData() {
+    return contents.executeJavaScript("window.redirectTo=\"".concat(options.redirectTo, "\";\n        window.data=").concat(JSON.stringify(data), ";\n        window.dataHistory=").concat(JSON.stringify((0, _History.getHistory)()), ";"));
+  };
+
+  contents.on("did-start-loading", function () {
+    return getData();
+  });
+  contents.on("getData", function () {
+    return getData();
+  });
+  browserWindow.loadURL(__webpack_require__(/*! ../../resources/webview.html */ "./resources/webview.html"));
   contents.on("close", function () {
     browserWindow.close();
   });
