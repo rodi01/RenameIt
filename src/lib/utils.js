@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares 
  * @Date: 2018-01-03 17:48:48 
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-01-05 11:53:41
+ * @Last Modified time: 2018-07-24 18:05:24
  */
 
 /**
@@ -15,7 +15,8 @@ function isArtboard(layer) {
 }
 
 function layerObject(layer, idx) {
-  const parentName = layer.parentGroup() == null ? "" : layer.parentGroup().name()
+  const parentName =
+    layer.parentGroup() == null ? "" : layer.parentGroup().name()
   return {
     layer,
     name: `${layer.name()}`,
@@ -23,7 +24,7 @@ function layerObject(layer, idx) {
     idx,
     width: layer.frame().width(),
     height: layer.frame().height(),
-    parentName: `${parentName}`,
+    parentName: `${parentName}`
   }
 }
 
@@ -37,7 +38,7 @@ export function parseData(context, onlyArtboards = false) {
 
   if (onlyArtboards) {
     const aBoards = []
-    contextData.forEach((el) => {
+    contextData.forEach(el => {
       while (el && !isArtboard(el)) {
         el = el.parentGroup()
       }
@@ -49,8 +50,10 @@ export function parseData(context, onlyArtboards = false) {
   const data = {
     doc: context.document,
     pageName: `${context.document.currentPage().name()}`,
-    selectionCount: Array.isArray(contextData) ? contextData.length : contextData.count(),
-    selection: [],
+    selectionCount: Array.isArray(contextData)
+      ? contextData.length
+      : contextData.count(),
+    selection: []
   }
   contextData.forEach((layer, i) => {
     data.selection[i] = layerObject(layer, i)

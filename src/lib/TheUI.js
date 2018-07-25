@@ -12,14 +12,16 @@ import {
   addFindHistory,
   addReplaceHistory,
   getHistory,
-  clearHistory,
+  clearHistory
 } from "./History"
 import { exclamations } from "./Constants"
 
 function showUpdatedMessage(count, data) {
   const layerStr = count === 1 ? "Layer" : "Layers"
   data.doc.showMessage(
-    `${exclamations[Math.floor(Math.random() * exclamations.length)]} ${count} ${layerStr} renamed.`
+    `${
+      exclamations[Math.floor(Math.random() * exclamations.length)]
+    } ${count} ${layerStr} renamed.`
   )
 }
 
@@ -34,40 +36,51 @@ export default function theUI(context, data, options) {
     fullscreenable: false,
     backgroundColor: "#f7f7f7",
     resizable: false,
+    show: false
   }
 
   let browserWindow = new BrowserWindow(winOpts, "ultra-dark")
   const contents = browserWindow.webContents
 
-  // contents.on("did-start-loading", () => {
-  //   contents.executeJavaScript(
-  //     `window.redirectTo="${options.redirectTo}";
-  //     window.data=${JSON.stringify(data)};
-  //     window.dataHistory=${JSON.stringify(getHistory())};`
-  //   )
-  // })
+  browserWindow.once("ready-to-show", () => {
+    browserWindow.show()
+  })
+
+  browserWindow.on("closed", () => {
+    browserWindow = null
+  })
+
+  contents.on("did-start-loading", () => {
+    contents.executeJavaScript(
+      `window.redirectTo="${options.redirectTo}";
+        window.data=${JSON.stringify(data)};
+        window.dataHistory=${JSON.stringify(getHistory())};`
+    )
+  })
 
   browserWindow.loadURL(require("../../resources/webview.html"))
 
-  contents.on("getLocation", () => {
-    const whereTo = options.redirectTo
-    contents.executeJavaScript(`window.redirectTo="${whereTo}"`)
-  })
+  // contents.on("getLocation", () => {
+  //   const whereTo = options.redirectTo
+  //   contents.executeJavaScript(`window.redirectTo="${whereTo}"`)
+  // })
 
-  contents.on("getData", () => {
-    const history = getHistory()
-    contents.executeJavaScript(
-      `window.data=${JSON.stringify(data)}; window.dataHistory=${JSON.stringify(history)};`
-    )
-  })
+  // contents.on("getData", () => {
+  //   const history = getHistory()
+  //   contents.executeJavaScript(
+  //     `window.data=${JSON.stringify(data)}; window.dataHistory=${JSON.stringify(
+  //       history
+  //     )};`
+  //   )
+  // })
 
   contents.on("close", () => {
     browserWindow.close()
   })
 
-  contents.on("onClickRename", (o) => {
+  contents.on("onClickRename", o => {
     const inputData = JSON.parse(o)
-    data.selection.forEach((item) => {
+    data.selection.forEach(item => {
       const opts = {
         layerName: item.name,
         currIdx: item.idx,
@@ -78,7 +91,7 @@ export default function theUI(context, data, options) {
         startsFrom: Number(inputData.startsFrom),
         pageName: data.pageName,
         parentName: item.parentName,
-        show: false,
+        show: false
       }
       const layer = data.selection[opts.currIdx].layer
       layer.name = rename(opts)
@@ -88,17 +101,18 @@ export default function theUI(context, data, options) {
     showUpdatedMessage(data.selectionCount, data)
   })
 
-  contents.on("onClickFindReplace", (o) => {
+  contents.on("onClickFindReplace", o => {
     const inputData = JSON.parse(o)
-    const selData = inputData.searchScope === "page" ? data.allLayers : data.selection
+    const selData =
+      inputData.searchScope === "page" ? data.allLayers : data.selection
     let totalRenamed = 0
-    selData.forEach((item) => {
+    selData.forEach(item => {
       const opts = {
         layerName: item.name,
         currIdx: item.idx,
         findText: inputData.findText,
         replaceWith: inputData.replaceText,
-        caseSensitive: Boolean(inputData.caseSensitive),
+        caseSensitive: Boolean(inputData.caseSensitive)
       }
       if (matchString(opts)) {
         const layer = selData[opts.currIdx].layer
@@ -115,13 +129,5 @@ export default function theUI(context, data, options) {
   contents.on("onClearHistory", () => {
     clearHistory()
     browserWindow.close()
-  })
-
-  browserWindow.on("closed", () => {
-    browserWindow = null
-  })
-
-  browserWindow.once("ready-to-show", () => {
-    browserWindow.show()
   })
 }

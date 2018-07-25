@@ -16,5 +16,9 @@
   "prettier.bracketSpacing": true,
   "prettier.arrowParens": "always",
   "editor.formatOnSave": true,
-  "eslint.enable": true
+  "eslint.enable": true,
+  "prettier.printWidth": 100,
+  "prettier.tabWidth": 2,
+  "javascript.format.enable": false,
+  "prettier.eslintIntegration": true
 }
