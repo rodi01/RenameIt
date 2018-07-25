@@ -22,7 +22,7 @@ export default function(context) {
     title: "Rename Selected Layers",
     redirectTo: "/rename",
     width: 480,
-    height: 446,
+    height: 423,
   }
 
   // Load UI

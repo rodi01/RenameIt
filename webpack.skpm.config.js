@@ -32,13 +32,10 @@ module.exports = function(config) {
       },
     ],
   })
+
   config.module.rules.push({
     test: /\.jsx?$/,
-    exclude: /(node_modules|bower_components)/,
+    exclude: /(node_modules)/,
     loader: "babel-loader",
-    query: {
-      presets: ["react"],
-      plugins: ["react-html-attrs", "transform-class-properties"],
-    },
   })
 }

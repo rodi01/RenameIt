@@ -3,6 +3,7 @@
   "bundleVersion": 1,
   "identifier": "com.taptap.ninja.rename-it",
   "homepage": "http://rodi01.github.io/RenameIt/",
+  "icon": "icon.png",
   "commands": [
     {
       "name": "Rename Selected Layers",
