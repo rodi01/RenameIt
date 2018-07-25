@@ -50,7 +50,7 @@ class Input extends React.Component {
             value={this.props.value}
             onChange={this.props.onChange}
             autoFocus={this.props.autoFocus}
-            ref={(ip) => (this.myInp = ip)}
+            ref={ip => (this.myInp = ip)}
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="off"
@@ -65,7 +65,7 @@ class Input extends React.Component {
 }
 
 Input.defaultProps = {
-  dropup: false,
+  dropup: false
 }
 
 export default Input
