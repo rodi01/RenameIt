@@ -1,20 +1,24 @@
 {
-    "search.exclude": {
-        "**/node_modules": true
-    },
-    "files.exclude": {
-        "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/.DS_Store": true,
-        "**/node_modules": true
-    },
-    "editor.tabSize": 2,
-    "prettier.semi": false,
-    "prettier.singleQuote": false,
-    "prettier.trailingComma": "es5",
-    "prettier.bracketSpacing": true,
-    "prettier.arrowParens": "always",
-    "editor.formatOnSave": true,
-    "eslint.enable": true
+  "search.exclude": {
+    "**/node_modules": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true
+  },
+  "editor.tabSize": 2,
+  "prettier.semi": false,
+  "prettier.singleQuote": false,
+  "prettier.trailingComma": "es5",
+  "prettier.bracketSpacing": true,
+  "prettier.arrowParens": "always",
+  "editor.formatOnSave": true,
+  "eslint.enable": true,
+  "prettier.printWidth": 100,
+  "prettier.tabWidth": 2,
+  "javascript.format.enable": false,
+  "prettier.eslintIntegration": true
 }

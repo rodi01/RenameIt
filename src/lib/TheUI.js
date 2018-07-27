@@ -12,7 +12,7 @@ import {
   addFindHistory,
   addReplaceHistory,
   getHistory,
-  clearHistory,
+  clearHistory
 } from "./History"
 import { exclamations } from "./Constants"
 
@@ -27,7 +27,9 @@ function hexToNSColor(hex) {
 function showUpdatedMessage(count, data) {
   const layerStr = count === 1 ? "Layer" : "Layers"
   data.doc.showMessage(
-    `${exclamations[Math.floor(Math.random() * exclamations.length)]} ${count} ${layerStr} renamed.`
+    `${
+      exclamations[Math.floor(Math.random() * exclamations.length)]
+    } ${count} ${layerStr} renamed.`
   )
 }
 
@@ -57,9 +59,9 @@ export default function theUI(context, data, options) {
       close: () => {
         webUI.close()
       },
-      onClickRename: (o) => {
+      onClickRename: o => {
         const inputData = JSON.parse(o)
-        data.selection.forEach((item) => {
+        data.selection.forEach(item => {
           const opts = {
             layerName: item.name,
             currIdx: item.idx,
@@ -69,7 +71,7 @@ export default function theUI(context, data, options) {
             inputName: inputData.str,
             startsFrom: Number(inputData.startsFrom),
             pageName: data.pageName,
-            parentName: item.parentName,
+            parentName: item.parentName
           }
           const layer = data.selection[opts.currIdx].layer
           layer.name = rename(opts)
@@ -79,17 +81,18 @@ export default function theUI(context, data, options) {
         showUpdatedMessage(data.selectionCount, data)
         WebUI.clean()
       },
-      onClickFindReplace: (o) => {
+      onClickFindReplace: o => {
         const inputData = JSON.parse(o)
-        const selData = inputData.searchScope === "page" ? data.allLayers : data.selection
+        const selData =
+          inputData.searchScope === "page" ? data.allLayers : data.selection
         let totalRenamed = 0
-        selData.forEach((item) => {
+        selData.forEach(item => {
           const opts = {
             layerName: item.name,
             currIdx: item.idx,
             findText: inputData.findText,
             replaceWith: inputData.replaceText,
-            caseSensitive: Boolean(inputData.caseSensitive),
+            caseSensitive: Boolean(inputData.caseSensitive)
           }
           if (matchString(opts)) {
             const layer = selData[opts.currIdx].layer
@@ -107,8 +110,8 @@ export default function theUI(context, data, options) {
         clearHistory()
         webUI.close()
         WebUI.clean()
-      },
-    },
+      }
+    }
   })
 
   // Title bar matches background
