@@ -3,7 +3,8 @@
   "description": "Keep your Sketch files organized, batch rename layers and artboards.",
   "author": "Rodrigo Soares",
   "identifier": "com.taptap.ninja.rename-it",
-  "version": "3.8.7",
+  "icon": "icon.png",
+  "version": "3.9.1",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/rodi01/RenameIt"
@@ -14,7 +15,10 @@
   "skpm": {
     "name": "Rename-It",
     "manifest": "src/manifest.json",
-    "main": "Rename-It.sketchplugin"
+    "main": "Rename-It.sketchplugin",
+    "assets": [
+      "assets/**/*"
+    ]
   },
   "scripts": {
     "build": "skpm-build",
