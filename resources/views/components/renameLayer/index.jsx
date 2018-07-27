@@ -21,7 +21,7 @@ class RenameLayer extends React.Component {
       showClear: "",
       sequence: 1,
       inputFocus: false,
-      previewData: [],
+      previewData: []
     }
     this.enterFunction = this.enterFunction.bind(this)
 
@@ -47,7 +47,7 @@ class RenameLayer extends React.Component {
     this.setState(
       {
         sequence: event.target.value,
-        inputFocus: false,
+        inputFocus: false
       },
       () => this.previewUpdate()
     )
@@ -60,7 +60,7 @@ class RenameLayer extends React.Component {
       {
         valueAttr: val,
         inputFocus: true,
-        showClear: "show",
+        showClear: "show"
       },
       () => this.previewUpdate()
     )
@@ -68,7 +68,7 @@ class RenameLayer extends React.Component {
     // Track button event
     mixpanel.track("keywordButton", {
       name: `${event.target.id}`,
-      value: `${event.target.dataset.char}`,
+      value: `${event.target.dataset.char}`
     })
   }
 
@@ -79,7 +79,7 @@ class RenameLayer extends React.Component {
   onSubmit() {
     const d = {
       str: this.state.valueAttr,
-      startsFrom: this.state.sequence,
+      startsFrom: this.state.sequence
     }
 
     // Track input event
@@ -93,7 +93,7 @@ class RenameLayer extends React.Component {
       {
         valueAttr: "",
         showClear: "",
-        inputFocus: true,
+        inputFocus: true
       },
       () => this.previewUpdate()
     )
@@ -111,7 +111,7 @@ class RenameLayer extends React.Component {
 
   previewUpdate() {
     const renamed = []
-    window.data.selection.forEach((item) => {
+    window.data.selection.forEach(item => {
       const options = {
         layerName: item.name,
         currIdx: item.idx,
@@ -121,7 +121,7 @@ class RenameLayer extends React.Component {
         inputName: this.state.valueAttr,
         startsFrom: Number(this.state.sequence),
         pageName: window.data.pageName,
-        parentName: item.parentName,
+        parentName: item.parentName
       }
       renamed.push(rename(options))
     })
@@ -132,7 +132,7 @@ class RenameLayer extends React.Component {
     this.setState(
       {
         valueAttr: str,
-        inputFocus: true,
+        inputFocus: true
       },
       () => this.previewUpdate()
     )
@@ -152,7 +152,7 @@ class RenameLayer extends React.Component {
       inputFocus: this.state.inputFocus,
       dataHistory: window.dataHistory.renameHistory,
       showHistory: true,
-      handleHistory: this.handleHistory.bind(this),
+      handleHistory: this.handleHistory.bind(this)
     }
 
     const sequenceInputAttr = {
@@ -162,7 +162,7 @@ class RenameLayer extends React.Component {
       wrapperClass: "inputRight",
       value: this.state.sequence,
       autoFocus: false,
-      onChange: this.onChangeSequence.bind(this),
+      onChange: this.onChangeSequence.bind(this)
     }
 
     const buttons = [
@@ -173,10 +173,10 @@ class RenameLayer extends React.Component {
       { id: "sequenceDesc", char: "%N", text: "Num. Sequence DESC" },
       { id: "sequenceAlpha", char: "%A", text: "Alphabet Sequence" },
       { id: "pageName", char: "%p", text: "Page Name" },
-      { id: "parentName", char: "%o", text: "Parent Name" },
+      { id: "parentName", char: "%o", text: "Parent Name" }
     ]
 
-    const listItems = buttons.map((d) => (
+    const listItems = buttons.map(d => (
       <li key={d.id} className="keywordBtn">
         <KeywordButton {...d} click={this.onButtonClicked.bind(this)} />
       </li>

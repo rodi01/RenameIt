@@ -478,19 +478,11 @@ function theUI(context, data, options) {
     hideTitleBar: false,
     shouldKeepAround: true,
     handlers: {
-      getLocation: function () {
-        function getLocation() {
-          var whereTo = options.redirectTo;
-          webUI.eval("window.redirectTo=\"" + String(whereTo) + "\"");
-        }
-
-        return getLocation;
-      }(),
       getData: function () {
         function getData() {
           var history = (0, _History.getHistory)();
-          webUI.eval("window.data=" + String(JSON.stringify(data)));
-          webUI.eval("window.dataHistory=" + String(JSON.stringify(history)));
+          var whereTo = options.redirectTo;
+          webUI.eval("\n          window.redirectTo=\"" + String(whereTo) + "\";\n          window.data=" + String(JSON.stringify(data)) + ";\n          window.dataHistory=" + String(JSON.stringify(history)));
         }
 
         return getData;

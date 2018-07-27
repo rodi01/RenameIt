@@ -47,14 +47,13 @@ export default function theUI(context, data, options) {
     hideTitleBar: false,
     shouldKeepAround: true,
     handlers: {
-      getLocation: () => {
-        const whereTo = options.redirectTo
-        webUI.eval(`window.redirectTo="${whereTo}"`)
-      },
       getData: () => {
         const history = getHistory()
-        webUI.eval(`window.data=${JSON.stringify(data)}`)
-        webUI.eval(`window.dataHistory=${JSON.stringify(history)}`)
+        const whereTo = options.redirectTo
+        webUI.eval(`
+          window.redirectTo="${whereTo}";
+          window.data=${JSON.stringify(data)};
+          window.dataHistory=${JSON.stringify(history)}`)
       },
       close: () => {
         webUI.close()

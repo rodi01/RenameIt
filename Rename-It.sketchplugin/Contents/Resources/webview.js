@@ -15653,7 +15653,6 @@ if (_Constants.testData && window.data === undefined) {
   window.dataHistory = _Constants.mockHistory;
 } else {
   (0, _client2["default"])("getData");
-  (0, _client2["default"])("getLocation");
 }
 
 if (false) {
