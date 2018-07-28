@@ -10,35 +10,31 @@ module.exports = function(config) {
     test: /\.(html)$/,
     use: [
       {
-        loader: "@skpm/extract-loader",
+        loader: "@skpm/extract-loader"
       },
       {
         loader: "html-loader",
         options: {
           attrs: ["img:src", "link:href"],
-          interpolate: true,
-        },
-      },
-    ],
+          interpolate: true
+        }
+      }
+    ]
   })
   config.module.rules.push({
     test: /\.(css)$/,
     use: [
       {
-        loader: "@skpm/extract-loader",
+        loader: "@skpm/extract-loader"
       },
       {
-        loader: "css-loader",
-      },
-    ],
+        loader: "css-loader"
+      }
+    ]
   })
   config.module.rules.push({
     test: /\.jsx?$/,
     exclude: /(node_modules|bower_components)/,
-    loader: "babel-loader",
-    query: {
-      presets: ["react"],
-      plugins: ["react-html-attrs", "transform-class-properties"],
-    },
+    loader: "babel-loader"
   })
 }
