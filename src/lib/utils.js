@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares 
  * @Date: 2018-01-03 17:48:48 
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-01-05 11:53:41
+ * @Last Modified time: 2018-08-03 22:25:17
  */
 
 /**
@@ -15,15 +15,16 @@ function isArtboard(layer) {
 }
 
 function layerObject(layer, idx) {
-  const parentName = layer.parentGroup() == null ? "" : layer.parentGroup().name()
+  const parentName =
+    layer.parentGroup() == null ? "" : layer.parentGroup().name()
   return {
     layer,
-    name: `${layer.name()}`,
+    name: String(layer.name()),
     frame: layer.frame(),
     idx,
     width: layer.frame().width(),
     height: layer.frame().height(),
-    parentName: `${parentName}`,
+    parentName: String(parentName)
   }
 }
 
@@ -37,7 +38,7 @@ export function parseData(context, onlyArtboards = false) {
 
   if (onlyArtboards) {
     const aBoards = []
-    contextData.forEach((el) => {
+    contextData.forEach(el => {
       while (el && !isArtboard(el)) {
         el = el.parentGroup()
       }
@@ -48,9 +49,11 @@ export function parseData(context, onlyArtboards = false) {
 
   const data = {
     doc: context.document,
-    pageName: `${context.document.currentPage().name()}`,
-    selectionCount: Array.isArray(contextData) ? contextData.length : contextData.count(),
-    selection: [],
+    pageName: String(context.document.currentPage().name()),
+    selectionCount: Array.isArray(contextData)
+      ? contextData.length
+      : contextData.count(),
+    selection: []
   }
   contextData.forEach((layer, i) => {
     data.selection[i] = layerObject(layer, i)

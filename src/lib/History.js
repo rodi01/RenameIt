@@ -2,24 +2,20 @@
  * @Author: Rodrigo Soares 
  * @Date: 2017-12-25 16:57:22 
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2017-12-25 21:40:31
+ * @Last Modified time: 2018-08-03 22:22:31
  */
 
-import prefsManager from "sketch-module-user-preferences"
+const Settings = require("sketch/settings")
 
-const pluginId = "rename-it"
 const MAX_HISTORY = 5
-const defaultPreferences = {
-  renameHistory: [],
-  findHistory: [],
-  replaceHistory: [],
-}
-const preferences = prefsManager.getUserPreferences(pluginId, defaultPreferences)
+const RENAME_HISTORY = "renameHistory"
+const FIND_HISTORY = "findHistory"
+const REPLACE_HISTORY = "replaceHistory"
 
 function sanitizeArray(arr) {
   const a = []
-  arr.forEach((item) => {
-    a.push(`${item}`)
+  arr.forEach(item => {
+    a.push(String(item))
   })
   return a
 }
@@ -28,7 +24,7 @@ function createArr(str, arr) {
   const pos = arr.indexOf(str)
   if (pos !== -1) arr.splice(pos, 1)
   arr.unshift(str)
-  const newArr = arr.filter((entry) => entry.trim() !== "")
+  const newArr = arr.filter(entry => entry.trim() !== "")
   if (newArr.length <= MAX_HISTORY) {
     return newArr
   }
@@ -36,37 +32,39 @@ function createArr(str, arr) {
   return newArr.slice(0, MAX_HISTORY)
 }
 
+const getSettings = key => Settings.settingForKey(key) || []
+
 export function getHistory() {
   return {
-    renameHistory: sanitizeArray(preferences.renameHistory),
-    findHistory: sanitizeArray(preferences.findHistory),
-    replaceHistory: sanitizeArray(preferences.replaceHistory),
+    renameHistory: getSettings(RENAME_HISTORY),
+    findHistory: getSettings(FIND_HISTORY),
+    replaceHistory: getSettings(REPLACE_HISTORY)
   }
 }
 
 export function addRenameHistory(str) {
-  const arr = createArr(str, sanitizeArray(preferences.renameHistory))
-  prefsManager.setUserPreferences(pluginId, {
-    renameHistory: arr,
-  })
+  Settings.setSettingForKey(
+    RENAME_HISTORY,
+    createArr(str, sanitizeArray(getSettings(RENAME_HISTORY)))
+  )
 }
 
 export function addFindHistory(str) {
-  prefsManager.setUserPreferences(pluginId, {
-    findHistory: createArr(str, sanitizeArray(preferences.findHistory)),
-  })
+  Settings.setSettingForKey(
+    FIND_HISTORY,
+    createArr(str, sanitizeArray(getSettings(FIND_HISTORY)))
+  )
 }
 
 export function addReplaceHistory(str) {
-  prefsManager.setUserPreferences(pluginId, {
-    replaceHistory: createArr(str, sanitizeArray(preferences.replaceHistory)),
-  })
+  Settings.setSettingForKey(
+    REPLACE_HISTORY,
+    createArr(str, sanitizeArray(getSettings(REPLACE_HISTORY)))
+  )
 }
 
 export function clearHistory() {
-  prefsManager.setUserPreferences(pluginId, {
-    renameHistory: [],
-    findHistory: [],
-    replaceHistory: [],
+  ;[RENAME_HISTORY, FIND_HISTORY, REPLACE_HISTORY].forEach(key => {
+    Settings.setSettingForKey(key, undefined)
   })
 }
