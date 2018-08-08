@@ -81,10 +81,8 @@ class RenameLayer extends React.Component {
       str: this.state.valueAttr,
       startsFrom: this.state.sequence
     }
-
     // Track input event
-    mixpanel.track("input", { rename: `${this.state.valueAttr}` })
-
+    mixpanel.track("input", { rename: String(d.str) })
     pluginCall("onClickRename", JSON.stringify(d))
   }
 

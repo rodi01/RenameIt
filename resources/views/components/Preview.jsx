@@ -10,21 +10,28 @@ export default class Preview extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      preview: "",
+      preview: ""
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      preview: nextProps.data.filter((val) => val).join(", "),
+      preview: nextProps.data.filter(val => val).join(", ")
     })
   }
 
-  render() {
+  renderPreviewText() {
+    if (this.state.preview === "") {
+      return <span>&nbsp;</span>
+    }
     return (
-      <div id="preview">
+      <span>
         Preview: <strong>{this.state.preview}</strong>
-      </div>
+      </span>
     )
+  }
+
+  render() {
+    return <div id="preview">{this.renderPreviewText()}</div>
   }
 }

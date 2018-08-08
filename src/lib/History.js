@@ -2,10 +2,10 @@
  * @Author: Rodrigo Soares 
  * @Date: 2017-12-25 16:57:22 
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-08-03 22:22:31
+ * @Last Modified time: 2018-08-07 22:38:22
  */
 
-const Settings = require("sketch/settings")
+import Settings from "sketch/settings" // eslint-disable-line
 
 const MAX_HISTORY = 5
 const RENAME_HISTORY = "renameHistory"
