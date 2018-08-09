@@ -45,6 +45,11 @@ if (window.redirectTo !== undefined) {
   App = () => <Routes />
 }
 
+// Mixpanel super properties
+if (window.superProps !== undefined) {
+  mixpanel.register(window.superProps)
+}
+
 // Track Page
 mixpanel.track("page viewed", { url: window.redirectTo })
 

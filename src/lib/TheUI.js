@@ -51,13 +51,30 @@ const theUI = (context, data, options) => {
 
   win.loadURL(require("../../resources/webview.html"))
 
+  const getSuperProperties = () => {
+    const manifestPath = context.plugin
+      .url()
+      .URLByAppendingPathComponent("Contents")
+      .URLByAppendingPathComponent("Sketch")
+      .URLByAppendingPathComponent("manifest.json")
+      .path()
+    const manifest = NSJSONSerialization.JSONObjectWithData_options_error(
+      NSData.dataWithContentsOfFile(manifestPath),
+      0,
+      nil
+    )
+    return { Plataform: "Sketch", pluginVersion: String(manifest.version) }
+  }
+
   const getData = () => {
     const history = getHistory()
     const whereTo = options.redirectTo
+    const superProps = getSuperProperties()
     contents.executeJavaScript(`
           window.redirectTo="${whereTo}";
           window.data=${JSON.stringify(data)};
-          window.dataHistory=${JSON.stringify(history)}`)
+          window.dataHistory=${JSON.stringify(history)};
+          window.superProps=${JSON.stringify(superProps)};`)
   }
 
   contents.on("did-start-loading", () => getData())

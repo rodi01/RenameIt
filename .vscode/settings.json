@@ -1,6 +1,7 @@
 {
   "search.exclude": {
-    "**/node_modules": true
+    "**/node_modules": true,
+    "**/Rename-It.sketchplugin": true
   },
   "files.exclude": {
     "**/.git": true,

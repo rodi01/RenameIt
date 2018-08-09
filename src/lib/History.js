@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares 
  * @Date: 2017-12-25 16:57:22 
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-08-07 22:38:22
+ * @Last Modified time: 2018-08-08 22:57:33
  */
 
 import Settings from "sketch/settings" // eslint-disable-line
