@@ -35,7 +35,7 @@ You can use the **%\*** with combination of letters to convert the layer name ca
 
 - **Keyword %\*u%** -  Convert to **UPPER CASE**
 - **Keyword %\*l%** -  Convert to **lower case**
-- **Keyword %\*t%** -  Convert to **Tile Case**
+- **Keyword %\*t%** -  Convert to **Title Case**
 - **Keyword %\*uf%** -  Convert to **Upper first word**
 - **Keyword %\*c%** -  Convert to **camelCase** (This will remove the spaces)
 
