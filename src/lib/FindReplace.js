@@ -12,7 +12,7 @@
  * @return {string}     Escaped value
  */
 function escapeRegExp(str) {
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") // eslint-disable-line
 }
 
 /**
@@ -28,7 +28,7 @@ export function findReplace(options) {
 }
 
 export function matchString(options) {
-  if (options.findText.lenght <= 0) return false
+  if (options.findText.length <= 0) return false
   let str = options.findText
   let layerName = options.layerName
   if (!options.caseSensitive) {

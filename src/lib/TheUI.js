@@ -63,7 +63,7 @@ const theUI = (context, data, options) => {
       0,
       nil
     )
-    return { Plataform: "Sketch", pluginVersion: String(manifest.version) }
+    return { Platform: "Sketch", pluginVersion: String(manifest.version) }
   }
 
   const getData = () => {
