@@ -15,22 +15,39 @@ function escapeRegExp(str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
 }
 
+function isRegex(str) {
+  let isValid = true
+  try {
+    new RegExp(str)
+  } catch (e) {
+    isValid = false
+  }
+  return isValid
+}
+
 /**
  * Find and Replace layer name
  * @param  {{layerName: string, findText: string, replaceWith: string, caseSensitive:boolean}} options
  * @return {string}         The renamed layer
  */
 export function findReplace(options) {
-  const reg = options.caseSensitive
-    ? new RegExp(escapeRegExp(options.findText), "g")
-    : new RegExp(escapeRegExp(options.findText), "gi")
+  const str = String(options.findText)
+  let reg = options.caseSensitive
+    ? new RegExp(escapeRegExp(str), "g")
+    : new RegExp(escapeRegExp(str), "gi")
+  // return options.layerName.replace(reg, options.replaceWith)
+
+  if (isRegex(str)) reg = RegExp(String(str), "g")
+  console.log(reg)
+
   return options.layerName.replace(reg, options.replaceWith)
 }
 
 export function matchString(options) {
   if (options.findText.lenght <= 0) return false
-  let str = options.findText
+  let str = String(options.findText)
   let layerName = options.layerName
+  if (isRegex(str)) return true
   if (!options.caseSensitive) {
     str = str.toLowerCase()
     layerName = layerName.toLowerCase()

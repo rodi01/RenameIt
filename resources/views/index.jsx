@@ -10,6 +10,7 @@ import { HashRouter } from "react-router-dom"
 import pluginCall from "sketch-module-web-view/client"
 import mixpanel from "mixpanel-browser"
 import Routes from "./routes"
+
 import {
   testData,
   mockData,
@@ -19,6 +20,19 @@ import {
 
 // Init Mixpanel
 mixpanel.init(mixpanelId)
+
+// window.onerror = (message, source, lineno, colno, error) => {
+//   const now = new Date()
+//   const errorMsg = `
+//   ======<br/>
+//   Timestamp: ${now}<br/>
+//   Message: ${message}<br/>
+//   Location: ${source}<br/>
+//   LN: ${lineno} COL: ${colno}<br/>
+//   Error Object: ${error}<br/>`
+
+//   document.write(errorMsg)
+// }
 
 // Get data
 if (testData && window.data === undefined) {
