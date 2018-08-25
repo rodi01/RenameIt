@@ -12,13 +12,13 @@
  * @return {string}     Escaped value
  */
 function escapeRegExp(str) {
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") // eslint-disable-line
 }
 
 function isRegex(str) {
   let isValid = true
   try {
-    new RegExp(str)
+    new RegExp(str) // eslint-disable-line
   } catch (e) {
     isValid = false
   }
