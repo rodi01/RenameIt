@@ -31,7 +31,6 @@ const theUI = (context, data, options) => {
     title: options.title,
     width: options.width,
     height: options.height,
-    backgroundColor: "#f7f7f7",
     minimizable: false,
     maximizable: false,
     resizable: false,
@@ -67,10 +66,15 @@ const theUI = (context, data, options) => {
   }
 
   const getData = () => {
+    const theme =
+      typeof MSTheme !== "undefined" && MSTheme.sharedTheme().isDark()
+        ? "dark"
+        : "light"
     const history = getHistory()
     const whereTo = options.redirectTo
     const superProps = getSuperProperties()
     contents.executeJavaScript(`
+          window.theme="${theme}";
           window.redirectTo="${whereTo}";
           window.data=${JSON.stringify(data)};
           window.dataHistory=${JSON.stringify(history)};

@@ -7,36 +7,14 @@
  */
 
 html {
-  box-sizing: border-box;
-  background: transparent;
-
-  /* Prevent the page to be scrollable */
-  overflow: hidden;
-
-  /* Force the default cursor, even on text */
-  cursor: default;
-
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
-    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  /* background-color: #f7f7f7; */
 }
-
-
-/* html,
-body,
-#root {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-} */
 
 body {
   font-family: -apple-system, "Helvetica Neue", "Lucida Grande";
   color: #6a7480;
   font-size: 16px;
-  background: transparent;
+  overflow: hidden;
 }
 .group:before,
 .group:after {
@@ -66,7 +44,7 @@ li {
 
 .container {
   padding: 16px 16px 0;
-  /* background-color: #f8f8f8; */
+  background-color: #f8f8f8;
 }
 
 .keywords {
@@ -137,7 +115,7 @@ input[type="number"] {
   height: 16px;
   top: 8px;
   right: 6px;
-  background: url(./images/clear_icon.png) no-repeat;
+  background: url(5030edd9e6ae8a189fe9a7d474081312.png) no-repeat;
   background-size: 100%;
   visibility: hidden;
 }
@@ -176,20 +154,17 @@ input:focus {
 }
 button,
 .btn {
-
-  background-image: linear-gradient(-180deg, #FFFFFF 0%, #FFFFFF 100%);
-  box-shadow: 0 0 1px 0 rgba(0,0,0,0.15);
-  /* background: #5fbeee; */
-  /* border-radius: 32px; */
-  /* border: 0; */
-  /* color: #fff; */
-  /* width: 114px; */
-  /* height: 32px; */
-  /* font-size: 15px; */
+  background: #5fbeee;
+  border-radius: 32px;
+  border: 0;
+  color: #fff;
+  width: 114px;
+  height: 32px;
+  font-size: 15px;
   cursor: default;
 }
 button:active {
-  /* background-color: #52a5cf; */
+  background-color: #52a5cf;
 }
 button.grey {
   background: rgba(106, 116, 128, 0.55);
@@ -253,7 +228,7 @@ button.grey:active {
   display: inline-block;
   width: 16px;
   height: 14px;
-  background-image: url(./images/history_icon.svg);
+  background-image: url(5a079a8c1e846abe1e2634a176ebb4ac.svg);
   margin-top: 3px;
 }
 .inputWrapper .dropdown-toggle,

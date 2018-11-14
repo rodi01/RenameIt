@@ -20,6 +20,18 @@ html {
     sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  position: relative;
+
+  /* Prevent the content from being selectionable */
+  -webkit-user-select: none;
+  user-select: none;
+}
 
 /* html,
 body,
@@ -137,7 +149,7 @@ input[type="number"] {
   height: 16px;
   top: 8px;
   right: 6px;
-  background: url(./images/clear_icon.png) no-repeat;
+  background: url(5030edd9e6ae8a189fe9a7d474081312.png) no-repeat;
   background-size: 100%;
   visibility: hidden;
 }
@@ -176,9 +188,6 @@ input:focus {
 }
 button,
 .btn {
-
-  background-image: linear-gradient(-180deg, #FFFFFF 0%, #FFFFFF 100%);
-  box-shadow: 0 0 1px 0 rgba(0,0,0,0.15);
   /* background: #5fbeee; */
   /* border-radius: 32px; */
   /* border: 0; */
@@ -253,7 +262,7 @@ button.grey:active {
   display: inline-block;
   width: 16px;
   height: 14px;
-  background-image: url(./images/history_icon.svg);
+  background-image: url(5a079a8c1e846abe1e2634a176ebb4ac.svg);
   margin-top: 3px;
 }
 .inputWrapper .dropdown-toggle,

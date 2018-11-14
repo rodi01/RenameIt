@@ -9,6 +9,7 @@ import ReactDOM from "react-dom"
 import { HashRouter } from "react-router-dom"
 import pluginCall from "sketch-module-web-view/client"
 import mixpanel from "mixpanel-browser"
+import styled, { ThemeProvider } from "styled-components"
 import Routes from "./routes"
 import {
   testData,
@@ -28,6 +29,9 @@ if (testData && window.data === undefined) {
   pluginCall("getData")
 }
 
+// Theme
+window.theme = window.theme || "light"
+
 if (process.env.NODE_ENV === "production") {
   document.addEventListener("contextmenu", e => e.preventDefault())
 }
@@ -37,12 +41,16 @@ let App
 if (window.redirectTo !== undefined) {
   window.location.hash = window.redirectTo
   App = () => (
-    <div>
+    <ThemeProvider theme={window.theme}>
       <Routes />
-    </div>
+    </ThemeProvider>
   )
 } else {
-  App = () => <Routes />
+  App = () => (
+    <ThemeProvider theme={window.theme}>
+      <Routes />
+    </ThemeProvider>
+  )
 }
 
 // Mixpanel super properties
