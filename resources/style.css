@@ -21,23 +21,23 @@ html {
 }
 
 
-/* html,
+html,
 body,
 #root {
   position: fixed;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-} */
+}
 
 body {
-  font-family: -apple-system, "Helvetica Neue", "Lucida Grande";
-  color: #6a7480;
   font-size: 16px;
+  margin: 0;
   background: transparent;
 }
+
 .group:before,
 .group:after {
   content: "";
@@ -65,10 +65,10 @@ li {
 }
 
 .container {
-  padding: 16px 16px 0;
+  padding: 24px;
   /* background-color: #f8f8f8; */
 }
-
+/*
 .keywords {
   display: flex;
   flex-direction: row;
@@ -76,6 +76,7 @@ li {
   justify-content: center;
   margin-top: 12px;
 }
+
 .keywordBtn {
   display: block;
   margin: 6px;
@@ -105,16 +106,6 @@ a:hover {
   text-decoration: none;
   color: #fff;
   cursor: default;
-}
-input[type="text"],
-input[type="number"] {
-  background: #ffffff;
-  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.32);
-  padding: 0 8px;
-  border-radius: 4px;
-  height: 32px;
-  border: 1px solid transparent;
-  color: #383f47;
 }
 .inputWrapper {
   display: flex;
@@ -179,17 +170,7 @@ button,
 
   background-image: linear-gradient(-180deg, #FFFFFF 0%, #FFFFFF 100%);
   box-shadow: 0 0 1px 0 rgba(0,0,0,0.15);
-  /* background: #5fbeee; */
-  /* border-radius: 32px; */
-  /* border: 0; */
-  /* color: #fff; */
-  /* width: 114px; */
-  /* height: 32px; */
-  /* font-size: 15px; */
   cursor: default;
-}
-button:active {
-  /* background-color: #52a5cf; */
 }
 button.grey {
   background: rgba(106, 116, 128, 0.55);
@@ -327,3 +308,4 @@ button.grey:active {
 .searchScopeWrapper .disabled {
   opacity: 0.7;
 }
+*/

@@ -66,10 +66,11 @@ const theUI = (context, data, options) => {
   }
 
   const getData = () => {
-    const theme =
-      typeof MSTheme !== "undefined" && MSTheme.sharedTheme().isDark()
-        ? "dark"
-        : "light"
+    // const theme =
+    //   typeof MSTheme !== "undefined" && MSTheme.sharedTheme().isDark()
+    //     ? "dark"
+    //     : "light"
+    const theme = "light"
     const history = getHistory()
     const whereTo = options.redirectTo
     const superProps = getSuperProperties()

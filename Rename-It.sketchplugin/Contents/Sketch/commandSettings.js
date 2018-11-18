@@ -2696,7 +2696,7 @@ module.exports = function (str, locale) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/1b73a6f16942d30360136191ed2246f8.html").path();
+module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/1ab069359c4b6e4dbe216474cbc11fdd.html").path();
 
 /***/ }),
 
@@ -3154,7 +3154,11 @@ var theUI = function theUI(context, data, options) {
   };
 
   var getData = function getData() {
-    var theme = typeof MSTheme !== "undefined" && MSTheme.sharedTheme().isDark() ? "dark" : "light";
+    // const theme =
+    //   typeof MSTheme !== "undefined" && MSTheme.sharedTheme().isDark()
+    //     ? "dark"
+    //     : "light"
+    var theme = "light";
     var history = (0, _History.getHistory)();
     var whereTo = options.redirectTo;
     var superProps = getSuperProperties();

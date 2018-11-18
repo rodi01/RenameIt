@@ -6,14 +6,31 @@
  */
 import React from "react"
 import { Route, Switch } from "react-router-dom"
+import { ThemeProvider, createGlobalStyle } from "styled-components"
 import RenameLayer from "./components/renameLayer"
 import FindReplaceLayer from "./components/findReplaceLayer"
 import Settings from "./components/settings"
+import getTheme from "./theme/index"
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    color: ${props => props.theme.text};
+    background-color: ${props => props.theme.bg};
+  }
+`
+// Theme
+window.theme = window.theme || "light"
+const theme = getTheme(window.theme)
 
 export default () => (
-  <Switch>
-    <Route exact path="/find_replace" component={FindReplaceLayer} />
-    <Route exact path="/rename" component={RenameLayer} />
-    <Route exact path="/settings" component={Settings} />
-  </Switch>
+  <ThemeProvider theme={theme}>
+    <div>
+      <GlobalStyle />
+      <Switch>
+        <Route exact path="/find_replace" component={FindReplaceLayer} />
+        <Route exact path="/rename" component={RenameLayer} />
+        <Route exact path="/settings" component={Settings} />
+      </Switch>
+    </div>
+  </ThemeProvider>
 )

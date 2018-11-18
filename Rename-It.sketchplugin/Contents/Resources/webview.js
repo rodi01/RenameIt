@@ -61354,6 +61354,112 @@ module.exports = function(originalModule) {
 
 /***/ }),
 
+/***/ "./resources/views/components/Buttons.js":
+/*!***********************************************!*\
+  !*** ./resources/views/components/Buttons.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Footer = exports.SubmitButton = exports.SecondaryButton = exports.Button = void 0;
+
+var _styledComponents = _interopRequireDefault(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: flex-end;\n  button { margin-left: 12px }\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  border: 0;\n  color: ", ";\n  background-color: ", ";\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  border-radius: 12px;\n  font-weight: 500;\n  color: ", ";\n  border-color: ", ";\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  height: 24px;\n  background-color: ", ";\n  border: 1px solid ", ";\n  color: ", ";\n  border-radius: 4px;\n  padding: 0 12px;\n\n  &:active {\n    background-color: ", ";\n  }\n  &:focus {\n    outline: none;\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
+} // eslint-disable-next-line import/prefer-default-export
+
+
+var Button = _styledComponents.default.button(_templateObject(), function (props) {
+  return props.theme.button.bgColor;
+}, function (props) {
+  return props.theme.button.border;
+}, function (props) {
+  return props.theme.button.color;
+}, function (props) {
+  return props.theme.button.bgActive;
+});
+
+exports.Button = Button;
+var SecondaryButton = (0, _styledComponents.default)(Button)(_templateObject2(), function (props) {
+  return props.theme.secondaryButton.textColor;
+}, function (props) {
+  return props.theme.secondaryButton.borderColor;
+});
+exports.SecondaryButton = SecondaryButton;
+var SubmitButton = (0, _styledComponents.default)(SecondaryButton)(_templateObject3(), function (props) {
+  return props.theme.CTAButton.textColor;
+}, function (props) {
+  return props.theme.CTAButton.bgColor;
+});
+exports.SubmitButton = SubmitButton;
+
+var Footer = _styledComponents.default.div(_templateObject4());
+
+exports.Footer = Footer;
+
+/***/ }),
+
 /***/ "./resources/views/components/HistoryDropdown.jsx":
 /*!********************************************************!*\
   !*** ./resources/views/components/HistoryDropdown.jsx ***!
@@ -61374,6 +61480,8 @@ exports.default = void 0;
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
 var _mixpanelBrowser = _interopRequireDefault(__webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js"));
+
+var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
 var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 
@@ -61468,6 +61576,34 @@ function _assertThisInitialized(self) {
   return self;
 }
 
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n    .dropdown {\n      position: relative;\n      display: inline-block;\n      align-self: center;\n    }\n    .dropdown-menu {\n      position: absolute;\n      top: 100%;\n      left: 0;\n      z-index: 1000;\n      display: none;\n      float: left;\n      min-width: 10rem;\n      padding: 0.5rem 0;\n      margin: 0.125rem 0 0;\n      font-size: 1rem;\n      color: ", ";\n      text-align: left;\n      list-style: none;\n      background-color: ", ";\n      background-clip: padding-box;\n      border: 1px solid rgba(0, 0, 0, 0.15);\n      border-radius: 0.25rem;\n    }\n    .dropdown-toggle::after {\n      display: inline-block;\n      width: 0;\n      height: 0;\n      margin-left: 0.255em;\n      vertical-align: 0.255em;\n      content: \"\";\n      border-top: 0.3em solid;\n      border-right: 0.3em solid transparent;\n      border-bottom: 0;\n      border-left: 0.3em solid transparent;\n    }\n\n    .dropdown-menu-right {\n      right: 0;\n      left: auto;\n    }\n\n    .dropup .dropdown-menu {\n      top: auto;\n      bottom: 100%;\n      margin-top: 0;\n      margin-bottom: 0.125rem;\n    }\n\n    .dropup .dropdown-toggle::after {\n      display: inline-block;\n      width: 0;\n      height: 0;\n      margin-left: 0.255em;\n      vertical-align: 0.255em;\n      content: \"\";\n      border-top: 0;\n      border-right: 0.3em solid transparent;\n      border-bottom: 0.3em solid;\n      border-left: 0.3em solid transparent;\n    }\n\n    .dropup .dropdown-toggle:empty::after {\n      margin-left: 0;\n    }\n\n    .dropright .dropdown-menu {\n      top: 0;\n      right: auto;\n      left: 100%;\n      margin-top: 0;\n      margin-left: 0.125rem;\n    }\n\n    .dropright .dropdown-toggle::after {\n      display: inline-block;\n      width: 0;\n      height: 0;\n      margin-left: 0.255em;\n      vertical-align: 0.255em;\n      content: \"\";\n      border-top: 0.3em solid transparent;\n      border-right: 0;\n      border-bottom: 0.3em solid transparent;\n      border-left: 0.3em solid;\n    }\n\n    .dropright .dropdown-toggle:empty::after {\n      margin-left: 0;\n    }\n\n    .dropright .dropdown-toggle::after {\n      vertical-align: 0;\n    }\n\n    .dropleft .dropdown-menu {\n      top: 0;\n      right: 100%;\n      left: auto;\n      margin-top: 0;\n      margin-right: 0.125rem;\n    }\n\n    .dropleft .dropdown-toggle::after {\n      display: inline-block;\n      width: 0;\n      height: 0;\n      margin-left: 0.255em;\n      vertical-align: 0.255em;\n      content: \"\";\n    }\n\n    .dropleft .dropdown-toggle::after {\n      display: none;\n    }\n\n    .dropleft .dropdown-toggle::before {\n      display: inline-block;\n      width: 0;\n      height: 0;\n      margin-right: 0.255em;\n      vertical-align: 0.255em;\n      content: \"\";\n      border-top: 0.3em solid transparent;\n      border-right: 0.3em solid;\n      border-bottom: 0.3em solid transparent;\n    }\n\n    .dropleft .dropdown-toggle:empty::after {\n      margin-left: 0;\n    }\n\n    .dropleft .dropdown-toggle::before {\n      vertical-align: 0;\n    }\n\n    .dropdown-menu[x-placement^=\"top\"], .dropdown-menu[x-placement^=\"right\"], .dropdown-menu[x-placement^=\"bottom\"], .dropdown-menu[x-placement^=\"left\"] {\n      right: auto;\n      bottom: auto;\n    }\n\n    .dropdown-divider {\n      height: 0;\n      margin: 0.5rem 0;\n      overflow: hidden;\n      border-top: 1px solid #e9ecef;\n    }\n\n    .dropdown-item {\n      display: block;\n      width: 100%;\n      padding: 0.25rem 1.5rem;\n      clear: both;\n      font-weight: 400;\n      color: #212529;\n      text-align: inherit;\n      white-space: nowrap;\n      background-color: transparent;\n      border: 0;\n    }\n\n    .dropdown-item:hover, .dropdown-item:focus {\n      color: #16181b;\n      text-decoration: none;\n      background-color: #f8f9fa;\n    }\n\n    .dropdown-item.active, .dropdown-item:active {\n      color: #fff;\n      text-decoration: none;\n      background-color: #007bff;\n    }\n\n    .dropdown-item.disabled, .dropdown-item:disabled {\n      color: #6c757d;\n      background-color: transparent;\n    }\n\n    .dropdown-menu.show {\n      display: block;\n    }\n\n    .dropdown-header {\n      display: block;\n      padding: 0.5rem 1.5rem;\n      margin-bottom: 0;\n      font-size: 0.875rem;\n      color: #6c757d;\n      white-space: nowrap;\n    }\n\n    .dropdown-item-text {\n      display: block;\n      padding: 0.25rem 1.5rem;\n      color: #212529;\n    }\n    .dropdown.open .dropdown-menu { display: block; }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
+}
+
+var GlobalStyles = (0, _styledComponents.createGlobalStyle)(_templateObject(), function (props) {
+  return props.theme.input.color;
+}, function (props) {
+  return props.theme.input.background;
+});
+
 var HistoryDropdown =
 /*#__PURE__*/
 function (_React$Component) {
@@ -61529,7 +61665,7 @@ function (_React$Component) {
           return _this2.onToggle(_this2);
         },
         dropup: this.props.dropup
-      }, _react.default.createElement(_reactBootstrap.Dropdown.Toggle, {
+      }, _react.default.createElement(GlobalStyles, null), _react.default.createElement(_reactBootstrap.Dropdown.Toggle, {
         bsStyle: "primary",
         bsSize: "xsmall"
       }, _react.default.createElement("span", {
@@ -61568,6 +61704,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _styledComponents = _interopRequireDefault(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
 
 var _HistoryDropdown = _interopRequireDefault(__webpack_require__(/*! ./HistoryDropdown */ "./resources/views/components/HistoryDropdown.jsx"));
 
@@ -61660,6 +61798,62 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-bottom: 16px;\n\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  font-size: 14px;\n  letter-spacing: -0.08px;\n  align-self: center;\n  width: 70px;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  background: ", ";\n  padding: 0 8px;\n  border-radius: 4px;\n  height: 24px;\n  border: 1px solid ", ";\n  color: ", ";\n  margin-left: 8px;\n  font-size: 13px;\n  letter-spacing: -0.08px;\n  flex-grow: 1; \n  margin-right: 8px;\n\n  &[type=number] {\n    width: 50px;\n    flex-grow: 0;\n    padding-right: 2px;\n  }\n\n  &:focus{\n    outline: none;\n    border-color: ", ";\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
+}
+
+var StyledInput = _styledComponents.default.input(_templateObject(), function (props) {
+  return props.theme.input.background;
+}, function (props) {
+  return props.theme.input.border;
+}, function (props) {
+  return props.theme.input.color;
+}, function (props) {
+  return props.theme.input.borderActive;
+});
+
+var StyledLabel = _styledComponents.default.label(_templateObject2());
+
+var InputWrapper = _styledComponents.default.div(_templateObject3());
+
 var Input =
 /*#__PURE__*/
 function (_React$Component) {
@@ -61679,21 +61873,21 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this = this; // let clearBtn = null
+      // let clearBtnClass = null
 
-      var clearBtn = null;
-      var clearBtnClass = null;
-      var historyDropdown = null;
 
-      if (this.props.showClear !== undefined) {
-        clearBtn = _react.default.createElement("span", {
-          id: "clearBtn",
-          title: "Clear",
-          className: this.props.showClear,
-          onClick: this.props.onClear
-        });
-        clearBtnClass = "inputClearWrapper";
-      }
+      var historyDropdown = null; // if (this.props.showClear !== undefined) {
+      //   clearBtn = (
+      //     <span
+      //       id="clearBtn"
+      //       title="Clear"
+      //       className={this.props.showClear}
+      //       onClick={this.props.onClear}
+      //     />
+      //   )
+      //   clearBtnClass = "inputClearWrapper"
+      // }
 
       if (this.props.showHistory !== undefined) {
         historyDropdown = _react.default.createElement(_HistoryDropdown.default, {
@@ -61704,13 +61898,11 @@ function (_React$Component) {
         });
       }
 
-      return _react.default.createElement("div", {
+      return _react.default.createElement(InputWrapper, {
         className: "inputWrapper ".concat(this.props.wrapperClass)
-      }, _react.default.createElement("label", {
+      }, _react.default.createElement(StyledLabel, {
         htmlFor: this.props.id
-      }, this.props.forName), _react.default.createElement("span", {
-        className: clearBtnClass
-      }, _react.default.createElement("input", {
+      }, this.props.forName), _react.default.createElement(StyledInput, {
         type: this.props.type,
         id: this.props.id,
         value: this.props.value,
@@ -61724,7 +61916,7 @@ function (_React$Component) {
         autoCapitalize: "off",
         spellCheck: "false",
         min: "0"
-      }), historyDropdown));
+      }), historyDropdown);
     }
   }]);
 
@@ -61758,7 +61950,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
-var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+var _Buttons = __webpack_require__(/*! ./Buttons */ "./resources/views/components/Buttons.js");
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -61865,20 +62057,14 @@ function (_React$Component) {
   _createClass(KeywordButton, [{
     key: "render",
     value: function render() {
-      var tooltip = _react.default.createElement(_reactBootstrap.Tooltip, {
-        id: "tooltip"
-      }, "Shortcut: ", this.props.char);
-
-      return _react.default.createElement(_reactBootstrap.OverlayTrigger, {
-        placement: "top",
-        overlay: tooltip
-      }, _react.default.createElement("a", {
-        href: "#",
+      // const tooltip = <Tooltip id="tooltip">Shortcut: {this.props.char}</Tooltip>
+      return _react.default.createElement(_Buttons.Button, {
         id: this.props.id,
         "data-char": this.props.char,
-        "data-tooltip": "Shortcut: ".concat(this.props.char),
-        onClick: this.props.click
-      }, this.props.text));
+        title: "Shortcut: ".concat(this.props.char),
+        onClick: this.props.click,
+        type: "button"
+      }, this.props.text);
     }
   }]);
 
@@ -62471,6 +62657,8 @@ var _client = _interopRequireDefault(__webpack_require__(/*! sketch-module-web-v
 
 var _mixpanelBrowser = _interopRequireDefault(__webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js"));
 
+var _styledComponents = _interopRequireDefault(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
+
 var _Constants = __webpack_require__(/*! ../../../../src/lib/Constants */ "./src/lib/Constants.js");
 
 var _Rename = _interopRequireDefault(__webpack_require__(/*! ../../../../src/lib/Rename */ "./src/lib/Rename.js"));
@@ -62480,6 +62668,8 @@ var _Input = _interopRequireDefault(__webpack_require__(/*! ../Input */ "./resou
 var _KeywordButton = _interopRequireDefault(__webpack_require__(/*! ../KeywordButton */ "./resources/views/components/KeywordButton.jsx"));
 
 var _Preview = _interopRequireDefault(__webpack_require__(/*! ../Preview */ "./resources/views/components/Preview.jsx"));
+
+var _Buttons = __webpack_require__(/*! ../Buttons */ "./resources/views/components/Buttons.js");
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -62587,6 +62777,42 @@ function _assertThisInitialized(self) {
 
   return self;
 }
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  margin-top: 32px;\n\n  ul { \n    margin-top: 8px;\n    display: flex;\n    flex-flow: wrap;\n    margin-left: -4px;\n  }\n\n  li { margin: 8px 4px; }\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  font-weight: normal;\n  text-transform: uppercase;\n  margin: 0;\n  font-size: 11px;\n  letter-spacing: 0.92px;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
+}
+
+var Subtitle = _styledComponents.default.h3(_templateObject());
+
+var KeywordsWrapper = _styledComponents.default.div(_templateObject2());
 
 var RenameLayer =
 /*#__PURE__*/
@@ -62761,7 +62987,7 @@ function (_React$Component) {
       var nameInputAttr = {
         id: "name",
         type: "text",
-        forName: "Name:",
+        forName: "Name",
         wrapperClass: "inputName",
         autoFocus: true,
         value: this.state.valueAttr,
@@ -62776,7 +63002,7 @@ function (_React$Component) {
       var sequenceInputAttr = {
         id: "sequence",
         type: "number",
-        forName: "Start Sequence from:",
+        forName: "Start from",
         wrapperClass: "inputRight",
         value: this.state.sequence,
         autoFocus: false,
@@ -62825,21 +63051,12 @@ function (_React$Component) {
       });
       return _react.default.createElement("div", {
         className: "container rename"
-      }, _react.default.createElement(_Input.default, nameInputAttr), _react.default.createElement(_Input.default, sequenceInputAttr), _react.default.createElement("div", {
-        id: "keywordsWrapper"
-      }, _react.default.createElement("span", {
-        className: "title"
-      }, "Keywords"), _react.default.createElement("ul", {
-        className: "keywords"
-      }, listItems), _react.default.createElement(_Preview.default, {
+      }, _react.default.createElement(_Input.default, nameInputAttr), _react.default.createElement(_Input.default, sequenceInputAttr), _react.default.createElement(KeywordsWrapper, null, _react.default.createElement(Subtitle, null, "Keywords"), _react.default.createElement("ul", null, listItems)), _react.default.createElement(_Preview.default, {
         data: this.state.previewData
-      })), _react.default.createElement("div", {
-        id: "footer"
-      }, _react.default.createElement("button", {
+      }), _react.default.createElement(_Buttons.Footer, null, _react.default.createElement(_Buttons.SecondaryButton, {
         id: "cancelBtn",
-        className: "grey",
         onClick: this.onCancel
-      }, "Cancel"), _react.default.createElement("button", {
+      }, "Cancel"), _react.default.createElement(_Buttons.SubmitButton, {
         id: "submitBtn",
         onClick: this.onSubmit.bind(this)
       }, "Rename")));
@@ -63036,36 +63253,9 @@ var _client = _interopRequireDefault(__webpack_require__(/*! sketch-module-web-v
 
 var _mixpanelBrowser = _interopRequireDefault(__webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js"));
 
-var _styledComponents = _interopRequireWildcard(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
-
 var _routes = _interopRequireDefault(__webpack_require__(/*! ./routes */ "./resources/views/routes.jsx"));
 
 var _Constants = __webpack_require__(/*! ../../src/lib/Constants */ "./src/lib/Constants.js");
-
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};
-
-    if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) {
-          var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};
-
-          if (desc.get || desc.set) {
-            Object.defineProperty(newObj, key, desc);
-          } else {
-            newObj[key] = obj[key];
-          }
-        }
-      }
-    }
-
-    newObj.default = obj;
-    return newObj;
-  }
-}
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -63089,10 +63279,7 @@ if (_Constants.testData && window.data === undefined) {
   window.dataHistory = _Constants.mockHistory;
 } else if (window.data === undefined) {
   (0, _client.default)("getData");
-} // Theme
-
-
-window.theme = window.theme || "light";
+}
 
 if (false) {}
 
@@ -63102,15 +63289,11 @@ if (window.redirectTo !== undefined) {
   window.location.hash = window.redirectTo;
 
   App = function App() {
-    return _react.default.createElement(_styledComponents.ThemeProvider, {
-      theme: window.theme
-    }, _react.default.createElement(_routes.default, null));
+    return _react.default.createElement(_routes.default, null);
   };
 } else {
   App = function App() {
-    return _react.default.createElement(_styledComponents.ThemeProvider, {
-      theme: window.theme
-    }, _react.default.createElement(_routes.default, null));
+    return _react.default.createElement(_routes.default, null);
   };
 } // Mixpanel super properties
 
@@ -63147,27 +63330,57 @@ var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_mod
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
+var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
 var _renameLayer = _interopRequireDefault(__webpack_require__(/*! ./components/renameLayer */ "./resources/views/components/renameLayer/index.jsx"));
 
 var _findReplaceLayer = _interopRequireDefault(__webpack_require__(/*! ./components/findReplaceLayer */ "./resources/views/components/findReplaceLayer/index.jsx"));
 
 var _settings = _interopRequireDefault(__webpack_require__(/*! ./components/settings */ "./resources/views/components/settings/index.jsx"));
 
+var _index = _interopRequireDefault(__webpack_require__(/*! ./theme/index */ "./resources/views/theme/index.js"));
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-/**
- * @Author: Rodrigo Soares <rodrigo>
- * @Date:   2017-11-27T16:56:23-08:00
- * @Project: Rename It
- * @Last modified time: 2017-12-02T15:28:23-08:00
- */
 
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  body {\n    color: ", ";\n    background-color: ", ";\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
+}
+
+var GlobalStyle = (0, _styledComponents.createGlobalStyle)(_templateObject(), function (props) {
+  return props.theme.text;
+}, function (props) {
+  return props.theme.bg;
+}); // Theme
+
+window.theme = window.theme || "light";
+var theme = (0, _index.default)(window.theme);
 
 var _default = function _default() {
-  return _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
+  return _react.default.createElement(_styledComponents.ThemeProvider, {
+    theme: theme
+  }, _react.default.createElement("div", null, _react.default.createElement(GlobalStyle, null), _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
     exact: true,
     path: "/find_replace",
     component: _findReplaceLayer.default
@@ -63179,9 +63392,131 @@ var _default = function _default() {
     exact: true,
     path: "/settings",
     component: _settings.default
-  }));
+  }))));
 };
 
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./resources/views/theme/dark.js":
+/*!***************************************!*\
+  !*** ./resources/views/theme/dark.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  text: "#6a7480",
+  primary: "#fff",
+  bg: "#222020",
+  input: {
+    background: "#fff",
+    shadow: "inset 0 0 0 1px rgba(0,0,0,0.06)",
+    color: "#252525"
+  },
+  inputActive: {
+    border: "3px solid rgba(59,153,252,0.50)"
+  },
+  label: {
+    color: "#242424"
+  },
+  button: {
+    color: "#000000",
+    bg: "linear-gradient(-180deg, #FEFEFE 0%, #F3F3F3 100%)",
+    border: "1px solid rgba(0,0,0,0.10)",
+    shadow: "1px solid rgba(0,0,0,0.10)",
+    active: "linear-gradient(-180deg, #6CB3FA 0%, #067DFF 100%)",
+    activeBorder: "#005CFF",
+    activeColor: "#fff"
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./resources/views/theme/index.js":
+/*!****************************************!*\
+  !*** ./resources/views/theme/index.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _dark = _interopRequireDefault(__webpack_require__(/*! ./dark */ "./resources/views/theme/dark.js"));
+
+var _light = _interopRequireDefault(__webpack_require__(/*! ./light */ "./resources/views/theme/light.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+var _default = function _default(theme) {
+  if (theme === "dark") {
+    return _dark.default;
+  }
+
+  return _light.default;
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./resources/views/theme/light.js":
+/*!****************************************!*\
+  !*** ./resources/views/theme/light.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  text: "#747474",
+  bg: "#F7F7F7",
+  input: {
+    background: "#FBFBFB",
+    color: "#505050",
+    border: "#E4E4E4",
+    borderActive: "#1384FF"
+  },
+  button: {
+    color: "#505050",
+    bgColor: "#FBFBFB",
+    border: "#E4E4E4",
+    bgActive: "#F3F2F5"
+  },
+  secondaryButton: {
+    borderColor: "#B2AEBD",
+    textColor: "#817B8F"
+  },
+  CTAButton: {
+    bgColor: "#1384FF",
+    textColor: "#fff"
+  }
+};
 exports.default = _default;
 
 /***/ }),

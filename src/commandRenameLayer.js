@@ -1,8 +1,8 @@
 /*
- * @Author: Rodrigo Soares 
- * @Date: 2017-12-26 13:14:56 
+ * @Author: Rodrigo Soares
+ * @Date: 2017-12-26 13:14:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-07-27 21:05:20
+ * @Last Modified time: 2018-11-17 21:07:47
  */
 
 import { parseData } from "./lib/utils"
@@ -23,7 +23,7 @@ export default function(context) {
     identifier: "renameLayers.ui",
     title: "Rename Selected Layers",
     redirectTo: "/rename",
-    width: 480,
+    width: 392,
     height: 423
   }
 

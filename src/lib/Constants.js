@@ -17,23 +17,23 @@ export const mockData = {
       frame: {},
       idx: 0,
       width: 160,
-      height: 116,
+      height: 116
     },
     {
       name: "Rectangle 2",
       frame: {},
       idx: 1,
       width: 160,
-      height: 160,
-    },
+      height: 160
+    }
   ],
-  windowTitle: "Rename Selected Layers",
+  windowTitle: "Rename Selected Layers"
 }
 
 export const mockHistory = {
   renameHistory: ["Hello", "World", "Item %N", "icon %wX%h", "Boo Hoo"],
   findHistory: [],
-  replaceHistory: [],
+  replaceHistory: []
 }
 
 export const exclamations = [
@@ -42,5 +42,5 @@ export const exclamations = [
   "Hooray!",
   "Great Success!",
   "Abracadabra!",
-  "Geronimo!",
+  "Geronimo!"
 ]

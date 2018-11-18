@@ -7,15 +7,36 @@
  */
 
 html {
-  /* background-color: #f7f7f7; */
+  box-sizing: border-box;
+  background: transparent;
+
+  /* Prevent the page to be scrollable */
+  overflow: hidden;
+
+  /* Force the default cursor, even on text */
+  cursor: default;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+
+html,
+body,
+#root {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
-  font-family: -apple-system, "Helvetica Neue", "Lucida Grande";
-  color: #6a7480;
   font-size: 16px;
-  overflow: hidden;
+  background: transparent;
 }
+
 .group:before,
 .group:after {
   content: "";
@@ -47,6 +68,98 @@ li {
   /* background-color: #f8f8f8; */
 }
 
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+.dropdown > a, .dropdown > button {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 6px 20px 6px 10px;
+  border-radius: 4px;
+  display: inline-block;
+  color: black;
+  text-decoration: none;
+}
+
+.dropdown > a:before, .dropdown > button:before {
+  position: absolute;
+  right: 7px;
+  top: 12px;
+  content: ' ';
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+}
+
+.dropdown input[type=checkbox] {
+  position: absolute;
+  display: block;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  opacity: 0;
+}
+
+.dropdown input[type=checkbox]:checked {
+  position: fixed;
+  z-index:+0;
+  top: 0px; left: 0px; 
+  right: 0px; bottom: 0px;
+}
+
+.dropdown ul {
+  position: absolute;
+  top: 18px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  left: 0px;
+  list-style: none;
+  padding: 4px 0px;
+  display: none;
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(0,0,0,.175);
+}
+
+.dropdown input[type=checkbox]:checked + ul {
+  display: block;
+}
+
+.dropdown ul li {
+  display: block;
+  padding: 6px 20px;
+  white-space: nowrap;
+  min-width: 100px;
+}
+
+.dropdown ul li:hover {
+  background-color: #F5F5F5;
+  cursor: pointer;
+}
+
+.dropdown ul li a {
+  text-decoration: none;
+  display: block;
+  color: black
+}
+
+.dropdown .divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+  font-size: 1px;
+  padding: 0;
+}
+/*
 .keywords {
   display: flex;
   flex-direction: row;
@@ -54,6 +167,7 @@ li {
   justify-content: center;
   margin-top: 12px;
 }
+
 .keywordBtn {
   display: block;
   margin: 6px;
@@ -84,16 +198,6 @@ a:hover {
   color: #fff;
   cursor: default;
 }
-input[type="text"],
-input[type="number"] {
-  background: #ffffff;
-  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.32);
-  padding: 0 8px;
-  border-radius: 4px;
-  height: 32px;
-  border: 1px solid transparent;
-  color: #383f47;
-}
 .inputWrapper {
   display: flex;
 }
@@ -115,7 +219,7 @@ input[type="number"] {
   height: 16px;
   top: 8px;
   right: 6px;
-  background: url(5030edd9e6ae8a189fe9a7d474081312.png) no-repeat;
+  background: url(./images/clear_icon.png) no-repeat;
   background-size: 100%;
   visibility: hidden;
 }
@@ -154,17 +258,10 @@ input:focus {
 }
 button,
 .btn {
-  background: #5fbeee;
-  border-radius: 32px;
-  border: 0;
-  color: #fff;
-  width: 114px;
-  height: 32px;
-  font-size: 15px;
+
+  background-image: linear-gradient(-180deg, #FFFFFF 0%, #FFFFFF 100%);
+  box-shadow: 0 0 1px 0 rgba(0,0,0,0.15);
   cursor: default;
-}
-button:active {
-  background-color: #52a5cf;
 }
 button.grey {
   background: rgba(106, 116, 128, 0.55);
@@ -228,7 +325,7 @@ button.grey:active {
   display: inline-block;
   width: 16px;
   height: 14px;
-  background-image: url(5a079a8c1e846abe1e2634a176ebb4ac.svg);
+  background-image: url(./images/history_icon.svg);
   margin-top: 3px;
 }
 .inputWrapper .dropdown-toggle,
@@ -302,3 +399,4 @@ button.grey:active {
 .searchScopeWrapper .disabled {
   opacity: 0.7;
 }
+*/

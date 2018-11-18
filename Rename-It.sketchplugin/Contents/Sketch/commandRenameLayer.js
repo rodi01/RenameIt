@@ -2696,7 +2696,7 @@ module.exports = function (str, locale) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/1b73a6f16942d30360136191ed2246f8.html").path();
+module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/1ab069359c4b6e4dbe216474cbc11fdd.html").path();
 
 /***/ }),
 
@@ -2725,10 +2725,10 @@ function _interopRequireDefault(obj) {
   };
 }
 /*
- * @Author: Rodrigo Soares 
- * @Date: 2017-12-26 13:14:56 
+ * @Author: Rodrigo Soares
+ * @Date: 2017-12-26 13:14:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-07-27 21:05:20
+ * @Last Modified time: 2018-11-17 21:07:47
  */
 
 
@@ -2744,7 +2744,7 @@ function _default(context) {
     identifier: "renameLayers.ui",
     title: "Rename Selected Layers",
     redirectTo: "/rename",
-    width: 480,
+    width: 392,
     height: 423 // Load UI
 
   };
@@ -3164,7 +3164,11 @@ var theUI = function theUI(context, data, options) {
   };
 
   var getData = function getData() {
-    var theme = typeof MSTheme !== "undefined" && MSTheme.sharedTheme().isDark() ? "dark" : "light";
+    // const theme =
+    //   typeof MSTheme !== "undefined" && MSTheme.sharedTheme().isDark()
+    //     ? "dark"
+    //     : "light"
+    var theme = "light";
     var history = (0, _History.getHistory)();
     var whereTo = options.redirectTo;
     var superProps = getSuperProperties();

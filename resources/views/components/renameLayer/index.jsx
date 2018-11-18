@@ -7,11 +7,34 @@
 import React from "react"
 import pluginCall from "sketch-module-web-view/client"
 import mixpanel from "mixpanel-browser"
+import styled from "styled-components"
 import { mixpanelId } from "../../../../src/lib/Constants"
 import rename from "../../../../src/lib/Rename"
 import Input from "../Input"
 import KeywordButton from "../KeywordButton"
 import Preview from "../Preview"
+import { SubmitButton, SecondaryButton, Footer } from "../Buttons"
+
+const Subtitle = styled.h3`
+  font-weight: normal;
+  text-transform: uppercase;
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.92px;
+`
+
+const KeywordsWrapper = styled.div`
+  margin-top: 32px;
+
+  ul { 
+    margin-top: 8px;
+    display: flex;
+    flex-flow: wrap;
+    margin-left: -4px;
+  }
+
+  li { margin: 8px 4px; }
+`
 
 class RenameLayer extends React.Component {
   constructor(props) {
@@ -140,7 +163,7 @@ class RenameLayer extends React.Component {
     const nameInputAttr = {
       id: "name",
       type: "text",
-      forName: "Name:",
+      forName: "Name",
       wrapperClass: "inputName",
       autoFocus: true,
       value: this.state.valueAttr,
@@ -156,7 +179,7 @@ class RenameLayer extends React.Component {
     const sequenceInputAttr = {
       id: "sequence",
       type: "number",
-      forName: "Start Sequence from:",
+      forName: "Start from",
       wrapperClass: "inputRight",
       value: this.state.sequence,
       autoFocus: false,
@@ -185,19 +208,21 @@ class RenameLayer extends React.Component {
         <Input {...nameInputAttr} />
         <Input {...sequenceInputAttr} />
 
-        <div id="keywordsWrapper">
-          <span className="title">Keywords</span>
-          <ul className="keywords">{listItems}</ul>
-          <Preview data={this.state.previewData} />
-        </div>
-        <div id="footer">
-          <button id="cancelBtn" className="grey" onClick={this.onCancel}>
+        <KeywordsWrapper>
+          <Subtitle>Keywords</Subtitle>
+          <ul>{listItems}</ul>
+        </KeywordsWrapper>
+
+        <Preview data={this.state.previewData} />
+
+        <Footer>
+          <SecondaryButton id="cancelBtn" onClick={this.onCancel}>
             Cancel
-          </button>
-          <button id="submitBtn" onClick={this.onSubmit.bind(this)}>
+          </SecondaryButton>
+          <SubmitButton id="submitBtn" onClick={this.onSubmit.bind(this)}>
             Rename
-          </button>
-        </div>
+          </SubmitButton>
+        </Footer>
       </div>
     )
   }

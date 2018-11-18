@@ -20,18 +20,6 @@ html {
     sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  position: relative;
-
-  /* Prevent the content from being selectionable */
-  -webkit-user-select: none;
-  user-select: none;
-}
 
 html,
 body,
@@ -39,18 +27,17 @@ body,
   position: fixed;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
 body {
-  font-family: -apple-system, "Helvetica Neue", "Lucida Grande";
-  color: #6a7480;
   font-size: 16px;
-  overflow: hidden;
+  margin: 0;
   background: transparent;
 }
+
 .group:before,
 .group:after {
   content: "";
@@ -78,10 +65,10 @@ li {
 }
 
 .container {
-  padding: 16px 16px 0;
+  padding: 24px;
   /* background-color: #f8f8f8; */
 }
-
+/*
 .keywords {
   display: flex;
   flex-direction: row;
@@ -89,6 +76,7 @@ li {
   justify-content: center;
   margin-top: 12px;
 }
+
 .keywordBtn {
   display: block;
   margin: 6px;
@@ -119,16 +107,6 @@ a:hover {
   color: #fff;
   cursor: default;
 }
-input[type="text"],
-input[type="number"] {
-  background: #ffffff;
-  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.32);
-  padding: 0 8px;
-  border-radius: 4px;
-  height: 32px;
-  border: 1px solid transparent;
-  color: #383f47;
-}
 .inputWrapper {
   display: flex;
 }
@@ -150,7 +128,7 @@ input[type="number"] {
   height: 16px;
   top: 8px;
   right: 6px;
-  background: url(5030edd9e6ae8a189fe9a7d474081312.png) no-repeat;
+  background: url(./images/clear_icon.png) no-repeat;
   background-size: 100%;
   visibility: hidden;
 }
@@ -189,17 +167,10 @@ input:focus {
 }
 button,
 .btn {
-  background: #5fbeee;
-  border-radius: 32px;
-  border: 0;
-  color: #fff;
-  width: 114px;
-  height: 32px;
-  font-size: 15px;
+
+  background-image: linear-gradient(-180deg, #FFFFFF 0%, #FFFFFF 100%);
+  box-shadow: 0 0 1px 0 rgba(0,0,0,0.15);
   cursor: default;
-}
-button:active {
-  background-color: #52a5cf;
 }
 button.grey {
   background: rgba(106, 116, 128, 0.55);
@@ -263,7 +234,7 @@ button.grey:active {
   display: inline-block;
   width: 16px;
   height: 14px;
-  background-image: url(5a079a8c1e846abe1e2634a176ebb4ac.svg);
+  background-image: url(./images/history_icon.svg);
   margin-top: 3px;
 }
 .inputWrapper .dropdown-toggle,
@@ -337,3 +308,4 @@ button.grey:active {
 .searchScopeWrapper .disabled {
   opacity: 0.7;
 }
+*/
