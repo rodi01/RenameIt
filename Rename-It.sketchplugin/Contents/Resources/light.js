@@ -101,8 +101,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _default = {
+  name: "light",
   text: "#747474",
   bg: "#F7F7F7",
+  previewColor: "#242424",
   input: {
     background: "#FBFBFB",
     color: "#505050",
@@ -121,7 +123,8 @@ var _default = {
   },
   CTAButton: {
     bgColor: "#1384FF",
-    textColor: "#fff"
+    textColor: "#fff",
+    bgActive: "#0F72DB"
   }
 };
 exports.default = _default;

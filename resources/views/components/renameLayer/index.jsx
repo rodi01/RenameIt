@@ -24,16 +24,17 @@ const Subtitle = styled.h3`
 `
 
 const KeywordsWrapper = styled.div`
-  margin-top: 32px;
+  margin-top: 16px;
 
   ul { 
-    margin-top: 8px;
+    margin-top: 10px;
     display: flex;
     flex-flow: wrap;
-    margin-left: -4px;
+    margin-left: -6px;
+    list-style: inside;
   }
 
-  li { margin: 8px 4px; }
+  li { margin: 6px; list-style: none; }
 `
 
 class RenameLayer extends React.Component {
@@ -216,12 +217,8 @@ class RenameLayer extends React.Component {
         <Preview data={this.state.previewData} />
 
         <Footer>
-          <SecondaryButton id="cancelBtn" onClick={this.onCancel}>
-            Cancel
-          </SecondaryButton>
-          <SubmitButton id="submitBtn" onClick={this.onSubmit.bind(this)}>
-            Rename
-          </SubmitButton>
+          <SecondaryButton onClick={this.onCancel}>Cancel</SecondaryButton>
+          <SubmitButton onClick={this.onSubmit.bind(this)}>Rename</SubmitButton>
         </Footer>
       </div>
     )

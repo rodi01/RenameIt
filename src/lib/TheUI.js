@@ -15,6 +15,7 @@ import {
   getHistory,
   clearHistory
 } from "./History"
+import getTheme from "../../resources/views/theme/index"
 
 function showUpdatedMessage(count, data) {
   const layerStr = count === 1 ? "Layer" : "Layers"
@@ -26,6 +27,12 @@ function showUpdatedMessage(count, data) {
 }
 
 const theUI = (context, data, options) => {
+  const themeColor =
+    typeof MSTheme !== "undefined" && MSTheme.sharedTheme().isDark()
+      ? "dark"
+      : "light"
+  const theme = getTheme(themeColor)
+
   const winOptions = {
     identifier: options.identifier,
     title: options.title,
@@ -35,6 +42,7 @@ const theUI = (context, data, options) => {
     maximizable: false,
     resizable: false,
     fullscreenable: false,
+    backgroundColor: theme.bg,
     show: false
   }
   let win = new BrowserWindow(winOptions)
@@ -66,16 +74,11 @@ const theUI = (context, data, options) => {
   }
 
   const getData = () => {
-    // const theme =
-    //   typeof MSTheme !== "undefined" && MSTheme.sharedTheme().isDark()
-    //     ? "dark"
-    //     : "light"
-    const theme = "light"
     const history = getHistory()
     const whereTo = options.redirectTo
     const superProps = getSuperProperties()
     contents.executeJavaScript(`
-          window.theme="${theme}";
+          window.theme=${JSON.stringify(theme)};
           window.redirectTo="${whereTo}";
           window.data=${JSON.stringify(data)};
           window.dataHistory=${JSON.stringify(history)};

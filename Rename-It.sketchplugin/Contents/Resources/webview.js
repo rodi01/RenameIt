@@ -61367,18 +61367,47 @@ module.exports = function(originalModule) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Footer = exports.SubmitButton = exports.SecondaryButton = exports.Button = void 0;
+exports.Footer = exports.SubmitButton = exports.SecondaryButton = exports.Button = exports.ButtonStyles = void 0;
 
-var _styledComponents = _interopRequireDefault(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
+var _styledComponents = _interopRequireWildcard(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
+function _interopRequireWildcard(obj) {
+  if (obj && obj.__esModule) {
+    return obj;
+  } else {
+    var newObj = {};
+
+    if (obj != null) {
+      for (var key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+          var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};
+
+          if (desc.get || desc.set) {
+            Object.defineProperty(newObj, key, desc);
+          } else {
+            newObj[key] = obj[key];
+          }
+        }
+      }
+    }
+
+    newObj.default = obj;
+    return newObj;
+  }
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-top: auto;\n  justify-content: flex-end;\n  button { margin-left: 12px }\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
   };
+
+  return data;
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: flex-end;\n  button { margin-left: 12px }\n"]);
+  var data = _taggedTemplateLiteral(["\n  border: 0;\n  color: ", ";\n  background-color: ", ";\n  &:active {\n    background-color: ", ";\n  }\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -61388,7 +61417,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  border: 0;\n  color: ", ";\n  background-color: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  font-size: 12px;\n  border-radius: 12px;\n  font-weight: 500;\n  padding: 0 16px;\n  color: ", ";\n  border-color: ", ";\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -61398,7 +61427,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  border-radius: 12px;\n  font-weight: 500;\n  color: ", ";\n  border-color: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -61408,7 +61437,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  height: 24px;\n  background-color: ", ";\n  border: 1px solid ", ";\n  color: ", ";\n  border-radius: 4px;\n  padding: 0 12px;\n\n  &:active {\n    background-color: ", ";\n  }\n  &:focus {\n    outline: none;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  height: 24px;\n  background-color: ", ";\n  border: 1px solid ", ";\n  color: ", ";\n  border-radius: 4px;\n  padding: 0 12px;\n  letter-spacing: -0.07px;\n\n  &:active {\n    background-color: ", ";\n  }\n  &:focus {\n    outline: none;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -61430,7 +61459,7 @@ function _taggedTemplateLiteral(strings, raw) {
 } // eslint-disable-next-line import/prefer-default-export
 
 
-var Button = _styledComponents.default.button(_templateObject(), function (props) {
+var ButtonStyles = (0, _styledComponents.css)(_templateObject(), function (props) {
   return props.theme.button.bgColor;
 }, function (props) {
   return props.theme.button.border;
@@ -61439,250 +61468,29 @@ var Button = _styledComponents.default.button(_templateObject(), function (props
 }, function (props) {
   return props.theme.button.bgActive;
 });
+exports.ButtonStyles = ButtonStyles;
+
+var Button = _styledComponents.default.button(_templateObject2(), ButtonStyles);
 
 exports.Button = Button;
-var SecondaryButton = (0, _styledComponents.default)(Button)(_templateObject2(), function (props) {
+var SecondaryButton = (0, _styledComponents.default)(Button)(_templateObject3(), function (props) {
   return props.theme.secondaryButton.textColor;
 }, function (props) {
   return props.theme.secondaryButton.borderColor;
 });
 exports.SecondaryButton = SecondaryButton;
-var SubmitButton = (0, _styledComponents.default)(SecondaryButton)(_templateObject3(), function (props) {
+var SubmitButton = (0, _styledComponents.default)(SecondaryButton)(_templateObject4(), function (props) {
   return props.theme.CTAButton.textColor;
 }, function (props) {
   return props.theme.CTAButton.bgColor;
+}, function (props) {
+  return props.theme.CTAButton.bgActive;
 });
 exports.SubmitButton = SubmitButton;
 
-var Footer = _styledComponents.default.div(_templateObject4());
+var Footer = _styledComponents.default.div(_templateObject5());
 
 exports.Footer = Footer;
-
-/***/ }),
-
-/***/ "./resources/views/components/HistoryDropdown.jsx":
-/*!********************************************************!*\
-  !*** ./resources/views/components/HistoryDropdown.jsx ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _mixpanelBrowser = _interopRequireDefault(__webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js"));
-
-var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-
-var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
-
-var _Constants = __webpack_require__(/*! ../../../src/lib/Constants */ "./src/lib/Constants.js");
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
-
-function _typeof(obj) {
-  if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
-    _typeof = function _typeof(obj) {
-      return _typeof2(obj);
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof2(obj);
-    };
-  }
-
-  return _typeof(obj);
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
-    return call;
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n    .dropdown {\n      position: relative;\n      display: inline-block;\n      align-self: center;\n    }\n    .dropdown-menu {\n      position: absolute;\n      top: 100%;\n      left: 0;\n      z-index: 1000;\n      display: none;\n      float: left;\n      min-width: 10rem;\n      padding: 0.5rem 0;\n      margin: 0.125rem 0 0;\n      font-size: 1rem;\n      color: ", ";\n      text-align: left;\n      list-style: none;\n      background-color: ", ";\n      background-clip: padding-box;\n      border: 1px solid rgba(0, 0, 0, 0.15);\n      border-radius: 0.25rem;\n    }\n    .dropdown-toggle::after {\n      display: inline-block;\n      width: 0;\n      height: 0;\n      margin-left: 0.255em;\n      vertical-align: 0.255em;\n      content: \"\";\n      border-top: 0.3em solid;\n      border-right: 0.3em solid transparent;\n      border-bottom: 0;\n      border-left: 0.3em solid transparent;\n    }\n\n    .dropdown-menu-right {\n      right: 0;\n      left: auto;\n    }\n\n    .dropup .dropdown-menu {\n      top: auto;\n      bottom: 100%;\n      margin-top: 0;\n      margin-bottom: 0.125rem;\n    }\n\n    .dropup .dropdown-toggle::after {\n      display: inline-block;\n      width: 0;\n      height: 0;\n      margin-left: 0.255em;\n      vertical-align: 0.255em;\n      content: \"\";\n      border-top: 0;\n      border-right: 0.3em solid transparent;\n      border-bottom: 0.3em solid;\n      border-left: 0.3em solid transparent;\n    }\n\n    .dropup .dropdown-toggle:empty::after {\n      margin-left: 0;\n    }\n\n    .dropright .dropdown-menu {\n      top: 0;\n      right: auto;\n      left: 100%;\n      margin-top: 0;\n      margin-left: 0.125rem;\n    }\n\n    .dropright .dropdown-toggle::after {\n      display: inline-block;\n      width: 0;\n      height: 0;\n      margin-left: 0.255em;\n      vertical-align: 0.255em;\n      content: \"\";\n      border-top: 0.3em solid transparent;\n      border-right: 0;\n      border-bottom: 0.3em solid transparent;\n      border-left: 0.3em solid;\n    }\n\n    .dropright .dropdown-toggle:empty::after {\n      margin-left: 0;\n    }\n\n    .dropright .dropdown-toggle::after {\n      vertical-align: 0;\n    }\n\n    .dropleft .dropdown-menu {\n      top: 0;\n      right: 100%;\n      left: auto;\n      margin-top: 0;\n      margin-right: 0.125rem;\n    }\n\n    .dropleft .dropdown-toggle::after {\n      display: inline-block;\n      width: 0;\n      height: 0;\n      margin-left: 0.255em;\n      vertical-align: 0.255em;\n      content: \"\";\n    }\n\n    .dropleft .dropdown-toggle::after {\n      display: none;\n    }\n\n    .dropleft .dropdown-toggle::before {\n      display: inline-block;\n      width: 0;\n      height: 0;\n      margin-right: 0.255em;\n      vertical-align: 0.255em;\n      content: \"\";\n      border-top: 0.3em solid transparent;\n      border-right: 0.3em solid;\n      border-bottom: 0.3em solid transparent;\n    }\n\n    .dropleft .dropdown-toggle:empty::after {\n      margin-left: 0;\n    }\n\n    .dropleft .dropdown-toggle::before {\n      vertical-align: 0;\n    }\n\n    .dropdown-menu[x-placement^=\"top\"], .dropdown-menu[x-placement^=\"right\"], .dropdown-menu[x-placement^=\"bottom\"], .dropdown-menu[x-placement^=\"left\"] {\n      right: auto;\n      bottom: auto;\n    }\n\n    .dropdown-divider {\n      height: 0;\n      margin: 0.5rem 0;\n      overflow: hidden;\n      border-top: 1px solid #e9ecef;\n    }\n\n    .dropdown-item {\n      display: block;\n      width: 100%;\n      padding: 0.25rem 1.5rem;\n      clear: both;\n      font-weight: 400;\n      color: #212529;\n      text-align: inherit;\n      white-space: nowrap;\n      background-color: transparent;\n      border: 0;\n    }\n\n    .dropdown-item:hover, .dropdown-item:focus {\n      color: #16181b;\n      text-decoration: none;\n      background-color: #f8f9fa;\n    }\n\n    .dropdown-item.active, .dropdown-item:active {\n      color: #fff;\n      text-decoration: none;\n      background-color: #007bff;\n    }\n\n    .dropdown-item.disabled, .dropdown-item:disabled {\n      color: #6c757d;\n      background-color: transparent;\n    }\n\n    .dropdown-menu.show {\n      display: block;\n    }\n\n    .dropdown-header {\n      display: block;\n      padding: 0.5rem 1.5rem;\n      margin-bottom: 0;\n      font-size: 0.875rem;\n      color: #6c757d;\n      white-space: nowrap;\n    }\n\n    .dropdown-item-text {\n      display: block;\n      padding: 0.25rem 1.5rem;\n      color: #212529;\n    }\n    .dropdown.open .dropdown-menu { display: block; }\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) {
-  if (!raw) {
-    raw = strings.slice(0);
-  }
-
-  return Object.freeze(Object.defineProperties(strings, {
-    raw: {
-      value: Object.freeze(raw)
-    }
-  }));
-}
-
-var GlobalStyles = (0, _styledComponents.createGlobalStyle)(_templateObject(), function (props) {
-  return props.theme.input.color;
-}, function (props) {
-  return props.theme.input.background;
-});
-
-var HistoryDropdown =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(HistoryDropdown, _React$Component);
-
-  function HistoryDropdown(props) {
-    var _this;
-
-    _classCallCheck(this, HistoryDropdown);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(HistoryDropdown).call(this, props));
-    _this.onTargetSelect = _this.onTargetSelect.bind(_assertThisInitialized(_assertThisInitialized(_this))); // Tracking
-
-    _mixpanelBrowser.default.init(_Constants.mixpanelId);
-
-    return _this;
-  }
-
-  _createClass(HistoryDropdown, [{
-    key: "onTargetSelect",
-    value: function onTargetSelect(target) {
-      this.props.handleHistory(target);
-    }
-  }, {
-    key: "onToggle",
-    value: function onToggle() {
-      _mixpanelBrowser.default.track("history", {
-        dropdown: "".concat(this.props.dropdownId)
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      var menuItems;
-
-      if (this.props.menuData.length > 0) {
-        menuItems = this.props.menuData.map(function (d, idx) {
-          return _react.default.createElement(_reactBootstrap.MenuItem, {
-            key: "menu-".concat(idx),
-            eventKey: "".concat(d),
-            onSelect: function onSelect() {
-              return _this2.onTargetSelect(d);
-            }
-          }, d);
-        });
-      } else {
-        menuItems = _react.default.createElement(_reactBootstrap.MenuItem, {
-          key: "disabled-menu",
-          disabled: true
-        }, "Empty History");
-      }
-
-      return _react.default.createElement(_reactBootstrap.Dropdown, {
-        id: this.props.dropdownId,
-        pullRight: true,
-        onToggle: function onToggle() {
-          return _this2.onToggle(_this2);
-        },
-        dropup: this.props.dropup
-      }, _react.default.createElement(GlobalStyles, null), _react.default.createElement(_reactBootstrap.Dropdown.Toggle, {
-        bsStyle: "primary",
-        bsSize: "xsmall"
-      }, _react.default.createElement("span", {
-        className: "icon_history"
-      })), _react.default.createElement(_reactBootstrap.Dropdown.Menu, {
-        className: "dropMenu"
-      }, _react.default.createElement(_reactBootstrap.MenuItem, {
-        header: true
-      }, "Recently used"), menuItems));
-    }
-  }]);
-
-  return HistoryDropdown;
-}(_react.default.Component);
-
-var _default = HistoryDropdown;
-exports.default = _default;
 
 /***/ }),
 
@@ -61707,7 +61515,7 @@ var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_mod
 
 var _styledComponents = _interopRequireDefault(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
 
-var _HistoryDropdown = _interopRequireDefault(__webpack_require__(/*! ./HistoryDropdown */ "./resources/views/components/HistoryDropdown.jsx"));
+var _historyDropdown = _interopRequireDefault(__webpack_require__(/*! ./historyDropdown */ "./resources/views/components/historyDropdown/index.jsx"));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -61819,7 +61627,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  background: ", ";\n  padding: 0 8px;\n  border-radius: 4px;\n  height: 24px;\n  border: 1px solid ", ";\n  color: ", ";\n  margin-left: 8px;\n  font-size: 13px;\n  letter-spacing: -0.08px;\n  flex-grow: 1; \n  margin-right: 8px;\n\n  &[type=number] {\n    width: 50px;\n    flex-grow: 0;\n    padding-right: 2px;\n  }\n\n  &:focus{\n    outline: none;\n    border-color: ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  background: ", ";\n  padding: 0 8px;\n  border-radius: 4px;\n  height: 24px;\n  border: 1px solid ", ";\n  color: ", ";\n  margin-left: 8px;\n  font-size: 13px;\n  letter-spacing: -0.08px;\n  flex-grow: 1; \n  margin-right: 8px;\n  -webkit-user-select: auto;\n  user-select: auto;\n\n  &[type=number] {\n    width: 50px;\n    flex-grow: 0;\n    padding-right: 2px;\n  }\n\n  &:focus{\n    outline: none;\n    border-color: ", ";\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -61890,7 +61698,7 @@ function (_React$Component) {
       // }
 
       if (this.props.showHistory !== undefined) {
-        historyDropdown = _react.default.createElement(_HistoryDropdown.default, {
+        historyDropdown = _react.default.createElement(_historyDropdown.default, {
           menuData: this.props.dataHistory,
           dropdownId: "".concat(this.props.id, "-dd"),
           handleHistory: this.props.handleHistory,
@@ -62094,6 +61902,8 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
+var _styledComponents = _interopRequireDefault(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
@@ -62183,6 +61993,32 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  margin-top: 18px;\n  font-size: 13px;\n  color: ", ";\n  height: 32px;\n  overflow: hidden;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
+}
+
+var StyledPreview = _styledComponents.default.div(_templateObject(), function (props) {
+  return props.theme.previewColor;
+});
+
 var Preview =
 /*#__PURE__*/
 function (_React$Component) {
@@ -62213,10 +62049,10 @@ function (_React$Component) {
     key: "renderPreviewText",
     value: function renderPreviewText() {
       if (this.state.preview === "") {
-        return _react.default.createElement("span", null, "\xA0");
+        return _react.default.createElement(StyledPreview, null, "\xA0");
       }
 
-      return _react.default.createElement("span", null, "Preview: ", _react.default.createElement("strong", null, this.state.preview));
+      return _react.default.createElement(StyledPreview, null, "Preview: ", this.state.preview);
     }
   }, {
     key: "render",
@@ -62634,6 +62470,310 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "./resources/views/components/historyDropdown/historyStyles.js":
+/*!*********************************************************************!*\
+  !*** ./resources/views/components/historyDropdown/historyStyles.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+var _Buttons = __webpack_require__(/*! ../Buttons */ "./resources/views/components/Buttons.js");
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n    .dropdown {\n      position: relative;\n      display: inline-block;\n      align-self: center;\n    }\n    \n    .dropdown-menu {\n      position: absolute;\n      top: 100%;\n      left: 0;\n      z-index: 1000;\n      display: none;\n      float: left;\n      min-width: 10rem;\n      padding: 8px 0;\n      margin: 4px 0 0;\n      font-size: 1rem;\n      color: ", ";\n      text-align: left;\n      list-style: none;\n      background-color: ", ";\n      background-clip: padding-box;\n      border: 1px solid rgba(0, 0, 0, 0.15);\n      border-radius: 4px;\n      box-shadow: 0px 3px 15px 0px rgba(0,0,0,0.15);\n    }\n\n    .dropdown-menu a, .dropdown-menu a:link, .dropdown-menu a:visited { \n      display: block;\n      color: ", ";\n      padding: 6px 8px;\n      text-decoration: none;\n      cursor: default;\n\n      &:active, &:focus {\n        outline: 0;\n        background-color: ", ";\n       }\n     }\n\n    .dropdown-toggle {\n      ", "\n      padding: 0;\n      width: 40px;\n      .caret { display: none; }\n      svg { margin-top: 2px; }\n    }\n\n    .dropdown-menu-right {\n      right: 0;\n      left: auto;\n    }\n\n    .dropdown-menu[x-placement^=\"top\"], .dropdown-menu[x-placement^=\"right\"], .dropdown-menu[x-placement^=\"bottom\"], .dropdown-menu[x-placement^=\"left\"] {\n      right: auto;\n      bottom: auto;\n    }\n\n    .dropdown-divider {\n      height: 0;\n      margin: 0.5rem 0;\n      overflow: hidden;\n      border-top: 1px solid #e9ecef;\n    }\n\n    .dropdown-menu.show {\n      display: block;\n    }\n\n    .dropdown-header {\n      display: block;\n      padding: 0 8px 8px;\n      margin-bottom: 0;\n      font-size: 0.875rem;\n      color: ", ";\n      white-space: nowrap;\n      opacity: 0.8;\n    }\n\n    .dropdown.open .dropdown-menu { display: block; }\n\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
+}
+
+var _default = (0, _styledComponents.createGlobalStyle)(_templateObject(), function (props) {
+  return props.theme.input.color;
+}, function (props) {
+  return props.theme.input.background;
+}, function (props) {
+  return props.theme.previewColor;
+}, function (props) {
+  return props.theme.button.bgActive;
+}, _Buttons.ButtonStyles, function (props) {
+  return props.theme.textColor;
+});
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./resources/views/components/historyDropdown/history_ic_dark.svg":
+/*!************************************************************************!*\
+  !*** ./resources/views/components/historyDropdown/history_ic_dark.svg ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+function HistoryIcDark (props) {
+    return React.createElement("svg",props,[React.createElement("title",{"key":0},"Group"),React.createElement("desc",{"key":1},"Created with Sketch Beta."),React.createElement("g",{"id":"Page-1","stroke":"none","strokeWidth":"1","fill":"none","fillRule":"evenodd","key":2},React.createElement("g",{"id":"Artboard-Copy","transform":"translate(-331.000000, -51.000000)","fill":"#F3F2F5"},React.createElement("g",{"id":"Recent","transform":"translate(326.000000, 46.000000)"},React.createElement("g",{"id":"Group","transform":"translate(5.000000, 5.000000)"},[React.createElement("path",{"d":"M9.14000003,8.8817842e-16 C5.35451668,8.8817842e-16 2.28500001,3.06951668 2.28500001,6.85500002 L-7.54951657e-14,6.85500002 L2.96288334,9.81788336 L3.01620001,9.92451669 L6.09333335,6.85500002 L3.80833334,6.85500002 C3.80833334,3.90735001 6.19235002,1.52333334 9.14000003,1.52333334 C12.08765,1.52333334 14.4716667,3.90735001 14.4716667,6.85500002 C14.4716667,9.80265003 12.08765,12.1866667 9.14000003,12.1866667 C7.66998335,12.1866667 6.33706668,11.58495 5.37736668,10.6176334 L4.29580001,11.6992 C5.53731668,12.9407167 7.24345002,13.71 9.14000003,13.71 C12.9254834,13.71 15.995,10.6404834 15.995,6.85500002 C15.995,3.06951668 12.9254834,8.8817842e-16 9.14000003,8.8817842e-16 Z M8.37833336,4.37958335 L8.37833336,7.61666669 L11.1771378,9.27763943 C11.4318995,9.42882978 11.7609783,9.34507629 11.9124667,9.09049169 L11.9124667,9.09049169 C12.0638187,8.8361363 11.9803179,8.5072455 11.7259625,8.35589353 C11.7258768,8.35584254 11.7257911,8.35579157 11.7257054,8.35574063 L9.52083336,7.04541669 L9.52083336,4.37958335 C9.52083336,4.06409068 9.26507602,3.80833334 8.94958336,3.80833334 L8.94958336,3.80833334 C8.63409069,3.80833334 8.37833336,4.06409068 8.37833336,4.37958335 Z","id":"Shape","fillRule":"nonzero","key":0}),React.createElement("path",{"d":"M28.631728,5.85355339 L25.5961941,8.8890873 C25.4009319,9.08434944 25.0843494,9.08434944 24.8890873,8.8890873 L21.8535534,5.85355339 C21.6582912,5.65829124 21.6582912,5.34170876 21.8535534,5.14644661 C21.9473216,5.05267842 22.0744985,5 22.2071068,5 L28.2781746,5 C28.554317,5 28.7781746,5.22385763 28.7781746,5.5 C28.7781746,5.63260824 28.7254962,5.7597852 28.631728,5.85355339 Z","id":"Rectangle-4","key":1})]))))]);
+}
+
+HistoryIcDark.defaultProps = {"width":"29px","height":"14px","viewBox":"0 0 29 14","version":"1.1"};
+
+module.exports = HistoryIcDark;
+
+HistoryIcDark.default = HistoryIcDark;
+
+
+/***/ }),
+
+/***/ "./resources/views/components/historyDropdown/history_ic_light.svg":
+/*!*************************************************************************!*\
+  !*** ./resources/views/components/historyDropdown/history_ic_light.svg ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+function HistoryIcLight (props) {
+    return React.createElement("svg",props,[React.createElement("title",{"key":0},"Group"),React.createElement("desc",{"key":1},"Created with Sketch Beta."),React.createElement("g",{"id":"Page-1","stroke":"none","strokeWidth":"1","fill":"none","fillRule":"evenodd","key":2},React.createElement("g",{"id":"Artboard-Copy","transform":"translate(-331.000000, -51.000000)","fill":"#747474"},React.createElement("g",{"id":"Recent","transform":"translate(326.000000, 46.000000)"},React.createElement("g",{"id":"Group","transform":"translate(5.000000, 5.000000)"},[React.createElement("path",{"d":"M9.14000003,8.8817842e-16 C5.35451668,8.8817842e-16 2.28500001,3.06951668 2.28500001,6.85500002 L-7.54951657e-14,6.85500002 L2.96288334,9.81788336 L3.01620001,9.92451669 L6.09333335,6.85500002 L3.80833334,6.85500002 C3.80833334,3.90735001 6.19235002,1.52333334 9.14000003,1.52333334 C12.08765,1.52333334 14.4716667,3.90735001 14.4716667,6.85500002 C14.4716667,9.80265003 12.08765,12.1866667 9.14000003,12.1866667 C7.66998335,12.1866667 6.33706668,11.58495 5.37736668,10.6176334 L4.29580001,11.6992 C5.53731668,12.9407167 7.24345002,13.71 9.14000003,13.71 C12.9254834,13.71 15.995,10.6404834 15.995,6.85500002 C15.995,3.06951668 12.9254834,8.8817842e-16 9.14000003,8.8817842e-16 Z M8.37833336,4.37958335 L8.37833336,7.61666669 L11.1771378,9.27763943 C11.4318995,9.42882978 11.7609783,9.34507629 11.9124667,9.09049169 L11.9124667,9.09049169 C12.0638187,8.8361363 11.9803179,8.5072455 11.7259625,8.35589353 C11.7258768,8.35584254 11.7257911,8.35579157 11.7257054,8.35574063 L9.52083336,7.04541669 L9.52083336,4.37958335 C9.52083336,4.06409068 9.26507602,3.80833334 8.94958336,3.80833334 L8.94958336,3.80833334 C8.63409069,3.80833334 8.37833336,4.06409068 8.37833336,4.37958335 Z","id":"Shape","fillRule":"nonzero","key":0}),React.createElement("path",{"d":"M28.631728,5.85355339 L25.5961941,8.8890873 C25.4009319,9.08434944 25.0843494,9.08434944 24.8890873,8.8890873 L21.8535534,5.85355339 C21.6582912,5.65829124 21.6582912,5.34170876 21.8535534,5.14644661 C21.9473216,5.05267842 22.0744985,5 22.2071068,5 L28.2781746,5 C28.554317,5 28.7781746,5.22385763 28.7781746,5.5 C28.7781746,5.63260824 28.7254962,5.7597852 28.631728,5.85355339 Z","id":"Rectangle-4","key":1})]))))]);
+}
+
+HistoryIcLight.defaultProps = {"width":"29px","height":"14px","viewBox":"0 0 29 14","version":"1.1"};
+
+module.exports = HistoryIcLight;
+
+HistoryIcLight.default = HistoryIcLight;
+
+
+/***/ }),
+
+/***/ "./resources/views/components/historyDropdown/index.jsx":
+/*!**************************************************************!*\
+  !*** ./resources/views/components/historyDropdown/index.jsx ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _mixpanelBrowser = _interopRequireDefault(__webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js"));
+
+var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+
+var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+var _Constants = __webpack_require__(/*! ../../../../src/lib/Constants */ "./src/lib/Constants.js");
+
+var _historyStyles = _interopRequireDefault(__webpack_require__(/*! ./historyStyles */ "./resources/views/components/historyDropdown/historyStyles.js"));
+
+var _history_ic_light = _interopRequireDefault(__webpack_require__(/*! ./history_ic_light.svg */ "./resources/views/components/historyDropdown/history_ic_light.svg"));
+
+var _history_ic_dark = _interopRequireDefault(__webpack_require__(/*! ./history_ic_dark.svg */ "./resources/views/components/historyDropdown/history_ic_dark.svg"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+function _typeof(obj) {
+  if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
+    _typeof = function _typeof(obj) {
+      return _typeof2(obj);
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof2(obj);
+    };
+  }
+
+  return _typeof(obj);
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+var HistoryDropdown =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(HistoryDropdown, _React$Component);
+
+  function HistoryDropdown(props) {
+    var _this;
+
+    _classCallCheck(this, HistoryDropdown);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(HistoryDropdown).call(this, props));
+    _this.onTargetSelect = _this.onTargetSelect.bind(_assertThisInitialized(_assertThisInitialized(_this))); // Tracking
+
+    _mixpanelBrowser.default.init(_Constants.mixpanelId);
+
+    return _this;
+  }
+
+  _createClass(HistoryDropdown, [{
+    key: "onTargetSelect",
+    value: function onTargetSelect(target) {
+      this.props.handleHistory(target);
+    }
+  }, {
+    key: "onToggle",
+    value: function onToggle() {
+      _mixpanelBrowser.default.track("history", {
+        dropdown: "".concat(this.props.dropdownId)
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var Icon = this.props.theme.name === "dark" ? _history_ic_dark.default : _history_ic_light.default;
+      var menuItems;
+
+      if (this.props.menuData.length > 0) {
+        menuItems = this.props.menuData.map(function (d, idx) {
+          return _react.default.createElement(_reactBootstrap.MenuItem, {
+            key: "menu-".concat(idx),
+            eventKey: "".concat(d),
+            onSelect: function onSelect() {
+              return _this2.onTargetSelect(d);
+            }
+          }, d);
+        });
+      } else {
+        menuItems = _react.default.createElement(_reactBootstrap.MenuItem, {
+          key: "disabled-menu",
+          disabled: true
+        }, "Empty History");
+      }
+
+      return _react.default.createElement(_reactBootstrap.Dropdown, {
+        id: this.props.dropdownId,
+        pullRight: true,
+        onToggle: function onToggle() {
+          return _this2.onToggle(_this2);
+        }
+      }, _react.default.createElement(_historyStyles.default, null), _react.default.createElement(_reactBootstrap.Dropdown.Toggle, {
+        bsStyle: "primary",
+        bsSize: "xsmall"
+      }, _react.default.createElement(Icon, null)), _react.default.createElement(_reactBootstrap.Dropdown.Menu, {
+        className: "dropMenu"
+      }, _react.default.createElement(_reactBootstrap.MenuItem, {
+        header: true
+      }, "Recently used"), menuItems));
+    }
+  }]);
+
+  return HistoryDropdown;
+}(_react.default.Component);
+
+var _default = (0, _styledComponents.withTheme)(HistoryDropdown);
+
+exports.default = _default;
+
+/***/ }),
+
 /***/ "./resources/views/components/renameLayer/index.jsx":
 /*!**********************************************************!*\
   !*** ./resources/views/components/renameLayer/index.jsx ***!
@@ -62779,7 +62919,7 @@ function _assertThisInitialized(self) {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  margin-top: 32px;\n\n  ul { \n    margin-top: 8px;\n    display: flex;\n    flex-flow: wrap;\n    margin-left: -4px;\n  }\n\n  li { margin: 8px 4px; }\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-top: 16px;\n\n  ul { \n    margin-top: 10px;\n    display: flex;\n    flex-flow: wrap;\n    margin-left: -6px;\n    list-style: inside;\n  }\n\n  li { margin: 6px; list-style: none; }\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -63054,10 +63194,8 @@ function (_React$Component) {
       }, _react.default.createElement(_Input.default, nameInputAttr), _react.default.createElement(_Input.default, sequenceInputAttr), _react.default.createElement(KeywordsWrapper, null, _react.default.createElement(Subtitle, null, "Keywords"), _react.default.createElement("ul", null, listItems)), _react.default.createElement(_Preview.default, {
         data: this.state.previewData
       }), _react.default.createElement(_Buttons.Footer, null, _react.default.createElement(_Buttons.SecondaryButton, {
-        id: "cancelBtn",
         onClick: this.onCancel
       }, "Cancel"), _react.default.createElement(_Buttons.SubmitButton, {
-        id: "submitBtn",
         onClick: this.onSubmit.bind(this)
       }, "Rename")));
     }
@@ -63281,7 +63419,11 @@ if (_Constants.testData && window.data === undefined) {
   (0, _client.default)("getData");
 }
 
-if (false) {}
+if (false) {} // theme
+
+
+console.log(window.theme); // window.theme = JSON.parse(window.theme)
+// console.log(window.theme)
 
 var App;
 
@@ -63338,8 +63480,6 @@ var _findReplaceLayer = _interopRequireDefault(__webpack_require__(/*! ./compone
 
 var _settings = _interopRequireDefault(__webpack_require__(/*! ./components/settings */ "./resources/views/components/settings/index.jsx"));
 
-var _index = _interopRequireDefault(__webpack_require__(/*! ./theme/index */ "./resources/views/theme/index.js"));
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
@@ -63347,7 +63487,7 @@ function _interopRequireDefault(obj) {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  body {\n    color: ", ";\n    background-color: ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  html {\n    color: ", ";\n    background-color: ", ";\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -63372,15 +63512,14 @@ var GlobalStyle = (0, _styledComponents.createGlobalStyle)(_templateObject(), fu
   return props.theme.text;
 }, function (props) {
   return props.theme.bg;
-}); // Theme
-
-window.theme = window.theme || "light";
-var theme = (0, _index.default)(window.theme);
+});
 
 var _default = function _default() {
   return _react.default.createElement(_styledComponents.ThemeProvider, {
-    theme: theme
-  }, _react.default.createElement("div", null, _react.default.createElement(GlobalStyle, null), _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
+    theme: window.theme
+  }, _react.default.createElement("div", {
+    id: "mainContent"
+  }, _react.default.createElement(GlobalStyle, null), _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
     exact: true,
     path: "/find_replace",
     component: _findReplaceLayer.default
@@ -63395,128 +63534,6 @@ var _default = function _default() {
   }))));
 };
 
-exports.default = _default;
-
-/***/ }),
-
-/***/ "./resources/views/theme/dark.js":
-/*!***************************************!*\
-  !*** ./resources/views/theme/dark.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  text: "#6a7480",
-  primary: "#fff",
-  bg: "#222020",
-  input: {
-    background: "#fff",
-    shadow: "inset 0 0 0 1px rgba(0,0,0,0.06)",
-    color: "#252525"
-  },
-  inputActive: {
-    border: "3px solid rgba(59,153,252,0.50)"
-  },
-  label: {
-    color: "#242424"
-  },
-  button: {
-    color: "#000000",
-    bg: "linear-gradient(-180deg, #FEFEFE 0%, #F3F3F3 100%)",
-    border: "1px solid rgba(0,0,0,0.10)",
-    shadow: "1px solid rgba(0,0,0,0.10)",
-    active: "linear-gradient(-180deg, #6CB3FA 0%, #067DFF 100%)",
-    activeBorder: "#005CFF",
-    activeColor: "#fff"
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ "./resources/views/theme/index.js":
-/*!****************************************!*\
-  !*** ./resources/views/theme/index.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _dark = _interopRequireDefault(__webpack_require__(/*! ./dark */ "./resources/views/theme/dark.js"));
-
-var _light = _interopRequireDefault(__webpack_require__(/*! ./light */ "./resources/views/theme/light.js"));
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
-
-var _default = function _default(theme) {
-  if (theme === "dark") {
-    return _dark.default;
-  }
-
-  return _light.default;
-};
-
-exports.default = _default;
-
-/***/ }),
-
-/***/ "./resources/views/theme/light.js":
-/*!****************************************!*\
-  !*** ./resources/views/theme/light.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  text: "#747474",
-  bg: "#F7F7F7",
-  input: {
-    background: "#FBFBFB",
-    color: "#505050",
-    border: "#E4E4E4",
-    borderActive: "#1384FF"
-  },
-  button: {
-    color: "#505050",
-    bgColor: "#FBFBFB",
-    border: "#E4E4E4",
-    bgActive: "#F3F2F5"
-  },
-  secondaryButton: {
-    borderColor: "#B2AEBD",
-    textColor: "#817B8F"
-  },
-  CTAButton: {
-    bgColor: "#1384FF",
-    textColor: "#fff"
-  }
-};
 exports.default = _default;
 
 /***/ }),

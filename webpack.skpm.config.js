@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /**
  * @Author: Rodrigo Soares <rodrigo>
  * @Date:   2017-10-28T08:09:29-07:00
@@ -36,5 +37,15 @@ module.exports = function(config) {
     test: /\.jsx?$/,
     exclude: /(node_modules|bower_components)/,
     loader: "babel-loader"
+  })
+
+  config.module.rules.push({
+    test: /\.svg$/,
+    exclude: /node_modules/,
+    use: [
+      {
+        loader: "svg-react-loader"
+      }
+    ]
   })
 }

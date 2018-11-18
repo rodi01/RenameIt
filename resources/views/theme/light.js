@@ -1,6 +1,8 @@
 export default {
+  name: "light",
   text: "#747474",
   bg: "#F7F7F7",
+  previewColor: "#242424",
 
   input: {
     background: "#FBFBFB",
@@ -23,6 +25,7 @@ export default {
 
   CTAButton: {
     bgColor: "#1384FF",
-    textColor: "#fff"
+    textColor: "#fff",
+    bgActive: "#0F72DB"
   }
 }

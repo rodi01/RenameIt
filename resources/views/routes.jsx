@@ -10,21 +10,17 @@ import { ThemeProvider, createGlobalStyle } from "styled-components"
 import RenameLayer from "./components/renameLayer"
 import FindReplaceLayer from "./components/findReplaceLayer"
 import Settings from "./components/settings"
-import getTheme from "./theme/index"
 
 const GlobalStyle = createGlobalStyle`
-  body {
+  html {
     color: ${props => props.theme.text};
     background-color: ${props => props.theme.bg};
   }
 `
-// Theme
-window.theme = window.theme || "light"
-const theme = getTheme(window.theme)
 
 export default () => (
-  <ThemeProvider theme={theme}>
-    <div>
+  <ThemeProvider theme={window.theme}>
+    <div id="mainContent">
       <GlobalStyle />
       <Switch>
         <Route exact path="/find_replace" component={FindReplaceLayer} />

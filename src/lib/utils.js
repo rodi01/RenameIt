@@ -1,8 +1,8 @@
 /*
- * @Author: Rodrigo Soares 
- * @Date: 2018-01-03 17:48:48 
+ * @Author: Rodrigo Soares
+ * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-08-03 22:25:17
+ * @Last Modified time: 2018-11-18 12:14:08
  */
 
 /**
@@ -22,8 +22,8 @@ function layerObject(layer, idx) {
     name: String(layer.name()),
     frame: layer.frame(),
     idx,
-    width: layer.frame().width(),
-    height: layer.frame().height(),
+    width: Math.floor(layer.frame().width()),
+    height: Math.floor(layer.frame().height()),
     parentName: String(parentName)
   }
 }

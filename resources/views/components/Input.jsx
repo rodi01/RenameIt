@@ -8,7 +8,7 @@
 
 import React from "react"
 import styled from "styled-components"
-import HistoryDropdown from "./HistoryDropdown"
+import HistoryDropdown from "./historyDropdown"
 
 const StyledInput = styled.input`
   background: ${props => props.theme.input.background};
@@ -22,6 +22,8 @@ const StyledInput = styled.input`
   letter-spacing: -0.08px;
   flex-grow: 1; 
   margin-right: 8px;
+  -webkit-user-select: auto;
+  user-select: auto;
 
   &[type=number] {
     width: 50px;

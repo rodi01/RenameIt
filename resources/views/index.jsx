@@ -32,6 +32,11 @@ if (process.env.NODE_ENV === "production") {
   document.addEventListener("contextmenu", e => e.preventDefault())
 }
 
+// theme
+console.log(window.theme)
+// window.theme = JSON.parse(window.theme)
+// console.log(window.theme)
+
 let App
 
 if (window.redirectTo !== undefined) {

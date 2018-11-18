@@ -2689,6 +2689,133 @@ module.exports = function (str, locale) {
 
 /***/ }),
 
+/***/ "./resources/views/theme/dark.js":
+/*!***************************************!*\
+  !*** ./resources/views/theme/dark.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  name: "dark",
+  text: "#E6E4EB",
+  bg: "#2D2D2D",
+  previewColor: "#F3F2F5",
+  input: {
+    background: "#373737",
+    color: "#F3F2F5",
+    border: "#454545",
+    borderActive: "#1384FF"
+  },
+  button: {
+    color: "#F3F2F5",
+    bgColor: "rgba(255,255,255,0.25)",
+    border: "#636363",
+    bgActive: "rgba(255,255,255,0.10)"
+  },
+  secondaryButton: {
+    borderColor: "#636363",
+    textColor: "#F3F2F5"
+  },
+  CTAButton: {
+    bgColor: "#1384FF",
+    textColor: "#fff",
+    bgActive: "#0F72DB"
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./resources/views/theme/index.js":
+/*!****************************************!*\
+  !*** ./resources/views/theme/index.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _dark = _interopRequireDefault(__webpack_require__(/*! ./dark */ "./resources/views/theme/dark.js"));
+
+var _light = _interopRequireDefault(__webpack_require__(/*! ./light */ "./resources/views/theme/light.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+var _default = function _default(theme) {
+  if (theme === "dark") {
+    return _dark.default;
+  }
+
+  return _light.default;
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./resources/views/theme/light.js":
+/*!****************************************!*\
+  !*** ./resources/views/theme/light.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  name: "light",
+  text: "#747474",
+  bg: "#F7F7F7",
+  previewColor: "#242424",
+  input: {
+    background: "#FBFBFB",
+    color: "#505050",
+    border: "#E4E4E4",
+    borderActive: "#1384FF"
+  },
+  button: {
+    color: "#505050",
+    bgColor: "#FBFBFB",
+    border: "#E4E4E4",
+    bgActive: "#F3F2F5"
+  },
+  secondaryButton: {
+    borderColor: "#B2AEBD",
+    textColor: "#817B8F"
+  },
+  CTAButton: {
+    bgColor: "#1384FF",
+    textColor: "#fff",
+    bgActive: "#0F72DB"
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
 /***/ "./resources/webview.html":
 /*!********************************!*\
   !*** ./resources/webview.html ***!
@@ -2696,7 +2823,7 @@ module.exports = function (str, locale) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/1ab069359c4b6e4dbe216474cbc11fdd.html").path();
+module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/59fc6449ed62012616b9f5084f52adfc.html").path();
 
 /***/ }),
 
@@ -3104,6 +3231,8 @@ var _Constants = __webpack_require__(/*! ./Constants */ "./src/lib/Constants.js"
 
 var _History = __webpack_require__(/*! ./History */ "./src/lib/History.js");
 
+var _index = _interopRequireDefault(__webpack_require__(/*! ../../resources/views/theme/index */ "./resources/views/theme/index.js"));
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
@@ -3123,6 +3252,8 @@ function showUpdatedMessage(count, data) {
 }
 
 var theUI = function theUI(context, data, options) {
+  var themeColor = typeof MSTheme !== "undefined" && MSTheme.sharedTheme().isDark() ? "dark" : "light";
+  var theme = (0, _index.default)(themeColor);
   var winOptions = {
     identifier: options.identifier,
     title: options.title,
@@ -3132,6 +3263,7 @@ var theUI = function theUI(context, data, options) {
     maximizable: false,
     resizable: false,
     fullscreenable: false,
+    backgroundColor: theme.bg,
     show: false
   };
   var win = new _sketchModuleWebView.default(winOptions);
@@ -3154,15 +3286,10 @@ var theUI = function theUI(context, data, options) {
   };
 
   var getData = function getData() {
-    // const theme =
-    //   typeof MSTheme !== "undefined" && MSTheme.sharedTheme().isDark()
-    //     ? "dark"
-    //     : "light"
-    var theme = "light";
     var history = (0, _History.getHistory)();
     var whereTo = options.redirectTo;
     var superProps = getSuperProperties();
-    contents.executeJavaScript("\n          window.theme=\"".concat(theme, "\";\n          window.redirectTo=\"").concat(whereTo, "\";\n          window.data=").concat(JSON.stringify(data), ";\n          window.dataHistory=").concat(JSON.stringify(history), ";\n          window.superProps=").concat(JSON.stringify(superProps), ";"));
+    contents.executeJavaScript("\n          window.theme=".concat(JSON.stringify(theme), ";\n          window.redirectTo=\"").concat(whereTo, "\";\n          window.data=").concat(JSON.stringify(data), ";\n          window.dataHistory=").concat(JSON.stringify(history), ";\n          window.superProps=").concat(JSON.stringify(superProps), ";"));
   };
 
   contents.on("did-start-loading", function () {
