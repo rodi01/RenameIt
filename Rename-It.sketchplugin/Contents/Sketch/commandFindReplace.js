@@ -2874,7 +2874,7 @@ function _default(context) {
     title: "Find & Replace Layers",
     redirectTo: "/find_replace",
     width: 480,
-    height: 328 // Load UI
+    height: 335 // Load UI
 
   };
   (0, _TheUI.default)(context, data, options);

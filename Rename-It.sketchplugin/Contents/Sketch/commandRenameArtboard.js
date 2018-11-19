@@ -2863,7 +2863,7 @@ function _interopRequireDefault(obj) {
  * @Author: Rodrigo Soares
  * @Date: 2017-12-26 13:15:01
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-11-18 21:34:09
+ * @Last Modified time: 2018-11-18 21:38:53
  */
 
 
@@ -2880,7 +2880,7 @@ function _default(context) {
     title: "Rename Selected Artboards",
     redirectTo: "/rename",
     width: 392,
-    height: 430 // Load UI
+    height: 420 // Load UI
 
   };
   (0, _TheUI.default)(context, data, options);

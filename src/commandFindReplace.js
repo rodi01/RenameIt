@@ -15,7 +15,7 @@ export default function(context) {
     title: "Find & Replace Layers",
     redirectTo: "/find_replace",
     width: 480,
-    height: 328
+    height: 335
   }
 
   // Load UI

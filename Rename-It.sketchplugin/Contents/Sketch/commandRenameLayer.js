@@ -2863,7 +2863,7 @@ function _interopRequireDefault(obj) {
  * @Author: Rodrigo Soares
  * @Date: 2017-12-26 13:14:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-11-17 22:40:33
+ * @Last Modified time: 2018-11-18 21:39:02
  */
 
 
@@ -2880,7 +2880,7 @@ function _default(context) {
     title: "Rename Selected Layers",
     redirectTo: "/rename",
     width: 392,
-    height: 403 // Load UI
+    height: 420 // Load UI
 
   };
   (0, _TheUI.default)(context, data, options);
