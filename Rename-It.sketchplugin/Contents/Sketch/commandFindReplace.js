@@ -2728,6 +2728,10 @@ var _default = {
     bgColor: "#1384FF",
     textColor: "#fff",
     bgActive: "#0F72DB"
+  },
+  radio: {
+    selectedColor: "#1384FF",
+    border: "#1384FF"
   }
 };
 exports.default = _default;
@@ -2810,6 +2814,10 @@ var _default = {
     bgColor: "#1384FF",
     textColor: "#fff",
     bgActive: "#0F72DB"
+  },
+  radio: {
+    selectedColor: "#969696",
+    border: "#1384FF"
   }
 };
 exports.default = _default;
@@ -2866,7 +2874,7 @@ function _default(context) {
     title: "Find & Replace Layers",
     redirectTo: "/find_replace",
     width: 480,
-    height: 307 // Load UI
+    height: 328 // Load UI
 
   };
   (0, _TheUI.default)(context, data, options);

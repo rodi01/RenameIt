@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components"
 
-// eslint-disable-next-line import/prefer-default-export
+export const InputMargin = "20px"
+
 export const ButtonStyles = css`
   height: 24px;
   background-color: ${props => props.theme.button.bgColor};
@@ -18,8 +19,14 @@ export const ButtonStyles = css`
   }
 `
 
+export const LabelStyles = css`
+  font-size: 14px;
+  letter-spacing: -0.08px;
+  align-self: center;
+`
+
 export const Button = styled.button`
-  ${ButtonStyles}
+  ${ButtonStyles};
 `
 export const SecondaryButton = styled(Button)`
   font-size: 12px;
@@ -43,5 +50,7 @@ export const Footer = styled.div`
   display: flex;
   margin-top: auto;
   justify-content: flex-end;
-  button { margin-left: 12px }
+  button {
+    margin-left: 12px;
+  }
 `

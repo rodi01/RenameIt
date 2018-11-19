@@ -1,11 +1,12 @@
 import { createGlobalStyle } from "styled-components"
-import { ButtonStyles } from "../Buttons"
+import { ButtonStyles } from "../GlobalStyles"
 
 export default createGlobalStyle`
     .dropdown {
       position: relative;
       display: inline-block;
       align-self: center;
+      font-size: 12px;
     }
     
     .dropdown-menu {
@@ -17,8 +18,7 @@ export default createGlobalStyle`
       float: left;
       min-width: 10rem;
       padding: 8px 0;
-      margin: 4px 0 0;
-      font-size: 1rem;
+      margin: 2px 0 0;
       color: ${props => props.theme.input.color};
       text-align: left;
       list-style: none;
@@ -75,7 +75,6 @@ export default createGlobalStyle`
       display: block;
       padding: 0 8px 8px;
       margin-bottom: 0;
-      font-size: 0.875rem;
       color: ${props => props.theme.textColor};
       white-space: nowrap;
       opacity: 0.8;

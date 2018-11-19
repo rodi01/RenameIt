@@ -9,6 +9,7 @@
 import React from "react"
 import styled from "styled-components"
 import HistoryDropdown from "./historyDropdown"
+import { LabelStyles, InputMargin } from "./GlobalStyles"
 
 const StyledInput = styled.input`
   background: ${props => props.theme.input.background};
@@ -20,34 +21,31 @@ const StyledInput = styled.input`
   margin-left: 8px;
   font-size: 13px;
   letter-spacing: -0.08px;
-  flex-grow: 1; 
+  flex-grow: 1;
   margin-right: 8px;
   -webkit-user-select: auto;
   user-select: auto;
 
-  &[type=number] {
+  &[type="number"] {
     width: 50px;
     flex-grow: 0;
     padding-right: 2px;
   }
 
-  &:focus{
+  &:focus {
     outline: none;
     border-color: ${props => props.theme.input.borderActive};
   }
 `
 
 const StyledLabel = styled.label`
-  font-size: 14px;
-  letter-spacing: -0.08px;
-  align-self: center;
-  width: 70px;
+  ${LabelStyles};
+  width: ${props => props.labelWidth || "100px"};
 `
 
 const InputWrapper = styled.div`
   display: flex;
-  margin-bottom: 16px;
-
+  margin-bottom: ${InputMargin};
 `
 
 class Input extends React.Component {
@@ -56,20 +54,7 @@ class Input extends React.Component {
   }
 
   render() {
-    // let clearBtn = null
-    // let clearBtnClass = null
     let historyDropdown = null
-    // if (this.props.showClear !== undefined) {
-    //   clearBtn = (
-    //     <span
-    //       id="clearBtn"
-    //       title="Clear"
-    //       className={this.props.showClear}
-    //       onClick={this.props.onClear}
-    //     />
-    //   )
-    //   clearBtnClass = "inputClearWrapper"
-    // }
     if (this.props.showHistory !== undefined) {
       historyDropdown = (
         <HistoryDropdown
@@ -83,7 +68,9 @@ class Input extends React.Component {
 
     return (
       <InputWrapper className={`inputWrapper ${this.props.wrapperClass}`}>
-        <StyledLabel htmlFor={this.props.id}>{this.props.forName}</StyledLabel>
+        <StyledLabel htmlFor={this.props.id} labelWidth={this.props.labelWidth}>
+          {this.props.forName}
+        </StyledLabel>
         <StyledInput
           type={this.props.type}
           id={this.props.id}

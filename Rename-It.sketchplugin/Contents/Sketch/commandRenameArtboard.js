@@ -2728,6 +2728,10 @@ var _default = {
     bgColor: "#1384FF",
     textColor: "#fff",
     bgActive: "#0F72DB"
+  },
+  radio: {
+    selectedColor: "#1384FF",
+    border: "#1384FF"
   }
 };
 exports.default = _default;
@@ -2810,6 +2814,10 @@ var _default = {
     bgColor: "#1384FF",
     textColor: "#fff",
     bgActive: "#0F72DB"
+  },
+  radio: {
+    selectedColor: "#969696",
+    border: "#1384FF"
   }
 };
 exports.default = _default;
@@ -2855,7 +2863,7 @@ function _interopRequireDefault(obj) {
  * @Author: Rodrigo Soares
  * @Date: 2017-12-26 13:15:01
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-11-18 12:12:41
+ * @Last Modified time: 2018-11-18 21:34:09
  */
 
 
@@ -2872,7 +2880,7 @@ function _default(context) {
     title: "Rename Selected Artboards",
     redirectTo: "/rename",
     width: 392,
-    height: 403 // Load UI
+    height: 430 // Load UI
 
   };
   (0, _TheUI.default)(context, data, options);

@@ -27314,10 +27314,10 @@ module.exports = function(originalModule) {
 
 /***/ }),
 
-/***/ "./resources/views/components/Buttons.js":
-/*!***********************************************!*\
-  !*** ./resources/views/components/Buttons.js ***!
-  \***********************************************/
+/***/ "./resources/views/components/GlobalStyles.js":
+/*!****************************************************!*\
+  !*** ./resources/views/components/GlobalStyles.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27327,7 +27327,7 @@ module.exports = function(originalModule) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Footer = exports.SubmitButton = exports.SecondaryButton = exports.Button = exports.ButtonStyles = void 0;
+exports.Footer = exports.SubmitButton = exports.SecondaryButton = exports.Button = exports.LabelStyles = exports.ButtonStyles = exports.InputMargin = void 0;
 
 var _styledComponents = _interopRequireWildcard(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
 
@@ -27356,8 +27356,18 @@ function _interopRequireWildcard(obj) {
   }
 }
 
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-top: auto;\n  justify-content: flex-end;\n  button {\n    margin-left: 12px;\n  }\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-top: auto;\n  justify-content: flex-end;\n  button { margin-left: 12px }\n"]);
+  var data = _taggedTemplateLiteral(["\n  border: 0;\n  color: ", ";\n  background-color: ", ";\n  &:active {\n    background-color: ", ";\n  }\n"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -27367,7 +27377,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  border: 0;\n  color: ", ";\n  background-color: ", ";\n  &:active {\n    background-color: ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  font-size: 12px;\n  border-radius: 12px;\n  font-weight: 500;\n  padding: 0 16px;\n  color: ", ";\n  border-color: ", ";\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -27377,7 +27387,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 12px;\n  border-radius: 12px;\n  font-weight: 500;\n  padding: 0 16px;\n  color: ", ";\n  border-color: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", ";\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -27387,7 +27397,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  font-size: 14px;\n  letter-spacing: -0.08px;\n  align-self: center;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -27416,9 +27426,10 @@ function _taggedTemplateLiteral(strings, raw) {
       value: Object.freeze(raw)
     }
   }));
-} // eslint-disable-next-line import/prefer-default-export
+}
 
-
+var InputMargin = "20px";
+exports.InputMargin = InputMargin;
 var ButtonStyles = (0, _styledComponents.css)(_templateObject(), function (props) {
   return props.theme.button.bgColor;
 }, function (props) {
@@ -27429,17 +27440,19 @@ var ButtonStyles = (0, _styledComponents.css)(_templateObject(), function (props
   return props.theme.button.bgActive;
 });
 exports.ButtonStyles = ButtonStyles;
+var LabelStyles = (0, _styledComponents.css)(_templateObject2());
+exports.LabelStyles = LabelStyles;
 
-var Button = _styledComponents.default.button(_templateObject2(), ButtonStyles);
+var Button = _styledComponents.default.button(_templateObject3(), ButtonStyles);
 
 exports.Button = Button;
-var SecondaryButton = (0, _styledComponents.default)(Button)(_templateObject3(), function (props) {
+var SecondaryButton = (0, _styledComponents.default)(Button)(_templateObject4(), function (props) {
   return props.theme.secondaryButton.textColor;
 }, function (props) {
   return props.theme.secondaryButton.borderColor;
 });
 exports.SecondaryButton = SecondaryButton;
-var SubmitButton = (0, _styledComponents.default)(SecondaryButton)(_templateObject4(), function (props) {
+var SubmitButton = (0, _styledComponents.default)(SecondaryButton)(_templateObject5(), function (props) {
   return props.theme.CTAButton.textColor;
 }, function (props) {
   return props.theme.CTAButton.bgColor;
@@ -27448,7 +27461,7 @@ var SubmitButton = (0, _styledComponents.default)(SecondaryButton)(_templateObje
 });
 exports.SubmitButton = SubmitButton;
 
-var Footer = _styledComponents.default.div(_templateObject5());
+var Footer = _styledComponents.default.div(_templateObject6());
 
 exports.Footer = Footer;
 
@@ -27471,10 +27484,10 @@ exports.default = void 0;
 
 var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
-var _Buttons = __webpack_require__(/*! ../Buttons */ "./resources/views/components/Buttons.js");
+var _GlobalStyles = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n    .dropdown {\n      position: relative;\n      display: inline-block;\n      align-self: center;\n    }\n    \n    .dropdown-menu {\n      position: absolute;\n      top: 100%;\n      left: 0;\n      z-index: 1000;\n      display: none;\n      float: left;\n      min-width: 10rem;\n      padding: 8px 0;\n      margin: 4px 0 0;\n      font-size: 1rem;\n      color: ", ";\n      text-align: left;\n      list-style: none;\n      background-color: ", ";\n      background-clip: padding-box;\n      border: 1px solid rgba(0, 0, 0, 0.15);\n      border-radius: 4px;\n      box-shadow: 0px 3px 15px 0px rgba(0,0,0,0.15);\n    }\n\n    .dropdown-menu a, .dropdown-menu a:link, .dropdown-menu a:visited { \n      display: block;\n      color: ", ";\n      padding: 6px 8px;\n      text-decoration: none;\n      cursor: default;\n\n      &:active, &:focus {\n        outline: 0;\n        background-color: ", ";\n       }\n     }\n\n    .dropdown-toggle {\n      ", "\n      padding: 0;\n      width: 40px;\n      .caret { display: none; }\n      svg { margin-top: 2px; }\n    }\n\n    .dropdown-menu-right {\n      right: 0;\n      left: auto;\n    }\n\n    .dropdown-menu[x-placement^=\"top\"], .dropdown-menu[x-placement^=\"right\"], .dropdown-menu[x-placement^=\"bottom\"], .dropdown-menu[x-placement^=\"left\"] {\n      right: auto;\n      bottom: auto;\n    }\n\n    .dropdown-divider {\n      height: 0;\n      margin: 0.5rem 0;\n      overflow: hidden;\n      border-top: 1px solid #e9ecef;\n    }\n\n    .dropdown-menu.show {\n      display: block;\n    }\n\n    .dropdown-header {\n      display: block;\n      padding: 0 8px 8px;\n      margin-bottom: 0;\n      font-size: 0.875rem;\n      color: ", ";\n      white-space: nowrap;\n      opacity: 0.8;\n    }\n\n    .dropdown.open .dropdown-menu { display: block; }\n\n"]);
+  var data = _taggedTemplateLiteral(["\n    .dropdown {\n      position: relative;\n      display: inline-block;\n      align-self: center;\n      font-size: 12px;\n    }\n    \n    .dropdown-menu {\n      position: absolute;\n      top: 100%;\n      left: 0;\n      z-index: 1000;\n      display: none;\n      float: left;\n      min-width: 10rem;\n      padding: 8px 0;\n      margin: 2px 0 0;\n      color: ", ";\n      text-align: left;\n      list-style: none;\n      background-color: ", ";\n      background-clip: padding-box;\n      border: 1px solid rgba(0, 0, 0, 0.15);\n      border-radius: 4px;\n      box-shadow: 0px 3px 15px 0px rgba(0,0,0,0.15);\n    }\n\n    .dropdown-menu a, .dropdown-menu a:link, .dropdown-menu a:visited { \n      display: block;\n      color: ", ";\n      padding: 6px 8px;\n      text-decoration: none;\n      cursor: default;\n\n      &:active, &:focus {\n        outline: 0;\n        background-color: ", ";\n       }\n     }\n\n    .dropdown-toggle {\n      ", "\n      padding: 0;\n      width: 40px;\n      .caret { display: none; }\n      svg { margin-top: 2px; }\n    }\n\n    .dropdown-menu-right {\n      right: 0;\n      left: auto;\n    }\n\n    .dropdown-menu[x-placement^=\"top\"], .dropdown-menu[x-placement^=\"right\"], .dropdown-menu[x-placement^=\"bottom\"], .dropdown-menu[x-placement^=\"left\"] {\n      right: auto;\n      bottom: auto;\n    }\n\n    .dropdown-divider {\n      height: 0;\n      margin: 0.5rem 0;\n      overflow: hidden;\n      border-top: 1px solid #e9ecef;\n    }\n\n    .dropdown-menu.show {\n      display: block;\n    }\n\n    .dropdown-header {\n      display: block;\n      padding: 0 8px 8px;\n      margin-bottom: 0;\n      color: ", ";\n      white-space: nowrap;\n      opacity: 0.8;\n    }\n\n    .dropdown.open .dropdown-menu { display: block; }\n\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -27503,7 +27516,7 @@ var _default = (0, _styledComponents.createGlobalStyle)(_templateObject(), funct
   return props.theme.previewColor;
 }, function (props) {
   return props.theme.button.bgActive;
-}, _Buttons.ButtonStyles, function (props) {
+}, _GlobalStyles.ButtonStyles, function (props) {
   return props.theme.textColor;
 });
 

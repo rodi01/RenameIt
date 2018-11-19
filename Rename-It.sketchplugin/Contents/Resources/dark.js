@@ -125,6 +125,10 @@ var _default = {
     bgColor: "#1384FF",
     textColor: "#fff",
     bgActive: "#0F72DB"
+  },
+  radio: {
+    selectedColor: "#1384FF",
+    border: "#1384FF"
   }
 };
 exports.default = _default;

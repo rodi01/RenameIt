@@ -61354,10 +61354,10 @@ module.exports = function(originalModule) {
 
 /***/ }),
 
-/***/ "./resources/views/components/Buttons.js":
-/*!***********************************************!*\
-  !*** ./resources/views/components/Buttons.js ***!
-  \***********************************************/
+/***/ "./resources/views/components/GlobalStyles.js":
+/*!****************************************************!*\
+  !*** ./resources/views/components/GlobalStyles.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -61367,7 +61367,7 @@ module.exports = function(originalModule) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Footer = exports.SubmitButton = exports.SecondaryButton = exports.Button = exports.ButtonStyles = void 0;
+exports.Footer = exports.SubmitButton = exports.SecondaryButton = exports.Button = exports.LabelStyles = exports.ButtonStyles = exports.InputMargin = void 0;
 
 var _styledComponents = _interopRequireWildcard(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
 
@@ -61396,8 +61396,18 @@ function _interopRequireWildcard(obj) {
   }
 }
 
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-top: auto;\n  justify-content: flex-end;\n  button {\n    margin-left: 12px;\n  }\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-top: auto;\n  justify-content: flex-end;\n  button { margin-left: 12px }\n"]);
+  var data = _taggedTemplateLiteral(["\n  border: 0;\n  color: ", ";\n  background-color: ", ";\n  &:active {\n    background-color: ", ";\n  }\n"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -61407,7 +61417,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  border: 0;\n  color: ", ";\n  background-color: ", ";\n  &:active {\n    background-color: ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  font-size: 12px;\n  border-radius: 12px;\n  font-weight: 500;\n  padding: 0 16px;\n  color: ", ";\n  border-color: ", ";\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -61417,7 +61427,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 12px;\n  border-radius: 12px;\n  font-weight: 500;\n  padding: 0 16px;\n  color: ", ";\n  border-color: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", ";\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -61427,7 +61437,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  font-size: 14px;\n  letter-spacing: -0.08px;\n  align-self: center;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -61456,9 +61466,10 @@ function _taggedTemplateLiteral(strings, raw) {
       value: Object.freeze(raw)
     }
   }));
-} // eslint-disable-next-line import/prefer-default-export
+}
 
-
+var InputMargin = "20px";
+exports.InputMargin = InputMargin;
 var ButtonStyles = (0, _styledComponents.css)(_templateObject(), function (props) {
   return props.theme.button.bgColor;
 }, function (props) {
@@ -61469,17 +61480,19 @@ var ButtonStyles = (0, _styledComponents.css)(_templateObject(), function (props
   return props.theme.button.bgActive;
 });
 exports.ButtonStyles = ButtonStyles;
+var LabelStyles = (0, _styledComponents.css)(_templateObject2());
+exports.LabelStyles = LabelStyles;
 
-var Button = _styledComponents.default.button(_templateObject2(), ButtonStyles);
+var Button = _styledComponents.default.button(_templateObject3(), ButtonStyles);
 
 exports.Button = Button;
-var SecondaryButton = (0, _styledComponents.default)(Button)(_templateObject3(), function (props) {
+var SecondaryButton = (0, _styledComponents.default)(Button)(_templateObject4(), function (props) {
   return props.theme.secondaryButton.textColor;
 }, function (props) {
   return props.theme.secondaryButton.borderColor;
 });
 exports.SecondaryButton = SecondaryButton;
-var SubmitButton = (0, _styledComponents.default)(SecondaryButton)(_templateObject4(), function (props) {
+var SubmitButton = (0, _styledComponents.default)(SecondaryButton)(_templateObject5(), function (props) {
   return props.theme.CTAButton.textColor;
 }, function (props) {
   return props.theme.CTAButton.bgColor;
@@ -61488,7 +61501,7 @@ var SubmitButton = (0, _styledComponents.default)(SecondaryButton)(_templateObje
 });
 exports.SubmitButton = SubmitButton;
 
-var Footer = _styledComponents.default.div(_templateObject5());
+var Footer = _styledComponents.default.div(_templateObject6());
 
 exports.Footer = Footer;
 
@@ -61516,6 +61529,8 @@ var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_mod
 var _styledComponents = _interopRequireDefault(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
 
 var _historyDropdown = _interopRequireDefault(__webpack_require__(/*! ./historyDropdown */ "./resources/views/components/historyDropdown/index.jsx"));
+
+var _GlobalStyles = __webpack_require__(/*! ./GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -61607,7 +61622,7 @@ function _setPrototypeOf(o, p) {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-bottom: 16px;\n\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-bottom: ", ";\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -61617,7 +61632,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 14px;\n  letter-spacing: -0.08px;\n  align-self: center;\n  width: 70px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", ";\n  width: ", ";\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -61627,7 +61642,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  background: ", ";\n  padding: 0 8px;\n  border-radius: 4px;\n  height: 24px;\n  border: 1px solid ", ";\n  color: ", ";\n  margin-left: 8px;\n  font-size: 13px;\n  letter-spacing: -0.08px;\n  flex-grow: 1; \n  margin-right: 8px;\n  -webkit-user-select: auto;\n  user-select: auto;\n\n  &[type=number] {\n    width: 50px;\n    flex-grow: 0;\n    padding-right: 2px;\n  }\n\n  &:focus{\n    outline: none;\n    border-color: ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  background: ", ";\n  padding: 0 8px;\n  border-radius: 4px;\n  height: 24px;\n  border: 1px solid ", ";\n  color: ", ";\n  margin-left: 8px;\n  font-size: 13px;\n  letter-spacing: -0.08px;\n  flex-grow: 1;\n  margin-right: 8px;\n  -webkit-user-select: auto;\n  user-select: auto;\n\n  &[type=\"number\"] {\n    width: 50px;\n    flex-grow: 0;\n    padding-right: 2px;\n  }\n\n  &:focus {\n    outline: none;\n    border-color: ", ";\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -61658,9 +61673,11 @@ var StyledInput = _styledComponents.default.input(_templateObject(), function (p
   return props.theme.input.borderActive;
 });
 
-var StyledLabel = _styledComponents.default.label(_templateObject2());
+var StyledLabel = _styledComponents.default.label(_templateObject2(), _GlobalStyles.LabelStyles, function (props) {
+  return props.labelWidth || "100px";
+});
 
-var InputWrapper = _styledComponents.default.div(_templateObject3());
+var InputWrapper = _styledComponents.default.div(_templateObject3(), _GlobalStyles.InputMargin);
 
 var Input =
 /*#__PURE__*/
@@ -61681,21 +61698,9 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this = this; // let clearBtn = null
-      // let clearBtnClass = null
+      var _this = this;
 
-
-      var historyDropdown = null; // if (this.props.showClear !== undefined) {
-      //   clearBtn = (
-      //     <span
-      //       id="clearBtn"
-      //       title="Clear"
-      //       className={this.props.showClear}
-      //       onClick={this.props.onClear}
-      //     />
-      //   )
-      //   clearBtnClass = "inputClearWrapper"
-      // }
+      var historyDropdown = null;
 
       if (this.props.showHistory !== undefined) {
         historyDropdown = _react.default.createElement(_historyDropdown.default, {
@@ -61709,7 +61714,8 @@ function (_React$Component) {
       return _react.default.createElement(InputWrapper, {
         className: "inputWrapper ".concat(this.props.wrapperClass)
       }, _react.default.createElement(StyledLabel, {
-        htmlFor: this.props.id
+        htmlFor: this.props.id,
+        labelWidth: this.props.labelWidth
       }, this.props.forName), _react.default.createElement(StyledInput, {
         type: this.props.type,
         id: this.props.id,
@@ -61758,7 +61764,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
-var _Buttons = __webpack_require__(/*! ./Buttons */ "./resources/views/components/Buttons.js");
+var _GlobalStyles = __webpack_require__(/*! ./GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -61865,8 +61871,7 @@ function (_React$Component) {
   _createClass(KeywordButton, [{
     key: "render",
     value: function render() {
-      // const tooltip = <Tooltip id="tooltip">Shortcut: {this.props.char}</Tooltip>
-      return _react.default.createElement(_Buttons.Button, {
+      return _react.default.createElement(_GlobalStyles.Button, {
         id: this.props.id,
         "data-char": this.props.char,
         title: "Shortcut: ".concat(this.props.char),
@@ -62095,6 +62100,8 @@ var _client = _interopRequireDefault(__webpack_require__(/*! sketch-module-web-v
 
 var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 
+var _styledComponents = _interopRequireDefault(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
+
 var _Constants = __webpack_require__(/*! ../../../../src/lib/Constants */ "./src/lib/Constants.js");
 
 var _Input = _interopRequireDefault(__webpack_require__(/*! ../Input */ "./resources/views/components/Input.jsx"));
@@ -62102,6 +62109,8 @@ var _Input = _interopRequireDefault(__webpack_require__(/*! ../Input */ "./resou
 var _FindReplace = __webpack_require__(/*! ../../../../src/lib/FindReplace */ "./src/lib/FindReplace.js");
 
 var _Preview = _interopRequireDefault(__webpack_require__(/*! ../Preview */ "./resources/views/components/Preview.jsx"));
+
+var _GlobalStyles = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -62192,6 +62201,61 @@ function _assertThisInitialized(self) {
   return self;
 }
 
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  ", ";\n  align-self: flex-start;\n\n  input {\n    margin-left: 8px;\n  }\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  ", ";\n  display: inline-block;\n  margin-right: 8px;\n  width: ", ";\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  margin-bottom: ", ";\n\n  label {\n    ", ";\n    display: inline-block;\n    line-height: 24px;\n    font-size: 12px;\n    border-right-width: 0;\n    border-radius: 4px 0 0 4px;\n\n    &:last-child {\n      border-radius: 0 4px 4px 0;\n      border-right-width: 1px;\n    }\n\n    input {\n      display: none;\n    }\n  }\n\n  .isSelected {\n    background-color: ", ";\n    color: ", ";\n    border-color: ", ";\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
+}
+
+var labelWidth = "60px";
+var Form = (0, _styledComponents.default)(_reactBootstrap.FormGroup)(_templateObject(), _GlobalStyles.InputMargin, _GlobalStyles.ButtonStyles, function (props) {
+  return props.theme.radio.selectedColor;
+}, function (props) {
+  return props.theme.CTAButton.textColor;
+}, function (props) {
+  return props.theme.radio.border;
+});
+
+var FakeLabel = _styledComponents.default.span(_templateObject2(), _GlobalStyles.LabelStyles, labelWidth);
+
+var CaseSensitive = _styledComponents.default.label(_templateObject3(), _GlobalStyles.LabelStyles);
+
 var FindReplaceLayer =
 /*#__PURE__*/
 function (_React$Component) {
@@ -62215,7 +62279,14 @@ function (_React$Component) {
       previewData: [],
       searchScope: _this.hasSelection > 0 ? "layers" : "page"
     };
-    _this.enterFunction = _this.enterFunction.bind(_assertThisInitialized(_assertThisInitialized(_this))); // Tracking
+    _this.enterFunction = _this.enterFunction.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onCaseSensitiveChange = _this.onCaseSensitiveChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleFindHistory = _this.handleFindHistory.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleRadioSelection = _this.handleRadioSelection.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleReplaceHistory = _this.handleReplaceHistory.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onChange = _this.onChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.clearInput = _this.clearInput.bind(_assertThisInitialized(_assertThisInitialized(_this))); // Tracking
 
     _mixpanelBrowser.default.init(_Constants.mixpanelId);
 
@@ -62392,72 +62463,66 @@ function (_React$Component) {
       var findInputAttr = {
         id: "find",
         type: "text",
-        forName: "Find:",
+        forName: "Find",
         wrapperClass: "inputName",
         autoFocus: true,
         value: this.state.findValue,
-        onChange: this.onChange.bind(this),
+        onChange: this.onChange,
         showClear: this.state.findClear,
-        onClear: this.clearInput.bind(this),
+        onClear: this.clearInput,
         inputFocus: this.state.findFocus,
         dataHistory: window.dataHistory.findHistory,
         showHistory: true,
-        handleHistory: this.handleFindHistory.bind(this)
+        handleHistory: this.handleFindHistory,
+        labelWidth: labelWidth
       };
       var replaceInputAttr = {
         id: "replace",
         type: "text",
-        forName: "Replace:",
+        forName: "Replace",
         wrapperClass: "inputName",
         autoFocus: false,
         value: this.state.replaceValue,
-        onChange: this.onChange.bind(this),
+        onChange: this.onChange,
         showClear: this.state.replaceClear,
-        onClear: this.clearInput.bind(this),
+        onClear: this.clearInput,
         inputFocus: this.state.replaceFocus,
         dataHistory: window.dataHistory.replaceHistory,
         showHistory: true,
-        handleHistory: this.handleReplaceHistory.bind(this),
-        dropup: true
+        handleHistory: this.handleReplaceHistory,
+        dropup: true,
+        labelWidth: labelWidth
       };
       return _react.default.createElement("div", {
         className: "container findReplace"
-      }, _react.default.createElement("span", {
-        className: "caseSensitiveWrapper"
-      }, _react.default.createElement("input", {
+      }, _react.default.createElement(Form, {
+        controlId: "searchScope"
+      }, _react.default.createElement(FakeLabel, null, "Search"), _react.default.createElement(_reactBootstrap.Radio, {
+        name: "radioGroup",
+        value: "page",
+        className: this.state.searchScope === "page" ? "isSelected" : "",
+        checked: this.state.searchScope === "page",
+        onChange: this.handleRadioSelection,
+        inline: true
+      }, "Current Page"), _react.default.createElement(_reactBootstrap.Radio, {
+        name: "radioGroup",
+        value: "layers",
+        className: this.state.searchScope === "layers" ? "isSelected" : "",
+        checked: this.state.searchScope === "layers",
+        onChange: this.handleRadioSelection,
+        disabled: !this.hasSelection,
+        inline: true
+      }, "Selected Layers")), _react.default.createElement(_Input.default, findInputAttr), _react.default.createElement(_Input.default, replaceInputAttr), _react.default.createElement(CaseSensitive, null, "Case Sensitive", _react.default.createElement("input", {
         type: "checkbox",
         id: "caseSensitive",
         checked: this.state.caseSensitive,
-        onChange: this.onCaseSensitiveChange.bind(this)
-      }), _react.default.createElement("label", {
-        htmlFor: "caseSensitive"
-      }, "\xA0case sensitive")), _react.default.createElement(_Input.default, findInputAttr), _react.default.createElement(_reactBootstrap.FormGroup, {
-        controlId: "searchScope",
-        className: "searchScopeWrapper"
-      }, "Search Scope:\xA0", _react.default.createElement(_reactBootstrap.Radio, {
-        name: "radioGroup",
-        value: "page",
-        checked: this.state.searchScope === "page",
-        onChange: this.handleRadioSelection.bind(this),
-        inline: true
-      }, "Current Page"), " ", _react.default.createElement(_reactBootstrap.Radio, {
-        name: "radioGroup",
-        value: "layers",
-        checked: this.state.searchScope === "layers",
-        onChange: this.handleRadioSelection.bind(this),
-        disabled: !this.hasSelection,
-        inline: true
-      }, "Selected Layers"), " "), _react.default.createElement(_Input.default, replaceInputAttr), _react.default.createElement(_Preview.default, {
+        onChange: this.onCaseSensitiveChange
+      })), _react.default.createElement(_Preview.default, {
         data: this.state.previewData
-      }), _react.default.createElement("div", {
-        id: "footer"
-      }, _react.default.createElement("button", {
-        id: "cancelBtn",
-        className: "grey",
+      }), _react.default.createElement(_GlobalStyles.Footer, null, _react.default.createElement(_GlobalStyles.SecondaryButton, {
         onClick: this.onCancel
-      }, "Cancel"), _react.default.createElement("button", {
-        id: "submitBtn",
-        onClick: this.onSubmit.bind(this)
+      }, "Cancel"), _react.default.createElement(_GlobalStyles.SubmitButton, {
+        onClick: this.onSubmit
       }, "Rename")));
     }
   }]);
@@ -62487,10 +62552,10 @@ exports.default = void 0;
 
 var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 
-var _Buttons = __webpack_require__(/*! ../Buttons */ "./resources/views/components/Buttons.js");
+var _GlobalStyles = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n    .dropdown {\n      position: relative;\n      display: inline-block;\n      align-self: center;\n    }\n    \n    .dropdown-menu {\n      position: absolute;\n      top: 100%;\n      left: 0;\n      z-index: 1000;\n      display: none;\n      float: left;\n      min-width: 10rem;\n      padding: 8px 0;\n      margin: 4px 0 0;\n      font-size: 1rem;\n      color: ", ";\n      text-align: left;\n      list-style: none;\n      background-color: ", ";\n      background-clip: padding-box;\n      border: 1px solid rgba(0, 0, 0, 0.15);\n      border-radius: 4px;\n      box-shadow: 0px 3px 15px 0px rgba(0,0,0,0.15);\n    }\n\n    .dropdown-menu a, .dropdown-menu a:link, .dropdown-menu a:visited { \n      display: block;\n      color: ", ";\n      padding: 6px 8px;\n      text-decoration: none;\n      cursor: default;\n\n      &:active, &:focus {\n        outline: 0;\n        background-color: ", ";\n       }\n     }\n\n    .dropdown-toggle {\n      ", "\n      padding: 0;\n      width: 40px;\n      .caret { display: none; }\n      svg { margin-top: 2px; }\n    }\n\n    .dropdown-menu-right {\n      right: 0;\n      left: auto;\n    }\n\n    .dropdown-menu[x-placement^=\"top\"], .dropdown-menu[x-placement^=\"right\"], .dropdown-menu[x-placement^=\"bottom\"], .dropdown-menu[x-placement^=\"left\"] {\n      right: auto;\n      bottom: auto;\n    }\n\n    .dropdown-divider {\n      height: 0;\n      margin: 0.5rem 0;\n      overflow: hidden;\n      border-top: 1px solid #e9ecef;\n    }\n\n    .dropdown-menu.show {\n      display: block;\n    }\n\n    .dropdown-header {\n      display: block;\n      padding: 0 8px 8px;\n      margin-bottom: 0;\n      font-size: 0.875rem;\n      color: ", ";\n      white-space: nowrap;\n      opacity: 0.8;\n    }\n\n    .dropdown.open .dropdown-menu { display: block; }\n\n"]);
+  var data = _taggedTemplateLiteral(["\n    .dropdown {\n      position: relative;\n      display: inline-block;\n      align-self: center;\n      font-size: 12px;\n    }\n    \n    .dropdown-menu {\n      position: absolute;\n      top: 100%;\n      left: 0;\n      z-index: 1000;\n      display: none;\n      float: left;\n      min-width: 10rem;\n      padding: 8px 0;\n      margin: 2px 0 0;\n      color: ", ";\n      text-align: left;\n      list-style: none;\n      background-color: ", ";\n      background-clip: padding-box;\n      border: 1px solid rgba(0, 0, 0, 0.15);\n      border-radius: 4px;\n      box-shadow: 0px 3px 15px 0px rgba(0,0,0,0.15);\n    }\n\n    .dropdown-menu a, .dropdown-menu a:link, .dropdown-menu a:visited { \n      display: block;\n      color: ", ";\n      padding: 6px 8px;\n      text-decoration: none;\n      cursor: default;\n\n      &:active, &:focus {\n        outline: 0;\n        background-color: ", ";\n       }\n     }\n\n    .dropdown-toggle {\n      ", "\n      padding: 0;\n      width: 40px;\n      .caret { display: none; }\n      svg { margin-top: 2px; }\n    }\n\n    .dropdown-menu-right {\n      right: 0;\n      left: auto;\n    }\n\n    .dropdown-menu[x-placement^=\"top\"], .dropdown-menu[x-placement^=\"right\"], .dropdown-menu[x-placement^=\"bottom\"], .dropdown-menu[x-placement^=\"left\"] {\n      right: auto;\n      bottom: auto;\n    }\n\n    .dropdown-divider {\n      height: 0;\n      margin: 0.5rem 0;\n      overflow: hidden;\n      border-top: 1px solid #e9ecef;\n    }\n\n    .dropdown-menu.show {\n      display: block;\n    }\n\n    .dropdown-header {\n      display: block;\n      padding: 0 8px 8px;\n      margin-bottom: 0;\n      color: ", ";\n      white-space: nowrap;\n      opacity: 0.8;\n    }\n\n    .dropdown.open .dropdown-menu { display: block; }\n\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -62519,7 +62584,7 @@ var _default = (0, _styledComponents.createGlobalStyle)(_templateObject(), funct
   return props.theme.previewColor;
 }, function (props) {
   return props.theme.button.bgActive;
-}, _Buttons.ButtonStyles, function (props) {
+}, _GlobalStyles.ButtonStyles, function (props) {
   return props.theme.textColor;
 });
 
@@ -62809,7 +62874,7 @@ var _KeywordButton = _interopRequireDefault(__webpack_require__(/*! ../KeywordBu
 
 var _Preview = _interopRequireDefault(__webpack_require__(/*! ../Preview */ "./resources/views/components/Preview.jsx"));
 
-var _Buttons = __webpack_require__(/*! ../Buttons */ "./resources/views/components/Buttons.js");
+var _GlobalStyles = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -62919,7 +62984,7 @@ function _assertThisInitialized(self) {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  margin-top: 16px;\n\n  ul { \n    margin-top: 10px;\n    display: flex;\n    flex-flow: wrap;\n    margin-left: -6px;\n    list-style: inside;\n  }\n\n  li { margin: 6px; list-style: none; }\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-top: 16px;\n\n  ul {\n    margin-top: 10px;\n    display: flex;\n    flex-flow: wrap;\n    margin-left: -6px;\n    list-style: inside;\n  }\n\n  li {\n    margin: 6px;\n    list-style: none;\n  }\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -63124,6 +63189,7 @@ function (_React$Component) {
     value: function render() {
       var _this8 = this;
 
+      var labelWidth = "70px";
       var nameInputAttr = {
         id: "name",
         type: "text",
@@ -63137,7 +63203,8 @@ function (_React$Component) {
         inputFocus: this.state.inputFocus,
         dataHistory: window.dataHistory.renameHistory,
         showHistory: true,
-        handleHistory: this.handleHistory.bind(this)
+        handleHistory: this.handleHistory.bind(this),
+        labelWidth: labelWidth
       };
       var sequenceInputAttr = {
         id: "sequence",
@@ -63146,7 +63213,8 @@ function (_React$Component) {
         wrapperClass: "inputRight",
         value: this.state.sequence,
         autoFocus: false,
-        onChange: this.onChangeSequence.bind(this)
+        onChange: this.onChangeSequence.bind(this),
+        labelWidth: labelWidth
       };
       var buttons = [{
         id: "currentLayer",
@@ -63193,9 +63261,9 @@ function (_React$Component) {
         className: "container rename"
       }, _react.default.createElement(_Input.default, nameInputAttr), _react.default.createElement(_Input.default, sequenceInputAttr), _react.default.createElement(KeywordsWrapper, null, _react.default.createElement(Subtitle, null, "Keywords"), _react.default.createElement("ul", null, listItems)), _react.default.createElement(_Preview.default, {
         data: this.state.previewData
-      }), _react.default.createElement(_Buttons.Footer, null, _react.default.createElement(_Buttons.SecondaryButton, {
+      }), _react.default.createElement(_GlobalStyles.Footer, null, _react.default.createElement(_GlobalStyles.SecondaryButton, {
         onClick: this.onCancel
-      }, "Cancel"), _react.default.createElement(_Buttons.SubmitButton, {
+      }, "Cancel"), _react.default.createElement(_GlobalStyles.SubmitButton, {
         onClick: this.onSubmit.bind(this)
       }, "Rename")));
     }
@@ -63419,11 +63487,7 @@ if (_Constants.testData && window.data === undefined) {
   (0, _client.default)("getData");
 }
 
-if (false) {} // theme
-
-
-console.log(window.theme); // window.theme = JSON.parse(window.theme)
-// console.log(window.theme)
+if (false) {}
 
 var App;
 

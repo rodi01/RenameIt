@@ -13,7 +13,7 @@ import rename from "../../../../src/lib/Rename"
 import Input from "../Input"
 import KeywordButton from "../KeywordButton"
 import Preview from "../Preview"
-import { SubmitButton, SecondaryButton, Footer } from "../Buttons"
+import { SubmitButton, SecondaryButton, Footer } from "../GlobalStyles"
 
 const Subtitle = styled.h3`
   font-weight: normal;
@@ -26,7 +26,7 @@ const Subtitle = styled.h3`
 const KeywordsWrapper = styled.div`
   margin-top: 16px;
 
-  ul { 
+  ul {
     margin-top: 10px;
     display: flex;
     flex-flow: wrap;
@@ -34,7 +34,10 @@ const KeywordsWrapper = styled.div`
     list-style: inside;
   }
 
-  li { margin: 6px; list-style: none; }
+  li {
+    margin: 6px;
+    list-style: none;
+  }
 `
 
 class RenameLayer extends React.Component {
@@ -161,6 +164,7 @@ class RenameLayer extends React.Component {
   }
 
   render() {
+    const labelWidth = "70px"
     const nameInputAttr = {
       id: "name",
       type: "text",
@@ -174,7 +178,8 @@ class RenameLayer extends React.Component {
       inputFocus: this.state.inputFocus,
       dataHistory: window.dataHistory.renameHistory,
       showHistory: true,
-      handleHistory: this.handleHistory.bind(this)
+      handleHistory: this.handleHistory.bind(this),
+      labelWidth
     }
 
     const sequenceInputAttr = {
@@ -184,7 +189,8 @@ class RenameLayer extends React.Component {
       wrapperClass: "inputRight",
       value: this.state.sequence,
       autoFocus: false,
-      onChange: this.onChangeSequence.bind(this)
+      onChange: this.onChangeSequence.bind(this),
+      labelWidth
     }
 
     const buttons = [
