@@ -36,11 +36,7 @@ let App
 
 if (window.redirectTo !== undefined) {
   window.location.hash = window.redirectTo
-  App = () => (
-    <div>
-      <Routes />
-    </div>
-  )
+  App = () => <Routes />
 } else {
   App = () => <Routes />
 }

@@ -1,8 +1,8 @@
 /*
- * @Author: Rodrigo Soares 
- * @Date: 2017-12-26 13:15:01 
+ * @Author: Rodrigo Soares
+ * @Date: 2017-12-26 13:15:01
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-07-27 21:05:26
+ * @Last Modified time: 2018-11-18 21:38:53
  */
 
 import { parseData } from "./lib/utils"
@@ -23,8 +23,8 @@ export default function(context) {
     identifier: "renameLayers.ui",
     title: "Rename Selected Artboards",
     redirectTo: "/rename",
-    width: 480,
-    height: 423
+    width: 392,
+    height: 420
   }
 
   // Load UI

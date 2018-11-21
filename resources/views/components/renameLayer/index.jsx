@@ -7,11 +7,35 @@
 import React from "react"
 import pluginCall from "sketch-module-web-view/client"
 import mixpanel from "mixpanel-browser"
+import styled from "styled-components"
 import { mixpanelId } from "../../../../src/lib/Constants"
 import rename from "../../../../src/lib/Rename"
 import Input from "../Input"
 import KeywordButton from "../KeywordButton"
 import Preview from "../Preview"
+import {
+  SubmitButton,
+  SecondaryButton,
+  Footer,
+  StyledH3
+} from "../GlobalStyles"
+
+const KeywordsWrapper = styled.div`
+  margin-top: 16px;
+
+  ul {
+    margin-top: 10px;
+    display: flex;
+    flex-flow: wrap;
+    margin-left: -6px;
+    list-style: inside;
+  }
+
+  li {
+    margin: 6px;
+    list-style: none;
+  }
+`
 
 class RenameLayer extends React.Component {
   constructor(props) {
@@ -137,10 +161,11 @@ class RenameLayer extends React.Component {
   }
 
   render() {
+    const labelWidth = "70px"
     const nameInputAttr = {
       id: "name",
       type: "text",
-      forName: "Name:",
+      forName: "Name",
       wrapperClass: "inputName",
       autoFocus: true,
       value: this.state.valueAttr,
@@ -150,17 +175,19 @@ class RenameLayer extends React.Component {
       inputFocus: this.state.inputFocus,
       dataHistory: window.dataHistory.renameHistory,
       showHistory: true,
-      handleHistory: this.handleHistory.bind(this)
+      handleHistory: this.handleHistory.bind(this),
+      labelWidth
     }
 
     const sequenceInputAttr = {
       id: "sequence",
       type: "number",
-      forName: "Start Sequence from:",
+      forName: "Start from",
       wrapperClass: "inputRight",
       value: this.state.sequence,
       autoFocus: false,
-      onChange: this.onChangeSequence.bind(this)
+      onChange: this.onChangeSequence.bind(this),
+      labelWidth
     }
 
     const buttons = [
@@ -185,19 +212,17 @@ class RenameLayer extends React.Component {
         <Input {...nameInputAttr} />
         <Input {...sequenceInputAttr} />
 
-        <div id="keywordsWrapper">
-          <span className="title">Keywords</span>
-          <ul className="keywords">{listItems}</ul>
-          <Preview data={this.state.previewData} />
-        </div>
-        <div id="footer">
-          <button id="cancelBtn" className="grey" onClick={this.onCancel}>
-            Cancel
-          </button>
-          <button id="submitBtn" onClick={this.onSubmit.bind(this)}>
-            Rename
-          </button>
-        </div>
+        <KeywordsWrapper>
+          <StyledH3>Keywords</StyledH3>
+          <ul>{listItems}</ul>
+        </KeywordsWrapper>
+
+        <Preview data={this.state.previewData} />
+
+        <Footer>
+          <SecondaryButton onClick={this.onCancel}>Cancel</SecondaryButton>
+          <SubmitButton onClick={this.onSubmit.bind(this)}>Rename</SubmitButton>
+        </Footer>
       </div>
     )
   }
