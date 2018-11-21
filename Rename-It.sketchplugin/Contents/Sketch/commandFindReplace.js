@@ -2854,6 +2854,8 @@ var _utils = __webpack_require__(/*! ./lib/utils */ "./src/lib/utils.js");
 
 var _TheUI = _interopRequireDefault(__webpack_require__(/*! ./lib/TheUI */ "./src/lib/TheUI.js"));
 
+var _VersionAlert = __webpack_require__(/*! ./lib/VersionAlert */ "./src/lib/VersionAlert.js");
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
@@ -2868,6 +2870,12 @@ function _interopRequireDefault(obj) {
 
 
 function _default(context) {
+  // Check compatibility
+  if (!(0, _VersionAlert.isCompatible)()) {
+    (0, _VersionAlert.showAlert)();
+    return;
+  }
+
   var data = (0, _utils.findReplaceData)(context);
   var options = {
     identifier: "findReplace.ui",
@@ -3372,6 +3380,57 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "./src/lib/VersionAlert.js":
+/*!*********************************!*\
+  !*** ./src/lib/VersionAlert.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isCompatible = isCompatible;
+exports.showAlert = showAlert;
+
+var sketch = __webpack_require__(/*! sketch */ "sketch"); // eslint-disable-line
+
+
+var UI = __webpack_require__(/*! sketch/ui */ "sketch/ui"); // eslint-disable-line
+
+
+function isCompatible() {
+  return sketch.version.sketch >= 51;
+}
+
+function buildAlert() {
+  var alert = NSAlert.alloc().init(); // set up alert basics
+
+  alert.setMessageText("Incompatible Sketch version");
+  alert.setInformativeText("The latest version of Rename It requires Sketch 51 and up. An older version can be downloaded bellow:");
+  var downloadButton = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 0, 0));
+  downloadButton.setTitle("Dowload Version 3.8.7");
+  downloadButton.setBezelStyle(NSRoundedBezelStyle);
+  downloadButton.sizeToFit();
+  downloadButton.setCOSJSTargetFunction(function () {
+    NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString("https://github.com/rodi01/RenameIt/releases/download/v3.8.7/Rename-It.sketchplugin.zip"));
+  });
+  alert.setAccessoryView(downloadButton);
+  alert.addButtonWithTitle("OK");
+  alert.runModal();
+}
+
+function showAlert() {
+  if (!isCompatible()) {
+    buildAlert();
+  }
+}
+
+/***/ }),
+
 /***/ "./src/lib/utils.js":
 /*!**************************!*\
   !*** ./src/lib/utils.js ***!
@@ -3463,6 +3522,17 @@ function findReplaceData(context) {
 
 /***/ }),
 
+/***/ "sketch":
+/*!*************************!*\
+  !*** external "sketch" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("sketch");
+
+/***/ }),
+
 /***/ "sketch/settings":
 /*!**********************************!*\
   !*** external "sketch/settings" ***!
@@ -3471,6 +3541,17 @@ function findReplaceData(context) {
 /***/ (function(module, exports) {
 
 module.exports = require("sketch/settings");
+
+/***/ }),
+
+/***/ "sketch/ui":
+/*!****************************!*\
+  !*** external "sketch/ui" ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("sketch/ui");
 
 /***/ })
 
