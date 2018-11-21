@@ -3399,9 +3399,6 @@ exports.showAlert = showAlert;
 var sketch = __webpack_require__(/*! sketch */ "sketch"); // eslint-disable-line
 
 
-var UI = __webpack_require__(/*! sketch/ui */ "sketch/ui"); // eslint-disable-line
-
-
 function isCompatible() {
   return sketch.version.sketch >= 51;
 }
@@ -3541,17 +3538,6 @@ module.exports = require("sketch");
 /***/ (function(module, exports) {
 
 module.exports = require("sketch/settings");
-
-/***/ }),
-
-/***/ "sketch/ui":
-/*!****************************!*\
-  !*** external "sketch/ui" ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("sketch/ui");
 
 /***/ })
 

@@ -1,5 +1,4 @@
 const sketch = require("sketch") // eslint-disable-line
-const UI = require("sketch/ui") // eslint-disable-line
 
 export function isCompatible() {
   return sketch.version.sketch >= 51
