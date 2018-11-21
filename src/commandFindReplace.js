@@ -6,8 +6,15 @@
  */
 import { findReplaceData } from "./lib/utils"
 import theUI from "./lib/TheUI"
+import { isCompatible, showAlert } from "./lib/VersionAlert"
 
 export default function(context) {
+  // Check compatibility
+  if (!isCompatible()) {
+    showAlert()
+    return
+  }
+
   const data = findReplaceData(context)
 
   const options = {

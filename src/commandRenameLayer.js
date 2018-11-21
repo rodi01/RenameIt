@@ -2,13 +2,20 @@
  * @Author: Rodrigo Soares
  * @Date: 2017-12-26 13:14:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-11-18 21:39:02
+ * @Last Modified time: 2018-11-21 11:38:07
  */
 
 import { parseData } from "./lib/utils"
 import theUI from "./lib/TheUI"
+import { isCompatible, showAlert } from "./lib/VersionAlert"
 
 export default function(context) {
+  // Check compatibility
+  if (!isCompatible()) {
+    showAlert()
+    return
+  }
+
   const data = parseData(context)
 
   // Return if there is no selection and show message
@@ -27,6 +34,6 @@ export default function(context) {
     height: 420
   }
 
-  // Load UI
+  // Show UI
   theUI(context, data, options)
 }
