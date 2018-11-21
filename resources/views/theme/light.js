@@ -31,6 +31,6 @@ export default {
 
   radio: {
     selectedColor: "#969696",
-    border: "#1384FF"
+    border: "#969696"
   }
 }

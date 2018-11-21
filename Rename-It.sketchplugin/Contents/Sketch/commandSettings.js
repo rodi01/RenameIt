@@ -2817,7 +2817,7 @@ var _default = {
   },
   radio: {
     selectedColor: "#969696",
-    border: "#1384FF"
+    border: "#969696"
   }
 };
 exports.default = _default;
@@ -2831,7 +2831,7 @@ exports.default = _default;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/59fc6449ed62012616b9f5084f52adfc.html").path();
+module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/d36c16efc485adc5a2417886be414785.html").path();
 
 /***/ }),
 
@@ -2861,7 +2861,7 @@ function _interopRequireDefault(obj) {
  * @Author: Rodrigo Soares 
  * @Date: 2017-12-25 14:32:21 
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2017-12-25 20:17:59
+ * @Last Modified time: 2018-11-21 09:45:27
  */
 
 
@@ -2871,7 +2871,7 @@ function _default(context) {
     title: "Settings",
     redirectTo: "/settings",
     width: 250,
-    height: 170
+    height: 260
   };
   (0, _TheUI.default)(context, null, options);
 }
@@ -3357,6 +3357,9 @@ var theUI = function theUI(context, data, options) {
   contents.on("onClearHistory", function () {
     (0, _History.clearHistory)();
     win.close();
+  });
+  contents.on("externalLinkClicked", function (url) {
+    NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString(url));
   });
 };
 

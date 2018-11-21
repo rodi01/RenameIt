@@ -128,7 +128,7 @@ var _default = {
   },
   radio: {
     selectedColor: "#969696",
-    border: "#1384FF"
+    border: "#969696"
   }
 };
 exports.default = _default;

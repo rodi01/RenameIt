@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./resources/views/components/historyDropdown/historyStyles.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./resources/views/components/GlobalStyles.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -27479,64 +27479,7 @@ var Footer = _styledComponents.default.div(_templateObject7());
 
 exports.Footer = Footer;
 
-/***/ }),
-
-/***/ "./resources/views/components/historyDropdown/historyStyles.js":
-/*!*********************************************************************!*\
-  !*** ./resources/views/components/historyDropdown/historyStyles.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-
-var _GlobalStyles = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
-
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n    .dropdown {\n      position: relative;\n      display: inline-block;\n      align-self: center;\n      font-size: 12px;\n    }\n    \n    .dropdown-menu {\n      position: absolute;\n      top: 100%;\n      left: 0;\n      z-index: 1000;\n      display: none;\n      float: left;\n      min-width: 10rem;\n      padding: 8px 0;\n      margin: 2px 0 0;\n      color: ", ";\n      text-align: left;\n      list-style: none;\n      background-color: ", ";\n      background-clip: padding-box;\n      border: 1px solid rgba(0, 0, 0, 0.15);\n      border-radius: 4px;\n      box-shadow: 0px 3px 15px 0px rgba(0,0,0,0.15);\n    }\n\n    .dropdown-menu a, .dropdown-menu a:link, .dropdown-menu a:visited { \n      display: block;\n      color: ", ";\n      padding: 6px 8px;\n      text-decoration: none;\n      cursor: default;\n\n      &:active, &:focus {\n        outline: 0;\n        background-color: ", ";\n       }\n     }\n\n    .dropdown-toggle {\n      ", "\n      padding: 0;\n      width: 40px;\n      .caret { display: none; }\n      svg { margin-top: 2px; }\n    }\n\n    .dropdown-menu-right {\n      right: 0;\n      left: auto;\n    }\n\n    .dropdown-menu[x-placement^=\"top\"], .dropdown-menu[x-placement^=\"right\"], .dropdown-menu[x-placement^=\"bottom\"], .dropdown-menu[x-placement^=\"left\"] {\n      right: auto;\n      bottom: auto;\n    }\n\n    .dropdown-divider {\n      height: 0;\n      margin: 0.5rem 0;\n      overflow: hidden;\n      border-top: 1px solid #e9ecef;\n    }\n\n    .dropdown-menu.show {\n      display: block;\n    }\n\n    .dropdown-header {\n      display: block;\n      padding: 0 8px 8px;\n      margin-bottom: 0;\n      color: ", ";\n      white-space: nowrap;\n      opacity: 0.8;\n    }\n\n    .dropdown.open .dropdown-menu { display: block; }\n\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) {
-  if (!raw) {
-    raw = strings.slice(0);
-  }
-
-  return Object.freeze(Object.defineProperties(strings, {
-    raw: {
-      value: Object.freeze(raw)
-    }
-  }));
-}
-
-var _default = (0, _styledComponents.createGlobalStyle)(_templateObject(), function (props) {
-  return props.theme.input.color;
-}, function (props) {
-  return props.theme.input.background;
-}, function (props) {
-  return props.theme.previewColor;
-}, function (props) {
-  return props.theme.button.bgActive;
-}, _GlobalStyles.ButtonStyles, function (props) {
-  return props.theme.textColor;
-});
-
-exports.default = _default;
-
 /***/ })
 
 /******/ });
-//# sourceMappingURL=historyStyles.js.map
+//# sourceMappingURL=GlobalStyles.js.map

@@ -13,15 +13,12 @@ import rename from "../../../../src/lib/Rename"
 import Input from "../Input"
 import KeywordButton from "../KeywordButton"
 import Preview from "../Preview"
-import { SubmitButton, SecondaryButton, Footer } from "../GlobalStyles"
-
-const Subtitle = styled.h3`
-  font-weight: normal;
-  text-transform: uppercase;
-  margin: 0;
-  font-size: 11px;
-  letter-spacing: 0.92px;
-`
+import {
+  SubmitButton,
+  SecondaryButton,
+  Footer,
+  StyledH3
+} from "../GlobalStyles"
 
 const KeywordsWrapper = styled.div`
   margin-top: 16px;
@@ -216,7 +213,7 @@ class RenameLayer extends React.Component {
         <Input {...sequenceInputAttr} />
 
         <KeywordsWrapper>
-          <Subtitle>Keywords</Subtitle>
+          <StyledH3>Keywords</StyledH3>
           <ul>{listItems}</ul>
         </KeywordsWrapper>
 

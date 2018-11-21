@@ -2817,7 +2817,7 @@ var _default = {
   },
   radio: {
     selectedColor: "#969696",
-    border: "#1384FF"
+    border: "#969696"
   }
 };
 exports.default = _default;
@@ -2831,7 +2831,7 @@ exports.default = _default;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/59fc6449ed62012616b9f5084f52adfc.html").path();
+module.exports = "file://" + context.plugin.urlForResourceNamed("_webpack_resources/d36c16efc485adc5a2417886be414785.html").path();
 
 /***/ }),
 
@@ -3367,6 +3367,9 @@ var theUI = function theUI(context, data, options) {
   contents.on("onClearHistory", function () {
     (0, _History.clearHistory)();
     win.close();
+  });
+  contents.on("externalLinkClicked", function (url) {
+    NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString(url));
   });
 };
 

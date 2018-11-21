@@ -144,6 +144,10 @@ const theUI = (context, data, options) => {
     clearHistory()
     win.close()
   })
+
+  contents.on("externalLinkClicked", url => {
+    NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString(url))
+  })
 }
 
 export default theUI

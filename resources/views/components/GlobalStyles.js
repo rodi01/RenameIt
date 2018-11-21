@@ -25,6 +25,14 @@ export const LabelStyles = css`
   align-self: center;
 `
 
+export const StyledH3 = styled.h3`
+  font-weight: normal;
+  text-transform: uppercase;
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.92px;
+`
+
 export const Button = styled.button`
   ${ButtonStyles};
 `

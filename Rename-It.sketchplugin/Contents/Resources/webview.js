@@ -61367,7 +61367,7 @@ module.exports = function(originalModule) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Footer = exports.SubmitButton = exports.SecondaryButton = exports.Button = exports.LabelStyles = exports.ButtonStyles = exports.InputMargin = void 0;
+exports.Footer = exports.SubmitButton = exports.SecondaryButton = exports.Button = exports.StyledH3 = exports.LabelStyles = exports.ButtonStyles = exports.InputMargin = void 0;
 
 var _styledComponents = _interopRequireWildcard(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
 
@@ -61396,8 +61396,18 @@ function _interopRequireWildcard(obj) {
   }
 }
 
-function _templateObject6() {
+function _templateObject7() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-top: auto;\n  justify-content: flex-end;\n  button {\n    margin-left: 12px;\n  }\n"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n  border: 0;\n  color: ", ";\n  background-color: ", ";\n  &:active {\n    background-color: ", ";\n  }\n"]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -61407,7 +61417,7 @@ function _templateObject6() {
 }
 
 function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  border: 0;\n  color: ", ";\n  background-color: ", ";\n  &:active {\n    background-color: ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  font-size: 12px;\n  border-radius: 12px;\n  font-weight: 500;\n  padding: 0 16px;\n  color: ", ";\n  border-color: ", ";\n"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -61417,7 +61427,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 12px;\n  border-radius: 12px;\n  font-weight: 500;\n  padding: 0 16px;\n  color: ", ";\n  border-color: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", ";\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -61427,7 +61437,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  font-weight: normal;\n  text-transform: uppercase;\n  margin: 0;\n  font-size: 11px;\n  letter-spacing: 0.92px;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -61483,16 +61493,20 @@ exports.ButtonStyles = ButtonStyles;
 var LabelStyles = (0, _styledComponents.css)(_templateObject2());
 exports.LabelStyles = LabelStyles;
 
-var Button = _styledComponents.default.button(_templateObject3(), ButtonStyles);
+var StyledH3 = _styledComponents.default.h3(_templateObject3());
+
+exports.StyledH3 = StyledH3;
+
+var Button = _styledComponents.default.button(_templateObject4(), ButtonStyles);
 
 exports.Button = Button;
-var SecondaryButton = (0, _styledComponents.default)(Button)(_templateObject4(), function (props) {
+var SecondaryButton = (0, _styledComponents.default)(Button)(_templateObject5(), function (props) {
   return props.theme.secondaryButton.textColor;
 }, function (props) {
   return props.theme.secondaryButton.borderColor;
 });
 exports.SecondaryButton = SecondaryButton;
-var SubmitButton = (0, _styledComponents.default)(SecondaryButton)(_templateObject5(), function (props) {
+var SubmitButton = (0, _styledComponents.default)(SecondaryButton)(_templateObject6(), function (props) {
   return props.theme.CTAButton.textColor;
 }, function (props) {
   return props.theme.CTAButton.bgColor;
@@ -61501,7 +61515,7 @@ var SubmitButton = (0, _styledComponents.default)(SecondaryButton)(_templateObje
 });
 exports.SubmitButton = SubmitButton;
 
-var Footer = _styledComponents.default.div(_templateObject6());
+var Footer = _styledComponents.default.div(_templateObject7());
 
 exports.Footer = Footer;
 
@@ -62983,18 +62997,8 @@ function _assertThisInitialized(self) {
   return self;
 }
 
-function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  margin-top: 16px;\n\n  ul {\n    margin-top: 10px;\n    display: flex;\n    flex-flow: wrap;\n    margin-left: -6px;\n    list-style: inside;\n  }\n\n  li {\n    margin: 6px;\n    list-style: none;\n  }\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  font-weight: normal;\n  text-transform: uppercase;\n  margin: 0;\n  font-size: 11px;\n  letter-spacing: 0.92px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-top: 16px;\n\n  ul {\n    margin-top: 10px;\n    display: flex;\n    flex-flow: wrap;\n    margin-left: -6px;\n    list-style: inside;\n  }\n\n  li {\n    margin: 6px;\n    list-style: none;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -63015,9 +63019,7 @@ function _taggedTemplateLiteral(strings, raw) {
   }));
 }
 
-var Subtitle = _styledComponents.default.h3(_templateObject());
-
-var KeywordsWrapper = _styledComponents.default.div(_templateObject2());
+var KeywordsWrapper = _styledComponents.default.div(_templateObject());
 
 var RenameLayer =
 /*#__PURE__*/
@@ -63259,7 +63261,7 @@ function (_React$Component) {
       });
       return _react.default.createElement("div", {
         className: "container rename"
-      }, _react.default.createElement(_Input.default, nameInputAttr), _react.default.createElement(_Input.default, sequenceInputAttr), _react.default.createElement(KeywordsWrapper, null, _react.default.createElement(Subtitle, null, "Keywords"), _react.default.createElement("ul", null, listItems)), _react.default.createElement(_Preview.default, {
+      }, _react.default.createElement(_Input.default, nameInputAttr), _react.default.createElement(_Input.default, sequenceInputAttr), _react.default.createElement(KeywordsWrapper, null, _react.default.createElement(_GlobalStyles.StyledH3, null, "Keywords"), _react.default.createElement("ul", null, listItems)), _react.default.createElement(_Preview.default, {
         data: this.state.previewData
       }), _react.default.createElement(_GlobalStyles.Footer, null, _react.default.createElement(_GlobalStyles.SecondaryButton, {
         onClick: this.onCancel
@@ -63298,11 +63300,13 @@ var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_mod
 
 var _client = _interopRequireDefault(__webpack_require__(/*! sketch-module-web-view/client */ "./node_modules/sketch-module-web-view/client.js"));
 
-var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
-
 var _mixpanelBrowser = _interopRequireDefault(__webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js"));
 
+var _styledComponents = _interopRequireDefault(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
+
 var _Constants = __webpack_require__(/*! ../../../../src/lib/Constants */ "./src/lib/Constants.js");
+
+var _GlobalStyles = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -63393,6 +63397,54 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  font-size: 12px;\n  line-height: 1.3em;\n  align-self: flex-end;\n  margin-top: auto;\n  span {\n    text-decoration: underline;\n  }\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  margin-top: ", ";\n  display: flex;\n  flex-direction: column;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  margin-bottom: 16px;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
+}
+
+var H3 = (0, _styledComponents.default)(_GlobalStyles.StyledH3)(_templateObject());
+
+var About = _styledComponents.default.div(_templateObject2(), _GlobalStyles.InputMargin);
+
+var Credits = _styledComponents.default.p(_templateObject3());
+
 var Settings =
 /*#__PURE__*/
 function (_React$Component) {
@@ -63416,18 +63468,35 @@ function (_React$Component) {
       (0, _client.default)("onClearHistory");
     }
   }, {
+    key: "moreInfo",
+    value: function moreInfo() {
+      (0, _client.default)("externalLinkClicked", "http://rodi01.github.io/RenameIt/");
+    }
+  }, {
+    key: "twitter",
+    value: function twitter() {
+      (0, _client.default)("externalLinkClicked", "https://twitter.com/rodi01");
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
 
       return _react.default.createElement("div", {
         className: "container settings"
-      }, _react.default.createElement(_reactBootstrap.Panel, null, _react.default.createElement("h5", null, "History Settings"), _react.default.createElement("button", {
-        className: "grey btn-block",
+      }, _react.default.createElement(H3, null, "History"), _react.default.createElement(_GlobalStyles.SecondaryButton, {
         onClick: function onClick() {
           return _this2.onClearHistory();
         }
-      }, "Clear History")));
+      }, "Clear History"), _react.default.createElement(About, null, _react.default.createElement(H3, null, "About"), _react.default.createElement(_GlobalStyles.SecondaryButton, {
+        onClick: function onClick() {
+          return _this2.moreInfo();
+        }
+      }, "Plugin Website")), _react.default.createElement(Credits, null, "Rename It is maintained by Rodrigo Soares.", " ", _react.default.createElement("span", {
+        onClick: function onClick() {
+          return _this2.twitter();
+        }
+      }, "@rodi01")));
     }
   }]);
 
