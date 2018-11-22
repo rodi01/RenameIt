@@ -25,6 +25,9 @@ function currentLayer(newLayerName, layerName) {
   // Camel Case
   name = name.replace(/%\*c%/gi, changeCase.camelCase(layerName))
 
+  // Param Case
+  name = name.replace(/%\*pc%/gi, changeCase.paramCase(layerName))
+
   // Layername
   name = name.replace(/%\*/g, layerName)
 

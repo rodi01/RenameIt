@@ -3140,7 +3140,9 @@ function currentLayer(newLayerName, layerName) {
 
   name = name.replace(/%\*uf%/gi, _changeCase.default.upperCaseFirst(layerName)); // Camel Case
 
-  name = name.replace(/%\*c%/gi, _changeCase.default.camelCase(layerName)); // Layername
+  name = name.replace(/%\*c%/gi, _changeCase.default.camelCase(layerName)); // Param Case
+
+  name = name.replace(/%\*pc%/gi, _changeCase.default.paramCase(layerName)); // Layername
 
   name = name.replace(/%\*/g, layerName);
   return name;
