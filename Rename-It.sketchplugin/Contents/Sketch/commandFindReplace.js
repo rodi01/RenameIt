@@ -3138,8 +3138,7 @@ function currentLayer(newLayerName, layerName) {
 
   name = name.replace(/%\*l%/gi, _changeCase.default.lowerCase(layerName)); // Title Case
 
-  name = name.replace(/%\*t%/gi, (0, _titlecase.default)(layerName)); // name = name.replace(/%\*t%/gi, changeCase.titleCase(layerName))
-  // UpperCase First
+  name = name.replace(/%\*t%/gi, (0, _titlecase.default)(layerName)); // UpperCase First
 
   name = name.replace(/%\*uf%/gi, _changeCase.default.upperCaseFirst(layerName)); // Camel Case
 
@@ -3167,7 +3166,8 @@ function rename(options) {
   var newLayerName = options.inputName; // Interator
 
   var nInterators = newLayerName.match(/%N+/gi);
-  var aInterators = newLayerName.match(/%A/gi); // Number Interator
+  var aInterators = newLayerName.match(/(?!%ar%) %A/gi);
+  var reverseAInterators = newLayerName.match(/%ar%/gi); // Number Interator
 
   if (nInterators != null) {
     /* eslint-disable */
@@ -3188,33 +3188,34 @@ function rename(options) {
   } // Alpha Interator
 
 
+  var alphaStr = "abcdefghijklmnopqrstuvwxyz";
+  var alphaArr = alphaStr.split("");
+  var totalAlpha = alphaArr.length; // Replace Alpha
+
+  function replaceAlpha(match) {
+    var letter = match.charAt(1);
+    var current = match === "%ar%" ? options.selectionCount - options.currIdx - 1 : options.currIdx;
+    var alpha = alphaArr[current % totalAlpha];
+
+    if (current >= totalAlpha) {
+      var flIdx = Math.floor(current / totalAlpha);
+      alpha = "".concat(alphaArr[flIdx - 1]).concat(alpha);
+    }
+
+    return letter === "A" ? alpha.toUpperCase() : alpha;
+  } // Reverse Alpha
+
+
+  if (reverseAInterators != null) {
+    newLayerName = newLayerName.replace(/%ar%/gi, replaceAlpha);
+  }
+
   if (aInterators != null) {
-    /* eslint-disable */
-    // Replace Alpha
-    var replaceAlpha = function replaceAlpha(match) {
-      var letter = match.charAt(1);
-      var alpha = alphaArr[options.currIdx % totalAlpha];
-
-      if (options.currIdx >= totalAlpha) {
-        var flIdx = Math.floor(currIdx / totalAlpha);
-        alpha = "".concat(alphaArr[flIdx - 1]).concat(alpha);
-      }
-
-      return letter == "A" ? alpha.toUpperCase() : alpha;
-    };
-    /* eslint-enable */
-
-
-    var alphaStr = "abcdefghijklmnopqrstuvwxyz";
-    var alphaArr = alphaStr.split("");
-    var totalAlpha = alphaArr.length;
     newLayerName = newLayerName.replace(/%a/gi, replaceAlpha);
   } // Replace asterisks
 
 
-  newLayerName = currentLayer(newLayerName, options.layerName); // Replace escaped asterisks
-  // newLayerName = newLayerName.replace(/\\\*/g, "*");
-  // Add Width and/or height
+  newLayerName = currentLayer(newLayerName, options.layerName); // Add Width and/or height
 
   newLayerName = newLayerName.replace(/%w/gi, options.width);
   newLayerName = newLayerName.replace(/%h/gi, options.height); // Page Name
