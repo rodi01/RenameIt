@@ -49,7 +49,7 @@ export default function rename(options) {
 
   // Interator
   const nInterators = newLayerName.match(/%N+/gi)
-  const aInterators = newLayerName.match(/(?!%ar%) %A/gi)
+  const aInterators = newLayerName.match(/(?!%ar%)%A/gi)
   const reverseAInterators = newLayerName.match(/%ar%/gi)
 
   // Number Interator

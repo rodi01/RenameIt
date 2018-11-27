@@ -3166,7 +3166,7 @@ function rename(options) {
   var newLayerName = options.inputName; // Interator
 
   var nInterators = newLayerName.match(/%N+/gi);
-  var aInterators = newLayerName.match(/(?!%ar%) %A/gi);
+  var aInterators = newLayerName.match(/(?!%ar%)%A/gi);
   var reverseAInterators = newLayerName.match(/%ar%/gi); // Number Interator
 
   if (nInterators != null) {
