@@ -46,7 +46,7 @@
       "renameit.settings"
     ]
   },
-  "version": "3.9.6-2",
+  "version": "4.0.0",
   "description": "Keep your Sketch files organized, batch rename layers and artboards.",
   "name": "Rename-It",
   "disableCocoaScriptPreprocessor": true,
