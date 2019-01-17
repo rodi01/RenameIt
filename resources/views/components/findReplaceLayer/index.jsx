@@ -8,10 +8,65 @@ import React from "react"
 import mixpanel from "mixpanel-browser"
 import pluginCall from "sketch-module-web-view/client"
 import { FormGroup, Radio } from "react-bootstrap"
+import styled from "styled-components"
 import { mixpanelId } from "../../../../src/lib/Constants"
 import Input from "../Input"
 import { findReplace, matchString } from "../../../../src/lib/FindReplace"
 import Preview from "../Preview"
+import {
+  ButtonStyles,
+  LabelStyles,
+  Footer,
+  SecondaryButton,
+  SubmitButton,
+  InputMargin
+} from "../GlobalStyles"
+
+const labelWidth = "60px"
+
+const Form = styled(FormGroup)`
+  margin-bottom: ${InputMargin};
+
+  label {
+    ${ButtonStyles};
+    display: inline-block;
+    line-height: 24px;
+    font-size: 12px;
+    border-right-width: 0;
+    border-radius: 4px 0 0 4px;
+
+    &:last-child {
+      border-radius: 0 4px 4px 0;
+      border-right-width: 1px;
+    }
+
+    input {
+      display: none;
+    }
+  }
+
+  .isSelected {
+    background-color: ${props => props.theme.radio.selectedColor};
+    color: ${props => props.theme.CTAButton.textColor};
+    border-color: ${props => props.theme.radio.border};
+  }
+`
+
+const FakeLabel = styled.span`
+  ${LabelStyles};
+  display: inline-block;
+  margin-right: 8px;
+  width: ${labelWidth};
+`
+
+const CaseSensitive = styled.label`
+  ${LabelStyles};
+  align-self: flex-start;
+
+  input {
+    margin-left: 8px;
+  }
+`
 
 class FindReplaceLayer extends React.Component {
   constructor(props) {
@@ -29,6 +84,13 @@ class FindReplaceLayer extends React.Component {
       searchScope: this.hasSelection > 0 ? "layers" : "page"
     }
     this.enterFunction = this.enterFunction.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+    this.onCaseSensitiveChange = this.onCaseSensitiveChange.bind(this)
+    this.handleFindHistory = this.handleFindHistory.bind(this)
+    this.handleRadioSelection = this.handleRadioSelection.bind(this)
+    this.handleReplaceHistory = this.handleReplaceHistory.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.clearInput = this.clearInput.bind(this)
 
     // Tracking
     mixpanel.init(mixpanelId)
@@ -175,80 +237,82 @@ class FindReplaceLayer extends React.Component {
     const findInputAttr = {
       id: "find",
       type: "text",
-      forName: "Find:",
+      forName: "Find",
       wrapperClass: "inputName",
       autoFocus: true,
       value: this.state.findValue,
-      onChange: this.onChange.bind(this),
+      onChange: this.onChange,
       showClear: this.state.findClear,
-      onClear: this.clearInput.bind(this),
+      onClear: this.clearInput,
       inputFocus: this.state.findFocus,
       dataHistory: window.dataHistory.findHistory,
       showHistory: true,
-      handleHistory: this.handleFindHistory.bind(this)
+      handleHistory: this.handleFindHistory,
+      labelWidth
     }
 
     const replaceInputAttr = {
       id: "replace",
       type: "text",
-      forName: "Replace:",
+      forName: "Replace",
       wrapperClass: "inputName",
       autoFocus: false,
       value: this.state.replaceValue,
-      onChange: this.onChange.bind(this),
+      onChange: this.onChange,
       showClear: this.state.replaceClear,
-      onClear: this.clearInput.bind(this),
+      onClear: this.clearInput,
       inputFocus: this.state.replaceFocus,
       dataHistory: window.dataHistory.replaceHistory,
       showHistory: true,
-      handleHistory: this.handleReplaceHistory.bind(this),
-      dropup: true
+      handleHistory: this.handleReplaceHistory,
+      dropup: true,
+      labelWidth
     }
 
     return (
       <div className="container findReplace">
-        <span className="caseSensitiveWrapper">
-          <input
-            type="checkbox"
-            id="caseSensitive"
-            checked={this.state.caseSensitive}
-            onChange={this.onCaseSensitiveChange.bind(this)}
-          />
-          <label htmlFor="caseSensitive">&nbsp;case sensitive</label>
-        </span>
-        <Input {...findInputAttr} />
-        <FormGroup controlId="searchScope" className="searchScopeWrapper">
-          Search Scope:&nbsp;
+        <Form controlId="searchScope">
+          <FakeLabel>Search</FakeLabel>
           <Radio
             name="radioGroup"
             value="page"
+            className={this.state.searchScope === "page" ? "isSelected" : ""}
             checked={this.state.searchScope === "page"}
-            onChange={this.handleRadioSelection.bind(this)}
+            onChange={this.handleRadioSelection}
             inline
           >
             Current Page
-          </Radio>{" "}
+          </Radio>
           <Radio
             name="radioGroup"
             value="layers"
+            className={this.state.searchScope === "layers" ? "isSelected" : ""}
             checked={this.state.searchScope === "layers"}
-            onChange={this.handleRadioSelection.bind(this)}
+            onChange={this.handleRadioSelection}
             disabled={!this.hasSelection}
             inline
           >
             Selected Layers
-          </Radio>{" "}
-        </FormGroup>
+          </Radio>
+        </Form>
+        <Input {...findInputAttr} />
         <Input {...replaceInputAttr} />
+
+        <CaseSensitive>
+          Case Sensitive
+          <input
+            type="checkbox"
+            id="caseSensitive"
+            checked={this.state.caseSensitive}
+            onChange={this.onCaseSensitiveChange}
+          />
+        </CaseSensitive>
         <Preview data={this.state.previewData} />
-        <div id="footer">
-          <button id="cancelBtn" className="grey" onClick={this.onCancel}>
-            Cancel
-          </button>
-          <button id="submitBtn" onClick={this.onSubmit.bind(this)}>
-            Rename
-          </button>
-        </div>
+
+        <Footer>
+          <SecondaryButton onClick={this.onCancel}>Cancel</SecondaryButton>
+          <SubmitButton onClick={this.onSubmit}>Rename</SubmitButton>
+        </Footer>
       </div>
     )
   }

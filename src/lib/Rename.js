@@ -17,13 +17,15 @@ function currentLayer(newLayerName, layerName) {
 
   // Title Case
   name = name.replace(/%\*t%/gi, toTitleCase(layerName))
-  // name = name.replace(/%\*t%/gi, changeCase.titleCase(layerName))
 
   // UpperCase First
   name = name.replace(/%\*uf%/gi, changeCase.upperCaseFirst(layerName))
 
   // Camel Case
   name = name.replace(/%\*c%/gi, changeCase.camelCase(layerName))
+
+  // Param Case
+  name = name.replace(/%\*pc%/gi, changeCase.paramCase(layerName))
 
   // Layername
   name = name.replace(/%\*/g, layerName)
@@ -47,7 +49,8 @@ export default function rename(options) {
 
   // Interator
   const nInterators = newLayerName.match(/%N+/gi)
-  const aInterators = newLayerName.match(/%A/gi)
+  const aInterators = newLayerName.match(/(?!%ar%)%A/gi)
+  const reverseAInterators = newLayerName.match(/%ar%/gi)
 
   // Number Interator
   if (nInterators != null) {
@@ -72,34 +75,38 @@ export default function rename(options) {
   }
 
   // Alpha Interator
-  if (aInterators != null) {
-    const alphaStr = "abcdefghijklmnopqrstuvwxyz"
-    const alphaArr = alphaStr.split("")
-    const totalAlpha = alphaArr.length
+  const alphaStr = "abcdefghijklmnopqrstuvwxyz"
+  const alphaArr = alphaStr.split("")
+  const totalAlpha = alphaArr.length
 
-    /* eslint-disable */
-    // Replace Alpha
-    function replaceAlpha(match) {
-      const letter = match.charAt(1)
-      let alpha = alphaArr[options.currIdx % totalAlpha]
+  // Replace Alpha
+  function replaceAlpha(match) {
+    const letter = match.charAt(1)
+    const current =
+      match === "%ar%"
+        ? options.selectionCount - options.currIdx - 1
+        : options.currIdx
+    let alpha = alphaArr[current % totalAlpha]
 
-      if (options.currIdx >= totalAlpha) {
-        const flIdx = Math.floor(currIdx / totalAlpha)
-        alpha = `${alphaArr[flIdx - 1]}${alpha}`
-      }
-
-      return letter == "A" ? alpha.toUpperCase() : alpha
+    if (current >= totalAlpha) {
+      const flIdx = Math.floor(current / totalAlpha)
+      alpha = `${alphaArr[flIdx - 1]}${alpha}`
     }
-    /* eslint-enable */
 
+    return letter === "A" ? alpha.toUpperCase() : alpha
+  }
+
+  // Reverse Alpha
+  if (reverseAInterators != null) {
+    newLayerName = newLayerName.replace(/%ar%/gi, replaceAlpha)
+  }
+
+  if (aInterators != null) {
     newLayerName = newLayerName.replace(/%a/gi, replaceAlpha)
   }
 
   // Replace asterisks
   newLayerName = currentLayer(newLayerName, options.layerName)
-
-  // Replace escaped asterisks
-  // newLayerName = newLayerName.replace(/\\\*/g, "*");
 
   // Add Width and/or height
   newLayerName = newLayerName.replace(/%w/gi, options.width)

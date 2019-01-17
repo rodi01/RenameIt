@@ -1,0 +1,325 @@
+/**
+ * @Author: Rodrigo Soares <rodrigo>
+ * @Date:   2017-10-28T08:09:29-07:00
+ * @Project: Rename It
+ * @Last modified by:   rodrigo
+ * @Last modified time: 2017-12-02T18:00:37-08:00
+ */
+
+html {
+  box-sizing: border-box;
+  background: transparent;
+
+  /* Prevent the page to be scrollable */
+  overflow: hidden;
+
+  /* Force the default cursor, even on text */
+  cursor: default;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  position: relative;
+
+  /* Prevent the content from being selectionable */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+html,
+body,
+#root {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  letter-spacing: -0.09px;
+  font-size: 14px;
+  margin: 0;
+  background: transparent;
+  overflow: hidden;
+}
+
+.group:before,
+.group:after {
+  content: "";
+  display: table;
+}
+
+/* ul {
+  list-style: inside;
+  margin: 0;
+  padding: 0;
+}
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.group:after {
+  clear: both;
+}
+.right {
+  float: right;
+}
+.left {
+  float: left;
+} */
+
+.container {
+  padding: 24px;
+  /* background-color: #f8f8f8; */
+}
+/*
+.keywords {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.keywordBtn {
+  display: block;
+  margin: 6px;
+  color: #fff;
+  font-size: 14px;
+}
+.keywordBtn a {
+  display: block;
+  padding: 8px 16px;
+  background-color: #6a7480;
+  border-radius: 50px;
+  cursor: default;
+}
+.keywordBtn a:active {
+  background-color: #484e57;
+}
+#keywordsWrapper {
+  padding: 16px;
+  margin: 16px -16px 0;
+  border-top: 1px solid rgba(106, 116, 128, 0.1);
+}
+.inputWrapper {
+  padding: 4px 0;
+}
+a,
+a:hover {
+  text-decoration: none;
+  color: #fff;
+  cursor: default;
+}
+.inputWrapper {
+  display: flex;
+}
+.inputClearWrapper {
+  flex: 1;
+  display: inline-block;
+  position: relative;
+}
+.inputClearWrapper input {
+  width: 100%;
+  padding: 0 2%;
+}
+#clearBtn,
+.clearBtn {
+  cursor: default;
+  position: absolute;
+  display: block;
+  width: 16px;
+  height: 16px;
+  top: 8px;
+  right: 6px;
+  background: url(./images/clear_icon.png) no-repeat;
+  background-size: 100%;
+  visibility: hidden;
+}
+#clearBtn.show,
+.clearBtn.show {
+  visibility: visible;
+}
+.inputWrapper label,
+.findReplace label {
+  line-height: 30px;
+  margin-right: 4px;
+  font-weight: normal;
+}
+.inputRight {
+  justify-content: flex-end;
+}
+#sequence {
+  width: 60px;
+}
+textarea:focus,
+input:focus {
+  outline: none;
+  border: #5fbeee 1px solid;
+}
+.caseSensitiveWrapper {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+#footer {
+  display: flex;
+}
+.helper {
+  font-size: 13px;
+  display: none;
+}
+button,
+.btn {
+
+  background-image: linear-gradient(-180deg, #FFFFFF 0%, #FFFFFF 100%);
+  box-shadow: 0 0 1px 0 rgba(0,0,0,0.15);
+  cursor: default;
+}
+button.grey {
+  background: rgba(106, 116, 128, 0.55);
+}
+button.grey:active {
+  background: rgba(106, 116, 128, 0.8);
+}
+#cancelBtn {
+  align-self: flex-start;
+}
+#submitBtn {
+  margin-left: auto;
+}
+#footer {
+  background-color: #fff;
+  padding: 8px 16px;
+  margin: 0 -16px;
+}
+
+#preview {
+  margin-top: 8px;
+  font-style: italic;
+  font-size: 12px;
+  color: #5fbeee;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+#preview strong {
+  font-weight: bold;
+}
+#debug {
+  position: absolute;
+  background-color: red;
+  color: #fff;
+  bottom: 0;
+  width: 400px;
+  padding: 8px;
+  font-size: 11px;
+  z-index: 100;
+  display: none;
+}
+
+.findReplace.container {
+  padding-top: 8px;
+}
+.findReplace .inputWrapper {
+  display: block;
+}
+.findReplace .inputClearWrapper {
+  display: block;
+}
+.findReplace .inputWrapper + .inputWrapper {
+  margin-top: 8px;
+}
+.findReplace #preview {
+  margin: 16px 0;
+}
+
+.icon_history {
+  display: inline-block;
+  width: 16px;
+  height: 14px;
+  background-image: url(./images/history_icon.svg);
+  margin-top: 3px;
+}
+.inputWrapper .dropdown-toggle,
+.inputWrapper .dropup-toggle {
+  width: 48px;
+  height: 24px;
+  border-radius: 40px;
+  background-color: #b4bac0;
+  border-color: #b4bac0;
+}
+.inputWrapper .dropdown-toggle .caret,
+.inputWrapper .dropup-toggle .caret {
+  margin-top: -5px;
+}
+.inputWrapper .dropdown,
+.inputWrapper .dropup {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+}
+
+.btn-primary.active.focus,
+.btn-primary.active:focus,
+.btn-primary.active:hover,
+.btn-primary:active.focus,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.btn-primary.active,
+.btn-primary:active,
+.open > .dropdown-toggle.btn-primary,
+.open > .dropdown-toggle.btn-primary:hover,
+.open > .dropdown-toggle.btn-primary:focus,
+.open > .dropup-toggle.btn-primary:hover,
+.open > .dropup-toggle.btn-primary,
+.open > .dropup-toggle.btn-primary:focus {
+  background-color: #6a7480;
+  border-color: #6a7480;
+}
+
+.settings h5 {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+.panel-default {
+  border: none;
+}
+
+.searchScopeWrapper {
+  text-align: right;
+  margin-bottom: 0;
+  margin-top: 4px;
+}
+
+.searchScopeWrapper label {
+  line-height: 25px;
+}
+
+.searchScopeWrapper label:first-child {
+  margin-left: 8px;
+}
+
+.searchScopeWrapper label + label {
+  margin-left: 8px;
+}
+
+.searchScopeWrapper input,
+.searchScopeWrapper label {
+  cursor: default;
+}
+
+.searchScopeWrapper .disabled {
+  opacity: 0.7;
+}
+*/
