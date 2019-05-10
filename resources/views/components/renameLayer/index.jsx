@@ -9,16 +9,11 @@ import pluginCall from "sketch-module-web-view/client"
 import mixpanel from "mixpanel-browser"
 import styled from "styled-components"
 import { mixpanelId } from "../../../../src/lib/Constants"
-import rename from "../../../../src/lib/Rename"
+import { Rename } from "renameitlib"
 import Input from "../Input"
 import KeywordButton from "../KeywordButton"
 import Preview from "../Preview"
-import {
-  SubmitButton,
-  SecondaryButton,
-  Footer,
-  StyledH3
-} from "../GlobalStyles"
+import { SubmitButton, SecondaryButton, Footer, StyledH3 } from "../GlobalStyles"
 
 const KeywordsWrapper = styled.div`
   margin-top: 16px;
@@ -51,6 +46,8 @@ class RenameLayer extends React.Component {
 
     // Tracking
     mixpanel.init(mixpanelId)
+
+    this.rename = new Rename()
   }
 
   componentDidMount() {
@@ -61,7 +58,12 @@ class RenameLayer extends React.Component {
   }
 
   onChange(event) {
-    this.setState({ valueAttr: event.target.value }, () => this.previewUpdate())
+    this.setState(
+      {
+        valueAttr: event.target.value
+      },
+      () => this.previewUpdate()
+    )
     if (this.state.valueAttr.length > 0) {
       this.setState({ showClear: "show" })
     }
@@ -106,7 +108,9 @@ class RenameLayer extends React.Component {
       startsFrom: this.state.sequence
     }
     // Track input event
-    mixpanel.track("input", { rename: String(d.str) })
+    mixpanel.track("input", {
+      rename: String(d.str)
+    })
     pluginCall("onClickRename", JSON.stringify(d))
   }
 
@@ -133,7 +137,7 @@ class RenameLayer extends React.Component {
 
   previewUpdate() {
     const renamed = []
-    window.data.selection.forEach(item => {
+    window.data.selection.forEach((item) => {
       const options = {
         layerName: item.name,
         currIdx: item.idx,
@@ -145,7 +149,7 @@ class RenameLayer extends React.Component {
         pageName: window.data.pageName,
         parentName: item.parentName
       }
-      renamed.push(rename(options))
+      renamed.push(this.rename.layer(options))
     })
     this.setState({ previewData: renamed })
   }
@@ -191,17 +195,49 @@ class RenameLayer extends React.Component {
     }
 
     const buttons = [
-      { id: "currentLayer", char: "%*", text: "Layer Name" },
-      { id: "layerWidth", char: "%w", text: "Layer Width" },
-      { id: "layerHeight", char: "%h", text: "Layer Height" },
-      { id: "sequenceAsc", char: "%n", text: "Num. Sequence ASC" },
-      { id: "sequenceDesc", char: "%N", text: "Num. Sequence DESC" },
-      { id: "sequenceAlpha", char: "%A", text: "Alphabet Sequence" },
-      { id: "pageName", char: "%p", text: "Page Name" },
-      { id: "parentName", char: "%o", text: "Parent Name" }
+      {
+        id: "currentLayer",
+        char: "%*",
+        text: "Layer Name"
+      },
+      {
+        id: "layerWidth",
+        char: "%w",
+        text: "Layer Width"
+      },
+      {
+        id: "layerHeight",
+        char: "%h",
+        text: "Layer Height"
+      },
+      {
+        id: "sequenceAsc",
+        char: "%n",
+        text: "Num. Sequence ASC"
+      },
+      {
+        id: "sequenceDesc",
+        char: "%N",
+        text: "Num. Sequence DESC"
+      },
+      {
+        id: "sequenceAlpha",
+        char: "%A",
+        text: "Alphabet Sequence"
+      },
+      {
+        id: "pageName",
+        char: "%p",
+        text: "Page Name"
+      },
+      {
+        id: "parentName",
+        char: "%o",
+        text: "Parent Name"
+      }
     ]
 
-    const listItems = buttons.map(d => (
+    const listItems = buttons.map((d) => (
       <li key={d.id} className="keywordBtn">
         <KeywordButton {...d} click={this.onButtonClicked.bind(this)} />
       </li>

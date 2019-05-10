@@ -9,7 +9,8 @@ function buildAlert() {
   // set up alert basics
   alert.setMessageText("Incompatible Sketch version")
   alert.setInformativeText(
-    "The latest version of Rename It requires Sketch 51 and up. An older version can be downloaded bellow:"
+    "The latest version of Rename It requires Sketch 51 and up. An older version can " +
+      "be downloaded bellow:"
   )
 
   const downloadButton = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 0, 0))
@@ -19,7 +20,8 @@ function buildAlert() {
   downloadButton.setCOSJSTargetFunction(() => {
     NSWorkspace.sharedWorkspace().openURL(
       NSURL.URLWithString(
-        "https://github.com/rodi01/RenameIt/releases/download/v3.8.7/Rename-It.sketchplugin.zip"
+        "https://github.com/rodi01/RenameIt/releases/download/v3.8.7/Rename-It.sketchplug" +
+          "in.zip"
       )
     )
   })

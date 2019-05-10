@@ -5,8 +5,7 @@
  * @Last modified time: 2017-12-02T21:22:22-08:00
  */
 import BrowserWindow from "sketch-module-web-view"
-import rename from "./Rename"
-import { findReplace, matchString } from "./FindReplace"
+import { Rename, FindReplace } from "renameitlib"
 import { exclamations } from "./Constants"
 import {
   addRenameHistory,
@@ -70,7 +69,10 @@ const theUI = (context, data, options) => {
       0,
       nil
     )
-    return { Platform: "Sketch", pluginVersion: String(manifest.version) }
+    return {
+      Platform: "Sketch",
+      pluginVersion: String(manifest.version)
+    }
   }
 
   const getData = () => {
@@ -94,6 +96,7 @@ const theUI = (context, data, options) => {
   })
 
   contents.on("onClickRename", o => {
+    const rename = new Rename()
     const inputData = JSON.parse(o)
     data.selection.forEach(item => {
       const opts = {
@@ -108,7 +111,7 @@ const theUI = (context, data, options) => {
         parentName: item.parentName
       }
       const layer = data.selection[opts.currIdx].layer
-      layer.name = rename(opts)
+      layer.name = rename.layer(opts)
     })
     addRenameHistory(inputData.str)
     win.close()
@@ -116,6 +119,7 @@ const theUI = (context, data, options) => {
   })
 
   contents.on("onClickFindReplace", o => {
+    const findReplace = new FindReplace()
     const inputData = JSON.parse(o)
     const selData =
       inputData.searchScope === "page" ? data.allLayers : data.selection
@@ -128,9 +132,9 @@ const theUI = (context, data, options) => {
         replaceWith: inputData.replaceText,
         caseSensitive: Boolean(inputData.caseSensitive)
       }
-      if (matchString(opts)) {
+      if (findReplace.match(opts)) {
         const layer = selData[opts.currIdx].layer
-        layer.name = findReplace(opts)
+        layer.name = findReplace.layer(opts)
         totalRenamed += 1
       }
     })
