@@ -11,7 +11,7 @@ import { FormGroup, Radio } from "react-bootstrap"
 import styled from "styled-components"
 import { mixpanelId } from "../../../../src/lib/Constants"
 import Input from "../Input"
-import { findReplace, matchString } from "../../../../src/lib/FindReplace"
+import { FindReplace } from "renameitlib"
 import Preview from "../Preview"
 import {
   ButtonStyles,
@@ -46,9 +46,9 @@ const Form = styled(FormGroup)`
   }
 
   .isSelected {
-    background-color: ${props => props.theme.radio.selectedColor};
-    color: ${props => props.theme.CTAButton.textColor};
-    border-color: ${props => props.theme.radio.border};
+    background-color: ${(props) => props.theme.radio.selectedColor};
+    color: ${(props) => props.theme.CTAButton.textColor};
+    border-color: ${(props) => props.theme.radio.border};
   }
 `
 
@@ -83,6 +83,7 @@ class FindReplaceLayer extends React.Component {
       previewData: [],
       searchScope: this.hasSelection > 0 ? "layers" : "page"
     }
+    this.findReplace = new FindReplace()
     this.enterFunction = this.enterFunction.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.onCaseSensitiveChange = this.onCaseSensitiveChange.bind(this)
@@ -118,13 +119,15 @@ class FindReplaceLayer extends React.Component {
 
     if (this.state.findValue.length > 0) this.setState({ findClear: "show" })
 
-    if (this.state.replaceValue.length > 0)
-      this.setState({ replaceClear: "show" })
+    if (this.state.replaceValue.length > 0) this.setState({ replaceClear: "show" })
   }
 
   onCaseSensitiveChange(event) {
-    this.setState({ caseSensitive: event.target.checked }, () =>
-      this.previewUpdate()
+    this.setState(
+      {
+        caseSensitive: event.target.checked
+      },
+      () => this.previewUpdate()
     )
   }
 
@@ -159,8 +162,7 @@ class FindReplaceLayer extends React.Component {
   }
 
   clearInput(event) {
-    const whichInput =
-      event.target.previousSibling.id === "find" ? "find" : "replace"
+    const whichInput = event.target.previousSibling.id === "find" ? "find" : "replace"
     if (event.target.previousSibling.id === "find") {
       this.setState(
         {
@@ -189,19 +191,16 @@ class FindReplaceLayer extends React.Component {
 
   previewUpdate() {
     const renamed = []
-    const sel =
-      this.state.searchScope === "page"
-        ? window.data.allLayers
-        : window.data.selection
-    sel.forEach(item => {
+    const sel = this.state.searchScope === "page" ? window.data.allLayers : window.data.selection
+    sel.forEach((item) => {
       const options = {
         layerName: item.name,
         caseSensitive: this.state.caseSensitive,
         findText: this.state.findValue,
         replaceWith: this.state.replaceValue
       }
-      if (matchString(options)) {
-        renamed.push(findReplace(options))
+      if (this.findReplace.match(options)) {
+        renamed.push(this.findReplace.layer(options))
       }
     })
     this.setState({ previewData: renamed })
@@ -228,8 +227,11 @@ class FindReplaceLayer extends React.Component {
   }
 
   handleRadioSelection(event) {
-    this.setState({ searchScope: event.target.value }, () =>
-      this.previewUpdate()
+    this.setState(
+      {
+        searchScope: event.target.value
+      },
+      () => this.previewUpdate()
     )
   }
 
