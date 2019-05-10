@@ -28,8 +28,8 @@
     "format": "prettier --write '**/*.{js,jsx}'"
   },
   "devDependencies": {
-    "@skpm/babel-preset": "^0.1.1",
-    "@skpm/builder": "^0.5.9",
+    "@skpm/babel-preset": "^0.2.1",
+    "@skpm/builder": "^0.7.0",
     "@skpm/extract-loader": "^2.0.2",
     "babel-plugin-react-html-attrs": "^2.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -57,7 +57,7 @@
     "renameitlib": "git+https://github.com/rodi01/RenameIt-Lib.git",
     "sketch-module-user-preferences": "^1.0.2",
     "sketch-module-web-view": "^1.2.3",
-    "skpm": "^1.1.1",
+    "skpm": "^1.2.0",
     "styled-components": "^4.1.1"
   }
 }

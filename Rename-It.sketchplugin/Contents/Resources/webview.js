@@ -86,1174 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../Renameitlib/lib/FindReplace.js":
-/*!*****************************************!*\
-  !*** ../Renameitlib/lib/FindReplace.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-/* eslint-disable class-methods-use-this */
-
-/**
- * @Author: Rodrigo Soares <rodrigo>
- * @Date:   2017-11-17T17:26:39-08:00
- * @Project: Rename It
- * @Last modified by:   rodrigo
- * @Last modified time: 2017-12-02T21:22:41-08:00
- */
-
-
-var FindReplace = function () {
-  function FindReplace() {
-    _classCallCheck(this, FindReplace);
-  }
-
-  _createClass(FindReplace, [{
-    key: "escapeRegExp",
-    value: function escapeRegExp(str) {
-      return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"); // eslint-disable-line
-    }
-  }, {
-    key: "layer",
-    value: function layer(options) {
-      var reg = options.caseSensitive ? new RegExp(this.escapeRegExp(options.findText), "g") : new RegExp(this.escapeRegExp(options.findText), "gi");
-      return options.layerName.replace(reg, options.replaceWith);
-    }
-  }, {
-    key: "match",
-    value: function match(options) {
-      if (options.findText.length <= 0) return false;
-      var str = String(options.findText);
-      var layerName = options.layerName;
-
-      if (!options.caseSensitive) {
-        str = str.toLowerCase();
-        layerName = layerName.toLowerCase();
-      }
-
-      return layerName.includes(str);
-    }
-  }]);
-
-  return FindReplace;
-}();
-
-exports.default = FindReplace;
-
-/***/ }),
-
-/***/ "../Renameitlib/lib/Rename.js":
-/*!************************************!*\
-  !*** ../Renameitlib/lib/Rename.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-/**
- * @Author: Rodrigo Soares <rodrigo>
- * @Date:   2017-11-17T17:23:24-08:00
- * @Project: Rename It
- * @Last modified time: 2017-12-02T10:17:35-08:00
- */
-
-
-var _changeCase = __webpack_require__(/*! change-case */ "../Renameitlib/node_modules/change-case/change-case.js");
-
-var _changeCase2 = _interopRequireDefault(_changeCase);
-
-var _titlecase = __webpack_require__(/*! titlecase */ "../Renameitlib/node_modules/titlecase/to-title-case.js");
-
-var _titlecase2 = _interopRequireDefault(_titlecase);
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-var Rename = function () {
-  function Rename() {
-    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-        _ref$allowTextCases = _ref.allowTextCases,
-        allowTextCases = _ref$allowTextCases === undefined ? true : _ref$allowTextCases,
-        _ref$allowPageName = _ref.allowPageName,
-        allowPageName = _ref$allowPageName === undefined ? true : _ref$allowPageName,
-        _ref$allowParent = _ref.allowParent,
-        allowParent = _ref$allowParent === undefined ? true : _ref$allowParent;
-
-    _classCallCheck(this, Rename);
-
-    this.allowTextCases = allowTextCases;
-    this.allowPageName = allowPageName;
-    this.allowParent = allowParent;
-  } // eslint-disable-next-line class-methods-use-this
-
-
-  _createClass(Rename, [{
-    key: "paddy",
-    value: function paddy(n, p, c) {
-      var padChar = typeof c !== "undefined" ? c : "0";
-      var pad = new Array(1 + p).join(padChar);
-      return (pad + n).slice(-pad.length);
-    }
-  }, {
-    key: "currentLayer",
-    value: function currentLayer(newLayerName, layerName) {
-      var name = newLayerName;
-
-      if (this.allowTextCases) {
-        // UpperCase
-        name = name.replace(/%\*u%/gi, _changeCase2.default.upperCase(layerName)); // LowerCase
-
-        name = name.replace(/%\*l%/gi, _changeCase2.default.lowerCase(layerName)); // Title Case
-
-        name = name.replace(/%\*t%/gi, (0, _titlecase2.default)(layerName)); // UpperCase First
-
-        name = name.replace(/%\*uf%/gi, _changeCase2.default.upperCaseFirst(layerName)); // Camel Case
-
-        name = name.replace(/%\*c%/gi, _changeCase2.default.camelCase(layerName)); // Param Case
-
-        name = name.replace(/%\*pc%/gi, _changeCase2.default.paramCase(layerName));
-      } // Layername
-
-
-      name = name.replace(/%\*/g, layerName);
-      return String(name);
-    } // eslint-disable-next-line class-methods-use-this
-
-  }, {
-    key: "layer",
-    value: function layer(options) {
-      var newLayerName = options.inputName; // Interator
-
-      var nInterators = newLayerName.match(/%N+/gi);
-      var aInterators = newLayerName.match(/(?!%ar%)%A/gi);
-      var reverseAInterators = newLayerName.match(/%ar%/gi); // eslint-disable-next-line no-underscore-dangle
-
-      var _this = this; // Number Interator
-
-
-      if (nInterators != null) {
-        /* eslint-disable */
-        // Replace Number
-        var replaceNumber = function replaceNumber(match) {
-          var nnSize = match.length - 1;
-          var letter = match.charAt(1);
-          var num = letter == "N" ? options.currIdx : options.selectionCount - options.currIdx - 1;
-          num += options.startsFrom; // Check weather or not the number is bigger than the nnSizes (works up to 9999)
-
-          if (num > 999 && (nnSize === 1 || nnSize === 2 || nnSize === 3)) nnSize = 4;else if (num > 99 && (nnSize === 1 || nnSize === 2)) nnSize = 3;else if (num > 9 && nnSize == 1) nnSize = 2;
-          return _this.paddy(num, nnSize);
-        };
-
-        newLayerName = newLayerName.replace(/%n+/gi, replaceNumber);
-      } // Alpha Interator
-
-
-      var alphaStr = "abcdefghijklmnopqrstuvwxyz";
-      var alphaArr = alphaStr.split("");
-      var totalAlpha = alphaArr.length; // Replace Alpha
-
-      function replaceAlpha(match) {
-        var letter = match.charAt(1);
-        var current = match === "%ar%" ? options.selectionCount - options.currIdx - 1 : options.currIdx;
-        var alpha = alphaArr[current % totalAlpha];
-
-        if (current >= totalAlpha) {
-          var flIdx = Math.floor(current / totalAlpha);
-          alpha = "" + alphaArr[flIdx - 1] + alpha;
-        }
-
-        return letter === "A" ? alpha.toUpperCase() : alpha;
-      } // Reverse Alpha
-
-
-      if (reverseAInterators != null) {
-        newLayerName = newLayerName.replace(/%ar%/gi, replaceAlpha);
-      }
-
-      if (aInterators != null) {
-        newLayerName = newLayerName.replace(/%a/gi, replaceAlpha);
-      } // Replace asterisks
-
-
-      newLayerName = _this.currentLayer(newLayerName, options.layerName); // Add Width and/or height
-
-      newLayerName = newLayerName.replace(/%w/gi, options.width);
-      newLayerName = newLayerName.replace(/%h/gi, options.height); // Page Name
-
-      if (this.allowPageName) {
-        newLayerName = newLayerName.replace(/%p/gi, options.pageName);
-      } // Parent Name
-
-
-      if (this.allowParent) {
-        newLayerName = newLayerName.replace(/%o/gi, options.parentName);
-      } // Return new name
-
-
-      return newLayerName;
-    }
-  }]);
-
-  return Rename;
-}();
-
-exports.default = Rename;
-
-/***/ }),
-
-/***/ "../Renameitlib/lib/index.js":
-/*!***********************************!*\
-  !*** ../Renameitlib/lib/index.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _FindReplace = __webpack_require__(/*! ./FindReplace */ "../Renameitlib/lib/FindReplace.js");
-
-Object.defineProperty(exports, "FindReplace", {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_FindReplace).default;
-  }
-});
-
-var _Rename = __webpack_require__(/*! ./Rename */ "../Renameitlib/lib/Rename.js");
-
-Object.defineProperty(exports, "Rename", {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Rename).default;
-  }
-});
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/camel-case/camel-case.js":
-/*!************************************************************!*\
-  !*** ../Renameitlib/node_modules/camel-case/camel-case.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var upperCase = __webpack_require__(/*! upper-case */ "../Renameitlib/node_modules/upper-case/upper-case.js")
-var noCase = __webpack_require__(/*! no-case */ "../Renameitlib/node_modules/no-case/no-case.js")
-
-/**
- * Camel case a string.
- *
- * @param  {string} value
- * @param  {string} [locale]
- * @return {string}
- */
-module.exports = function (value, locale, mergeNumbers) {
-  var result = noCase(value, locale)
-
-  // Replace periods between numeric entities with an underscore.
-  if (!mergeNumbers) {
-    result = result.replace(/ (?=\d)/g, '_')
-  }
-
-  // Replace spaces between words with an upper cased character.
-  return result.replace(/ (.)/g, function (m, $1) {
-    return upperCase($1, locale)
-  })
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/change-case/change-case.js":
-/*!**************************************************************!*\
-  !*** ../Renameitlib/node_modules/change-case/change-case.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports.no = exports.noCase = __webpack_require__(/*! no-case */ "../Renameitlib/node_modules/no-case/no-case.js")
-exports.dot = exports.dotCase = __webpack_require__(/*! dot-case */ "../Renameitlib/node_modules/dot-case/dot-case.js")
-exports.swap = exports.swapCase = __webpack_require__(/*! swap-case */ "../Renameitlib/node_modules/swap-case/swap-case.js")
-exports.path = exports.pathCase = __webpack_require__(/*! path-case */ "../Renameitlib/node_modules/path-case/path-case.js")
-exports.upper = exports.upperCase = __webpack_require__(/*! upper-case */ "../Renameitlib/node_modules/upper-case/upper-case.js")
-exports.lower = exports.lowerCase = __webpack_require__(/*! lower-case */ "../Renameitlib/node_modules/lower-case/lower-case.js")
-exports.camel = exports.camelCase = __webpack_require__(/*! camel-case */ "../Renameitlib/node_modules/camel-case/camel-case.js")
-exports.snake = exports.snakeCase = __webpack_require__(/*! snake-case */ "../Renameitlib/node_modules/snake-case/snake-case.js")
-exports.title = exports.titleCase = __webpack_require__(/*! title-case */ "../Renameitlib/node_modules/title-case/title-case.js")
-exports.param = exports.paramCase = __webpack_require__(/*! param-case */ "../Renameitlib/node_modules/param-case/param-case.js")
-exports.kebab = exports.kebabCase = exports.paramCase
-exports.hyphen = exports.hyphenCase = exports.paramCase
-exports.header = exports.headerCase = __webpack_require__(/*! header-case */ "../Renameitlib/node_modules/header-case/header-case.js")
-exports.pascal = exports.pascalCase = __webpack_require__(/*! pascal-case */ "../Renameitlib/node_modules/pascal-case/pascal-case.js")
-exports.constant = exports.constantCase = __webpack_require__(/*! constant-case */ "../Renameitlib/node_modules/constant-case/constant-case.js")
-exports.sentence = exports.sentenceCase = __webpack_require__(/*! sentence-case */ "../Renameitlib/node_modules/sentence-case/sentence-case.js")
-exports.isUpper = exports.isUpperCase = __webpack_require__(/*! is-upper-case */ "../Renameitlib/node_modules/is-upper-case/is-upper-case.js")
-exports.isLower = exports.isLowerCase = __webpack_require__(/*! is-lower-case */ "../Renameitlib/node_modules/is-lower-case/is-lower-case.js")
-exports.ucFirst = exports.upperCaseFirst = __webpack_require__(/*! upper-case-first */ "../Renameitlib/node_modules/upper-case-first/upper-case-first.js")
-exports.lcFirst = exports.lowerCaseFirst = __webpack_require__(/*! lower-case-first */ "../Renameitlib/node_modules/lower-case-first/lower-case-first.js")
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/constant-case/constant-case.js":
-/*!******************************************************************!*\
-  !*** ../Renameitlib/node_modules/constant-case/constant-case.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var upperCase = __webpack_require__(/*! upper-case */ "../Renameitlib/node_modules/upper-case/upper-case.js")
-var snakeCase = __webpack_require__(/*! snake-case */ "../Renameitlib/node_modules/snake-case/snake-case.js")
-
-/**
- * Constant case a string.
- *
- * @param  {string} value
- * @param  {string} [locale]
- * @return {string}
- */
-module.exports = function (value, locale) {
-  return upperCase(snakeCase(value, locale), locale)
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/dot-case/dot-case.js":
-/*!********************************************************!*\
-  !*** ../Renameitlib/node_modules/dot-case/dot-case.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var noCase = __webpack_require__(/*! no-case */ "../Renameitlib/node_modules/no-case/no-case.js")
-
-/**
- * Dot case a string.
- *
- * @param  {string} value
- * @param  {string} [locale]
- * @return {string}
- */
-module.exports = function (value, locale) {
-  return noCase(value, locale, '.')
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/header-case/header-case.js":
-/*!**************************************************************!*\
-  !*** ../Renameitlib/node_modules/header-case/header-case.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var noCase = __webpack_require__(/*! no-case */ "../Renameitlib/node_modules/no-case/no-case.js")
-var upperCase = __webpack_require__(/*! upper-case */ "../Renameitlib/node_modules/upper-case/upper-case.js")
-
-/**
- * Header case a string.
- *
- * @param  {string} value
- * @param  {string} [locale]
- * @return {string}
- */
-module.exports = function (value, locale) {
-  return noCase(value, locale, '-').replace(/^.|-./g, function (m) {
-    return upperCase(m, locale)
-  })
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/is-lower-case/is-lower-case.js":
-/*!******************************************************************!*\
-  !*** ../Renameitlib/node_modules/is-lower-case/is-lower-case.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var lowerCase = __webpack_require__(/*! lower-case */ "../Renameitlib/node_modules/lower-case/lower-case.js")
-
-/**
- * Check if a string is lower case.
- *
- * @param  {String}  string
- * @param  {String}  [locale]
- * @return {Boolean}
- */
-module.exports = function (string, locale) {
-  return lowerCase(string, locale) === string
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/is-upper-case/is-upper-case.js":
-/*!******************************************************************!*\
-  !*** ../Renameitlib/node_modules/is-upper-case/is-upper-case.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var upperCase = __webpack_require__(/*! upper-case */ "../Renameitlib/node_modules/upper-case/upper-case.js")
-
-/**
- * Check if a string is upper case.
- *
- * @param  {String}  string
- * @param  {String}  [locale]
- * @return {Boolean}
- */
-module.exports = function (string, locale) {
-  return upperCase(string, locale) === string
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/lower-case-first/lower-case-first.js":
-/*!************************************************************************!*\
-  !*** ../Renameitlib/node_modules/lower-case-first/lower-case-first.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var lowerCase = __webpack_require__(/*! lower-case */ "../Renameitlib/node_modules/lower-case/lower-case.js")
-
-/**
- * Lower case the first character of a string.
- *
- * @param  {String} str
- * @return {String}
- */
-module.exports = function (str, locale) {
-  if (str == null) {
-    return ''
-  }
-
-  str = String(str)
-
-  return lowerCase(str.charAt(0), locale) + str.substr(1)
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/lower-case/lower-case.js":
-/*!************************************************************!*\
-  !*** ../Renameitlib/node_modules/lower-case/lower-case.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Special language-specific overrides.
- *
- * Source: ftp://ftp.unicode.org/Public/UCD/latest/ucd/SpecialCasing.txt
- *
- * @type {Object}
- */
-var LANGUAGES = {
-  tr: {
-    regexp: /\u0130|\u0049|\u0049\u0307/g,
-    map: {
-      '\u0130': '\u0069',
-      '\u0049': '\u0131',
-      '\u0049\u0307': '\u0069'
-    }
-  },
-  az: {
-    regexp: /[\u0130]/g,
-    map: {
-      '\u0130': '\u0069',
-      '\u0049': '\u0131',
-      '\u0049\u0307': '\u0069'
-    }
-  },
-  lt: {
-    regexp: /[\u0049\u004A\u012E\u00CC\u00CD\u0128]/g,
-    map: {
-      '\u0049': '\u0069\u0307',
-      '\u004A': '\u006A\u0307',
-      '\u012E': '\u012F\u0307',
-      '\u00CC': '\u0069\u0307\u0300',
-      '\u00CD': '\u0069\u0307\u0301',
-      '\u0128': '\u0069\u0307\u0303'
-    }
-  }
-}
-
-/**
- * Lowercase a string.
- *
- * @param  {String} str
- * @return {String}
- */
-module.exports = function (str, locale) {
-  var lang = LANGUAGES[locale]
-
-  str = str == null ? '' : String(str)
-
-  if (lang) {
-    str = str.replace(lang.regexp, function (m) { return lang.map[m] })
-  }
-
-  return str.toLowerCase()
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/no-case/no-case.js":
-/*!******************************************************!*\
-  !*** ../Renameitlib/node_modules/no-case/no-case.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var lowerCase = __webpack_require__(/*! lower-case */ "../Renameitlib/node_modules/lower-case/lower-case.js")
-
-var NON_WORD_REGEXP = __webpack_require__(/*! ./vendor/non-word-regexp */ "../Renameitlib/node_modules/no-case/vendor/non-word-regexp.js")
-var CAMEL_CASE_REGEXP = __webpack_require__(/*! ./vendor/camel-case-regexp */ "../Renameitlib/node_modules/no-case/vendor/camel-case-regexp.js")
-var CAMEL_CASE_UPPER_REGEXP = __webpack_require__(/*! ./vendor/camel-case-upper-regexp */ "../Renameitlib/node_modules/no-case/vendor/camel-case-upper-regexp.js")
-
-/**
- * Sentence case a string.
- *
- * @param  {string} str
- * @param  {string} locale
- * @param  {string} replacement
- * @return {string}
- */
-module.exports = function (str, locale, replacement) {
-  if (str == null) {
-    return ''
-  }
-
-  replacement = typeof replacement !== 'string' ? ' ' : replacement
-
-  function replace (match, index, value) {
-    if (index === 0 || index === (value.length - match.length)) {
-      return ''
-    }
-
-    return replacement
-  }
-
-  str = String(str)
-    // Support camel case ("camelCase" -> "camel Case").
-    .replace(CAMEL_CASE_REGEXP, '$1 $2')
-    // Support odd camel case ("CAMELCase" -> "CAMEL Case").
-    .replace(CAMEL_CASE_UPPER_REGEXP, '$1 $2')
-    // Remove all non-word characters and replace with a single space.
-    .replace(NON_WORD_REGEXP, replace)
-
-  // Lower case the entire string.
-  return lowerCase(str, locale)
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/no-case/vendor/camel-case-regexp.js":
-/*!***********************************************************************!*\
-  !*** ../Renameitlib/node_modules/no-case/vendor/camel-case-regexp.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = /([a-z\xB5\xDF-\xF6\xF8-\xFF\u0101\u0103\u0105\u0107\u0109\u010B\u010D\u010F\u0111\u0113\u0115\u0117\u0119\u011B\u011D\u011F\u0121\u0123\u0125\u0127\u0129\u012B\u012D\u012F\u0131\u0133\u0135\u0137\u0138\u013A\u013C\u013E\u0140\u0142\u0144\u0146\u0148\u0149\u014B\u014D\u014F\u0151\u0153\u0155\u0157\u0159\u015B\u015D\u015F\u0161\u0163\u0165\u0167\u0169\u016B\u016D\u016F\u0171\u0173\u0175\u0177\u017A\u017C\u017E-\u0180\u0183\u0185\u0188\u018C\u018D\u0192\u0195\u0199-\u019B\u019E\u01A1\u01A3\u01A5\u01A8\u01AA\u01AB\u01AD\u01B0\u01B4\u01B6\u01B9\u01BA\u01BD-\u01BF\u01C6\u01C9\u01CC\u01CE\u01D0\u01D2\u01D4\u01D6\u01D8\u01DA\u01DC\u01DD\u01DF\u01E1\u01E3\u01E5\u01E7\u01E9\u01EB\u01ED\u01EF\u01F0\u01F3\u01F5\u01F9\u01FB\u01FD\u01FF\u0201\u0203\u0205\u0207\u0209\u020B\u020D\u020F\u0211\u0213\u0215\u0217\u0219\u021B\u021D\u021F\u0221\u0223\u0225\u0227\u0229\u022B\u022D\u022F\u0231\u0233-\u0239\u023C\u023F\u0240\u0242\u0247\u0249\u024B\u024D\u024F-\u0293\u0295-\u02AF\u0371\u0373\u0377\u037B-\u037D\u0390\u03AC-\u03CE\u03D0\u03D1\u03D5-\u03D7\u03D9\u03DB\u03DD\u03DF\u03E1\u03E3\u03E5\u03E7\u03E9\u03EB\u03ED\u03EF-\u03F3\u03F5\u03F8\u03FB\u03FC\u0430-\u045F\u0461\u0463\u0465\u0467\u0469\u046B\u046D\u046F\u0471\u0473\u0475\u0477\u0479\u047B\u047D\u047F\u0481\u048B\u048D\u048F\u0491\u0493\u0495\u0497\u0499\u049B\u049D\u049F\u04A1\u04A3\u04A5\u04A7\u04A9\u04AB\u04AD\u04AF\u04B1\u04B3\u04B5\u04B7\u04B9\u04BB\u04BD\u04BF\u04C2\u04C4\u04C6\u04C8\u04CA\u04CC\u04CE\u04CF\u04D1\u04D3\u04D5\u04D7\u04D9\u04DB\u04DD\u04DF\u04E1\u04E3\u04E5\u04E7\u04E9\u04EB\u04ED\u04EF\u04F1\u04F3\u04F5\u04F7\u04F9\u04FB\u04FD\u04FF\u0501\u0503\u0505\u0507\u0509\u050B\u050D\u050F\u0511\u0513\u0515\u0517\u0519\u051B\u051D\u051F\u0521\u0523\u0525\u0527\u0529\u052B\u052D\u052F\u0561-\u0587\u13F8-\u13FD\u1D00-\u1D2B\u1D6B-\u1D77\u1D79-\u1D9A\u1E01\u1E03\u1E05\u1E07\u1E09\u1E0B\u1E0D\u1E0F\u1E11\u1E13\u1E15\u1E17\u1E19\u1E1B\u1E1D\u1E1F\u1E21\u1E23\u1E25\u1E27\u1E29\u1E2B\u1E2D\u1E2F\u1E31\u1E33\u1E35\u1E37\u1E39\u1E3B\u1E3D\u1E3F\u1E41\u1E43\u1E45\u1E47\u1E49\u1E4B\u1E4D\u1E4F\u1E51\u1E53\u1E55\u1E57\u1E59\u1E5B\u1E5D\u1E5F\u1E61\u1E63\u1E65\u1E67\u1E69\u1E6B\u1E6D\u1E6F\u1E71\u1E73\u1E75\u1E77\u1E79\u1E7B\u1E7D\u1E7F\u1E81\u1E83\u1E85\u1E87\u1E89\u1E8B\u1E8D\u1E8F\u1E91\u1E93\u1E95-\u1E9D\u1E9F\u1EA1\u1EA3\u1EA5\u1EA7\u1EA9\u1EAB\u1EAD\u1EAF\u1EB1\u1EB3\u1EB5\u1EB7\u1EB9\u1EBB\u1EBD\u1EBF\u1EC1\u1EC3\u1EC5\u1EC7\u1EC9\u1ECB\u1ECD\u1ECF\u1ED1\u1ED3\u1ED5\u1ED7\u1ED9\u1EDB\u1EDD\u1EDF\u1EE1\u1EE3\u1EE5\u1EE7\u1EE9\u1EEB\u1EED\u1EEF\u1EF1\u1EF3\u1EF5\u1EF7\u1EF9\u1EFB\u1EFD\u1EFF-\u1F07\u1F10-\u1F15\u1F20-\u1F27\u1F30-\u1F37\u1F40-\u1F45\u1F50-\u1F57\u1F60-\u1F67\u1F70-\u1F7D\u1F80-\u1F87\u1F90-\u1F97\u1FA0-\u1FA7\u1FB0-\u1FB4\u1FB6\u1FB7\u1FBE\u1FC2-\u1FC4\u1FC6\u1FC7\u1FD0-\u1FD3\u1FD6\u1FD7\u1FE0-\u1FE7\u1FF2-\u1FF4\u1FF6\u1FF7\u210A\u210E\u210F\u2113\u212F\u2134\u2139\u213C\u213D\u2146-\u2149\u214E\u2184\u2C30-\u2C5E\u2C61\u2C65\u2C66\u2C68\u2C6A\u2C6C\u2C71\u2C73\u2C74\u2C76-\u2C7B\u2C81\u2C83\u2C85\u2C87\u2C89\u2C8B\u2C8D\u2C8F\u2C91\u2C93\u2C95\u2C97\u2C99\u2C9B\u2C9D\u2C9F\u2CA1\u2CA3\u2CA5\u2CA7\u2CA9\u2CAB\u2CAD\u2CAF\u2CB1\u2CB3\u2CB5\u2CB7\u2CB9\u2CBB\u2CBD\u2CBF\u2CC1\u2CC3\u2CC5\u2CC7\u2CC9\u2CCB\u2CCD\u2CCF\u2CD1\u2CD3\u2CD5\u2CD7\u2CD9\u2CDB\u2CDD\u2CDF\u2CE1\u2CE3\u2CE4\u2CEC\u2CEE\u2CF3\u2D00-\u2D25\u2D27\u2D2D\uA641\uA643\uA645\uA647\uA649\uA64B\uA64D\uA64F\uA651\uA653\uA655\uA657\uA659\uA65B\uA65D\uA65F\uA661\uA663\uA665\uA667\uA669\uA66B\uA66D\uA681\uA683\uA685\uA687\uA689\uA68B\uA68D\uA68F\uA691\uA693\uA695\uA697\uA699\uA69B\uA723\uA725\uA727\uA729\uA72B\uA72D\uA72F-\uA731\uA733\uA735\uA737\uA739\uA73B\uA73D\uA73F\uA741\uA743\uA745\uA747\uA749\uA74B\uA74D\uA74F\uA751\uA753\uA755\uA757\uA759\uA75B\uA75D\uA75F\uA761\uA763\uA765\uA767\uA769\uA76B\uA76D\uA76F\uA771-\uA778\uA77A\uA77C\uA77F\uA781\uA783\uA785\uA787\uA78C\uA78E\uA791\uA793-\uA795\uA797\uA799\uA79B\uA79D\uA79F\uA7A1\uA7A3\uA7A5\uA7A7\uA7A9\uA7B5\uA7B7\uA7FA\uAB30-\uAB5A\uAB60-\uAB65\uAB70-\uABBF\uFB00-\uFB06\uFB13-\uFB17\uFF41-\uFF5A0-9\xB2\xB3\xB9\xBC-\xBE\u0660-\u0669\u06F0-\u06F9\u07C0-\u07C9\u0966-\u096F\u09E6-\u09EF\u09F4-\u09F9\u0A66-\u0A6F\u0AE6-\u0AEF\u0B66-\u0B6F\u0B72-\u0B77\u0BE6-\u0BF2\u0C66-\u0C6F\u0C78-\u0C7E\u0CE6-\u0CEF\u0D66-\u0D75\u0DE6-\u0DEF\u0E50-\u0E59\u0ED0-\u0ED9\u0F20-\u0F33\u1040-\u1049\u1090-\u1099\u1369-\u137C\u16EE-\u16F0\u17E0-\u17E9\u17F0-\u17F9\u1810-\u1819\u1946-\u194F\u19D0-\u19DA\u1A80-\u1A89\u1A90-\u1A99\u1B50-\u1B59\u1BB0-\u1BB9\u1C40-\u1C49\u1C50-\u1C59\u2070\u2074-\u2079\u2080-\u2089\u2150-\u2182\u2185-\u2189\u2460-\u249B\u24EA-\u24FF\u2776-\u2793\u2CFD\u3007\u3021-\u3029\u3038-\u303A\u3192-\u3195\u3220-\u3229\u3248-\u324F\u3251-\u325F\u3280-\u3289\u32B1-\u32BF\uA620-\uA629\uA6E6-\uA6EF\uA830-\uA835\uA8D0-\uA8D9\uA900-\uA909\uA9D0-\uA9D9\uA9F0-\uA9F9\uAA50-\uAA59\uABF0-\uABF9\uFF10-\uFF19])([A-Z\xC0-\xD6\xD8-\xDE\u0100\u0102\u0104\u0106\u0108\u010A\u010C\u010E\u0110\u0112\u0114\u0116\u0118\u011A\u011C\u011E\u0120\u0122\u0124\u0126\u0128\u012A\u012C\u012E\u0130\u0132\u0134\u0136\u0139\u013B\u013D\u013F\u0141\u0143\u0145\u0147\u014A\u014C\u014E\u0150\u0152\u0154\u0156\u0158\u015A\u015C\u015E\u0160\u0162\u0164\u0166\u0168\u016A\u016C\u016E\u0170\u0172\u0174\u0176\u0178\u0179\u017B\u017D\u0181\u0182\u0184\u0186\u0187\u0189-\u018B\u018E-\u0191\u0193\u0194\u0196-\u0198\u019C\u019D\u019F\u01A0\u01A2\u01A4\u01A6\u01A7\u01A9\u01AC\u01AE\u01AF\u01B1-\u01B3\u01B5\u01B7\u01B8\u01BC\u01C4\u01C7\u01CA\u01CD\u01CF\u01D1\u01D3\u01D5\u01D7\u01D9\u01DB\u01DE\u01E0\u01E2\u01E4\u01E6\u01E8\u01EA\u01EC\u01EE\u01F1\u01F4\u01F6-\u01F8\u01FA\u01FC\u01FE\u0200\u0202\u0204\u0206\u0208\u020A\u020C\u020E\u0210\u0212\u0214\u0216\u0218\u021A\u021C\u021E\u0220\u0222\u0224\u0226\u0228\u022A\u022C\u022E\u0230\u0232\u023A\u023B\u023D\u023E\u0241\u0243-\u0246\u0248\u024A\u024C\u024E\u0370\u0372\u0376\u037F\u0386\u0388-\u038A\u038C\u038E\u038F\u0391-\u03A1\u03A3-\u03AB\u03CF\u03D2-\u03D4\u03D8\u03DA\u03DC\u03DE\u03E0\u03E2\u03E4\u03E6\u03E8\u03EA\u03EC\u03EE\u03F4\u03F7\u03F9\u03FA\u03FD-\u042F\u0460\u0462\u0464\u0466\u0468\u046A\u046C\u046E\u0470\u0472\u0474\u0476\u0478\u047A\u047C\u047E\u0480\u048A\u048C\u048E\u0490\u0492\u0494\u0496\u0498\u049A\u049C\u049E\u04A0\u04A2\u04A4\u04A6\u04A8\u04AA\u04AC\u04AE\u04B0\u04B2\u04B4\u04B6\u04B8\u04BA\u04BC\u04BE\u04C0\u04C1\u04C3\u04C5\u04C7\u04C9\u04CB\u04CD\u04D0\u04D2\u04D4\u04D6\u04D8\u04DA\u04DC\u04DE\u04E0\u04E2\u04E4\u04E6\u04E8\u04EA\u04EC\u04EE\u04F0\u04F2\u04F4\u04F6\u04F8\u04FA\u04FC\u04FE\u0500\u0502\u0504\u0506\u0508\u050A\u050C\u050E\u0510\u0512\u0514\u0516\u0518\u051A\u051C\u051E\u0520\u0522\u0524\u0526\u0528\u052A\u052C\u052E\u0531-\u0556\u10A0-\u10C5\u10C7\u10CD\u13A0-\u13F5\u1E00\u1E02\u1E04\u1E06\u1E08\u1E0A\u1E0C\u1E0E\u1E10\u1E12\u1E14\u1E16\u1E18\u1E1A\u1E1C\u1E1E\u1E20\u1E22\u1E24\u1E26\u1E28\u1E2A\u1E2C\u1E2E\u1E30\u1E32\u1E34\u1E36\u1E38\u1E3A\u1E3C\u1E3E\u1E40\u1E42\u1E44\u1E46\u1E48\u1E4A\u1E4C\u1E4E\u1E50\u1E52\u1E54\u1E56\u1E58\u1E5A\u1E5C\u1E5E\u1E60\u1E62\u1E64\u1E66\u1E68\u1E6A\u1E6C\u1E6E\u1E70\u1E72\u1E74\u1E76\u1E78\u1E7A\u1E7C\u1E7E\u1E80\u1E82\u1E84\u1E86\u1E88\u1E8A\u1E8C\u1E8E\u1E90\u1E92\u1E94\u1E9E\u1EA0\u1EA2\u1EA4\u1EA6\u1EA8\u1EAA\u1EAC\u1EAE\u1EB0\u1EB2\u1EB4\u1EB6\u1EB8\u1EBA\u1EBC\u1EBE\u1EC0\u1EC2\u1EC4\u1EC6\u1EC8\u1ECA\u1ECC\u1ECE\u1ED0\u1ED2\u1ED4\u1ED6\u1ED8\u1EDA\u1EDC\u1EDE\u1EE0\u1EE2\u1EE4\u1EE6\u1EE8\u1EEA\u1EEC\u1EEE\u1EF0\u1EF2\u1EF4\u1EF6\u1EF8\u1EFA\u1EFC\u1EFE\u1F08-\u1F0F\u1F18-\u1F1D\u1F28-\u1F2F\u1F38-\u1F3F\u1F48-\u1F4D\u1F59\u1F5B\u1F5D\u1F5F\u1F68-\u1F6F\u1FB8-\u1FBB\u1FC8-\u1FCB\u1FD8-\u1FDB\u1FE8-\u1FEC\u1FF8-\u1FFB\u2102\u2107\u210B-\u210D\u2110-\u2112\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u2130-\u2133\u213E\u213F\u2145\u2183\u2C00-\u2C2E\u2C60\u2C62-\u2C64\u2C67\u2C69\u2C6B\u2C6D-\u2C70\u2C72\u2C75\u2C7E-\u2C80\u2C82\u2C84\u2C86\u2C88\u2C8A\u2C8C\u2C8E\u2C90\u2C92\u2C94\u2C96\u2C98\u2C9A\u2C9C\u2C9E\u2CA0\u2CA2\u2CA4\u2CA6\u2CA8\u2CAA\u2CAC\u2CAE\u2CB0\u2CB2\u2CB4\u2CB6\u2CB8\u2CBA\u2CBC\u2CBE\u2CC0\u2CC2\u2CC4\u2CC6\u2CC8\u2CCA\u2CCC\u2CCE\u2CD0\u2CD2\u2CD4\u2CD6\u2CD8\u2CDA\u2CDC\u2CDE\u2CE0\u2CE2\u2CEB\u2CED\u2CF2\uA640\uA642\uA644\uA646\uA648\uA64A\uA64C\uA64E\uA650\uA652\uA654\uA656\uA658\uA65A\uA65C\uA65E\uA660\uA662\uA664\uA666\uA668\uA66A\uA66C\uA680\uA682\uA684\uA686\uA688\uA68A\uA68C\uA68E\uA690\uA692\uA694\uA696\uA698\uA69A\uA722\uA724\uA726\uA728\uA72A\uA72C\uA72E\uA732\uA734\uA736\uA738\uA73A\uA73C\uA73E\uA740\uA742\uA744\uA746\uA748\uA74A\uA74C\uA74E\uA750\uA752\uA754\uA756\uA758\uA75A\uA75C\uA75E\uA760\uA762\uA764\uA766\uA768\uA76A\uA76C\uA76E\uA779\uA77B\uA77D\uA77E\uA780\uA782\uA784\uA786\uA78B\uA78D\uA790\uA792\uA796\uA798\uA79A\uA79C\uA79E\uA7A0\uA7A2\uA7A4\uA7A6\uA7A8\uA7AA-\uA7AD\uA7B0-\uA7B4\uA7B6\uFF21-\uFF3A])/g
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/no-case/vendor/camel-case-upper-regexp.js":
-/*!*****************************************************************************!*\
-  !*** ../Renameitlib/node_modules/no-case/vendor/camel-case-upper-regexp.js ***!
-  \*****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = /([A-Z\xC0-\xD6\xD8-\xDE\u0100\u0102\u0104\u0106\u0108\u010A\u010C\u010E\u0110\u0112\u0114\u0116\u0118\u011A\u011C\u011E\u0120\u0122\u0124\u0126\u0128\u012A\u012C\u012E\u0130\u0132\u0134\u0136\u0139\u013B\u013D\u013F\u0141\u0143\u0145\u0147\u014A\u014C\u014E\u0150\u0152\u0154\u0156\u0158\u015A\u015C\u015E\u0160\u0162\u0164\u0166\u0168\u016A\u016C\u016E\u0170\u0172\u0174\u0176\u0178\u0179\u017B\u017D\u0181\u0182\u0184\u0186\u0187\u0189-\u018B\u018E-\u0191\u0193\u0194\u0196-\u0198\u019C\u019D\u019F\u01A0\u01A2\u01A4\u01A6\u01A7\u01A9\u01AC\u01AE\u01AF\u01B1-\u01B3\u01B5\u01B7\u01B8\u01BC\u01C4\u01C7\u01CA\u01CD\u01CF\u01D1\u01D3\u01D5\u01D7\u01D9\u01DB\u01DE\u01E0\u01E2\u01E4\u01E6\u01E8\u01EA\u01EC\u01EE\u01F1\u01F4\u01F6-\u01F8\u01FA\u01FC\u01FE\u0200\u0202\u0204\u0206\u0208\u020A\u020C\u020E\u0210\u0212\u0214\u0216\u0218\u021A\u021C\u021E\u0220\u0222\u0224\u0226\u0228\u022A\u022C\u022E\u0230\u0232\u023A\u023B\u023D\u023E\u0241\u0243-\u0246\u0248\u024A\u024C\u024E\u0370\u0372\u0376\u037F\u0386\u0388-\u038A\u038C\u038E\u038F\u0391-\u03A1\u03A3-\u03AB\u03CF\u03D2-\u03D4\u03D8\u03DA\u03DC\u03DE\u03E0\u03E2\u03E4\u03E6\u03E8\u03EA\u03EC\u03EE\u03F4\u03F7\u03F9\u03FA\u03FD-\u042F\u0460\u0462\u0464\u0466\u0468\u046A\u046C\u046E\u0470\u0472\u0474\u0476\u0478\u047A\u047C\u047E\u0480\u048A\u048C\u048E\u0490\u0492\u0494\u0496\u0498\u049A\u049C\u049E\u04A0\u04A2\u04A4\u04A6\u04A8\u04AA\u04AC\u04AE\u04B0\u04B2\u04B4\u04B6\u04B8\u04BA\u04BC\u04BE\u04C0\u04C1\u04C3\u04C5\u04C7\u04C9\u04CB\u04CD\u04D0\u04D2\u04D4\u04D6\u04D8\u04DA\u04DC\u04DE\u04E0\u04E2\u04E4\u04E6\u04E8\u04EA\u04EC\u04EE\u04F0\u04F2\u04F4\u04F6\u04F8\u04FA\u04FC\u04FE\u0500\u0502\u0504\u0506\u0508\u050A\u050C\u050E\u0510\u0512\u0514\u0516\u0518\u051A\u051C\u051E\u0520\u0522\u0524\u0526\u0528\u052A\u052C\u052E\u0531-\u0556\u10A0-\u10C5\u10C7\u10CD\u13A0-\u13F5\u1E00\u1E02\u1E04\u1E06\u1E08\u1E0A\u1E0C\u1E0E\u1E10\u1E12\u1E14\u1E16\u1E18\u1E1A\u1E1C\u1E1E\u1E20\u1E22\u1E24\u1E26\u1E28\u1E2A\u1E2C\u1E2E\u1E30\u1E32\u1E34\u1E36\u1E38\u1E3A\u1E3C\u1E3E\u1E40\u1E42\u1E44\u1E46\u1E48\u1E4A\u1E4C\u1E4E\u1E50\u1E52\u1E54\u1E56\u1E58\u1E5A\u1E5C\u1E5E\u1E60\u1E62\u1E64\u1E66\u1E68\u1E6A\u1E6C\u1E6E\u1E70\u1E72\u1E74\u1E76\u1E78\u1E7A\u1E7C\u1E7E\u1E80\u1E82\u1E84\u1E86\u1E88\u1E8A\u1E8C\u1E8E\u1E90\u1E92\u1E94\u1E9E\u1EA0\u1EA2\u1EA4\u1EA6\u1EA8\u1EAA\u1EAC\u1EAE\u1EB0\u1EB2\u1EB4\u1EB6\u1EB8\u1EBA\u1EBC\u1EBE\u1EC0\u1EC2\u1EC4\u1EC6\u1EC8\u1ECA\u1ECC\u1ECE\u1ED0\u1ED2\u1ED4\u1ED6\u1ED8\u1EDA\u1EDC\u1EDE\u1EE0\u1EE2\u1EE4\u1EE6\u1EE8\u1EEA\u1EEC\u1EEE\u1EF0\u1EF2\u1EF4\u1EF6\u1EF8\u1EFA\u1EFC\u1EFE\u1F08-\u1F0F\u1F18-\u1F1D\u1F28-\u1F2F\u1F38-\u1F3F\u1F48-\u1F4D\u1F59\u1F5B\u1F5D\u1F5F\u1F68-\u1F6F\u1FB8-\u1FBB\u1FC8-\u1FCB\u1FD8-\u1FDB\u1FE8-\u1FEC\u1FF8-\u1FFB\u2102\u2107\u210B-\u210D\u2110-\u2112\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u2130-\u2133\u213E\u213F\u2145\u2183\u2C00-\u2C2E\u2C60\u2C62-\u2C64\u2C67\u2C69\u2C6B\u2C6D-\u2C70\u2C72\u2C75\u2C7E-\u2C80\u2C82\u2C84\u2C86\u2C88\u2C8A\u2C8C\u2C8E\u2C90\u2C92\u2C94\u2C96\u2C98\u2C9A\u2C9C\u2C9E\u2CA0\u2CA2\u2CA4\u2CA6\u2CA8\u2CAA\u2CAC\u2CAE\u2CB0\u2CB2\u2CB4\u2CB6\u2CB8\u2CBA\u2CBC\u2CBE\u2CC0\u2CC2\u2CC4\u2CC6\u2CC8\u2CCA\u2CCC\u2CCE\u2CD0\u2CD2\u2CD4\u2CD6\u2CD8\u2CDA\u2CDC\u2CDE\u2CE0\u2CE2\u2CEB\u2CED\u2CF2\uA640\uA642\uA644\uA646\uA648\uA64A\uA64C\uA64E\uA650\uA652\uA654\uA656\uA658\uA65A\uA65C\uA65E\uA660\uA662\uA664\uA666\uA668\uA66A\uA66C\uA680\uA682\uA684\uA686\uA688\uA68A\uA68C\uA68E\uA690\uA692\uA694\uA696\uA698\uA69A\uA722\uA724\uA726\uA728\uA72A\uA72C\uA72E\uA732\uA734\uA736\uA738\uA73A\uA73C\uA73E\uA740\uA742\uA744\uA746\uA748\uA74A\uA74C\uA74E\uA750\uA752\uA754\uA756\uA758\uA75A\uA75C\uA75E\uA760\uA762\uA764\uA766\uA768\uA76A\uA76C\uA76E\uA779\uA77B\uA77D\uA77E\uA780\uA782\uA784\uA786\uA78B\uA78D\uA790\uA792\uA796\uA798\uA79A\uA79C\uA79E\uA7A0\uA7A2\uA7A4\uA7A6\uA7A8\uA7AA-\uA7AD\uA7B0-\uA7B4\uA7B6\uFF21-\uFF3A])([A-Z\xC0-\xD6\xD8-\xDE\u0100\u0102\u0104\u0106\u0108\u010A\u010C\u010E\u0110\u0112\u0114\u0116\u0118\u011A\u011C\u011E\u0120\u0122\u0124\u0126\u0128\u012A\u012C\u012E\u0130\u0132\u0134\u0136\u0139\u013B\u013D\u013F\u0141\u0143\u0145\u0147\u014A\u014C\u014E\u0150\u0152\u0154\u0156\u0158\u015A\u015C\u015E\u0160\u0162\u0164\u0166\u0168\u016A\u016C\u016E\u0170\u0172\u0174\u0176\u0178\u0179\u017B\u017D\u0181\u0182\u0184\u0186\u0187\u0189-\u018B\u018E-\u0191\u0193\u0194\u0196-\u0198\u019C\u019D\u019F\u01A0\u01A2\u01A4\u01A6\u01A7\u01A9\u01AC\u01AE\u01AF\u01B1-\u01B3\u01B5\u01B7\u01B8\u01BC\u01C4\u01C7\u01CA\u01CD\u01CF\u01D1\u01D3\u01D5\u01D7\u01D9\u01DB\u01DE\u01E0\u01E2\u01E4\u01E6\u01E8\u01EA\u01EC\u01EE\u01F1\u01F4\u01F6-\u01F8\u01FA\u01FC\u01FE\u0200\u0202\u0204\u0206\u0208\u020A\u020C\u020E\u0210\u0212\u0214\u0216\u0218\u021A\u021C\u021E\u0220\u0222\u0224\u0226\u0228\u022A\u022C\u022E\u0230\u0232\u023A\u023B\u023D\u023E\u0241\u0243-\u0246\u0248\u024A\u024C\u024E\u0370\u0372\u0376\u037F\u0386\u0388-\u038A\u038C\u038E\u038F\u0391-\u03A1\u03A3-\u03AB\u03CF\u03D2-\u03D4\u03D8\u03DA\u03DC\u03DE\u03E0\u03E2\u03E4\u03E6\u03E8\u03EA\u03EC\u03EE\u03F4\u03F7\u03F9\u03FA\u03FD-\u042F\u0460\u0462\u0464\u0466\u0468\u046A\u046C\u046E\u0470\u0472\u0474\u0476\u0478\u047A\u047C\u047E\u0480\u048A\u048C\u048E\u0490\u0492\u0494\u0496\u0498\u049A\u049C\u049E\u04A0\u04A2\u04A4\u04A6\u04A8\u04AA\u04AC\u04AE\u04B0\u04B2\u04B4\u04B6\u04B8\u04BA\u04BC\u04BE\u04C0\u04C1\u04C3\u04C5\u04C7\u04C9\u04CB\u04CD\u04D0\u04D2\u04D4\u04D6\u04D8\u04DA\u04DC\u04DE\u04E0\u04E2\u04E4\u04E6\u04E8\u04EA\u04EC\u04EE\u04F0\u04F2\u04F4\u04F6\u04F8\u04FA\u04FC\u04FE\u0500\u0502\u0504\u0506\u0508\u050A\u050C\u050E\u0510\u0512\u0514\u0516\u0518\u051A\u051C\u051E\u0520\u0522\u0524\u0526\u0528\u052A\u052C\u052E\u0531-\u0556\u10A0-\u10C5\u10C7\u10CD\u13A0-\u13F5\u1E00\u1E02\u1E04\u1E06\u1E08\u1E0A\u1E0C\u1E0E\u1E10\u1E12\u1E14\u1E16\u1E18\u1E1A\u1E1C\u1E1E\u1E20\u1E22\u1E24\u1E26\u1E28\u1E2A\u1E2C\u1E2E\u1E30\u1E32\u1E34\u1E36\u1E38\u1E3A\u1E3C\u1E3E\u1E40\u1E42\u1E44\u1E46\u1E48\u1E4A\u1E4C\u1E4E\u1E50\u1E52\u1E54\u1E56\u1E58\u1E5A\u1E5C\u1E5E\u1E60\u1E62\u1E64\u1E66\u1E68\u1E6A\u1E6C\u1E6E\u1E70\u1E72\u1E74\u1E76\u1E78\u1E7A\u1E7C\u1E7E\u1E80\u1E82\u1E84\u1E86\u1E88\u1E8A\u1E8C\u1E8E\u1E90\u1E92\u1E94\u1E9E\u1EA0\u1EA2\u1EA4\u1EA6\u1EA8\u1EAA\u1EAC\u1EAE\u1EB0\u1EB2\u1EB4\u1EB6\u1EB8\u1EBA\u1EBC\u1EBE\u1EC0\u1EC2\u1EC4\u1EC6\u1EC8\u1ECA\u1ECC\u1ECE\u1ED0\u1ED2\u1ED4\u1ED6\u1ED8\u1EDA\u1EDC\u1EDE\u1EE0\u1EE2\u1EE4\u1EE6\u1EE8\u1EEA\u1EEC\u1EEE\u1EF0\u1EF2\u1EF4\u1EF6\u1EF8\u1EFA\u1EFC\u1EFE\u1F08-\u1F0F\u1F18-\u1F1D\u1F28-\u1F2F\u1F38-\u1F3F\u1F48-\u1F4D\u1F59\u1F5B\u1F5D\u1F5F\u1F68-\u1F6F\u1FB8-\u1FBB\u1FC8-\u1FCB\u1FD8-\u1FDB\u1FE8-\u1FEC\u1FF8-\u1FFB\u2102\u2107\u210B-\u210D\u2110-\u2112\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u2130-\u2133\u213E\u213F\u2145\u2183\u2C00-\u2C2E\u2C60\u2C62-\u2C64\u2C67\u2C69\u2C6B\u2C6D-\u2C70\u2C72\u2C75\u2C7E-\u2C80\u2C82\u2C84\u2C86\u2C88\u2C8A\u2C8C\u2C8E\u2C90\u2C92\u2C94\u2C96\u2C98\u2C9A\u2C9C\u2C9E\u2CA0\u2CA2\u2CA4\u2CA6\u2CA8\u2CAA\u2CAC\u2CAE\u2CB0\u2CB2\u2CB4\u2CB6\u2CB8\u2CBA\u2CBC\u2CBE\u2CC0\u2CC2\u2CC4\u2CC6\u2CC8\u2CCA\u2CCC\u2CCE\u2CD0\u2CD2\u2CD4\u2CD6\u2CD8\u2CDA\u2CDC\u2CDE\u2CE0\u2CE2\u2CEB\u2CED\u2CF2\uA640\uA642\uA644\uA646\uA648\uA64A\uA64C\uA64E\uA650\uA652\uA654\uA656\uA658\uA65A\uA65C\uA65E\uA660\uA662\uA664\uA666\uA668\uA66A\uA66C\uA680\uA682\uA684\uA686\uA688\uA68A\uA68C\uA68E\uA690\uA692\uA694\uA696\uA698\uA69A\uA722\uA724\uA726\uA728\uA72A\uA72C\uA72E\uA732\uA734\uA736\uA738\uA73A\uA73C\uA73E\uA740\uA742\uA744\uA746\uA748\uA74A\uA74C\uA74E\uA750\uA752\uA754\uA756\uA758\uA75A\uA75C\uA75E\uA760\uA762\uA764\uA766\uA768\uA76A\uA76C\uA76E\uA779\uA77B\uA77D\uA77E\uA780\uA782\uA784\uA786\uA78B\uA78D\uA790\uA792\uA796\uA798\uA79A\uA79C\uA79E\uA7A0\uA7A2\uA7A4\uA7A6\uA7A8\uA7AA-\uA7AD\uA7B0-\uA7B4\uA7B6\uFF21-\uFF3A][a-z\xB5\xDF-\xF6\xF8-\xFF\u0101\u0103\u0105\u0107\u0109\u010B\u010D\u010F\u0111\u0113\u0115\u0117\u0119\u011B\u011D\u011F\u0121\u0123\u0125\u0127\u0129\u012B\u012D\u012F\u0131\u0133\u0135\u0137\u0138\u013A\u013C\u013E\u0140\u0142\u0144\u0146\u0148\u0149\u014B\u014D\u014F\u0151\u0153\u0155\u0157\u0159\u015B\u015D\u015F\u0161\u0163\u0165\u0167\u0169\u016B\u016D\u016F\u0171\u0173\u0175\u0177\u017A\u017C\u017E-\u0180\u0183\u0185\u0188\u018C\u018D\u0192\u0195\u0199-\u019B\u019E\u01A1\u01A3\u01A5\u01A8\u01AA\u01AB\u01AD\u01B0\u01B4\u01B6\u01B9\u01BA\u01BD-\u01BF\u01C6\u01C9\u01CC\u01CE\u01D0\u01D2\u01D4\u01D6\u01D8\u01DA\u01DC\u01DD\u01DF\u01E1\u01E3\u01E5\u01E7\u01E9\u01EB\u01ED\u01EF\u01F0\u01F3\u01F5\u01F9\u01FB\u01FD\u01FF\u0201\u0203\u0205\u0207\u0209\u020B\u020D\u020F\u0211\u0213\u0215\u0217\u0219\u021B\u021D\u021F\u0221\u0223\u0225\u0227\u0229\u022B\u022D\u022F\u0231\u0233-\u0239\u023C\u023F\u0240\u0242\u0247\u0249\u024B\u024D\u024F-\u0293\u0295-\u02AF\u0371\u0373\u0377\u037B-\u037D\u0390\u03AC-\u03CE\u03D0\u03D1\u03D5-\u03D7\u03D9\u03DB\u03DD\u03DF\u03E1\u03E3\u03E5\u03E7\u03E9\u03EB\u03ED\u03EF-\u03F3\u03F5\u03F8\u03FB\u03FC\u0430-\u045F\u0461\u0463\u0465\u0467\u0469\u046B\u046D\u046F\u0471\u0473\u0475\u0477\u0479\u047B\u047D\u047F\u0481\u048B\u048D\u048F\u0491\u0493\u0495\u0497\u0499\u049B\u049D\u049F\u04A1\u04A3\u04A5\u04A7\u04A9\u04AB\u04AD\u04AF\u04B1\u04B3\u04B5\u04B7\u04B9\u04BB\u04BD\u04BF\u04C2\u04C4\u04C6\u04C8\u04CA\u04CC\u04CE\u04CF\u04D1\u04D3\u04D5\u04D7\u04D9\u04DB\u04DD\u04DF\u04E1\u04E3\u04E5\u04E7\u04E9\u04EB\u04ED\u04EF\u04F1\u04F3\u04F5\u04F7\u04F9\u04FB\u04FD\u04FF\u0501\u0503\u0505\u0507\u0509\u050B\u050D\u050F\u0511\u0513\u0515\u0517\u0519\u051B\u051D\u051F\u0521\u0523\u0525\u0527\u0529\u052B\u052D\u052F\u0561-\u0587\u13F8-\u13FD\u1D00-\u1D2B\u1D6B-\u1D77\u1D79-\u1D9A\u1E01\u1E03\u1E05\u1E07\u1E09\u1E0B\u1E0D\u1E0F\u1E11\u1E13\u1E15\u1E17\u1E19\u1E1B\u1E1D\u1E1F\u1E21\u1E23\u1E25\u1E27\u1E29\u1E2B\u1E2D\u1E2F\u1E31\u1E33\u1E35\u1E37\u1E39\u1E3B\u1E3D\u1E3F\u1E41\u1E43\u1E45\u1E47\u1E49\u1E4B\u1E4D\u1E4F\u1E51\u1E53\u1E55\u1E57\u1E59\u1E5B\u1E5D\u1E5F\u1E61\u1E63\u1E65\u1E67\u1E69\u1E6B\u1E6D\u1E6F\u1E71\u1E73\u1E75\u1E77\u1E79\u1E7B\u1E7D\u1E7F\u1E81\u1E83\u1E85\u1E87\u1E89\u1E8B\u1E8D\u1E8F\u1E91\u1E93\u1E95-\u1E9D\u1E9F\u1EA1\u1EA3\u1EA5\u1EA7\u1EA9\u1EAB\u1EAD\u1EAF\u1EB1\u1EB3\u1EB5\u1EB7\u1EB9\u1EBB\u1EBD\u1EBF\u1EC1\u1EC3\u1EC5\u1EC7\u1EC9\u1ECB\u1ECD\u1ECF\u1ED1\u1ED3\u1ED5\u1ED7\u1ED9\u1EDB\u1EDD\u1EDF\u1EE1\u1EE3\u1EE5\u1EE7\u1EE9\u1EEB\u1EED\u1EEF\u1EF1\u1EF3\u1EF5\u1EF7\u1EF9\u1EFB\u1EFD\u1EFF-\u1F07\u1F10-\u1F15\u1F20-\u1F27\u1F30-\u1F37\u1F40-\u1F45\u1F50-\u1F57\u1F60-\u1F67\u1F70-\u1F7D\u1F80-\u1F87\u1F90-\u1F97\u1FA0-\u1FA7\u1FB0-\u1FB4\u1FB6\u1FB7\u1FBE\u1FC2-\u1FC4\u1FC6\u1FC7\u1FD0-\u1FD3\u1FD6\u1FD7\u1FE0-\u1FE7\u1FF2-\u1FF4\u1FF6\u1FF7\u210A\u210E\u210F\u2113\u212F\u2134\u2139\u213C\u213D\u2146-\u2149\u214E\u2184\u2C30-\u2C5E\u2C61\u2C65\u2C66\u2C68\u2C6A\u2C6C\u2C71\u2C73\u2C74\u2C76-\u2C7B\u2C81\u2C83\u2C85\u2C87\u2C89\u2C8B\u2C8D\u2C8F\u2C91\u2C93\u2C95\u2C97\u2C99\u2C9B\u2C9D\u2C9F\u2CA1\u2CA3\u2CA5\u2CA7\u2CA9\u2CAB\u2CAD\u2CAF\u2CB1\u2CB3\u2CB5\u2CB7\u2CB9\u2CBB\u2CBD\u2CBF\u2CC1\u2CC3\u2CC5\u2CC7\u2CC9\u2CCB\u2CCD\u2CCF\u2CD1\u2CD3\u2CD5\u2CD7\u2CD9\u2CDB\u2CDD\u2CDF\u2CE1\u2CE3\u2CE4\u2CEC\u2CEE\u2CF3\u2D00-\u2D25\u2D27\u2D2D\uA641\uA643\uA645\uA647\uA649\uA64B\uA64D\uA64F\uA651\uA653\uA655\uA657\uA659\uA65B\uA65D\uA65F\uA661\uA663\uA665\uA667\uA669\uA66B\uA66D\uA681\uA683\uA685\uA687\uA689\uA68B\uA68D\uA68F\uA691\uA693\uA695\uA697\uA699\uA69B\uA723\uA725\uA727\uA729\uA72B\uA72D\uA72F-\uA731\uA733\uA735\uA737\uA739\uA73B\uA73D\uA73F\uA741\uA743\uA745\uA747\uA749\uA74B\uA74D\uA74F\uA751\uA753\uA755\uA757\uA759\uA75B\uA75D\uA75F\uA761\uA763\uA765\uA767\uA769\uA76B\uA76D\uA76F\uA771-\uA778\uA77A\uA77C\uA77F\uA781\uA783\uA785\uA787\uA78C\uA78E\uA791\uA793-\uA795\uA797\uA799\uA79B\uA79D\uA79F\uA7A1\uA7A3\uA7A5\uA7A7\uA7A9\uA7B5\uA7B7\uA7FA\uAB30-\uAB5A\uAB60-\uAB65\uAB70-\uABBF\uFB00-\uFB06\uFB13-\uFB17\uFF41-\uFF5A])/g
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/no-case/vendor/non-word-regexp.js":
-/*!*********************************************************************!*\
-  !*** ../Renameitlib/node_modules/no-case/vendor/non-word-regexp.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = /[^A-Za-z\xAA\xB5\xBA\xC0-\xD6\xD8-\xF6\xF8-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0370-\u0374\u0376\u0377\u037A-\u037D\u037F\u0386\u0388-\u038A\u038C\u038E-\u03A1\u03A3-\u03F5\u03F7-\u0481\u048A-\u052F\u0531-\u0556\u0559\u0561-\u0587\u05D0-\u05EA\u05F0-\u05F2\u0620-\u064A\u066E\u066F\u0671-\u06D3\u06D5\u06E5\u06E6\u06EE\u06EF\u06FA-\u06FC\u06FF\u0710\u0712-\u072F\u074D-\u07A5\u07B1\u07CA-\u07EA\u07F4\u07F5\u07FA\u0800-\u0815\u081A\u0824\u0828\u0840-\u0858\u08A0-\u08B4\u0904-\u0939\u093D\u0950\u0958-\u0961\u0971-\u0980\u0985-\u098C\u098F\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD\u09CE\u09DC\u09DD\u09DF-\u09E1\u09F0\u09F1\u0A05-\u0A0A\u0A0F\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32\u0A33\u0A35\u0A36\u0A38\u0A39\u0A59-\u0A5C\u0A5E\u0A72-\u0A74\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\u0AB3\u0AB5-\u0AB9\u0ABD\u0AD0\u0AE0\u0AE1\u0AF9\u0B05-\u0B0C\u0B0F\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32\u0B33\u0B35-\u0B39\u0B3D\u0B5C\u0B5D\u0B5F-\u0B61\u0B71\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99\u0B9A\u0B9C\u0B9E\u0B9F\u0BA3\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9\u0BD0\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C39\u0C3D\u0C58-\u0C5A\u0C60\u0C61\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CDE\u0CE0\u0CE1\u0CF1\u0CF2\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D\u0D4E\u0D5F-\u0D61\u0D7A-\u0D7F\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0E01-\u0E30\u0E32\u0E33\u0E40-\u0E46\u0E81\u0E82\u0E84\u0E87\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA\u0EAB\u0EAD-\u0EB0\u0EB2\u0EB3\u0EBD\u0EC0-\u0EC4\u0EC6\u0EDC-\u0EDF\u0F00\u0F40-\u0F47\u0F49-\u0F6C\u0F88-\u0F8C\u1000-\u102A\u103F\u1050-\u1055\u105A-\u105D\u1061\u1065\u1066\u106E-\u1070\u1075-\u1081\u108E\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FC-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1380-\u138F\u13A0-\u13F5\u13F8-\u13FD\u1401-\u166C\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u16F1-\u16F8\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17D7\u17DC\u1820-\u1877\u1880-\u18A8\u18AA\u18B0-\u18F5\u1900-\u191E\u1950-\u196D\u1970-\u1974\u1980-\u19AB\u19B0-\u19C9\u1A00-\u1A16\u1A20-\u1A54\u1AA7\u1B05-\u1B33\u1B45-\u1B4B\u1B83-\u1BA0\u1BAE\u1BAF\u1BBA-\u1BE5\u1C00-\u1C23\u1C4D-\u1C4F\u1C5A-\u1C7D\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF5\u1CF6\u1D00-\u1DBF\u1E00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u2071\u207F\u2090-\u209C\u2102\u2107\u210A-\u2113\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u212F-\u2139\u213C-\u213F\u2145-\u2149\u214E\u2183\u2184\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2CE4\u2CEB-\u2CEE\u2CF2\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u2E2F\u3005\u3006\u3031-\u3035\u303B\u303C\u3041-\u3096\u309D-\u309F\u30A1-\u30FA\u30FC-\u30FF\u3105-\u312D\u3131-\u318E\u31A0-\u31BA\u31F0-\u31FF\u3400-\u4DB5\u4E00-\u9FD5\uA000-\uA48C\uA4D0-\uA4FD\uA500-\uA60C\uA610-\uA61F\uA62A\uA62B\uA640-\uA66E\uA67F-\uA69D\uA6A0-\uA6E5\uA717-\uA71F\uA722-\uA788\uA78B-\uA7AD\uA7B0-\uA7B7\uA7F7-\uA801\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA840-\uA873\uA882-\uA8B3\uA8F2-\uA8F7\uA8FB\uA8FD\uA90A-\uA925\uA930-\uA946\uA960-\uA97C\uA984-\uA9B2\uA9CF\uA9E0-\uA9E4\uA9E6-\uA9EF\uA9FA-\uA9FE\uAA00-\uAA28\uAA40-\uAA42\uAA44-\uAA4B\uAA60-\uAA76\uAA7A\uAA7E-\uAAAF\uAAB1\uAAB5\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADD\uAAE0-\uAAEA\uAAF2-\uAAF4\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uAB30-\uAB5A\uAB5C-\uAB65\uAB70-\uABE2\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40\uFB41\uFB43\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE70-\uFE74\uFE76-\uFEFC\uFF21-\uFF3A\uFF41-\uFF5A\uFF66-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2-\uFFD7\uFFDA-\uFFDC0-9\xB2\xB3\xB9\xBC-\xBE\u0660-\u0669\u06F0-\u06F9\u07C0-\u07C9\u0966-\u096F\u09E6-\u09EF\u09F4-\u09F9\u0A66-\u0A6F\u0AE6-\u0AEF\u0B66-\u0B6F\u0B72-\u0B77\u0BE6-\u0BF2\u0C66-\u0C6F\u0C78-\u0C7E\u0CE6-\u0CEF\u0D66-\u0D75\u0DE6-\u0DEF\u0E50-\u0E59\u0ED0-\u0ED9\u0F20-\u0F33\u1040-\u1049\u1090-\u1099\u1369-\u137C\u16EE-\u16F0\u17E0-\u17E9\u17F0-\u17F9\u1810-\u1819\u1946-\u194F\u19D0-\u19DA\u1A80-\u1A89\u1A90-\u1A99\u1B50-\u1B59\u1BB0-\u1BB9\u1C40-\u1C49\u1C50-\u1C59\u2070\u2074-\u2079\u2080-\u2089\u2150-\u2182\u2185-\u2189\u2460-\u249B\u24EA-\u24FF\u2776-\u2793\u2CFD\u3007\u3021-\u3029\u3038-\u303A\u3192-\u3195\u3220-\u3229\u3248-\u324F\u3251-\u325F\u3280-\u3289\u32B1-\u32BF\uA620-\uA629\uA6E6-\uA6EF\uA830-\uA835\uA8D0-\uA8D9\uA900-\uA909\uA9D0-\uA9D9\uA9F0-\uA9F9\uAA50-\uAA59\uABF0-\uABF9\uFF10-\uFF19]+/g
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/param-case/param-case.js":
-/*!************************************************************!*\
-  !*** ../Renameitlib/node_modules/param-case/param-case.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var noCase = __webpack_require__(/*! no-case */ "../Renameitlib/node_modules/no-case/no-case.js")
-
-/**
- * Param case a string.
- *
- * @param  {string} value
- * @param  {string} [locale]
- * @return {string}
- */
-module.exports = function (value, locale) {
-  return noCase(value, locale, '-')
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/pascal-case/pascal-case.js":
-/*!**************************************************************!*\
-  !*** ../Renameitlib/node_modules/pascal-case/pascal-case.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var camelCase = __webpack_require__(/*! camel-case */ "../Renameitlib/node_modules/camel-case/camel-case.js")
-var upperCaseFirst = __webpack_require__(/*! upper-case-first */ "../Renameitlib/node_modules/upper-case-first/upper-case-first.js")
-
-/**
- * Pascal case a string.
- *
- * @param  {string}  value
- * @param  {string}  [locale]
- * @param  {boolean} [mergeNumbers]
- * @return {string}
- */
-module.exports = function (value, locale, mergeNumbers) {
-  return upperCaseFirst(camelCase(value, locale, mergeNumbers), locale)
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/path-case/path-case.js":
-/*!**********************************************************!*\
-  !*** ../Renameitlib/node_modules/path-case/path-case.js ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var noCase = __webpack_require__(/*! no-case */ "../Renameitlib/node_modules/no-case/no-case.js")
-
-/**
- * Path case a string.
- *
- * @param  {string} value
- * @param  {string} [locale]
- * @return {string}
- */
-module.exports = function (value, locale) {
-  return noCase(value, locale, '/')
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/sentence-case/sentence-case.js":
-/*!******************************************************************!*\
-  !*** ../Renameitlib/node_modules/sentence-case/sentence-case.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var noCase = __webpack_require__(/*! no-case */ "../Renameitlib/node_modules/no-case/no-case.js")
-var upperCaseFirst = __webpack_require__(/*! upper-case-first */ "../Renameitlib/node_modules/upper-case-first/upper-case-first.js")
-
-/**
- * Sentence case a string.
- *
- * @param  {string} value
- * @param  {string} [locale]
- * @return {string}
- */
-module.exports = function (value, locale) {
-  return upperCaseFirst(noCase(value, locale), locale)
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/snake-case/snake-case.js":
-/*!************************************************************!*\
-  !*** ../Renameitlib/node_modules/snake-case/snake-case.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var noCase = __webpack_require__(/*! no-case */ "../Renameitlib/node_modules/no-case/no-case.js")
-
-/**
- * Snake case a string.
- *
- * @param  {string} value
- * @param  {string} [locale]
- * @return {string}
- */
-module.exports = function (value, locale) {
-  return noCase(value, locale, '_')
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/swap-case/swap-case.js":
-/*!**********************************************************!*\
-  !*** ../Renameitlib/node_modules/swap-case/swap-case.js ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var upperCase = __webpack_require__(/*! upper-case */ "../Renameitlib/node_modules/upper-case/upper-case.js")
-var lowerCase = __webpack_require__(/*! lower-case */ "../Renameitlib/node_modules/lower-case/lower-case.js")
-
-/**
- * Swap the case of a string. Manually iterate over every character and check
- * instead of replacing certain characters for better unicode support.
- *
- * @param  {String} str
- * @param  {String} [locale]
- * @return {String}
- */
-module.exports = function (str, locale) {
-  if (str == null) {
-    return ''
-  }
-
-  var result = ''
-
-  for (var i = 0; i < str.length; i++) {
-    var c = str[i]
-    var u = upperCase(c, locale)
-
-    result += u === c ? lowerCase(c, locale) : u
-  }
-
-  return result
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/title-case/title-case.js":
-/*!************************************************************!*\
-  !*** ../Renameitlib/node_modules/title-case/title-case.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var noCase = __webpack_require__(/*! no-case */ "../Renameitlib/node_modules/no-case/no-case.js")
-var upperCase = __webpack_require__(/*! upper-case */ "../Renameitlib/node_modules/upper-case/upper-case.js")
-
-/**
- * Title case a string.
- *
- * @param  {string} value
- * @param  {string} [locale]
- * @return {string}
- */
-module.exports = function (value, locale) {
-  return noCase(value, locale).replace(/^.| ./g, function (m) {
-    return upperCase(m, locale)
-  })
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/titlecase/articles.js":
-/*!*********************************************************!*\
-  !*** ../Renameitlib/node_modules/titlecase/articles.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = [ 'the', 'a', 'an', 'some' ]
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/titlecase/conjunctions.js":
-/*!*************************************************************!*\
-  !*** ../Renameitlib/node_modules/titlecase/conjunctions.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = [
-    'as'
-  , 'because'
-  , 'for'
-  , 'and'
-  , 'nor'
-  , 'but'
-  , 'or'
-  , 'yet'
-  , 'so'
-]
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/titlecase/prepositions.js":
-/*!*************************************************************!*\
-  !*** ../Renameitlib/node_modules/titlecase/prepositions.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = [
-    'a'
-  , 'abaft'
-  , 'aboard'
-  , 'about'
-  , 'above'
-  , 'absent'
-  , 'across'
-  , 'afore'
-  , 'after'
-  , 'against'
-  , 'along'
-  , 'alongside'
-  , 'amid'
-  , 'amidst'
-  , 'among'
-  , 'amongst'
-  , 'an'
-  , 'apropos'
-  , 'apud'
-  , 'around'
-  , 'as'
-  , 'aside'
-  , 'astride'
-  , 'at'
-  , 'athwart'
-  , 'atop'
-  , 'barring'
-  , 'before'
-  , 'behind'
-  , 'below'
-  , 'beneath'
-  , 'beside'
-  , 'besides'
-  , 'between'
-  , 'beyond'
-  , 'but'
-  , 'by'
-  , 'circa'
-  , 'concerning'
-  , 'despite'
-  , 'down'
-  , 'during'
-  , 'except'
-  , 'excluding'
-  , 'failing'
-  , 'following'
-  , 'for'
-  , 'forenenst'
-  , 'from'
-  , 'given'
-  , 'in'
-  , 'including'
-  , 'inside'
-  , 'into'
-  , 'like'
-  , 'mid'
-  , 'midst'
-  , 'minus'
-  , 'modulo'
-  , 'near'
-  , 'next'
-  , 'notwithstanding'
-  , 'o\''
-  , 'of'
-  , 'off'
-  , 'on'
-  , 'onto'
-  , 'opposite'
-  , 'out'
-  , 'outside'
-  , 'over'
-  , 'pace'
-  , 'past'
-  , 'per'
-  , 'plus'
-  , 'pro'
-  , 'qua'
-  , 'regarding'
-  , 'round'
-  , 'sans'
-  , 'save'
-  , 'since'
-  , 'than'
-  , 'through'
-  , 'throughout'
-  , 'thru'
-  , 'thruout'
-  , 'till'
-  , 'times'
-  , 'to'
-  , 'toward'
-  , 'towards'
-  , 'under'
-  , 'underneath'
-  , 'unlike'
-  , 'until'
-  , 'unto'
-  , 'up'
-  , 'upon'
-  , 'versus'
-  , 'via'
-  , 'vice'
-  , 'vis-à-vis'
-  , 'with'
-  , 'within'
-  , 'without'
-  , 'worth'
-]
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/titlecase/to-title-case.js":
-/*!**************************************************************!*\
-  !*** ../Renameitlib/node_modules/titlecase/to-title-case.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
- * To Title Case 2.1 – http://individed.com/code/to-title-case/
- * Copyright © 2008–2013 David Gouch. Licensed under the MIT License.
- *
- * modifications by @rvagg Apr-2014
- */
-
-//String.prototype.toTitleCase = function(){
-
-
-var smallWords = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
-
-
-module.exports = function toTitleCase(str){
-  return titleCase(str, smallWords)
-}
-
-
-module.exports.toTitleCase = module.exports
-
-
-var laxWords = __webpack_require__(/*! ./articles */ "../Renameitlib/node_modules/titlecase/articles.js").concat(__webpack_require__(/*! ./prepositions */ "../Renameitlib/node_modules/titlecase/prepositions.js")).concat(__webpack_require__(/*! ./conjunctions */ "../Renameitlib/node_modules/titlecase/conjunctions.js"))
-      .concat(smallWords.source.replace(/(^\^\(|\)\$$)/g, '').split('|'))
-      .concat(['is']) // a personal preference
-  , laxWordsRe = new RegExp('^(' + laxWords.join('|') + ')$', 'i')
-
-
-module.exports.toLaxTitleCase = function toLaxTitleCase(str){
-  return titleCase(str, laxWordsRe)
-}
-
-
-function titleCase (str, smallWords) {
-  if (!str)
-    return str
-  return str.replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, function(match, index, title){
-    if (index > 0 && index + match.length !== title.length &&
-      match.search(smallWords) > -1 && title.charAt(index - 2) !== ':' &&
-      (title.charAt(index + match.length) !== '-' || title.charAt(index - 1) === '-') &&
-      title.charAt(index - 1).search(/[^\s-]/) < 0) {
-      return match.toLowerCase();
-    }
-
-    if (match.substr(1).search(/[A-Z]|\../) > -1) {
-      return match;
-    }
-
-    return match.charAt(0).toUpperCase() + match.substr(1);
-  });
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/upper-case-first/upper-case-first.js":
-/*!************************************************************************!*\
-  !*** ../Renameitlib/node_modules/upper-case-first/upper-case-first.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var upperCase = __webpack_require__(/*! upper-case */ "../Renameitlib/node_modules/upper-case/upper-case.js")
-
-/**
- * Upper case the first character of a string.
- *
- * @param  {String} str
- * @return {String}
- */
-module.exports = function (str, locale) {
-  if (str == null) {
-    return ''
-  }
-
-  str = String(str)
-
-  return upperCase(str.charAt(0), locale) + str.substr(1)
-}
-
-
-/***/ }),
-
-/***/ "../Renameitlib/node_modules/upper-case/upper-case.js":
-/*!************************************************************!*\
-  !*** ../Renameitlib/node_modules/upper-case/upper-case.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Special language-specific overrides.
- *
- * Source: ftp://ftp.unicode.org/Public/UCD/latest/ucd/SpecialCasing.txt
- *
- * @type {Object}
- */
-var LANGUAGES = {
-  tr: {
-    regexp: /[\u0069]/g,
-    map: {
-      '\u0069': '\u0130'
-    }
-  },
-  az: {
-    regexp: /[\u0069]/g,
-    map: {
-      '\u0069': '\u0130'
-    }
-  },
-  lt: {
-    regexp: /[\u0069\u006A\u012F]\u0307|\u0069\u0307[\u0300\u0301\u0303]/g,
-    map: {
-      '\u0069\u0307': '\u0049',
-      '\u006A\u0307': '\u004A',
-      '\u012F\u0307': '\u012E',
-      '\u0069\u0307\u0300': '\u00CC',
-      '\u0069\u0307\u0301': '\u00CD',
-      '\u0069\u0307\u0303': '\u0128'
-    }
-  }
-}
-
-/**
- * Upper case a string.
- *
- * @param  {String} str
- * @return {String}
- */
-module.exports = function (str, locale) {
-  var lang = LANGUAGES[locale]
-
-  str = str == null ? '' : String(str)
-
-  if (lang) {
-    str = str.replace(lang.regexp, function (m) { return lang.map[m] })
-  }
-
-  return str.toUpperCase()
-}
-
-
-/***/ }),
-
 /***/ "./node_modules/@emotion/is-prop-valid/dist/is-prop-valid.esm.js":
 /*!***********************************************************************!*\
   !*** ./node_modules/@emotion/is-prop-valid/dist/is-prop-valid.esm.js ***!
@@ -3729,6 +2561,71 @@ for (var i = 0; i < DOMIterables.length; i++) {
 
 /***/ }),
 
+/***/ "./node_modules/camel-case/camel-case.js":
+/*!***********************************************!*\
+  !*** ./node_modules/camel-case/camel-case.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var upperCase = __webpack_require__(/*! upper-case */ "./node_modules/upper-case/upper-case.js")
+var noCase = __webpack_require__(/*! no-case */ "./node_modules/no-case/no-case.js")
+
+/**
+ * Camel case a string.
+ *
+ * @param  {string} value
+ * @param  {string} [locale]
+ * @return {string}
+ */
+module.exports = function (value, locale, mergeNumbers) {
+  var result = noCase(value, locale)
+
+  // Replace periods between numeric entities with an underscore.
+  if (!mergeNumbers) {
+    result = result.replace(/ (?=\d)/g, '_')
+  }
+
+  // Replace spaces between words with an upper cased character.
+  return result.replace(/ (.)/g, function (m, $1) {
+    return upperCase($1, locale)
+  })
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/change-case/change-case.js":
+/*!*************************************************!*\
+  !*** ./node_modules/change-case/change-case.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports.no = exports.noCase = __webpack_require__(/*! no-case */ "./node_modules/no-case/no-case.js")
+exports.dot = exports.dotCase = __webpack_require__(/*! dot-case */ "./node_modules/dot-case/dot-case.js")
+exports.swap = exports.swapCase = __webpack_require__(/*! swap-case */ "./node_modules/swap-case/swap-case.js")
+exports.path = exports.pathCase = __webpack_require__(/*! path-case */ "./node_modules/path-case/path-case.js")
+exports.upper = exports.upperCase = __webpack_require__(/*! upper-case */ "./node_modules/upper-case/upper-case.js")
+exports.lower = exports.lowerCase = __webpack_require__(/*! lower-case */ "./node_modules/lower-case/lower-case.js")
+exports.camel = exports.camelCase = __webpack_require__(/*! camel-case */ "./node_modules/camel-case/camel-case.js")
+exports.snake = exports.snakeCase = __webpack_require__(/*! snake-case */ "./node_modules/snake-case/snake-case.js")
+exports.title = exports.titleCase = __webpack_require__(/*! title-case */ "./node_modules/title-case/title-case.js")
+exports.param = exports.paramCase = __webpack_require__(/*! param-case */ "./node_modules/param-case/param-case.js")
+exports.kebab = exports.kebabCase = exports.paramCase
+exports.hyphen = exports.hyphenCase = exports.paramCase
+exports.header = exports.headerCase = __webpack_require__(/*! header-case */ "./node_modules/header-case/header-case.js")
+exports.pascal = exports.pascalCase = __webpack_require__(/*! pascal-case */ "./node_modules/pascal-case/pascal-case.js")
+exports.constant = exports.constantCase = __webpack_require__(/*! constant-case */ "./node_modules/constant-case/constant-case.js")
+exports.sentence = exports.sentenceCase = __webpack_require__(/*! sentence-case */ "./node_modules/sentence-case/sentence-case.js")
+exports.isUpper = exports.isUpperCase = __webpack_require__(/*! is-upper-case */ "./node_modules/is-upper-case/is-upper-case.js")
+exports.isLower = exports.isLowerCase = __webpack_require__(/*! is-lower-case */ "./node_modules/is-lower-case/is-lower-case.js")
+exports.ucFirst = exports.upperCaseFirst = __webpack_require__(/*! upper-case-first */ "./node_modules/upper-case-first/upper-case-first.js")
+exports.lcFirst = exports.lowerCaseFirst = __webpack_require__(/*! lower-case-first */ "./node_modules/lower-case-first/lower-case-first.js")
+
+
+/***/ }),
+
 /***/ "./node_modules/classnames/index.js":
 /*!******************************************!*\
   !*** ./node_modules/classnames/index.js ***!
@@ -3776,7 +2673,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		return classes.join(' ');
 	}
 
-	if (typeof module !== 'undefined' && module.exports) {
+	if ( true && module.exports) {
 		classNames.default = classNames;
 		module.exports = classNames;
 	} else if (true) {
@@ -3787,6 +2684,30 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else {}
 }());
+
+
+/***/ }),
+
+/***/ "./node_modules/constant-case/constant-case.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/constant-case/constant-case.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var upperCase = __webpack_require__(/*! upper-case */ "./node_modules/upper-case/upper-case.js")
+var snakeCase = __webpack_require__(/*! snake-case */ "./node_modules/snake-case/snake-case.js")
+
+/**
+ * Constant case a string.
+ *
+ * @param  {string} value
+ * @param  {string} [locale]
+ * @return {string}
+ */
+module.exports = function (value, locale) {
+  return upperCase(snakeCase(value, locale), locale)
+}
 
 
 /***/ }),
@@ -5076,6 +3997,29 @@ module.exports = exports['default'];
 
 /***/ }),
 
+/***/ "./node_modules/dot-case/dot-case.js":
+/*!*******************************************!*\
+  !*** ./node_modules/dot-case/dot-case.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var noCase = __webpack_require__(/*! no-case */ "./node_modules/no-case/no-case.js")
+
+/**
+ * Dot case a string.
+ *
+ * @param  {string} value
+ * @param  {string} [locale]
+ * @return {string}
+ */
+module.exports = function (value, locale) {
+  return noCase(value, locale, '.')
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/fbjs/lib/emptyFunction.js":
 /*!************************************************!*\
   !*** ./node_modules/fbjs/lib/emptyFunction.js ***!
@@ -5257,6 +4201,32 @@ if (true) {
 }
 
 module.exports = warning;
+
+/***/ }),
+
+/***/ "./node_modules/header-case/header-case.js":
+/*!*************************************************!*\
+  !*** ./node_modules/header-case/header-case.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var noCase = __webpack_require__(/*! no-case */ "./node_modules/no-case/no-case.js")
+var upperCase = __webpack_require__(/*! upper-case */ "./node_modules/upper-case/upper-case.js")
+
+/**
+ * Header case a string.
+ *
+ * @param  {string} value
+ * @param  {string} [locale]
+ * @return {string}
+ */
+module.exports = function (value, locale) {
+  return noCase(value, locale, '-').replace(/^.|-./g, function (m) {
+    return upperCase(m, locale)
+  })
+}
+
 
 /***/ }),
 
@@ -6576,6 +5546,52 @@ module.exports = invariant;
 
 /***/ }),
 
+/***/ "./node_modules/is-lower-case/is-lower-case.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/is-lower-case/is-lower-case.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var lowerCase = __webpack_require__(/*! lower-case */ "./node_modules/lower-case/lower-case.js")
+
+/**
+ * Check if a string is lower case.
+ *
+ * @param  {String}  string
+ * @param  {String}  [locale]
+ * @return {Boolean}
+ */
+module.exports = function (string, locale) {
+  return lowerCase(string, locale) === string
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/is-upper-case/is-upper-case.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/is-upper-case/is-upper-case.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var upperCase = __webpack_require__(/*! upper-case */ "./node_modules/upper-case/upper-case.js")
+
+/**
+ * Check if a string is upper case.
+ *
+ * @param  {String}  string
+ * @param  {String}  [locale]
+ * @return {Boolean}
+ */
+module.exports = function (string, locale) {
+  return upperCase(string, locale) === string
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/isarray/index.js":
 /*!***************************************!*\
   !*** ./node_modules/isarray/index.js ***!
@@ -6771,6 +5787,99 @@ for (i in codes) names[codes[i]] = i
 // Add aliases
 for (var alias in aliases) {
   codes[alias] = aliases[alias]
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/lower-case-first/lower-case-first.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/lower-case-first/lower-case-first.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var lowerCase = __webpack_require__(/*! lower-case */ "./node_modules/lower-case/lower-case.js")
+
+/**
+ * Lower case the first character of a string.
+ *
+ * @param  {String} str
+ * @return {String}
+ */
+module.exports = function (str, locale) {
+  if (str == null) {
+    return ''
+  }
+
+  str = String(str)
+
+  return lowerCase(str.charAt(0), locale) + str.substr(1)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/lower-case/lower-case.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lower-case/lower-case.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Special language-specific overrides.
+ *
+ * Source: ftp://ftp.unicode.org/Public/UCD/latest/ucd/SpecialCasing.txt
+ *
+ * @type {Object}
+ */
+var LANGUAGES = {
+  tr: {
+    regexp: /\u0130|\u0049|\u0049\u0307/g,
+    map: {
+      '\u0130': '\u0069',
+      '\u0049': '\u0131',
+      '\u0049\u0307': '\u0069'
+    }
+  },
+  az: {
+    regexp: /[\u0130]/g,
+    map: {
+      '\u0130': '\u0069',
+      '\u0049': '\u0131',
+      '\u0049\u0307': '\u0069'
+    }
+  },
+  lt: {
+    regexp: /[\u0049\u004A\u012E\u00CC\u00CD\u0128]/g,
+    map: {
+      '\u0049': '\u0069\u0307',
+      '\u004A': '\u006A\u0307',
+      '\u012E': '\u012F\u0307',
+      '\u00CC': '\u0069\u0307\u0300',
+      '\u00CD': '\u0069\u0307\u0301',
+      '\u0128': '\u0069\u0307\u0303'
+    }
+  }
+}
+
+/**
+ * Lowercase a string.
+ *
+ * @param  {String} str
+ * @return {String}
+ */
+module.exports = function (str, locale) {
+  var lang = LANGUAGES[locale]
+
+  str = str == null ? '' : String(str)
+
+  if (lang) {
+    str = str.replace(lang.regexp, function (m) { return lang.map[m] })
+  }
+
+  return str.toLowerCase()
 }
 
 
@@ -12446,6 +11555,93 @@ module.exports = mixpanel;
 
 /***/ }),
 
+/***/ "./node_modules/no-case/no-case.js":
+/*!*****************************************!*\
+  !*** ./node_modules/no-case/no-case.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var lowerCase = __webpack_require__(/*! lower-case */ "./node_modules/lower-case/lower-case.js")
+
+var NON_WORD_REGEXP = __webpack_require__(/*! ./vendor/non-word-regexp */ "./node_modules/no-case/vendor/non-word-regexp.js")
+var CAMEL_CASE_REGEXP = __webpack_require__(/*! ./vendor/camel-case-regexp */ "./node_modules/no-case/vendor/camel-case-regexp.js")
+var CAMEL_CASE_UPPER_REGEXP = __webpack_require__(/*! ./vendor/camel-case-upper-regexp */ "./node_modules/no-case/vendor/camel-case-upper-regexp.js")
+
+/**
+ * Sentence case a string.
+ *
+ * @param  {string} str
+ * @param  {string} locale
+ * @param  {string} replacement
+ * @return {string}
+ */
+module.exports = function (str, locale, replacement) {
+  if (str == null) {
+    return ''
+  }
+
+  replacement = typeof replacement !== 'string' ? ' ' : replacement
+
+  function replace (match, index, value) {
+    if (index === 0 || index === (value.length - match.length)) {
+      return ''
+    }
+
+    return replacement
+  }
+
+  str = String(str)
+    // Support camel case ("camelCase" -> "camel Case").
+    .replace(CAMEL_CASE_REGEXP, '$1 $2')
+    // Support odd camel case ("CAMELCase" -> "CAMEL Case").
+    .replace(CAMEL_CASE_UPPER_REGEXP, '$1 $2')
+    // Remove all non-word characters and replace with a single space.
+    .replace(NON_WORD_REGEXP, replace)
+
+  // Lower case the entire string.
+  return lowerCase(str, locale)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/no-case/vendor/camel-case-regexp.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/no-case/vendor/camel-case-regexp.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = /([a-z\xB5\xDF-\xF6\xF8-\xFF\u0101\u0103\u0105\u0107\u0109\u010B\u010D\u010F\u0111\u0113\u0115\u0117\u0119\u011B\u011D\u011F\u0121\u0123\u0125\u0127\u0129\u012B\u012D\u012F\u0131\u0133\u0135\u0137\u0138\u013A\u013C\u013E\u0140\u0142\u0144\u0146\u0148\u0149\u014B\u014D\u014F\u0151\u0153\u0155\u0157\u0159\u015B\u015D\u015F\u0161\u0163\u0165\u0167\u0169\u016B\u016D\u016F\u0171\u0173\u0175\u0177\u017A\u017C\u017E-\u0180\u0183\u0185\u0188\u018C\u018D\u0192\u0195\u0199-\u019B\u019E\u01A1\u01A3\u01A5\u01A8\u01AA\u01AB\u01AD\u01B0\u01B4\u01B6\u01B9\u01BA\u01BD-\u01BF\u01C6\u01C9\u01CC\u01CE\u01D0\u01D2\u01D4\u01D6\u01D8\u01DA\u01DC\u01DD\u01DF\u01E1\u01E3\u01E5\u01E7\u01E9\u01EB\u01ED\u01EF\u01F0\u01F3\u01F5\u01F9\u01FB\u01FD\u01FF\u0201\u0203\u0205\u0207\u0209\u020B\u020D\u020F\u0211\u0213\u0215\u0217\u0219\u021B\u021D\u021F\u0221\u0223\u0225\u0227\u0229\u022B\u022D\u022F\u0231\u0233-\u0239\u023C\u023F\u0240\u0242\u0247\u0249\u024B\u024D\u024F-\u0293\u0295-\u02AF\u0371\u0373\u0377\u037B-\u037D\u0390\u03AC-\u03CE\u03D0\u03D1\u03D5-\u03D7\u03D9\u03DB\u03DD\u03DF\u03E1\u03E3\u03E5\u03E7\u03E9\u03EB\u03ED\u03EF-\u03F3\u03F5\u03F8\u03FB\u03FC\u0430-\u045F\u0461\u0463\u0465\u0467\u0469\u046B\u046D\u046F\u0471\u0473\u0475\u0477\u0479\u047B\u047D\u047F\u0481\u048B\u048D\u048F\u0491\u0493\u0495\u0497\u0499\u049B\u049D\u049F\u04A1\u04A3\u04A5\u04A7\u04A9\u04AB\u04AD\u04AF\u04B1\u04B3\u04B5\u04B7\u04B9\u04BB\u04BD\u04BF\u04C2\u04C4\u04C6\u04C8\u04CA\u04CC\u04CE\u04CF\u04D1\u04D3\u04D5\u04D7\u04D9\u04DB\u04DD\u04DF\u04E1\u04E3\u04E5\u04E7\u04E9\u04EB\u04ED\u04EF\u04F1\u04F3\u04F5\u04F7\u04F9\u04FB\u04FD\u04FF\u0501\u0503\u0505\u0507\u0509\u050B\u050D\u050F\u0511\u0513\u0515\u0517\u0519\u051B\u051D\u051F\u0521\u0523\u0525\u0527\u0529\u052B\u052D\u052F\u0561-\u0587\u13F8-\u13FD\u1D00-\u1D2B\u1D6B-\u1D77\u1D79-\u1D9A\u1E01\u1E03\u1E05\u1E07\u1E09\u1E0B\u1E0D\u1E0F\u1E11\u1E13\u1E15\u1E17\u1E19\u1E1B\u1E1D\u1E1F\u1E21\u1E23\u1E25\u1E27\u1E29\u1E2B\u1E2D\u1E2F\u1E31\u1E33\u1E35\u1E37\u1E39\u1E3B\u1E3D\u1E3F\u1E41\u1E43\u1E45\u1E47\u1E49\u1E4B\u1E4D\u1E4F\u1E51\u1E53\u1E55\u1E57\u1E59\u1E5B\u1E5D\u1E5F\u1E61\u1E63\u1E65\u1E67\u1E69\u1E6B\u1E6D\u1E6F\u1E71\u1E73\u1E75\u1E77\u1E79\u1E7B\u1E7D\u1E7F\u1E81\u1E83\u1E85\u1E87\u1E89\u1E8B\u1E8D\u1E8F\u1E91\u1E93\u1E95-\u1E9D\u1E9F\u1EA1\u1EA3\u1EA5\u1EA7\u1EA9\u1EAB\u1EAD\u1EAF\u1EB1\u1EB3\u1EB5\u1EB7\u1EB9\u1EBB\u1EBD\u1EBF\u1EC1\u1EC3\u1EC5\u1EC7\u1EC9\u1ECB\u1ECD\u1ECF\u1ED1\u1ED3\u1ED5\u1ED7\u1ED9\u1EDB\u1EDD\u1EDF\u1EE1\u1EE3\u1EE5\u1EE7\u1EE9\u1EEB\u1EED\u1EEF\u1EF1\u1EF3\u1EF5\u1EF7\u1EF9\u1EFB\u1EFD\u1EFF-\u1F07\u1F10-\u1F15\u1F20-\u1F27\u1F30-\u1F37\u1F40-\u1F45\u1F50-\u1F57\u1F60-\u1F67\u1F70-\u1F7D\u1F80-\u1F87\u1F90-\u1F97\u1FA0-\u1FA7\u1FB0-\u1FB4\u1FB6\u1FB7\u1FBE\u1FC2-\u1FC4\u1FC6\u1FC7\u1FD0-\u1FD3\u1FD6\u1FD7\u1FE0-\u1FE7\u1FF2-\u1FF4\u1FF6\u1FF7\u210A\u210E\u210F\u2113\u212F\u2134\u2139\u213C\u213D\u2146-\u2149\u214E\u2184\u2C30-\u2C5E\u2C61\u2C65\u2C66\u2C68\u2C6A\u2C6C\u2C71\u2C73\u2C74\u2C76-\u2C7B\u2C81\u2C83\u2C85\u2C87\u2C89\u2C8B\u2C8D\u2C8F\u2C91\u2C93\u2C95\u2C97\u2C99\u2C9B\u2C9D\u2C9F\u2CA1\u2CA3\u2CA5\u2CA7\u2CA9\u2CAB\u2CAD\u2CAF\u2CB1\u2CB3\u2CB5\u2CB7\u2CB9\u2CBB\u2CBD\u2CBF\u2CC1\u2CC3\u2CC5\u2CC7\u2CC9\u2CCB\u2CCD\u2CCF\u2CD1\u2CD3\u2CD5\u2CD7\u2CD9\u2CDB\u2CDD\u2CDF\u2CE1\u2CE3\u2CE4\u2CEC\u2CEE\u2CF3\u2D00-\u2D25\u2D27\u2D2D\uA641\uA643\uA645\uA647\uA649\uA64B\uA64D\uA64F\uA651\uA653\uA655\uA657\uA659\uA65B\uA65D\uA65F\uA661\uA663\uA665\uA667\uA669\uA66B\uA66D\uA681\uA683\uA685\uA687\uA689\uA68B\uA68D\uA68F\uA691\uA693\uA695\uA697\uA699\uA69B\uA723\uA725\uA727\uA729\uA72B\uA72D\uA72F-\uA731\uA733\uA735\uA737\uA739\uA73B\uA73D\uA73F\uA741\uA743\uA745\uA747\uA749\uA74B\uA74D\uA74F\uA751\uA753\uA755\uA757\uA759\uA75B\uA75D\uA75F\uA761\uA763\uA765\uA767\uA769\uA76B\uA76D\uA76F\uA771-\uA778\uA77A\uA77C\uA77F\uA781\uA783\uA785\uA787\uA78C\uA78E\uA791\uA793-\uA795\uA797\uA799\uA79B\uA79D\uA79F\uA7A1\uA7A3\uA7A5\uA7A7\uA7A9\uA7B5\uA7B7\uA7FA\uAB30-\uAB5A\uAB60-\uAB65\uAB70-\uABBF\uFB00-\uFB06\uFB13-\uFB17\uFF41-\uFF5A0-9\xB2\xB3\xB9\xBC-\xBE\u0660-\u0669\u06F0-\u06F9\u07C0-\u07C9\u0966-\u096F\u09E6-\u09EF\u09F4-\u09F9\u0A66-\u0A6F\u0AE6-\u0AEF\u0B66-\u0B6F\u0B72-\u0B77\u0BE6-\u0BF2\u0C66-\u0C6F\u0C78-\u0C7E\u0CE6-\u0CEF\u0D66-\u0D75\u0DE6-\u0DEF\u0E50-\u0E59\u0ED0-\u0ED9\u0F20-\u0F33\u1040-\u1049\u1090-\u1099\u1369-\u137C\u16EE-\u16F0\u17E0-\u17E9\u17F0-\u17F9\u1810-\u1819\u1946-\u194F\u19D0-\u19DA\u1A80-\u1A89\u1A90-\u1A99\u1B50-\u1B59\u1BB0-\u1BB9\u1C40-\u1C49\u1C50-\u1C59\u2070\u2074-\u2079\u2080-\u2089\u2150-\u2182\u2185-\u2189\u2460-\u249B\u24EA-\u24FF\u2776-\u2793\u2CFD\u3007\u3021-\u3029\u3038-\u303A\u3192-\u3195\u3220-\u3229\u3248-\u324F\u3251-\u325F\u3280-\u3289\u32B1-\u32BF\uA620-\uA629\uA6E6-\uA6EF\uA830-\uA835\uA8D0-\uA8D9\uA900-\uA909\uA9D0-\uA9D9\uA9F0-\uA9F9\uAA50-\uAA59\uABF0-\uABF9\uFF10-\uFF19])([A-Z\xC0-\xD6\xD8-\xDE\u0100\u0102\u0104\u0106\u0108\u010A\u010C\u010E\u0110\u0112\u0114\u0116\u0118\u011A\u011C\u011E\u0120\u0122\u0124\u0126\u0128\u012A\u012C\u012E\u0130\u0132\u0134\u0136\u0139\u013B\u013D\u013F\u0141\u0143\u0145\u0147\u014A\u014C\u014E\u0150\u0152\u0154\u0156\u0158\u015A\u015C\u015E\u0160\u0162\u0164\u0166\u0168\u016A\u016C\u016E\u0170\u0172\u0174\u0176\u0178\u0179\u017B\u017D\u0181\u0182\u0184\u0186\u0187\u0189-\u018B\u018E-\u0191\u0193\u0194\u0196-\u0198\u019C\u019D\u019F\u01A0\u01A2\u01A4\u01A6\u01A7\u01A9\u01AC\u01AE\u01AF\u01B1-\u01B3\u01B5\u01B7\u01B8\u01BC\u01C4\u01C7\u01CA\u01CD\u01CF\u01D1\u01D3\u01D5\u01D7\u01D9\u01DB\u01DE\u01E0\u01E2\u01E4\u01E6\u01E8\u01EA\u01EC\u01EE\u01F1\u01F4\u01F6-\u01F8\u01FA\u01FC\u01FE\u0200\u0202\u0204\u0206\u0208\u020A\u020C\u020E\u0210\u0212\u0214\u0216\u0218\u021A\u021C\u021E\u0220\u0222\u0224\u0226\u0228\u022A\u022C\u022E\u0230\u0232\u023A\u023B\u023D\u023E\u0241\u0243-\u0246\u0248\u024A\u024C\u024E\u0370\u0372\u0376\u037F\u0386\u0388-\u038A\u038C\u038E\u038F\u0391-\u03A1\u03A3-\u03AB\u03CF\u03D2-\u03D4\u03D8\u03DA\u03DC\u03DE\u03E0\u03E2\u03E4\u03E6\u03E8\u03EA\u03EC\u03EE\u03F4\u03F7\u03F9\u03FA\u03FD-\u042F\u0460\u0462\u0464\u0466\u0468\u046A\u046C\u046E\u0470\u0472\u0474\u0476\u0478\u047A\u047C\u047E\u0480\u048A\u048C\u048E\u0490\u0492\u0494\u0496\u0498\u049A\u049C\u049E\u04A0\u04A2\u04A4\u04A6\u04A8\u04AA\u04AC\u04AE\u04B0\u04B2\u04B4\u04B6\u04B8\u04BA\u04BC\u04BE\u04C0\u04C1\u04C3\u04C5\u04C7\u04C9\u04CB\u04CD\u04D0\u04D2\u04D4\u04D6\u04D8\u04DA\u04DC\u04DE\u04E0\u04E2\u04E4\u04E6\u04E8\u04EA\u04EC\u04EE\u04F0\u04F2\u04F4\u04F6\u04F8\u04FA\u04FC\u04FE\u0500\u0502\u0504\u0506\u0508\u050A\u050C\u050E\u0510\u0512\u0514\u0516\u0518\u051A\u051C\u051E\u0520\u0522\u0524\u0526\u0528\u052A\u052C\u052E\u0531-\u0556\u10A0-\u10C5\u10C7\u10CD\u13A0-\u13F5\u1E00\u1E02\u1E04\u1E06\u1E08\u1E0A\u1E0C\u1E0E\u1E10\u1E12\u1E14\u1E16\u1E18\u1E1A\u1E1C\u1E1E\u1E20\u1E22\u1E24\u1E26\u1E28\u1E2A\u1E2C\u1E2E\u1E30\u1E32\u1E34\u1E36\u1E38\u1E3A\u1E3C\u1E3E\u1E40\u1E42\u1E44\u1E46\u1E48\u1E4A\u1E4C\u1E4E\u1E50\u1E52\u1E54\u1E56\u1E58\u1E5A\u1E5C\u1E5E\u1E60\u1E62\u1E64\u1E66\u1E68\u1E6A\u1E6C\u1E6E\u1E70\u1E72\u1E74\u1E76\u1E78\u1E7A\u1E7C\u1E7E\u1E80\u1E82\u1E84\u1E86\u1E88\u1E8A\u1E8C\u1E8E\u1E90\u1E92\u1E94\u1E9E\u1EA0\u1EA2\u1EA4\u1EA6\u1EA8\u1EAA\u1EAC\u1EAE\u1EB0\u1EB2\u1EB4\u1EB6\u1EB8\u1EBA\u1EBC\u1EBE\u1EC0\u1EC2\u1EC4\u1EC6\u1EC8\u1ECA\u1ECC\u1ECE\u1ED0\u1ED2\u1ED4\u1ED6\u1ED8\u1EDA\u1EDC\u1EDE\u1EE0\u1EE2\u1EE4\u1EE6\u1EE8\u1EEA\u1EEC\u1EEE\u1EF0\u1EF2\u1EF4\u1EF6\u1EF8\u1EFA\u1EFC\u1EFE\u1F08-\u1F0F\u1F18-\u1F1D\u1F28-\u1F2F\u1F38-\u1F3F\u1F48-\u1F4D\u1F59\u1F5B\u1F5D\u1F5F\u1F68-\u1F6F\u1FB8-\u1FBB\u1FC8-\u1FCB\u1FD8-\u1FDB\u1FE8-\u1FEC\u1FF8-\u1FFB\u2102\u2107\u210B-\u210D\u2110-\u2112\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u2130-\u2133\u213E\u213F\u2145\u2183\u2C00-\u2C2E\u2C60\u2C62-\u2C64\u2C67\u2C69\u2C6B\u2C6D-\u2C70\u2C72\u2C75\u2C7E-\u2C80\u2C82\u2C84\u2C86\u2C88\u2C8A\u2C8C\u2C8E\u2C90\u2C92\u2C94\u2C96\u2C98\u2C9A\u2C9C\u2C9E\u2CA0\u2CA2\u2CA4\u2CA6\u2CA8\u2CAA\u2CAC\u2CAE\u2CB0\u2CB2\u2CB4\u2CB6\u2CB8\u2CBA\u2CBC\u2CBE\u2CC0\u2CC2\u2CC4\u2CC6\u2CC8\u2CCA\u2CCC\u2CCE\u2CD0\u2CD2\u2CD4\u2CD6\u2CD8\u2CDA\u2CDC\u2CDE\u2CE0\u2CE2\u2CEB\u2CED\u2CF2\uA640\uA642\uA644\uA646\uA648\uA64A\uA64C\uA64E\uA650\uA652\uA654\uA656\uA658\uA65A\uA65C\uA65E\uA660\uA662\uA664\uA666\uA668\uA66A\uA66C\uA680\uA682\uA684\uA686\uA688\uA68A\uA68C\uA68E\uA690\uA692\uA694\uA696\uA698\uA69A\uA722\uA724\uA726\uA728\uA72A\uA72C\uA72E\uA732\uA734\uA736\uA738\uA73A\uA73C\uA73E\uA740\uA742\uA744\uA746\uA748\uA74A\uA74C\uA74E\uA750\uA752\uA754\uA756\uA758\uA75A\uA75C\uA75E\uA760\uA762\uA764\uA766\uA768\uA76A\uA76C\uA76E\uA779\uA77B\uA77D\uA77E\uA780\uA782\uA784\uA786\uA78B\uA78D\uA790\uA792\uA796\uA798\uA79A\uA79C\uA79E\uA7A0\uA7A2\uA7A4\uA7A6\uA7A8\uA7AA-\uA7AD\uA7B0-\uA7B4\uA7B6\uFF21-\uFF3A])/g
+
+
+/***/ }),
+
+/***/ "./node_modules/no-case/vendor/camel-case-upper-regexp.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/no-case/vendor/camel-case-upper-regexp.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = /([A-Z\xC0-\xD6\xD8-\xDE\u0100\u0102\u0104\u0106\u0108\u010A\u010C\u010E\u0110\u0112\u0114\u0116\u0118\u011A\u011C\u011E\u0120\u0122\u0124\u0126\u0128\u012A\u012C\u012E\u0130\u0132\u0134\u0136\u0139\u013B\u013D\u013F\u0141\u0143\u0145\u0147\u014A\u014C\u014E\u0150\u0152\u0154\u0156\u0158\u015A\u015C\u015E\u0160\u0162\u0164\u0166\u0168\u016A\u016C\u016E\u0170\u0172\u0174\u0176\u0178\u0179\u017B\u017D\u0181\u0182\u0184\u0186\u0187\u0189-\u018B\u018E-\u0191\u0193\u0194\u0196-\u0198\u019C\u019D\u019F\u01A0\u01A2\u01A4\u01A6\u01A7\u01A9\u01AC\u01AE\u01AF\u01B1-\u01B3\u01B5\u01B7\u01B8\u01BC\u01C4\u01C7\u01CA\u01CD\u01CF\u01D1\u01D3\u01D5\u01D7\u01D9\u01DB\u01DE\u01E0\u01E2\u01E4\u01E6\u01E8\u01EA\u01EC\u01EE\u01F1\u01F4\u01F6-\u01F8\u01FA\u01FC\u01FE\u0200\u0202\u0204\u0206\u0208\u020A\u020C\u020E\u0210\u0212\u0214\u0216\u0218\u021A\u021C\u021E\u0220\u0222\u0224\u0226\u0228\u022A\u022C\u022E\u0230\u0232\u023A\u023B\u023D\u023E\u0241\u0243-\u0246\u0248\u024A\u024C\u024E\u0370\u0372\u0376\u037F\u0386\u0388-\u038A\u038C\u038E\u038F\u0391-\u03A1\u03A3-\u03AB\u03CF\u03D2-\u03D4\u03D8\u03DA\u03DC\u03DE\u03E0\u03E2\u03E4\u03E6\u03E8\u03EA\u03EC\u03EE\u03F4\u03F7\u03F9\u03FA\u03FD-\u042F\u0460\u0462\u0464\u0466\u0468\u046A\u046C\u046E\u0470\u0472\u0474\u0476\u0478\u047A\u047C\u047E\u0480\u048A\u048C\u048E\u0490\u0492\u0494\u0496\u0498\u049A\u049C\u049E\u04A0\u04A2\u04A4\u04A6\u04A8\u04AA\u04AC\u04AE\u04B0\u04B2\u04B4\u04B6\u04B8\u04BA\u04BC\u04BE\u04C0\u04C1\u04C3\u04C5\u04C7\u04C9\u04CB\u04CD\u04D0\u04D2\u04D4\u04D6\u04D8\u04DA\u04DC\u04DE\u04E0\u04E2\u04E4\u04E6\u04E8\u04EA\u04EC\u04EE\u04F0\u04F2\u04F4\u04F6\u04F8\u04FA\u04FC\u04FE\u0500\u0502\u0504\u0506\u0508\u050A\u050C\u050E\u0510\u0512\u0514\u0516\u0518\u051A\u051C\u051E\u0520\u0522\u0524\u0526\u0528\u052A\u052C\u052E\u0531-\u0556\u10A0-\u10C5\u10C7\u10CD\u13A0-\u13F5\u1E00\u1E02\u1E04\u1E06\u1E08\u1E0A\u1E0C\u1E0E\u1E10\u1E12\u1E14\u1E16\u1E18\u1E1A\u1E1C\u1E1E\u1E20\u1E22\u1E24\u1E26\u1E28\u1E2A\u1E2C\u1E2E\u1E30\u1E32\u1E34\u1E36\u1E38\u1E3A\u1E3C\u1E3E\u1E40\u1E42\u1E44\u1E46\u1E48\u1E4A\u1E4C\u1E4E\u1E50\u1E52\u1E54\u1E56\u1E58\u1E5A\u1E5C\u1E5E\u1E60\u1E62\u1E64\u1E66\u1E68\u1E6A\u1E6C\u1E6E\u1E70\u1E72\u1E74\u1E76\u1E78\u1E7A\u1E7C\u1E7E\u1E80\u1E82\u1E84\u1E86\u1E88\u1E8A\u1E8C\u1E8E\u1E90\u1E92\u1E94\u1E9E\u1EA0\u1EA2\u1EA4\u1EA6\u1EA8\u1EAA\u1EAC\u1EAE\u1EB0\u1EB2\u1EB4\u1EB6\u1EB8\u1EBA\u1EBC\u1EBE\u1EC0\u1EC2\u1EC4\u1EC6\u1EC8\u1ECA\u1ECC\u1ECE\u1ED0\u1ED2\u1ED4\u1ED6\u1ED8\u1EDA\u1EDC\u1EDE\u1EE0\u1EE2\u1EE4\u1EE6\u1EE8\u1EEA\u1EEC\u1EEE\u1EF0\u1EF2\u1EF4\u1EF6\u1EF8\u1EFA\u1EFC\u1EFE\u1F08-\u1F0F\u1F18-\u1F1D\u1F28-\u1F2F\u1F38-\u1F3F\u1F48-\u1F4D\u1F59\u1F5B\u1F5D\u1F5F\u1F68-\u1F6F\u1FB8-\u1FBB\u1FC8-\u1FCB\u1FD8-\u1FDB\u1FE8-\u1FEC\u1FF8-\u1FFB\u2102\u2107\u210B-\u210D\u2110-\u2112\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u2130-\u2133\u213E\u213F\u2145\u2183\u2C00-\u2C2E\u2C60\u2C62-\u2C64\u2C67\u2C69\u2C6B\u2C6D-\u2C70\u2C72\u2C75\u2C7E-\u2C80\u2C82\u2C84\u2C86\u2C88\u2C8A\u2C8C\u2C8E\u2C90\u2C92\u2C94\u2C96\u2C98\u2C9A\u2C9C\u2C9E\u2CA0\u2CA2\u2CA4\u2CA6\u2CA8\u2CAA\u2CAC\u2CAE\u2CB0\u2CB2\u2CB4\u2CB6\u2CB8\u2CBA\u2CBC\u2CBE\u2CC0\u2CC2\u2CC4\u2CC6\u2CC8\u2CCA\u2CCC\u2CCE\u2CD0\u2CD2\u2CD4\u2CD6\u2CD8\u2CDA\u2CDC\u2CDE\u2CE0\u2CE2\u2CEB\u2CED\u2CF2\uA640\uA642\uA644\uA646\uA648\uA64A\uA64C\uA64E\uA650\uA652\uA654\uA656\uA658\uA65A\uA65C\uA65E\uA660\uA662\uA664\uA666\uA668\uA66A\uA66C\uA680\uA682\uA684\uA686\uA688\uA68A\uA68C\uA68E\uA690\uA692\uA694\uA696\uA698\uA69A\uA722\uA724\uA726\uA728\uA72A\uA72C\uA72E\uA732\uA734\uA736\uA738\uA73A\uA73C\uA73E\uA740\uA742\uA744\uA746\uA748\uA74A\uA74C\uA74E\uA750\uA752\uA754\uA756\uA758\uA75A\uA75C\uA75E\uA760\uA762\uA764\uA766\uA768\uA76A\uA76C\uA76E\uA779\uA77B\uA77D\uA77E\uA780\uA782\uA784\uA786\uA78B\uA78D\uA790\uA792\uA796\uA798\uA79A\uA79C\uA79E\uA7A0\uA7A2\uA7A4\uA7A6\uA7A8\uA7AA-\uA7AD\uA7B0-\uA7B4\uA7B6\uFF21-\uFF3A])([A-Z\xC0-\xD6\xD8-\xDE\u0100\u0102\u0104\u0106\u0108\u010A\u010C\u010E\u0110\u0112\u0114\u0116\u0118\u011A\u011C\u011E\u0120\u0122\u0124\u0126\u0128\u012A\u012C\u012E\u0130\u0132\u0134\u0136\u0139\u013B\u013D\u013F\u0141\u0143\u0145\u0147\u014A\u014C\u014E\u0150\u0152\u0154\u0156\u0158\u015A\u015C\u015E\u0160\u0162\u0164\u0166\u0168\u016A\u016C\u016E\u0170\u0172\u0174\u0176\u0178\u0179\u017B\u017D\u0181\u0182\u0184\u0186\u0187\u0189-\u018B\u018E-\u0191\u0193\u0194\u0196-\u0198\u019C\u019D\u019F\u01A0\u01A2\u01A4\u01A6\u01A7\u01A9\u01AC\u01AE\u01AF\u01B1-\u01B3\u01B5\u01B7\u01B8\u01BC\u01C4\u01C7\u01CA\u01CD\u01CF\u01D1\u01D3\u01D5\u01D7\u01D9\u01DB\u01DE\u01E0\u01E2\u01E4\u01E6\u01E8\u01EA\u01EC\u01EE\u01F1\u01F4\u01F6-\u01F8\u01FA\u01FC\u01FE\u0200\u0202\u0204\u0206\u0208\u020A\u020C\u020E\u0210\u0212\u0214\u0216\u0218\u021A\u021C\u021E\u0220\u0222\u0224\u0226\u0228\u022A\u022C\u022E\u0230\u0232\u023A\u023B\u023D\u023E\u0241\u0243-\u0246\u0248\u024A\u024C\u024E\u0370\u0372\u0376\u037F\u0386\u0388-\u038A\u038C\u038E\u038F\u0391-\u03A1\u03A3-\u03AB\u03CF\u03D2-\u03D4\u03D8\u03DA\u03DC\u03DE\u03E0\u03E2\u03E4\u03E6\u03E8\u03EA\u03EC\u03EE\u03F4\u03F7\u03F9\u03FA\u03FD-\u042F\u0460\u0462\u0464\u0466\u0468\u046A\u046C\u046E\u0470\u0472\u0474\u0476\u0478\u047A\u047C\u047E\u0480\u048A\u048C\u048E\u0490\u0492\u0494\u0496\u0498\u049A\u049C\u049E\u04A0\u04A2\u04A4\u04A6\u04A8\u04AA\u04AC\u04AE\u04B0\u04B2\u04B4\u04B6\u04B8\u04BA\u04BC\u04BE\u04C0\u04C1\u04C3\u04C5\u04C7\u04C9\u04CB\u04CD\u04D0\u04D2\u04D4\u04D6\u04D8\u04DA\u04DC\u04DE\u04E0\u04E2\u04E4\u04E6\u04E8\u04EA\u04EC\u04EE\u04F0\u04F2\u04F4\u04F6\u04F8\u04FA\u04FC\u04FE\u0500\u0502\u0504\u0506\u0508\u050A\u050C\u050E\u0510\u0512\u0514\u0516\u0518\u051A\u051C\u051E\u0520\u0522\u0524\u0526\u0528\u052A\u052C\u052E\u0531-\u0556\u10A0-\u10C5\u10C7\u10CD\u13A0-\u13F5\u1E00\u1E02\u1E04\u1E06\u1E08\u1E0A\u1E0C\u1E0E\u1E10\u1E12\u1E14\u1E16\u1E18\u1E1A\u1E1C\u1E1E\u1E20\u1E22\u1E24\u1E26\u1E28\u1E2A\u1E2C\u1E2E\u1E30\u1E32\u1E34\u1E36\u1E38\u1E3A\u1E3C\u1E3E\u1E40\u1E42\u1E44\u1E46\u1E48\u1E4A\u1E4C\u1E4E\u1E50\u1E52\u1E54\u1E56\u1E58\u1E5A\u1E5C\u1E5E\u1E60\u1E62\u1E64\u1E66\u1E68\u1E6A\u1E6C\u1E6E\u1E70\u1E72\u1E74\u1E76\u1E78\u1E7A\u1E7C\u1E7E\u1E80\u1E82\u1E84\u1E86\u1E88\u1E8A\u1E8C\u1E8E\u1E90\u1E92\u1E94\u1E9E\u1EA0\u1EA2\u1EA4\u1EA6\u1EA8\u1EAA\u1EAC\u1EAE\u1EB0\u1EB2\u1EB4\u1EB6\u1EB8\u1EBA\u1EBC\u1EBE\u1EC0\u1EC2\u1EC4\u1EC6\u1EC8\u1ECA\u1ECC\u1ECE\u1ED0\u1ED2\u1ED4\u1ED6\u1ED8\u1EDA\u1EDC\u1EDE\u1EE0\u1EE2\u1EE4\u1EE6\u1EE8\u1EEA\u1EEC\u1EEE\u1EF0\u1EF2\u1EF4\u1EF6\u1EF8\u1EFA\u1EFC\u1EFE\u1F08-\u1F0F\u1F18-\u1F1D\u1F28-\u1F2F\u1F38-\u1F3F\u1F48-\u1F4D\u1F59\u1F5B\u1F5D\u1F5F\u1F68-\u1F6F\u1FB8-\u1FBB\u1FC8-\u1FCB\u1FD8-\u1FDB\u1FE8-\u1FEC\u1FF8-\u1FFB\u2102\u2107\u210B-\u210D\u2110-\u2112\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u2130-\u2133\u213E\u213F\u2145\u2183\u2C00-\u2C2E\u2C60\u2C62-\u2C64\u2C67\u2C69\u2C6B\u2C6D-\u2C70\u2C72\u2C75\u2C7E-\u2C80\u2C82\u2C84\u2C86\u2C88\u2C8A\u2C8C\u2C8E\u2C90\u2C92\u2C94\u2C96\u2C98\u2C9A\u2C9C\u2C9E\u2CA0\u2CA2\u2CA4\u2CA6\u2CA8\u2CAA\u2CAC\u2CAE\u2CB0\u2CB2\u2CB4\u2CB6\u2CB8\u2CBA\u2CBC\u2CBE\u2CC0\u2CC2\u2CC4\u2CC6\u2CC8\u2CCA\u2CCC\u2CCE\u2CD0\u2CD2\u2CD4\u2CD6\u2CD8\u2CDA\u2CDC\u2CDE\u2CE0\u2CE2\u2CEB\u2CED\u2CF2\uA640\uA642\uA644\uA646\uA648\uA64A\uA64C\uA64E\uA650\uA652\uA654\uA656\uA658\uA65A\uA65C\uA65E\uA660\uA662\uA664\uA666\uA668\uA66A\uA66C\uA680\uA682\uA684\uA686\uA688\uA68A\uA68C\uA68E\uA690\uA692\uA694\uA696\uA698\uA69A\uA722\uA724\uA726\uA728\uA72A\uA72C\uA72E\uA732\uA734\uA736\uA738\uA73A\uA73C\uA73E\uA740\uA742\uA744\uA746\uA748\uA74A\uA74C\uA74E\uA750\uA752\uA754\uA756\uA758\uA75A\uA75C\uA75E\uA760\uA762\uA764\uA766\uA768\uA76A\uA76C\uA76E\uA779\uA77B\uA77D\uA77E\uA780\uA782\uA784\uA786\uA78B\uA78D\uA790\uA792\uA796\uA798\uA79A\uA79C\uA79E\uA7A0\uA7A2\uA7A4\uA7A6\uA7A8\uA7AA-\uA7AD\uA7B0-\uA7B4\uA7B6\uFF21-\uFF3A][a-z\xB5\xDF-\xF6\xF8-\xFF\u0101\u0103\u0105\u0107\u0109\u010B\u010D\u010F\u0111\u0113\u0115\u0117\u0119\u011B\u011D\u011F\u0121\u0123\u0125\u0127\u0129\u012B\u012D\u012F\u0131\u0133\u0135\u0137\u0138\u013A\u013C\u013E\u0140\u0142\u0144\u0146\u0148\u0149\u014B\u014D\u014F\u0151\u0153\u0155\u0157\u0159\u015B\u015D\u015F\u0161\u0163\u0165\u0167\u0169\u016B\u016D\u016F\u0171\u0173\u0175\u0177\u017A\u017C\u017E-\u0180\u0183\u0185\u0188\u018C\u018D\u0192\u0195\u0199-\u019B\u019E\u01A1\u01A3\u01A5\u01A8\u01AA\u01AB\u01AD\u01B0\u01B4\u01B6\u01B9\u01BA\u01BD-\u01BF\u01C6\u01C9\u01CC\u01CE\u01D0\u01D2\u01D4\u01D6\u01D8\u01DA\u01DC\u01DD\u01DF\u01E1\u01E3\u01E5\u01E7\u01E9\u01EB\u01ED\u01EF\u01F0\u01F3\u01F5\u01F9\u01FB\u01FD\u01FF\u0201\u0203\u0205\u0207\u0209\u020B\u020D\u020F\u0211\u0213\u0215\u0217\u0219\u021B\u021D\u021F\u0221\u0223\u0225\u0227\u0229\u022B\u022D\u022F\u0231\u0233-\u0239\u023C\u023F\u0240\u0242\u0247\u0249\u024B\u024D\u024F-\u0293\u0295-\u02AF\u0371\u0373\u0377\u037B-\u037D\u0390\u03AC-\u03CE\u03D0\u03D1\u03D5-\u03D7\u03D9\u03DB\u03DD\u03DF\u03E1\u03E3\u03E5\u03E7\u03E9\u03EB\u03ED\u03EF-\u03F3\u03F5\u03F8\u03FB\u03FC\u0430-\u045F\u0461\u0463\u0465\u0467\u0469\u046B\u046D\u046F\u0471\u0473\u0475\u0477\u0479\u047B\u047D\u047F\u0481\u048B\u048D\u048F\u0491\u0493\u0495\u0497\u0499\u049B\u049D\u049F\u04A1\u04A3\u04A5\u04A7\u04A9\u04AB\u04AD\u04AF\u04B1\u04B3\u04B5\u04B7\u04B9\u04BB\u04BD\u04BF\u04C2\u04C4\u04C6\u04C8\u04CA\u04CC\u04CE\u04CF\u04D1\u04D3\u04D5\u04D7\u04D9\u04DB\u04DD\u04DF\u04E1\u04E3\u04E5\u04E7\u04E9\u04EB\u04ED\u04EF\u04F1\u04F3\u04F5\u04F7\u04F9\u04FB\u04FD\u04FF\u0501\u0503\u0505\u0507\u0509\u050B\u050D\u050F\u0511\u0513\u0515\u0517\u0519\u051B\u051D\u051F\u0521\u0523\u0525\u0527\u0529\u052B\u052D\u052F\u0561-\u0587\u13F8-\u13FD\u1D00-\u1D2B\u1D6B-\u1D77\u1D79-\u1D9A\u1E01\u1E03\u1E05\u1E07\u1E09\u1E0B\u1E0D\u1E0F\u1E11\u1E13\u1E15\u1E17\u1E19\u1E1B\u1E1D\u1E1F\u1E21\u1E23\u1E25\u1E27\u1E29\u1E2B\u1E2D\u1E2F\u1E31\u1E33\u1E35\u1E37\u1E39\u1E3B\u1E3D\u1E3F\u1E41\u1E43\u1E45\u1E47\u1E49\u1E4B\u1E4D\u1E4F\u1E51\u1E53\u1E55\u1E57\u1E59\u1E5B\u1E5D\u1E5F\u1E61\u1E63\u1E65\u1E67\u1E69\u1E6B\u1E6D\u1E6F\u1E71\u1E73\u1E75\u1E77\u1E79\u1E7B\u1E7D\u1E7F\u1E81\u1E83\u1E85\u1E87\u1E89\u1E8B\u1E8D\u1E8F\u1E91\u1E93\u1E95-\u1E9D\u1E9F\u1EA1\u1EA3\u1EA5\u1EA7\u1EA9\u1EAB\u1EAD\u1EAF\u1EB1\u1EB3\u1EB5\u1EB7\u1EB9\u1EBB\u1EBD\u1EBF\u1EC1\u1EC3\u1EC5\u1EC7\u1EC9\u1ECB\u1ECD\u1ECF\u1ED1\u1ED3\u1ED5\u1ED7\u1ED9\u1EDB\u1EDD\u1EDF\u1EE1\u1EE3\u1EE5\u1EE7\u1EE9\u1EEB\u1EED\u1EEF\u1EF1\u1EF3\u1EF5\u1EF7\u1EF9\u1EFB\u1EFD\u1EFF-\u1F07\u1F10-\u1F15\u1F20-\u1F27\u1F30-\u1F37\u1F40-\u1F45\u1F50-\u1F57\u1F60-\u1F67\u1F70-\u1F7D\u1F80-\u1F87\u1F90-\u1F97\u1FA0-\u1FA7\u1FB0-\u1FB4\u1FB6\u1FB7\u1FBE\u1FC2-\u1FC4\u1FC6\u1FC7\u1FD0-\u1FD3\u1FD6\u1FD7\u1FE0-\u1FE7\u1FF2-\u1FF4\u1FF6\u1FF7\u210A\u210E\u210F\u2113\u212F\u2134\u2139\u213C\u213D\u2146-\u2149\u214E\u2184\u2C30-\u2C5E\u2C61\u2C65\u2C66\u2C68\u2C6A\u2C6C\u2C71\u2C73\u2C74\u2C76-\u2C7B\u2C81\u2C83\u2C85\u2C87\u2C89\u2C8B\u2C8D\u2C8F\u2C91\u2C93\u2C95\u2C97\u2C99\u2C9B\u2C9D\u2C9F\u2CA1\u2CA3\u2CA5\u2CA7\u2CA9\u2CAB\u2CAD\u2CAF\u2CB1\u2CB3\u2CB5\u2CB7\u2CB9\u2CBB\u2CBD\u2CBF\u2CC1\u2CC3\u2CC5\u2CC7\u2CC9\u2CCB\u2CCD\u2CCF\u2CD1\u2CD3\u2CD5\u2CD7\u2CD9\u2CDB\u2CDD\u2CDF\u2CE1\u2CE3\u2CE4\u2CEC\u2CEE\u2CF3\u2D00-\u2D25\u2D27\u2D2D\uA641\uA643\uA645\uA647\uA649\uA64B\uA64D\uA64F\uA651\uA653\uA655\uA657\uA659\uA65B\uA65D\uA65F\uA661\uA663\uA665\uA667\uA669\uA66B\uA66D\uA681\uA683\uA685\uA687\uA689\uA68B\uA68D\uA68F\uA691\uA693\uA695\uA697\uA699\uA69B\uA723\uA725\uA727\uA729\uA72B\uA72D\uA72F-\uA731\uA733\uA735\uA737\uA739\uA73B\uA73D\uA73F\uA741\uA743\uA745\uA747\uA749\uA74B\uA74D\uA74F\uA751\uA753\uA755\uA757\uA759\uA75B\uA75D\uA75F\uA761\uA763\uA765\uA767\uA769\uA76B\uA76D\uA76F\uA771-\uA778\uA77A\uA77C\uA77F\uA781\uA783\uA785\uA787\uA78C\uA78E\uA791\uA793-\uA795\uA797\uA799\uA79B\uA79D\uA79F\uA7A1\uA7A3\uA7A5\uA7A7\uA7A9\uA7B5\uA7B7\uA7FA\uAB30-\uAB5A\uAB60-\uAB65\uAB70-\uABBF\uFB00-\uFB06\uFB13-\uFB17\uFF41-\uFF5A])/g
+
+
+/***/ }),
+
+/***/ "./node_modules/no-case/vendor/non-word-regexp.js":
+/*!********************************************************!*\
+  !*** ./node_modules/no-case/vendor/non-word-regexp.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = /[^A-Za-z\xAA\xB5\xBA\xC0-\xD6\xD8-\xF6\xF8-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0370-\u0374\u0376\u0377\u037A-\u037D\u037F\u0386\u0388-\u038A\u038C\u038E-\u03A1\u03A3-\u03F5\u03F7-\u0481\u048A-\u052F\u0531-\u0556\u0559\u0561-\u0587\u05D0-\u05EA\u05F0-\u05F2\u0620-\u064A\u066E\u066F\u0671-\u06D3\u06D5\u06E5\u06E6\u06EE\u06EF\u06FA-\u06FC\u06FF\u0710\u0712-\u072F\u074D-\u07A5\u07B1\u07CA-\u07EA\u07F4\u07F5\u07FA\u0800-\u0815\u081A\u0824\u0828\u0840-\u0858\u08A0-\u08B4\u0904-\u0939\u093D\u0950\u0958-\u0961\u0971-\u0980\u0985-\u098C\u098F\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD\u09CE\u09DC\u09DD\u09DF-\u09E1\u09F0\u09F1\u0A05-\u0A0A\u0A0F\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32\u0A33\u0A35\u0A36\u0A38\u0A39\u0A59-\u0A5C\u0A5E\u0A72-\u0A74\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\u0AB3\u0AB5-\u0AB9\u0ABD\u0AD0\u0AE0\u0AE1\u0AF9\u0B05-\u0B0C\u0B0F\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32\u0B33\u0B35-\u0B39\u0B3D\u0B5C\u0B5D\u0B5F-\u0B61\u0B71\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99\u0B9A\u0B9C\u0B9E\u0B9F\u0BA3\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9\u0BD0\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C39\u0C3D\u0C58-\u0C5A\u0C60\u0C61\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CDE\u0CE0\u0CE1\u0CF1\u0CF2\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D\u0D4E\u0D5F-\u0D61\u0D7A-\u0D7F\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0E01-\u0E30\u0E32\u0E33\u0E40-\u0E46\u0E81\u0E82\u0E84\u0E87\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA\u0EAB\u0EAD-\u0EB0\u0EB2\u0EB3\u0EBD\u0EC0-\u0EC4\u0EC6\u0EDC-\u0EDF\u0F00\u0F40-\u0F47\u0F49-\u0F6C\u0F88-\u0F8C\u1000-\u102A\u103F\u1050-\u1055\u105A-\u105D\u1061\u1065\u1066\u106E-\u1070\u1075-\u1081\u108E\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FC-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1380-\u138F\u13A0-\u13F5\u13F8-\u13FD\u1401-\u166C\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u16F1-\u16F8\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17D7\u17DC\u1820-\u1877\u1880-\u18A8\u18AA\u18B0-\u18F5\u1900-\u191E\u1950-\u196D\u1970-\u1974\u1980-\u19AB\u19B0-\u19C9\u1A00-\u1A16\u1A20-\u1A54\u1AA7\u1B05-\u1B33\u1B45-\u1B4B\u1B83-\u1BA0\u1BAE\u1BAF\u1BBA-\u1BE5\u1C00-\u1C23\u1C4D-\u1C4F\u1C5A-\u1C7D\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF5\u1CF6\u1D00-\u1DBF\u1E00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u2071\u207F\u2090-\u209C\u2102\u2107\u210A-\u2113\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u212F-\u2139\u213C-\u213F\u2145-\u2149\u214E\u2183\u2184\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2CE4\u2CEB-\u2CEE\u2CF2\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u2E2F\u3005\u3006\u3031-\u3035\u303B\u303C\u3041-\u3096\u309D-\u309F\u30A1-\u30FA\u30FC-\u30FF\u3105-\u312D\u3131-\u318E\u31A0-\u31BA\u31F0-\u31FF\u3400-\u4DB5\u4E00-\u9FD5\uA000-\uA48C\uA4D0-\uA4FD\uA500-\uA60C\uA610-\uA61F\uA62A\uA62B\uA640-\uA66E\uA67F-\uA69D\uA6A0-\uA6E5\uA717-\uA71F\uA722-\uA788\uA78B-\uA7AD\uA7B0-\uA7B7\uA7F7-\uA801\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA840-\uA873\uA882-\uA8B3\uA8F2-\uA8F7\uA8FB\uA8FD\uA90A-\uA925\uA930-\uA946\uA960-\uA97C\uA984-\uA9B2\uA9CF\uA9E0-\uA9E4\uA9E6-\uA9EF\uA9FA-\uA9FE\uAA00-\uAA28\uAA40-\uAA42\uAA44-\uAA4B\uAA60-\uAA76\uAA7A\uAA7E-\uAAAF\uAAB1\uAAB5\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADD\uAAE0-\uAAEA\uAAF2-\uAAF4\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uAB30-\uAB5A\uAB5C-\uAB65\uAB70-\uABE2\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40\uFB41\uFB43\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE70-\uFE74\uFE76-\uFEFC\uFF21-\uFF3A\uFF41-\uFF5A\uFF66-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2-\uFFD7\uFFDA-\uFFDC0-9\xB2\xB3\xB9\xBC-\xBE\u0660-\u0669\u06F0-\u06F9\u07C0-\u07C9\u0966-\u096F\u09E6-\u09EF\u09F4-\u09F9\u0A66-\u0A6F\u0AE6-\u0AEF\u0B66-\u0B6F\u0B72-\u0B77\u0BE6-\u0BF2\u0C66-\u0C6F\u0C78-\u0C7E\u0CE6-\u0CEF\u0D66-\u0D75\u0DE6-\u0DEF\u0E50-\u0E59\u0ED0-\u0ED9\u0F20-\u0F33\u1040-\u1049\u1090-\u1099\u1369-\u137C\u16EE-\u16F0\u17E0-\u17E9\u17F0-\u17F9\u1810-\u1819\u1946-\u194F\u19D0-\u19DA\u1A80-\u1A89\u1A90-\u1A99\u1B50-\u1B59\u1BB0-\u1BB9\u1C40-\u1C49\u1C50-\u1C59\u2070\u2074-\u2079\u2080-\u2089\u2150-\u2182\u2185-\u2189\u2460-\u249B\u24EA-\u24FF\u2776-\u2793\u2CFD\u3007\u3021-\u3029\u3038-\u303A\u3192-\u3195\u3220-\u3229\u3248-\u324F\u3251-\u325F\u3280-\u3289\u32B1-\u32BF\uA620-\uA629\uA6E6-\uA6EF\uA830-\uA835\uA8D0-\uA8D9\uA900-\uA909\uA9D0-\uA9D9\uA9F0-\uA9F9\uAA50-\uAA59\uABF0-\uABF9\uFF10-\uFF19]+/g
+
+
+/***/ }),
+
 /***/ "./node_modules/object-assign/index.js":
 /*!*********************************************!*\
   !*** ./node_modules/object-assign/index.js ***!
@@ -12544,6 +11740,77 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 	return to;
 };
+
+
+/***/ }),
+
+/***/ "./node_modules/param-case/param-case.js":
+/*!***********************************************!*\
+  !*** ./node_modules/param-case/param-case.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var noCase = __webpack_require__(/*! no-case */ "./node_modules/no-case/no-case.js")
+
+/**
+ * Param case a string.
+ *
+ * @param  {string} value
+ * @param  {string} [locale]
+ * @return {string}
+ */
+module.exports = function (value, locale) {
+  return noCase(value, locale, '-')
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/pascal-case/pascal-case.js":
+/*!*************************************************!*\
+  !*** ./node_modules/pascal-case/pascal-case.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var camelCase = __webpack_require__(/*! camel-case */ "./node_modules/camel-case/camel-case.js")
+var upperCaseFirst = __webpack_require__(/*! upper-case-first */ "./node_modules/upper-case-first/upper-case-first.js")
+
+/**
+ * Pascal case a string.
+ *
+ * @param  {string}  value
+ * @param  {string}  [locale]
+ * @param  {boolean} [mergeNumbers]
+ * @return {string}
+ */
+module.exports = function (value, locale, mergeNumbers) {
+  return upperCaseFirst(camelCase(value, locale, mergeNumbers), locale)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/path-case/path-case.js":
+/*!*********************************************!*\
+  !*** ./node_modules/path-case/path-case.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var noCase = __webpack_require__(/*! no-case */ "./node_modules/no-case/no-case.js")
+
+/**
+ * Path case a string.
+ *
+ * @param  {string} value
+ * @param  {string} [locale]
+ * @return {string}
+ */
+module.exports = function (value, locale) {
+  return noCase(value, locale, '/')
+}
 
 
 /***/ }),
@@ -13712,7 +12979,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
             'Use `PropTypes.checkPropTypes()` to call them. ' +
             'Read more at http://fb.me/use-check-prop-types'
           );
-        } else if ("development" !== 'production' && typeof console !== 'undefined') {
+        } else if ( true && typeof console !== 'undefined') {
           // Old behavior for people using React.PropTypes
           var cacheKey = componentName + ':' + propName;
           if (
@@ -35262,7 +34529,7 @@ function setInitialDOMProperties(tag, domElement, rootContainerElement, nextProp
       // on server rendering (but we *do* want to emit it in SSR).
     } else if (registrationNameModules.hasOwnProperty(propKey)) {
       if (nextProp != null) {
-        if (true && typeof nextProp !== 'function') {
+        if ( true && typeof nextProp !== 'function') {
           warnForInvalidEventListener(propKey, nextProp);
         }
         ensureListeningTo(rootContainerElement, propKey);
@@ -35607,7 +34874,7 @@ function diffProperties(domElement, tag, lastRawProps, nextRawProps, rootContain
     } else if (registrationNameModules.hasOwnProperty(propKey)) {
       if (nextProp != null) {
         // We eagerly listen to this even though we haven't committed yet.
-        if (true && typeof nextProp !== 'function') {
+        if ( true && typeof nextProp !== 'function') {
           warnForInvalidEventListener(propKey, nextProp);
         }
         ensureListeningTo(rootContainerElement, propKey);
@@ -35789,14 +35056,14 @@ function diffHydratedProperties(domElement, tag, rawProps, parentNamespace, root
       // TODO: Should we use domElement.firstChild.nodeValue to compare?
       if (typeof nextProp === 'string') {
         if (domElement.textContent !== nextProp) {
-          if (true && !suppressHydrationWarning) {
+          if ( true && !suppressHydrationWarning) {
             warnForTextDifference(domElement.textContent, nextProp);
           }
           updatePayload = [CHILDREN, nextProp];
         }
       } else if (typeof nextProp === 'number') {
         if (domElement.textContent !== '' + nextProp) {
-          if (true && !suppressHydrationWarning) {
+          if ( true && !suppressHydrationWarning) {
             warnForTextDifference(domElement.textContent, nextProp);
           }
           updatePayload = [CHILDREN, '' + nextProp];
@@ -35804,12 +35071,12 @@ function diffHydratedProperties(domElement, tag, rawProps, parentNamespace, root
       }
     } else if (registrationNameModules.hasOwnProperty(propKey)) {
       if (nextProp != null) {
-        if (true && typeof nextProp !== 'function') {
+        if ( true && typeof nextProp !== 'function') {
           warnForInvalidEventListener(propKey, nextProp);
         }
         ensureListeningTo(rootContainerElement, propKey);
       }
-    } else if (true &&
+    } else if ( true &&
     // Convince Flow we've calculated it (it's DEV-only in this method.)
     typeof isCustomComponentTag === 'boolean') {
       // Validate that the properties correspond to their expected values.
@@ -36632,7 +35899,7 @@ function didNotMatchHydratedContainerTextInstance(parentContainer, textInstance,
 }
 
 function didNotMatchHydratedTextInstance(parentType, parentProps, parentInstance, textInstance, text) {
-  if (true && parentProps[SUPPRESS_HYDRATION_WARNING] !== true) {
+  if ( true && parentProps[SUPPRESS_HYDRATION_WARNING] !== true) {
     warnForUnmatchedText(textInstance, text);
   }
 }
@@ -36648,7 +35915,7 @@ function didNotHydrateContainerInstance(parentContainer, instance) {
 }
 
 function didNotHydrateInstance(parentType, parentProps, parentInstance, instance) {
-  if (true && parentProps[SUPPRESS_HYDRATION_WARNING] !== true) {
+  if ( true && parentProps[SUPPRESS_HYDRATION_WARNING] !== true) {
     if (instance.nodeType === ELEMENT_NODE) {
       warnForDeletedHydratableElement(parentInstance, instance);
     } else {
@@ -36670,13 +35937,13 @@ function didNotFindHydratableContainerTextInstance(parentContainer, text) {
 }
 
 function didNotFindHydratableInstance(parentType, parentProps, parentInstance, type, props) {
-  if (true && parentProps[SUPPRESS_HYDRATION_WARNING] !== true) {
+  if ( true && parentProps[SUPPRESS_HYDRATION_WARNING] !== true) {
     warnForInsertedHydratedElement(parentInstance, type, props);
   }
 }
 
 function didNotFindHydratableTextInstance(parentType, parentProps, parentInstance, text) {
-  if (true && parentProps[SUPPRESS_HYDRATION_WARNING] !== true) {
+  if ( true && parentProps[SUPPRESS_HYDRATION_WARNING] !== true) {
     warnForInsertedHydratedText(parentInstance, text);
   }
 }
@@ -37388,7 +36655,7 @@ function catchErrors(fn) {
     try {
       return fn(arg);
     } catch (err) {
-      if (true && !hasLoggedError) {
+      if ( true && !hasLoggedError) {
         hasLoggedError = true;
         warningWithoutStack$1(false, 'React DevTools encountered an error: %s', err);
       }
@@ -44873,7 +44140,7 @@ var mayReplayFailedUnitOfWork = void 0;
 var isReplayingFailedUnitOfWork = void 0;
 var originalReplayError = void 0;
 var rethrowOriginalError = void 0;
-if (true && replayFailedUnitOfWorkWithInvokeGuardedCallback) {
+if ( true && replayFailedUnitOfWorkWithInvokeGuardedCallback) {
   stashedWorkInProgressProperties = null;
   mayReplayFailedUnitOfWork = true;
   isReplayingFailedUnitOfWork = false;
@@ -45307,7 +44574,7 @@ function commitRoot(root, finishedWork) {
   stopCommitLifeCyclesTimer();
   stopCommitTimer();
   onCommitRoot(finishedWork.stateNode);
-  if (true && ReactFiberInstrumentation_1.debugTool) {
+  if ( true && ReactFiberInstrumentation_1.debugTool) {
     ReactFiberInstrumentation_1.debugTool.onCommitWork(finishedWork);
   }
 
@@ -45452,7 +44719,7 @@ function completeUnitOfWork(workInProgress) {
     var siblingFiber = workInProgress.sibling;
 
     if ((workInProgress.effectTag & Incomplete) === NoEffect) {
-      if (true && replayFailedUnitOfWorkWithInvokeGuardedCallback) {
+      if ( true && replayFailedUnitOfWorkWithInvokeGuardedCallback) {
         // Don't replay if it fails during completion phase.
         mayReplayFailedUnitOfWork = false;
       }
@@ -45471,7 +44738,7 @@ function completeUnitOfWork(workInProgress) {
       } else {
         nextUnitOfWork = completeWork(current$$1, workInProgress, nextRenderExpirationTime);
       }
-      if (true && replayFailedUnitOfWorkWithInvokeGuardedCallback) {
+      if ( true && replayFailedUnitOfWorkWithInvokeGuardedCallback) {
         // We're out of completion phase so replaying is fine now.
         mayReplayFailedUnitOfWork = true;
       }
@@ -45521,7 +44788,7 @@ function completeUnitOfWork(workInProgress) {
         }
       }
 
-      if (true && ReactFiberInstrumentation_1.debugTool) {
+      if ( true && ReactFiberInstrumentation_1.debugTool) {
         ReactFiberInstrumentation_1.debugTool.onCompleteWork(workInProgress);
       }
 
@@ -45569,7 +44836,7 @@ function completeUnitOfWork(workInProgress) {
 
       if (next !== null) {
         stopWorkTimer(workInProgress);
-        if (true && ReactFiberInstrumentation_1.debugTool) {
+        if ( true && ReactFiberInstrumentation_1.debugTool) {
           ReactFiberInstrumentation_1.debugTool.onCompleteWork(workInProgress);
         }
 
@@ -45587,7 +44854,7 @@ function completeUnitOfWork(workInProgress) {
         returnFiber.effectTag |= Incomplete;
       }
 
-      if (true && ReactFiberInstrumentation_1.debugTool) {
+      if ( true && ReactFiberInstrumentation_1.debugTool) {
         ReactFiberInstrumentation_1.debugTool.onCompleteWork(workInProgress);
       }
 
@@ -45623,7 +44890,7 @@ function performUnitOfWork(workInProgress) {
     setCurrentFiber(workInProgress);
   }
 
-  if (true && replayFailedUnitOfWorkWithInvokeGuardedCallback) {
+  if ( true && replayFailedUnitOfWorkWithInvokeGuardedCallback) {
     stashedWorkInProgressProperties = assignFiberPropertiesInDEV(stashedWorkInProgressProperties, workInProgress);
   }
 
@@ -45655,7 +44922,7 @@ function performUnitOfWork(workInProgress) {
       rethrowOriginalError();
     }
   }
-  if (true && ReactFiberInstrumentation_1.debugTool) {
+  if ( true && ReactFiberInstrumentation_1.debugTool) {
     ReactFiberInstrumentation_1.debugTool.onBeginWork(workInProgress);
   }
 
@@ -45767,7 +45034,7 @@ function renderRoot(root, isYieldy) {
       // Reset in case completion throws.
       // This is only used in DEV and when replaying is on.
       var mayReplay = void 0;
-      if (true && replayFailedUnitOfWorkWithInvokeGuardedCallback) {
+      if ( true && replayFailedUnitOfWorkWithInvokeGuardedCallback) {
         mayReplay = mayReplayFailedUnitOfWork;
         mayReplayFailedUnitOfWork = true;
       }
@@ -45789,7 +45056,7 @@ function renderRoot(root, isYieldy) {
           resetCurrentlyProcessingQueue();
         }
 
-        if (true && replayFailedUnitOfWorkWithInvokeGuardedCallback) {
+        if ( true && replayFailedUnitOfWorkWithInvokeGuardedCallback) {
           if (mayReplay) {
             var failedUnitOfWork = nextUnitOfWork;
             replayUnitOfWork(failedUnitOfWork, thrownValue, isYieldy);
@@ -51243,7 +50510,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
           );
           err.name = 'Invariant Violation';
           throw err;
-        } else if ("development" !== 'production' && typeof console !== 'undefined') {
+        } else if ( true && typeof console !== 'undefined') {
           // Old behavior for people using React.PropTypes
           var cacheKey = componentName + ':' + propName;
           if (
@@ -53158,7 +52425,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
           );
           err.name = 'Invariant Violation';
           throw err;
-        } else if ("development" !== 'production' && typeof console !== 'undefined') {
+        } else if ( true && typeof console !== 'undefined') {
           // Old behavior for people using React.PropTypes
           var cacheKey = componentName + ':' + propName;
           if (
@@ -54569,7 +53836,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
           );
           err.name = 'Invariant Violation';
           throw err;
-        } else if ("development" !== 'production' && typeof console !== 'undefined') {
+        } else if ( true && typeof console !== 'undefined') {
           // Old behavior for people using React.PropTypes
           var cacheKey = componentName + ':' + propName;
           if (
@@ -57060,6 +56327,274 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 
+/***/ "./node_modules/renameitlib/lib/FindReplace.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/renameitlib/lib/FindReplace.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/* eslint-disable class-methods-use-this */
+/**
+ * @Author: Rodrigo Soares <rodrigo>
+ * @Date:   2017-11-17T17:26:39-08:00
+ * @Project: Rename It
+ * @Last modified by:   rodrigo
+ * @Last modified time: 2017-12-02T21:22:41-08:00
+ */
+
+var FindReplace = function () {
+  function FindReplace() {
+    _classCallCheck(this, FindReplace);
+  }
+
+  _createClass(FindReplace, [{
+    key: "escapeRegExp",
+    value: function escapeRegExp(str) {
+      return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"); // eslint-disable-line
+    }
+  }, {
+    key: "layer",
+    value: function layer(options) {
+      var reg = options.caseSensitive ? new RegExp(this.escapeRegExp(options.findText), "g") : new RegExp(this.escapeRegExp(options.findText), "gi");
+      return options.layerName.replace(reg, options.replaceWith);
+    }
+  }, {
+    key: "match",
+    value: function match(options) {
+      if (options.findText.length <= 0) return false;
+      var str = String(options.findText);
+      var layerName = options.layerName;
+
+      if (!options.caseSensitive) {
+        str = str.toLowerCase();
+        layerName = layerName.toLowerCase();
+      }
+
+      return layerName.includes(str);
+    }
+  }]);
+
+  return FindReplace;
+}();
+
+exports.default = FindReplace;
+
+/***/ }),
+
+/***/ "./node_modules/renameitlib/lib/Rename.js":
+/*!************************************************!*\
+  !*** ./node_modules/renameitlib/lib/Rename.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @Author: Rodrigo Soares <rodrigo>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @Date:   2017-11-17T17:23:24-08:00
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @Project: Rename It
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @Last modified time: 2017-12-02T10:17:35-08:00
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+var _changeCase = __webpack_require__(/*! change-case */ "./node_modules/change-case/change-case.js");
+
+var _changeCase2 = _interopRequireDefault(_changeCase);
+
+var _titlecase = __webpack_require__(/*! titlecase */ "./node_modules/titlecase/to-title-case.js");
+
+var _titlecase2 = _interopRequireDefault(_titlecase);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Rename = function () {
+  function Rename() {
+    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+        _ref$allowTextCases = _ref.allowTextCases,
+        allowTextCases = _ref$allowTextCases === undefined ? true : _ref$allowTextCases,
+        _ref$allowPageName = _ref.allowPageName,
+        allowPageName = _ref$allowPageName === undefined ? true : _ref$allowPageName,
+        _ref$allowParent = _ref.allowParent,
+        allowParent = _ref$allowParent === undefined ? true : _ref$allowParent;
+
+    _classCallCheck(this, Rename);
+
+    this.allowTextCases = allowTextCases;
+    this.allowPageName = allowPageName;
+    this.allowParent = allowParent;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+
+
+  _createClass(Rename, [{
+    key: "paddy",
+    value: function paddy(n, p, c) {
+      var padChar = typeof c !== "undefined" ? c : "0";
+      var pad = new Array(1 + p).join(padChar);
+      return (pad + n).slice(-pad.length);
+    }
+  }, {
+    key: "currentLayer",
+    value: function currentLayer(newLayerName, layerName) {
+      var name = newLayerName;
+
+      if (this.allowTextCases) {
+        // UpperCase
+        name = name.replace(/%\*u%/gi, _changeCase2.default.upperCase(layerName));
+        // LowerCase
+        name = name.replace(/%\*l%/gi, _changeCase2.default.lowerCase(layerName));
+        // Title Case
+        name = name.replace(/%\*t%/gi, (0, _titlecase2.default)(layerName));
+        // UpperCase First
+        name = name.replace(/%\*uf%/gi, _changeCase2.default.upperCaseFirst(layerName));
+        // Camel Case
+        name = name.replace(/%\*c%/gi, _changeCase2.default.camelCase(layerName));
+        // Param Case
+        name = name.replace(/%\*pc%/gi, _changeCase2.default.paramCase(layerName));
+      }
+      // Layername
+      name = name.replace(/%\*/g, layerName);
+      return String(name);
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+
+  }, {
+    key: "layer",
+    value: function layer(options) {
+      var newLayerName = options.inputName;
+
+      // Interator
+      var nInterators = newLayerName.match(/%N+/gi);
+      var aInterators = newLayerName.match(/(?!%ar%)%A/gi);
+      var reverseAInterators = newLayerName.match(/%ar%/gi);
+      // eslint-disable-next-line no-underscore-dangle
+      var _this = this;
+
+      // Number Interator
+      if (nInterators != null) {
+        /* eslint-disable */
+        // Replace Number
+        var replaceNumber = function replaceNumber(match) {
+          var nnSize = match.length - 1;
+          var letter = match.charAt(1);
+          var num = letter == "N" ? options.currIdx : options.selectionCount - options.currIdx - 1;
+          num += options.startsFrom;
+          // Check weather or not the number is bigger than the nnSizes (works up to 9999)
+          if (num > 999 && (nnSize === 1 || nnSize === 2 || nnSize === 3)) nnSize = 4;else if (num > 99 && (nnSize === 1 || nnSize === 2)) nnSize = 3;else if (num > 9 && nnSize == 1) nnSize = 2;
+          return _this.paddy(num, nnSize);
+        };
+
+        newLayerName = newLayerName.replace(/%n+/gi, replaceNumber);
+      }
+      // Alpha Interator
+      var alphaStr = "abcdefghijklmnopqrstuvwxyz";
+      var alphaArr = alphaStr.split("");
+      var totalAlpha = alphaArr.length;
+      // Replace Alpha
+      function replaceAlpha(match) {
+        var letter = match.charAt(1);
+        var current = match === "%ar%" ? options.selectionCount - options.currIdx - 1 : options.currIdx;
+        var alpha = alphaArr[current % totalAlpha];
+        if (current >= totalAlpha) {
+          var flIdx = Math.floor(current / totalAlpha);
+          alpha = "" + alphaArr[flIdx - 1] + alpha;
+        }
+        return letter === "A" ? alpha.toUpperCase() : alpha;
+      }
+      // Reverse Alpha
+      if (reverseAInterators != null) {
+        newLayerName = newLayerName.replace(/%ar%/gi, replaceAlpha);
+      }
+      if (aInterators != null) {
+        newLayerName = newLayerName.replace(/%a/gi, replaceAlpha);
+      }
+
+      // Replace asterisks
+      newLayerName = _this.currentLayer(newLayerName, options.layerName);
+
+      // Add Width and/or height
+      newLayerName = newLayerName.replace(/%w/gi, options.width);
+      newLayerName = newLayerName.replace(/%h/gi, options.height);
+
+      // Page Name
+      if (this.allowPageName) {
+        newLayerName = newLayerName.replace(/%p/gi, options.pageName);
+      }
+
+      // Parent Name
+      if (this.allowParent) {
+        newLayerName = newLayerName.replace(/%o/gi, options.parentName);
+      }
+
+      // Return new name
+      return newLayerName;
+    }
+  }]);
+
+  return Rename;
+}();
+
+exports.default = Rename;
+
+/***/ }),
+
+/***/ "./node_modules/renameitlib/lib/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/renameitlib/lib/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _FindReplace = __webpack_require__(/*! ./FindReplace */ "./node_modules/renameitlib/lib/FindReplace.js");
+
+Object.defineProperty(exports, "FindReplace", {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_FindReplace).default;
+  }
+});
+
+var _Rename = __webpack_require__(/*! ./Rename */ "./node_modules/renameitlib/lib/Rename.js");
+
+Object.defineProperty(exports, "Rename", {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_Rename).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+
 /***/ "./node_modules/resolve-pathname/index.js":
 /*!************************************************!*\
   !*** ./node_modules/resolve-pathname/index.js ***!
@@ -58259,6 +57794,30 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/sentence-case/sentence-case.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/sentence-case/sentence-case.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var noCase = __webpack_require__(/*! no-case */ "./node_modules/no-case/no-case.js")
+var upperCaseFirst = __webpack_require__(/*! upper-case-first */ "./node_modules/upper-case-first/upper-case-first.js")
+
+/**
+ * Sentence case a string.
+ *
+ * @param  {string} value
+ * @param  {string} [locale]
+ * @return {string}
+ */
+module.exports = function (value, locale) {
+  return upperCaseFirst(noCase(value, locale), locale)
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/sketch-module-web-view/client.js":
 /*!*******************************************************!*\
   !*** ./node_modules/sketch-module-web-view/client.js ***!
@@ -58289,6 +57848,29 @@ module.exports = function(actionName) {
 
 module.exports = {
   JS_BRIDGE: '__skpm_sketchBridge',
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/snake-case/snake-case.js":
+/*!***********************************************!*\
+  !*** ./node_modules/snake-case/snake-case.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var noCase = __webpack_require__(/*! no-case */ "./node_modules/no-case/no-case.js")
+
+/**
+ * Snake case a string.
+ *
+ * @param  {string} value
+ * @param  {string} [locale]
+ * @return {string}
+ */
+module.exports = function (value, locale) {
+  return noCase(value, locale, '_')
 }
 
 
@@ -59761,7 +59343,7 @@ function isStaticRules(rules, attrs) {
 
 // 
 
-var isHMREnabled = "development" !== 'production' && typeof module !== 'undefined' && module.hot;
+var isHMREnabled =  true && module.hot;
 
 /* combines hashStr (murmurhash) and nameGenerator for convenience */
 var hasher = function hasher(str) {
@@ -60046,7 +59628,7 @@ var ThemeProvider = function (_Component) {
     if (isFunction(theme)) {
       var mergedTheme = theme(outerTheme);
 
-      if ("development" !== 'production' && (mergedTheme === null || Array.isArray(mergedTheme) || (typeof mergedTheme === 'undefined' ? 'undefined' : _typeof(mergedTheme)) !== 'object')) {
+      if ( true && (mergedTheme === null || Array.isArray(mergedTheme) || (typeof mergedTheme === 'undefined' ? 'undefined' : _typeof(mergedTheme)) !== 'object')) {
         throw new StyledComponentsError(7);
       }
 
@@ -60328,7 +59910,7 @@ var StyledComponent = function (_Component) {
     _this.renderOuter = _this.renderOuter.bind(_this);
     _this.renderInner = _this.renderInner.bind(_this);
 
-    if ("development" !== 'production' && IS_BROWSER) {
+    if ( true && IS_BROWSER) {
       classNameUsageCheckInjector(_this);
     }
     return _this;
@@ -60382,7 +59964,7 @@ var StyledComponent = function (_Component) {
     var key = void 0;
     // eslint-disable-next-line guard-for-in
     for (key in computedProps) {
-      if ("development" !== 'production' && key === 'innerRef') {
+      if ( true && key === 'innerRef') {
         warnInnerRef();
       }
 
@@ -60429,13 +60011,13 @@ var StyledComponent = function (_Component) {
 
         if (!attrDefWasFn) {
           if (isFunction(attr) && !isDerivedReactComponent(attr) && !isStyledComponent(attr)) {
-            if ("development" !== 'production' && warnAttrsFnObjectKeyDeprecated) {
+            if ( true && warnAttrsFnObjectKeyDeprecated) {
               warnAttrsFnObjectKeyDeprecated(key, props.forwardedClass.displayName);
             }
 
             attr = attr(context);
 
-            if ("development" !== 'production' && react__WEBPACK_IMPORTED_MODULE_2___default.a.isValidElement(attr) && warnNonStyledComponentAttrsObjectKey) {
+            if ( true && react__WEBPACK_IMPORTED_MODULE_2___default.a.isValidElement(attr) && warnNonStyledComponentAttrsObjectKey) {
               warnNonStyledComponentAttrsObjectKey(key, props.forwardedClass.displayName);
             }
           }
@@ -60466,7 +60048,7 @@ var StyledComponent = function (_Component) {
 
     var className = componentStyle.generateAndInjectStyles(this.buildExecutionContext(theme, props, attrs), styleSheet);
 
-    if ("development" !== 'production' && warnTooManyClasses) warnTooManyClasses(className);
+    if ( true && warnTooManyClasses) warnTooManyClasses(className);
 
     return className;
   };
@@ -60667,7 +60249,7 @@ function createGlobalStyle(strings) {
     }
 
     GlobalStyleComponent.prototype.componentDidMount = function componentDidMount() {
-      if ("development" !== 'production' && IS_BROWSER && window.scCGSHMRCache[this.state.styledComponentId] > 1 && !this.props.suppressMultiMountWarning) {
+      if ( true && IS_BROWSER && window.scCGSHMRCache[this.state.styledComponentId] > 1 && !this.props.suppressMultiMountWarning) {
         console.warn('The global style component ' + this.state.styledComponentId + ' was composed and rendered multiple times in your React component tree. Only the last-rendered copy will have its styles remain in <head> (or your StyleSheetManager target.)');
       }
     };
@@ -60689,7 +60271,7 @@ function createGlobalStyle(strings) {
     GlobalStyleComponent.prototype.render = function render() {
       var _this2 = this;
 
-      if ("development" !== 'production' && react__WEBPACK_IMPORTED_MODULE_2___default.a.Children.count(this.props.children)) {
+      if ( true && react__WEBPACK_IMPORTED_MODULE_2___default.a.Children.count(this.props.children)) {
         console.warn('The global style component ' + this.state.styledComponentId + ' was given child JSX. createGlobalStyle does not render children.');
       }
 
@@ -60754,7 +60336,7 @@ var replaceWhitespace = function replaceWhitespace(str) {
 
 function keyframes(strings) {
   /* Warning if you've used keyframes on React Native */
-  if ("development" !== 'production' && typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
+  if ( true && typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
     console.warn('`keyframes` cannot be used on ReactNative, only on the web. To do animation in ReactNative please use Animated.');
   }
 
@@ -60782,7 +60364,7 @@ var withTheme = (function (Component$$1) {
 
         var themeProp = determineTheme(props, theme, defaultProps);
 
-        if ("development" !== 'production' && themeProp === undefined) {
+        if ( true && themeProp === undefined) {
           // eslint-disable-next-line no-console
           console.warn('[withTheme] You are not using a ThemeProvider nor passing a theme prop or a theme in defaultProps in component class "' + getComponentName(Component$$1) + '"');
         }
@@ -60809,13 +60391,13 @@ var __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS = {
 // 
 
 /* Warning if you've imported this file on React Native */
-if ("development" !== 'production' && typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
+if ( true && typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
   // eslint-disable-next-line no-console
   console.warn("It looks like you've imported 'styled-components' on React Native.\n" + "Perhaps you're looking to import 'styled-components/native'?\n" + 'Read more about this at https://www.styled-components.com/docs/basics#react-native');
 }
 
 /* Warning if there are several instances of styled-components */
-if ("development" !== 'production' && "development" !== 'test' && typeof window !== 'undefined' && typeof navigator !== 'undefined' && typeof navigator.userAgent === 'string' && navigator.userAgent.indexOf('Node.js') === -1 && navigator.userAgent.indexOf('jsdom') === -1) {
+if ( true && typeof window !== 'undefined' && typeof navigator !== 'undefined' && typeof navigator.userAgent === 'string' && navigator.userAgent.indexOf('Node.js') === -1 && navigator.userAgent.indexOf('jsdom') === -1) {
   window['__styled-components-init__'] = window['__styled-components-init__'] || 0;
 
   if (window['__styled-components-init__'] === 1) {
@@ -61142,6 +60724,285 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/swap-case/swap-case.js":
+/*!*********************************************!*\
+  !*** ./node_modules/swap-case/swap-case.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var upperCase = __webpack_require__(/*! upper-case */ "./node_modules/upper-case/upper-case.js")
+var lowerCase = __webpack_require__(/*! lower-case */ "./node_modules/lower-case/lower-case.js")
+
+/**
+ * Swap the case of a string. Manually iterate over every character and check
+ * instead of replacing certain characters for better unicode support.
+ *
+ * @param  {String} str
+ * @param  {String} [locale]
+ * @return {String}
+ */
+module.exports = function (str, locale) {
+  if (str == null) {
+    return ''
+  }
+
+  var result = ''
+
+  for (var i = 0; i < str.length; i++) {
+    var c = str[i]
+    var u = upperCase(c, locale)
+
+    result += u === c ? lowerCase(c, locale) : u
+  }
+
+  return result
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/title-case/title-case.js":
+/*!***********************************************!*\
+  !*** ./node_modules/title-case/title-case.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var noCase = __webpack_require__(/*! no-case */ "./node_modules/no-case/no-case.js")
+var upperCase = __webpack_require__(/*! upper-case */ "./node_modules/upper-case/upper-case.js")
+
+/**
+ * Title case a string.
+ *
+ * @param  {string} value
+ * @param  {string} [locale]
+ * @return {string}
+ */
+module.exports = function (value, locale) {
+  return noCase(value, locale).replace(/^.| ./g, function (m) {
+    return upperCase(m, locale)
+  })
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/titlecase/articles.js":
+/*!********************************************!*\
+  !*** ./node_modules/titlecase/articles.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = [ 'the', 'a', 'an', 'some' ]
+
+
+/***/ }),
+
+/***/ "./node_modules/titlecase/conjunctions.js":
+/*!************************************************!*\
+  !*** ./node_modules/titlecase/conjunctions.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = [
+    'as'
+  , 'because'
+  , 'for'
+  , 'and'
+  , 'nor'
+  , 'but'
+  , 'or'
+  , 'yet'
+  , 'so'
+]
+
+
+/***/ }),
+
+/***/ "./node_modules/titlecase/prepositions.js":
+/*!************************************************!*\
+  !*** ./node_modules/titlecase/prepositions.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = [
+    'a'
+  , 'abaft'
+  , 'aboard'
+  , 'about'
+  , 'above'
+  , 'absent'
+  , 'across'
+  , 'afore'
+  , 'after'
+  , 'against'
+  , 'along'
+  , 'alongside'
+  , 'amid'
+  , 'amidst'
+  , 'among'
+  , 'amongst'
+  , 'an'
+  , 'apropos'
+  , 'apud'
+  , 'around'
+  , 'as'
+  , 'aside'
+  , 'astride'
+  , 'at'
+  , 'athwart'
+  , 'atop'
+  , 'barring'
+  , 'before'
+  , 'behind'
+  , 'below'
+  , 'beneath'
+  , 'beside'
+  , 'besides'
+  , 'between'
+  , 'beyond'
+  , 'but'
+  , 'by'
+  , 'circa'
+  , 'concerning'
+  , 'despite'
+  , 'down'
+  , 'during'
+  , 'except'
+  , 'excluding'
+  , 'failing'
+  , 'following'
+  , 'for'
+  , 'forenenst'
+  , 'from'
+  , 'given'
+  , 'in'
+  , 'including'
+  , 'inside'
+  , 'into'
+  , 'like'
+  , 'mid'
+  , 'midst'
+  , 'minus'
+  , 'modulo'
+  , 'near'
+  , 'next'
+  , 'notwithstanding'
+  , 'o\''
+  , 'of'
+  , 'off'
+  , 'on'
+  , 'onto'
+  , 'opposite'
+  , 'out'
+  , 'outside'
+  , 'over'
+  , 'pace'
+  , 'past'
+  , 'per'
+  , 'plus'
+  , 'pro'
+  , 'qua'
+  , 'regarding'
+  , 'round'
+  , 'sans'
+  , 'save'
+  , 'since'
+  , 'than'
+  , 'through'
+  , 'throughout'
+  , 'thru'
+  , 'thruout'
+  , 'till'
+  , 'times'
+  , 'to'
+  , 'toward'
+  , 'towards'
+  , 'under'
+  , 'underneath'
+  , 'unlike'
+  , 'until'
+  , 'unto'
+  , 'up'
+  , 'upon'
+  , 'versus'
+  , 'via'
+  , 'vice'
+  , 'vis-à-vis'
+  , 'with'
+  , 'within'
+  , 'without'
+  , 'worth'
+]
+
+
+/***/ }),
+
+/***/ "./node_modules/titlecase/to-title-case.js":
+/*!*************************************************!*\
+  !*** ./node_modules/titlecase/to-title-case.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+ * To Title Case 2.1 – http://individed.com/code/to-title-case/
+ * Copyright © 2008–2013 David Gouch. Licensed under the MIT License.
+ *
+ * modifications by @rvagg Apr-2014
+ */
+
+//String.prototype.toTitleCase = function(){
+
+
+var smallWords = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
+
+
+module.exports = function toTitleCase(str){
+  return titleCase(str, smallWords)
+}
+
+
+module.exports.toTitleCase = module.exports
+
+
+var laxWords = __webpack_require__(/*! ./articles */ "./node_modules/titlecase/articles.js").concat(__webpack_require__(/*! ./prepositions */ "./node_modules/titlecase/prepositions.js")).concat(__webpack_require__(/*! ./conjunctions */ "./node_modules/titlecase/conjunctions.js"))
+      .concat(smallWords.source.replace(/(^\^\(|\)\$$)/g, '').split('|'))
+      .concat(['is']) // a personal preference
+  , laxWordsRe = new RegExp('^(' + laxWords.join('|') + ')$', 'i')
+
+
+module.exports.toLaxTitleCase = function toLaxTitleCase(str){
+  return titleCase(str, laxWordsRe)
+}
+
+
+function titleCase (str, smallWords) {
+  if (!str)
+    return str
+  return str.replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, function(match, index, title){
+    if (index > 0 && index + match.length !== title.length &&
+      match.search(smallWords) > -1 && title.charAt(index - 2) !== ':' &&
+      (title.charAt(index + match.length) !== '-' || title.charAt(index - 1) === '-') &&
+      title.charAt(index - 1).search(/[^\s-]/) < 0) {
+      return match.toLowerCase();
+    }
+
+    if (match.substr(1).search(/[A-Z]|\../) > -1) {
+      return match;
+    }
+
+    return match.charAt(0).toUpperCase() + match.substr(1);
+  });
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/uncontrollable/createUncontrollable.js":
 /*!*************************************************************!*\
   !*** ./node_modules/uncontrollable/createUncontrollable.js ***!
@@ -61436,7 +61297,7 @@ function readOnlyPropType(handler, name) {
 function uncontrolledPropTypes(controlledValues, basePropTypes, displayName) {
   var propTypes = {};
 
-  if ("development" !== 'production' && basePropTypes) {
+  if ( true && basePropTypes) {
     transform(controlledValues, function (obj, handler, prop) {
       (0, _invariant2.default)(typeof handler === 'string' && handler.trim().length, 'Uncontrollable - [%s]: the prop `%s` needs a valid handler key name in order to make it uncontrollable', displayName, prop);
 
@@ -61514,6 +61375,95 @@ function has(o, k) {
 function isReactComponent(component) {
   return !!(component && component.prototype && component.prototype.isReactComponent);
 }
+
+/***/ }),
+
+/***/ "./node_modules/upper-case-first/upper-case-first.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/upper-case-first/upper-case-first.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var upperCase = __webpack_require__(/*! upper-case */ "./node_modules/upper-case/upper-case.js")
+
+/**
+ * Upper case the first character of a string.
+ *
+ * @param  {String} str
+ * @return {String}
+ */
+module.exports = function (str, locale) {
+  if (str == null) {
+    return ''
+  }
+
+  str = String(str)
+
+  return upperCase(str.charAt(0), locale) + str.substr(1)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/upper-case/upper-case.js":
+/*!***********************************************!*\
+  !*** ./node_modules/upper-case/upper-case.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Special language-specific overrides.
+ *
+ * Source: ftp://ftp.unicode.org/Public/UCD/latest/ucd/SpecialCasing.txt
+ *
+ * @type {Object}
+ */
+var LANGUAGES = {
+  tr: {
+    regexp: /[\u0069]/g,
+    map: {
+      '\u0069': '\u0130'
+    }
+  },
+  az: {
+    regexp: /[\u0069]/g,
+    map: {
+      '\u0069': '\u0130'
+    }
+  },
+  lt: {
+    regexp: /[\u0069\u006A\u012F]\u0307|\u0069\u0307[\u0300\u0301\u0303]/g,
+    map: {
+      '\u0069\u0307': '\u0049',
+      '\u006A\u0307': '\u004A',
+      '\u012F\u0307': '\u012E',
+      '\u0069\u0307\u0300': '\u00CC',
+      '\u0069\u0307\u0301': '\u00CD',
+      '\u0069\u0307\u0303': '\u0128'
+    }
+  }
+}
+
+/**
+ * Upper case a string.
+ *
+ * @param  {String} str
+ * @return {String}
+ */
+module.exports = function (str, locale) {
+  var lang = LANGUAGES[locale]
+
+  str = str == null ? '' : String(str)
+
+  if (lang) {
+    str = str.replace(lang.regexp, function (m) { return lang.map[m] })
+  }
+
+  return str.toUpperCase()
+}
+
 
 /***/ }),
 
@@ -61678,44 +61628,20 @@ module.exports = function(originalModule) {
 /*!****************************************************!*\
   !*** ./resources/views/components/GlobalStyles.js ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: InputMargin, ButtonStyles, LabelStyles, StyledH3, Button, SecondaryButton, SubmitButton, Footer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Footer = exports.SubmitButton = exports.SecondaryButton = exports.Button = exports.StyledH3 = exports.LabelStyles = exports.ButtonStyles = exports.InputMargin = void 0;
-
-var _styledComponents = _interopRequireWildcard(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
-
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};
-
-    if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) {
-          var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};
-
-          if (desc.get || desc.set) {
-            Object.defineProperty(newObj, key, desc);
-          } else {
-            newObj[key] = obj[key];
-          }
-        }
-      }
-    }
-
-    newObj.default = obj;
-    return newObj;
-  }
-}
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InputMargin", function() { return InputMargin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonStyles", function() { return ButtonStyles; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LabelStyles", function() { return LabelStyles; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StyledH3", function() { return StyledH3; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Button", function() { return Button; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecondaryButton", function() { return SecondaryButton; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SubmitButton", function() { return SubmitButton; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Footer", function() { return Footer; });
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 function _templateObject7() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-top: auto;\n  justify-content: flex-end;\n  button {\n    margin-left: 12px;\n  }\n"]);
 
@@ -61798,9 +61724,9 @@ function _taggedTemplateLiteral(strings, raw) {
   }));
 }
 
+
 var InputMargin = "20px";
-exports.InputMargin = InputMargin;
-var ButtonStyles = (0, _styledComponents.css)(_templateObject(), function (props) {
+var ButtonStyles = Object(styled_components__WEBPACK_IMPORTED_MODULE_0__["css"])(_templateObject(), function (props) {
   return props.theme.button.bgColor;
 }, function (props) {
   return props.theme.button.border;
@@ -61809,35 +61735,22 @@ var ButtonStyles = (0, _styledComponents.css)(_templateObject(), function (props
 }, function (props) {
   return props.theme.button.bgActive;
 });
-exports.ButtonStyles = ButtonStyles;
-var LabelStyles = (0, _styledComponents.css)(_templateObject2());
-exports.LabelStyles = LabelStyles;
-
-var StyledH3 = _styledComponents.default.h3(_templateObject3());
-
-exports.StyledH3 = StyledH3;
-
-var Button = _styledComponents.default.button(_templateObject4(), ButtonStyles);
-
-exports.Button = Button;
-var SecondaryButton = (0, _styledComponents.default)(Button)(_templateObject5(), function (props) {
+var LabelStyles = Object(styled_components__WEBPACK_IMPORTED_MODULE_0__["css"])(_templateObject2());
+var StyledH3 = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].h3(_templateObject3());
+var Button = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].button(_templateObject4(), ButtonStyles);
+var SecondaryButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_0__["default"])(Button)(_templateObject5(), function (props) {
   return props.theme.secondaryButton.textColor;
 }, function (props) {
   return props.theme.secondaryButton.borderColor;
 });
-exports.SecondaryButton = SecondaryButton;
-var SubmitButton = (0, _styledComponents.default)(SecondaryButton)(_templateObject6(), function (props) {
+var SubmitButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_0__["default"])(SecondaryButton)(_templateObject6(), function (props) {
   return props.theme.CTAButton.textColor;
 }, function (props) {
   return props.theme.CTAButton.bgColor;
 }, function (props) {
   return props.theme.CTAButton.bgActive;
 });
-exports.SubmitButton = SubmitButton;
-
-var Footer = _styledComponents.default.div(_templateObject7());
-
-exports.Footer = Footer;
+var Footer = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject7());
 
 /***/ }),
 
@@ -61845,32 +61758,17 @@ exports.Footer = Footer;
 /*!**********************************************!*\
   !*** ./resources/views/components/Input.jsx ***!
   \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _historyDropdown__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./historyDropdown */ "./resources/views/components/historyDropdown/index.jsx");
+/* harmony import */ var _GlobalStyles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _styledComponents = _interopRequireDefault(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
-
-var _historyDropdown = _interopRequireDefault(__webpack_require__(/*! ./historyDropdown */ "./resources/views/components/historyDropdown/index.jsx"));
-
-var _GlobalStyles = __webpack_require__(/*! ./GlobalStyles */ "./resources/views/components/GlobalStyles.js");
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
 
 function _typeof(obj) {
   if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
@@ -61996,8 +61894,20 @@ function _taggedTemplateLiteral(strings, raw) {
     }
   }));
 }
+/**
+ * @Author: Rodrigo Soares <rodrigo>
+ * @Date:   2017-11-15T16:37:40-08:00
+ * @Project: Rename It
+ * @Last modified by:   rodrigo
+ * @Last modified time: 2017-12-02T17:57:44-08:00
+ */
 
-var StyledInput = _styledComponents.default.input(_templateObject(), function (props) {
+
+
+
+
+
+var StyledInput = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].input(_templateObject(), function (props) {
   return props.theme.input.background;
 }, function (props) {
   return props.theme.input.border;
@@ -62006,12 +61916,10 @@ var StyledInput = _styledComponents.default.input(_templateObject(), function (p
 }, function (props) {
   return props.theme.input.borderActive;
 });
-
-var StyledLabel = _styledComponents.default.label(_templateObject2(), _GlobalStyles.LabelStyles, function (props) {
+var StyledLabel = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].label(_templateObject2(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_3__["LabelStyles"], function (props) {
   return props.labelWidth || "100px";
 });
-
-var InputWrapper = _styledComponents.default.div(_templateObject3(), _GlobalStyles.InputMargin);
+var InputWrapper = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject3(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_3__["InputMargin"]);
 
 var Input =
 /*#__PURE__*/
@@ -62037,7 +61945,7 @@ function (_React$Component) {
       var historyDropdown = null;
 
       if (this.props.showHistory !== undefined) {
-        historyDropdown = _react.default.createElement(_historyDropdown.default, {
+        historyDropdown = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_historyDropdown__WEBPACK_IMPORTED_MODULE_2__["default"], {
           menuData: this.props.dataHistory,
           dropdownId: "".concat(this.props.id, "-dd"),
           handleHistory: this.props.handleHistory,
@@ -62045,12 +61953,12 @@ function (_React$Component) {
         });
       }
 
-      return _react.default.createElement(InputWrapper, {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(InputWrapper, {
         className: "inputWrapper ".concat(this.props.wrapperClass)
-      }, _react.default.createElement(StyledLabel, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledLabel, {
         htmlFor: this.props.id,
         labelWidth: this.props.labelWidth
-      }, this.props.forName), _react.default.createElement(StyledInput, {
+      }, this.props.forName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledInput, {
         type: this.props.type,
         id: this.props.id,
         value: this.props.value,
@@ -62069,13 +61977,12 @@ function (_React$Component) {
   }]);
 
   return Input;
-}(_react.default.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 Input.defaultProps = {
   dropup: false
 };
-var _default = Input;
-exports.default = _default;
+/* harmony default export */ __webpack_exports__["default"] = (Input);
 
 /***/ }),
 
@@ -62083,28 +61990,16 @@ exports.default = _default;
 /*!******************************************************!*\
   !*** ./resources/views/components/KeywordButton.jsx ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return KeywordButton; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _GlobalStyles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _GlobalStyles = __webpack_require__(/*! ./GlobalStyles */ "./resources/views/components/GlobalStyles.js");
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
 
 function _typeof(obj) {
   if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
@@ -62188,8 +62083,18 @@ function _setPrototypeOf(o, p) {
 
   return _setPrototypeOf(o, p);
 }
-/* eslint-disable */
+/**
+ * @Author: Rodrigo Soares <rodrigo>
+ * @Date:   2017-11-15T23:06:38-08:00
+ * @Project: Rename It
+ * @Last modified by:   rodrigo
+ * @Last modified time: 2017-11-16T11:15:26-08:00
+ */
 
+
+
+
+/* eslint-disable */
 
 var KeywordButton =
 /*#__PURE__*/
@@ -62205,10 +62110,10 @@ function (_React$Component) {
   _createClass(KeywordButton, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement(_GlobalStyles.Button, {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_1__["Button"], {
         id: this.props.id,
-        "data-char": this.props.char,
-        title: "Shortcut: ".concat(this.props.char),
+        "data-char": this.props["char"],
+        title: "Shortcut: ".concat(this.props["char"]),
         onClick: this.props.click,
         type: "button"
       }, this.props.text);
@@ -62216,9 +62121,9 @@ function (_React$Component) {
   }]);
 
   return KeywordButton;
-}(_react.default.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-exports.default = KeywordButton;
+
 
 /***/ }),
 
@@ -62226,28 +62131,16 @@ exports.default = KeywordButton;
 /*!************************************************!*\
   !*** ./resources/views/components/Preview.jsx ***!
   \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Preview; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _styledComponents = _interopRequireDefault(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
 
 function _typeof(obj) {
   if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
@@ -62353,8 +62246,17 @@ function _taggedTemplateLiteral(strings, raw) {
     }
   }));
 }
+/**
+ * @Author: Rodrigo Soares <rodrigo>
+ * @Date:   2017-11-17T16:10:11-08:00
+ * @Project: Rename It
+ * @Last modified time: 2017-12-02T18:12:11-08:00
+ */
 
-var StyledPreview = _styledComponents.default.div(_templateObject(), function (props) {
+
+
+
+var StyledPreview = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject(), function (props) {
   return props.theme.previewColor;
 });
 
@@ -62388,24 +62290,24 @@ function (_React$Component) {
     key: "renderPreviewText",
     value: function renderPreviewText() {
       if (this.state.preview === "") {
-        return _react.default.createElement(StyledPreview, null, "\xA0");
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledPreview, null, "\xA0");
       }
 
-      return _react.default.createElement(StyledPreview, null, "Preview: ", this.state.preview);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledPreview, null, "Preview: ", this.state.preview);
     }
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "preview"
       }, this.renderPreviewText());
     }
   }]);
 
   return Preview;
-}(_react.default.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-exports.default = Preview;
+
 
 /***/ }),
 
@@ -62413,44 +62315,26 @@ exports.default = Preview;
 /*!***************************************************************!*\
   !*** ./resources/views/components/findReplaceLayer/index.jsx ***!
   \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js");
+/* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mixpanel_browser__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sketch-module-web-view/client */ "./node_modules/sketch-module-web-view/client.js");
+/* harmony import */ var sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _src_lib_Constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../src/lib/Constants */ "./src/lib/Constants.js");
+/* harmony import */ var _Input__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Input */ "./resources/views/components/Input.jsx");
+/* harmony import */ var renameitlib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! renameitlib */ "./node_modules/renameitlib/lib/index.js");
+/* harmony import */ var renameitlib__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(renameitlib__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _Preview__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../Preview */ "./resources/views/components/Preview.jsx");
+/* harmony import */ var _GlobalStyles__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _mixpanelBrowser = _interopRequireDefault(__webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js"));
-
-var _client = _interopRequireDefault(__webpack_require__(/*! sketch-module-web-view/client */ "./node_modules/sketch-module-web-view/client.js"));
-
-var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
-
-var _styledComponents = _interopRequireDefault(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
-
-var _Constants = __webpack_require__(/*! ../../../../src/lib/Constants */ "./src/lib/Constants.js");
-
-var _Input = _interopRequireDefault(__webpack_require__(/*! ../Input */ "./resources/views/components/Input.jsx"));
-
-var _renameitlib = __webpack_require__(/*! renameitlib */ "../Renameitlib/lib/index.js");
-
-var _Preview = _interopRequireDefault(__webpack_require__(/*! ../Preview */ "./resources/views/components/Preview.jsx"));
-
-var _GlobalStyles = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
 
 function _typeof(obj) {
   if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
@@ -62503,6 +62387,14 @@ function _getPrototypeOf(o) {
   return _getPrototypeOf(o);
 }
 
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
@@ -62525,14 +62417,6 @@ function _setPrototypeOf(o, p) {
   };
 
   return _setPrototypeOf(o, p);
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
 }
 
 function _templateObject3() {
@@ -62576,19 +62460,34 @@ function _taggedTemplateLiteral(strings, raw) {
     }
   }));
 }
+/**
+ * @Author: Rodrigo Soares <rodrigo>
+ * @Date:   2017-11-27T17:02:27-08:00
+ * @Project: Rename It
+ * @Last modified time: 2017-12-02T21:18:07-08:00
+ */
+
+
+
+
+
+
+
+
+
+
+
 
 var labelWidth = "60px";
-var Form = (0, _styledComponents.default)(_reactBootstrap.FormGroup)(_templateObject(), _GlobalStyles.InputMargin, _GlobalStyles.ButtonStyles, function (props) {
+var Form = Object(styled_components__WEBPACK_IMPORTED_MODULE_4__["default"])(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormGroup"])(_templateObject(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_9__["InputMargin"], _GlobalStyles__WEBPACK_IMPORTED_MODULE_9__["ButtonStyles"], function (props) {
   return props.theme.radio.selectedColor;
 }, function (props) {
   return props.theme.CTAButton.textColor;
 }, function (props) {
   return props.theme.radio.border;
 });
-
-var FakeLabel = _styledComponents.default.span(_templateObject2(), _GlobalStyles.LabelStyles, labelWidth);
-
-var CaseSensitive = _styledComponents.default.label(_templateObject3(), _GlobalStyles.LabelStyles);
+var FakeLabel = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].span(_templateObject2(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_9__["LabelStyles"], labelWidth);
+var CaseSensitive = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].label(_templateObject3(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_9__["LabelStyles"]);
 
 var FindReplaceLayer =
 /*#__PURE__*/
@@ -62613,18 +62512,17 @@ function (_React$Component) {
       previewData: [],
       searchScope: _this.hasSelection > 0 ? "layers" : "page"
     };
-    _this.findReplace = new _renameitlib.FindReplace();
-    _this.enterFunction = _this.enterFunction.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onCaseSensitiveChange = _this.onCaseSensitiveChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleFindHistory = _this.handleFindHistory.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleRadioSelection = _this.handleRadioSelection.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleReplaceHistory = _this.handleReplaceHistory.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onChange = _this.onChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.clearInput = _this.clearInput.bind(_assertThisInitialized(_assertThisInitialized(_this))); // Tracking
+    _this.findReplace = new renameitlib__WEBPACK_IMPORTED_MODULE_7__["FindReplace"]();
+    _this.enterFunction = _this.enterFunction.bind(_assertThisInitialized(_this));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.onCaseSensitiveChange = _this.onCaseSensitiveChange.bind(_assertThisInitialized(_this));
+    _this.handleFindHistory = _this.handleFindHistory.bind(_assertThisInitialized(_this));
+    _this.handleRadioSelection = _this.handleRadioSelection.bind(_assertThisInitialized(_this));
+    _this.handleReplaceHistory = _this.handleReplaceHistory.bind(_assertThisInitialized(_this));
+    _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
+    _this.clearInput = _this.clearInput.bind(_assertThisInitialized(_this)); // Tracking
 
-    _mixpanelBrowser.default.init(_Constants.mixpanelId);
-
+    mixpanel_browser__WEBPACK_IMPORTED_MODULE_1___default.a.init(_src_lib_Constants__WEBPACK_IMPORTED_MODULE_5__["mixpanelId"]);
     return _this;
   }
 
@@ -62673,7 +62571,7 @@ function (_React$Component) {
   }, {
     key: "onCancel",
     value: function onCancel() {
-      (0, _client.default)("close");
+      sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_2___default()("close");
     }
   }, {
     key: "onSubmit",
@@ -62685,14 +62583,12 @@ function (_React$Component) {
         searchScope: this.state.searchScope // Track input
 
       };
-
-      _mixpanelBrowser.default.track("input", {
+      mixpanel_browser__WEBPACK_IMPORTED_MODULE_1___default.a.track("input", {
         find: String(d.findText),
         replace: String(d.replaceText),
         searchScope: String(d.searchScope)
       });
-
-      (0, _client.default)("onClickFindReplace", JSON.stringify(d));
+      sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_2___default()("onClickFindReplace", JSON.stringify(d));
     }
   }, {
     key: "enterFunction",
@@ -62730,7 +62626,7 @@ function (_React$Component) {
       } // Track clear event
 
 
-      _mixpanelBrowser.default.track("clear", {
+      mixpanel_browser__WEBPACK_IMPORTED_MODULE_1___default.a.track("clear", {
         input: "".concat(whichInput)
       });
     }
@@ -62828,18 +62724,18 @@ function (_React$Component) {
         dropup: true,
         labelWidth: labelWidth
       };
-      return _react.default.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container findReplace"
-      }, _react.default.createElement(Form, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Form, {
         controlId: "searchScope"
-      }, _react.default.createElement(FakeLabel, null, "Search"), _react.default.createElement(_reactBootstrap.Radio, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FakeLabel, null, "Search"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Radio"], {
         name: "radioGroup",
         value: "page",
         className: this.state.searchScope === "page" ? "isSelected" : "",
         checked: this.state.searchScope === "page",
         onChange: this.handleRadioSelection,
         inline: true
-      }, "Current Page"), _react.default.createElement(_reactBootstrap.Radio, {
+      }, "Current Page"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Radio"], {
         name: "radioGroup",
         value: "layers",
         className: this.state.searchScope === "layers" ? "isSelected" : "",
@@ -62847,26 +62743,25 @@ function (_React$Component) {
         onChange: this.handleRadioSelection,
         disabled: !this.hasSelection,
         inline: true
-      }, "Selected Layers")), _react.default.createElement(_Input.default, findInputAttr), _react.default.createElement(_Input.default, replaceInputAttr), _react.default.createElement(CaseSensitive, null, "Case Sensitive", _react.default.createElement("input", {
+      }, "Selected Layers")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Input__WEBPACK_IMPORTED_MODULE_6__["default"], findInputAttr), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Input__WEBPACK_IMPORTED_MODULE_6__["default"], replaceInputAttr), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CaseSensitive, null, "Case Sensitive", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "checkbox",
         id: "caseSensitive",
         checked: this.state.caseSensitive,
         onChange: this.onCaseSensitiveChange
-      })), _react.default.createElement(_Preview.default, {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Preview__WEBPACK_IMPORTED_MODULE_8__["default"], {
         data: this.state.previewData
-      }), _react.default.createElement(_GlobalStyles.Footer, null, _react.default.createElement(_GlobalStyles.SecondaryButton, {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_9__["Footer"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_9__["SecondaryButton"], {
         onClick: this.onCancel
-      }, "Cancel"), _react.default.createElement(_GlobalStyles.SubmitButton, {
+      }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_9__["SubmitButton"], {
         onClick: this.onSubmit
       }, "Rename")));
     }
   }]);
 
   return FindReplaceLayer;
-}(_react.default.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var _default = FindReplaceLayer;
-exports.default = _default;
+/* harmony default export */ __webpack_exports__["default"] = (FindReplaceLayer);
 
 /***/ }),
 
@@ -62874,21 +62769,13 @@ exports.default = _default;
 /*!*********************************************************************!*\
   !*** ./resources/views/components/historyDropdown/historyStyles.js ***!
   \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-
-var _GlobalStyles = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _GlobalStyles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 function _templateObject() {
   var data = _taggedTemplateLiteral(["\n    .dropdown {\n      position: relative;\n      display: inline-block;\n      align-self: center;\n      font-size: 12px;\n    }\n    \n    .dropdown-menu {\n      position: absolute;\n      top: 100%;\n      left: 0;\n      z-index: 1000;\n      display: none;\n      float: left;\n      min-width: 10rem;\n      padding: 8px 0;\n      margin: 2px 0 0;\n      color: ", ";\n      text-align: left;\n      list-style: none;\n      background-color: ", ";\n      background-clip: padding-box;\n      border: 1px solid rgba(0, 0, 0, 0.15);\n      border-radius: 4px;\n      box-shadow: 0px 3px 15px 0px rgba(0,0,0,0.15);\n    }\n\n    .dropdown-menu a, .dropdown-menu a:link, .dropdown-menu a:visited { \n      display: block;\n      color: ", ";\n      padding: 6px 8px;\n      text-decoration: none;\n      cursor: default;\n\n      &:active, &:focus {\n        outline: 0;\n        background-color: ", ";\n       }\n     }\n\n    .dropdown-toggle {\n      ", "\n      padding: 0;\n      width: 40px;\n      .caret { display: none; }\n      svg { margin-top: 2px; }\n    }\n\n    .dropdown-menu-right {\n      right: 0;\n      left: auto;\n    }\n\n    .dropdown-menu[x-placement^=\"top\"], .dropdown-menu[x-placement^=\"right\"], .dropdown-menu[x-placement^=\"bottom\"], .dropdown-menu[x-placement^=\"left\"] {\n      right: auto;\n      bottom: auto;\n    }\n\n    .dropdown-divider {\n      height: 0;\n      margin: 0.5rem 0;\n      overflow: hidden;\n      border-top: 1px solid #e9ecef;\n    }\n\n    .dropdown-menu.show {\n      display: block;\n    }\n\n    .dropdown-header {\n      display: block;\n      padding: 0 8px 8px;\n      margin-bottom: 0;\n      color: ", ";\n      white-space: nowrap;\n      opacity: 0.8;\n    }\n\n    .dropdown.open .dropdown-menu { display: block; }\n\n"]);
 
@@ -62911,7 +62798,9 @@ function _taggedTemplateLiteral(strings, raw) {
   }));
 }
 
-var _default = (0, _styledComponents.createGlobalStyle)(_templateObject(), function (props) {
+
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(styled_components__WEBPACK_IMPORTED_MODULE_0__["createGlobalStyle"])(_templateObject(), function (props) {
   return props.theme.input.color;
 }, function (props) {
   return props.theme.input.background;
@@ -62919,11 +62808,9 @@ var _default = (0, _styledComponents.createGlobalStyle)(_templateObject(), funct
   return props.theme.previewColor;
 }, function (props) {
   return props.theme.button.bgActive;
-}, _GlobalStyles.ButtonStyles, function (props) {
+}, _GlobalStyles__WEBPACK_IMPORTED_MODULE_1__["ButtonStyles"], function (props) {
   return props.theme.textColor;
-});
-
-exports.default = _default;
+}));
 
 /***/ }),
 
@@ -62975,40 +62862,24 @@ HistoryIcLight.default = HistoryIcLight;
 /*!**************************************************************!*\
   !*** ./resources/views/components/historyDropdown/index.jsx ***!
   \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js");
+/* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mixpanel_browser__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _src_lib_Constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../src/lib/Constants */ "./src/lib/Constants.js");
+/* harmony import */ var _historyStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./historyStyles */ "./resources/views/components/historyDropdown/historyStyles.js");
+/* harmony import */ var _history_ic_light_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./history_ic_light.svg */ "./resources/views/components/historyDropdown/history_ic_light.svg");
+/* harmony import */ var _history_ic_light_svg__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_history_ic_light_svg__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _history_ic_dark_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./history_ic_dark.svg */ "./resources/views/components/historyDropdown/history_ic_dark.svg");
+/* harmony import */ var _history_ic_dark_svg__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_history_ic_dark_svg__WEBPACK_IMPORTED_MODULE_7__);
 function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _mixpanelBrowser = _interopRequireDefault(__webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js"));
-
-var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
-
-var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-
-var _Constants = __webpack_require__(/*! ../../../../src/lib/Constants */ "./src/lib/Constants.js");
-
-var _historyStyles = _interopRequireDefault(__webpack_require__(/*! ./historyStyles */ "./resources/views/components/historyDropdown/historyStyles.js"));
-
-var _history_ic_light = _interopRequireDefault(__webpack_require__(/*! ./history_ic_light.svg */ "./resources/views/components/historyDropdown/history_ic_light.svg"));
-
-var _history_ic_dark = _interopRequireDefault(__webpack_require__(/*! ./history_ic_dark.svg */ "./resources/views/components/historyDropdown/history_ic_dark.svg"));
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
 
 function _typeof(obj) {
   if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
@@ -63061,6 +62932,14 @@ function _getPrototypeOf(o) {
   return _getPrototypeOf(o);
 }
 
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
@@ -63084,14 +62963,22 @@ function _setPrototypeOf(o, p) {
 
   return _setPrototypeOf(o, p);
 }
+/*
+ * @Author: Rodrigo Soares
+ * @Date: 2017-12-25 19:52:04
+ * @Last Modified by: Rodrigo Soares
+ * @Last Modified time: 2018-11-18 12:05:46
+ */
 
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
 
-  return self;
-}
+
+
+
+
+
+
+
+
 
 var HistoryDropdown =
 /*#__PURE__*/
@@ -63104,10 +62991,9 @@ function (_React$Component) {
     _classCallCheck(this, HistoryDropdown);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(HistoryDropdown).call(this, props));
-    _this.onTargetSelect = _this.onTargetSelect.bind(_assertThisInitialized(_assertThisInitialized(_this))); // Tracking
+    _this.onTargetSelect = _this.onTargetSelect.bind(_assertThisInitialized(_this)); // Tracking
 
-    _mixpanelBrowser.default.init(_Constants.mixpanelId);
-
+    mixpanel_browser__WEBPACK_IMPORTED_MODULE_1___default.a.init(_src_lib_Constants__WEBPACK_IMPORTED_MODULE_4__["mixpanelId"]);
     return _this;
   }
 
@@ -63119,7 +63005,7 @@ function (_React$Component) {
   }, {
     key: "onToggle",
     value: function onToggle() {
-      _mixpanelBrowser.default.track("history", {
+      mixpanel_browser__WEBPACK_IMPORTED_MODULE_1___default.a.track("history", {
         dropdown: "".concat(this.props.dropdownId)
       });
     }
@@ -63128,12 +63014,12 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var Icon = this.props.theme.name === "dark" ? _history_ic_dark.default : _history_ic_light.default;
+      var Icon = this.props.theme.name === "dark" ? _history_ic_dark_svg__WEBPACK_IMPORTED_MODULE_7___default.a : _history_ic_light_svg__WEBPACK_IMPORTED_MODULE_6___default.a;
       var menuItems;
 
       if (this.props.menuData.length > 0) {
         menuItems = this.props.menuData.map(function (d, idx) {
-          return _react.default.createElement(_reactBootstrap.MenuItem, {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], {
             key: "menu-".concat(idx),
             eventKey: "".concat(d),
             onSelect: function onSelect() {
@@ -63142,35 +63028,33 @@ function (_React$Component) {
           }, d);
         });
       } else {
-        menuItems = _react.default.createElement(_reactBootstrap.MenuItem, {
+        menuItems = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], {
           key: "disabled-menu",
           disabled: true
         }, "Empty History");
       }
 
-      return _react.default.createElement(_reactBootstrap.Dropdown, {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Dropdown"], {
         id: this.props.dropdownId,
         pullRight: true,
         onToggle: function onToggle() {
           return _this2.onToggle(_this2);
         }
-      }, _react.default.createElement(_historyStyles.default, null), _react.default.createElement(_reactBootstrap.Dropdown.Toggle, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_historyStyles__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Dropdown"].Toggle, {
         bsStyle: "primary",
         bsSize: "xsmall"
-      }, _react.default.createElement(Icon, null)), _react.default.createElement(_reactBootstrap.Dropdown.Menu, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Icon, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Dropdown"].Menu, {
         className: "dropMenu"
-      }, _react.default.createElement(_reactBootstrap.MenuItem, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], {
         header: true
       }, "Recently used"), menuItems));
     }
   }]);
 
   return HistoryDropdown;
-}(_react.default.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var _default = (0, _styledComponents.withTheme)(HistoryDropdown);
-
-exports.default = _default;
+/* harmony default export */ __webpack_exports__["default"] = (Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["withTheme"])(HistoryDropdown));
 
 /***/ }),
 
@@ -63178,44 +63062,26 @@ exports.default = _default;
 /*!**********************************************************!*\
   !*** ./resources/views/components/renameLayer/index.jsx ***!
   \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sketch-module-web-view/client */ "./node_modules/sketch-module-web-view/client.js");
+/* harmony import */ var sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js");
+/* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(mixpanel_browser__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _src_lib_Constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../src/lib/Constants */ "./src/lib/Constants.js");
+/* harmony import */ var renameitlib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! renameitlib */ "./node_modules/renameitlib/lib/index.js");
+/* harmony import */ var renameitlib__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(renameitlib__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _Input__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Input */ "./resources/views/components/Input.jsx");
+/* harmony import */ var _KeywordButton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../KeywordButton */ "./resources/views/components/KeywordButton.jsx");
+/* harmony import */ var _Preview__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../Preview */ "./resources/views/components/Preview.jsx");
+/* harmony import */ var _GlobalStyles__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _client = _interopRequireDefault(__webpack_require__(/*! sketch-module-web-view/client */ "./node_modules/sketch-module-web-view/client.js"));
-
-var _mixpanelBrowser = _interopRequireDefault(__webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js"));
-
-var _styledComponents = _interopRequireDefault(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
-
-var _Constants = __webpack_require__(/*! ../../../../src/lib/Constants */ "./src/lib/Constants.js");
-
-var _renameitlib = __webpack_require__(/*! renameitlib */ "../Renameitlib/lib/index.js");
-
-var _Input = _interopRequireDefault(__webpack_require__(/*! ../Input */ "./resources/views/components/Input.jsx"));
-
-var _KeywordButton = _interopRequireDefault(__webpack_require__(/*! ../KeywordButton */ "./resources/views/components/KeywordButton.jsx"));
-
-var _Preview = _interopRequireDefault(__webpack_require__(/*! ../Preview */ "./resources/views/components/Preview.jsx"));
-
-var _GlobalStyles = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
 
 function _typeof(obj) {
   if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
@@ -63286,6 +63152,14 @@ function _getPrototypeOf(o) {
   return _getPrototypeOf(o);
 }
 
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
@@ -63310,14 +63184,6 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
 function _templateObject() {
   var data = _taggedTemplateLiteral(["\n  margin-top: 16px;\n\n  ul {\n    margin-top: 10px;\n    display: flex;\n    flex-flow: wrap;\n    margin-left: -6px;\n    list-style: inside;\n  }\n\n  li {\n    margin: 6px;\n    list-style: none;\n  }\n"]);
 
@@ -63339,8 +63205,25 @@ function _taggedTemplateLiteral(strings, raw) {
     }
   }));
 }
+/**
+ * @Author: Rodrigo Soares <rodrigo>
+ * @Date:   2017-11-27T17:02:27-08:00
+ * @Project: Rename It
+ * @Last modified time: 2017-12-02T19:17:06-08:00
+ */
 
-var KeywordsWrapper = _styledComponents.default.div(_templateObject());
+
+
+
+
+
+
+
+
+
+
+
+var KeywordsWrapper = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject());
 
 var RenameLayer =
 /*#__PURE__*/
@@ -63360,11 +63243,10 @@ function (_React$Component) {
       inputFocus: false,
       previewData: []
     };
-    _this.enterFunction = _this.enterFunction.bind(_assertThisInitialized(_assertThisInitialized(_this))); // Tracking
+    _this.enterFunction = _this.enterFunction.bind(_assertThisInitialized(_this)); // Tracking
 
-    _mixpanelBrowser.default.init(_Constants.mixpanelId);
-
-    _this.rename = new _renameitlib.Rename();
+    mixpanel_browser__WEBPACK_IMPORTED_MODULE_2___default.a.init(_src_lib_Constants__WEBPACK_IMPORTED_MODULE_4__["mixpanelId"]);
+    _this.rename = new renameitlib__WEBPACK_IMPORTED_MODULE_5__["Rename"]();
     return _this;
   }
 
@@ -63413,7 +63295,7 @@ function (_React$Component) {
       var _this4 = this;
 
       event.preventDefault();
-      var val = "".concat(this.state.valueAttr).concat(event.target.dataset.char);
+      var val = "".concat(this.state.valueAttr).concat(event.target.dataset["char"]);
       this.setState({
         valueAttr: val,
         inputFocus: true,
@@ -63422,15 +63304,15 @@ function (_React$Component) {
         return _this4.previewUpdate();
       }); // Track button event
 
-      _mixpanelBrowser.default.track("keywordButton", {
+      mixpanel_browser__WEBPACK_IMPORTED_MODULE_2___default.a.track("keywordButton", {
         name: "".concat(event.target.id),
-        value: "".concat(event.target.dataset.char)
+        value: "".concat(event.target.dataset["char"])
       });
     }
   }, {
     key: "onCancel",
     value: function onCancel() {
-      (0, _client.default)("close");
+      sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_1___default()("close");
     }
   }, {
     key: "onSubmit",
@@ -63440,12 +63322,10 @@ function (_React$Component) {
         startsFrom: this.state.sequence // Track input event
 
       };
-
-      _mixpanelBrowser.default.track("input", {
+      mixpanel_browser__WEBPACK_IMPORTED_MODULE_2___default.a.track("input", {
         rename: String(d.str)
       });
-
-      (0, _client.default)("onClickRename", JSON.stringify(d));
+      sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_1___default()("onClickRename", JSON.stringify(d));
     }
   }, {
     key: "clearInput",
@@ -63460,7 +63340,7 @@ function (_React$Component) {
         return _this5.previewUpdate();
       }); // Track clear event
 
-      _mixpanelBrowser.default.track("clear", {
+      mixpanel_browser__WEBPACK_IMPORTED_MODULE_2___default.a.track("clear", {
         input: "rename"
       });
     }
@@ -63542,62 +63422,61 @@ function (_React$Component) {
       };
       var buttons = [{
         id: "currentLayer",
-        char: "%*",
+        "char": "%*",
         text: "Layer Name"
       }, {
         id: "layerWidth",
-        char: "%w",
+        "char": "%w",
         text: "Layer Width"
       }, {
         id: "layerHeight",
-        char: "%h",
+        "char": "%h",
         text: "Layer Height"
       }, {
         id: "sequenceAsc",
-        char: "%n",
+        "char": "%n",
         text: "Num. Sequence ASC"
       }, {
         id: "sequenceDesc",
-        char: "%N",
+        "char": "%N",
         text: "Num. Sequence DESC"
       }, {
         id: "sequenceAlpha",
-        char: "%A",
+        "char": "%A",
         text: "Alphabet Sequence"
       }, {
         id: "pageName",
-        char: "%p",
+        "char": "%p",
         text: "Page Name"
       }, {
         id: "parentName",
-        char: "%o",
+        "char": "%o",
         text: "Parent Name"
       }];
       var listItems = buttons.map(function (d) {
-        return _react.default.createElement("li", {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: d.id,
           className: "keywordBtn"
-        }, _react.default.createElement(_KeywordButton.default, _extends({}, d, {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_KeywordButton__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({}, d, {
           click: _this8.onButtonClicked.bind(_this8)
         })));
       });
-      return _react.default.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container rename"
-      }, _react.default.createElement(_Input.default, nameInputAttr), _react.default.createElement(_Input.default, sequenceInputAttr), _react.default.createElement(KeywordsWrapper, null, _react.default.createElement(_GlobalStyles.StyledH3, null, "Keywords"), _react.default.createElement("ul", null, listItems)), _react.default.createElement(_Preview.default, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Input__WEBPACK_IMPORTED_MODULE_6__["default"], nameInputAttr), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Input__WEBPACK_IMPORTED_MODULE_6__["default"], sequenceInputAttr), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(KeywordsWrapper, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_9__["StyledH3"], null, "Keywords"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, listItems)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Preview__WEBPACK_IMPORTED_MODULE_8__["default"], {
         data: this.state.previewData
-      }), _react.default.createElement(_GlobalStyles.Footer, null, _react.default.createElement(_GlobalStyles.SecondaryButton, {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_9__["Footer"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_9__["SecondaryButton"], {
         onClick: this.onCancel
-      }, "Cancel"), _react.default.createElement(_GlobalStyles.SubmitButton, {
+      }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_9__["SubmitButton"], {
         onClick: this.onSubmit.bind(this)
       }, "Rename")));
     }
   }]);
 
   return RenameLayer;
-}(_react.default.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var _default = RenameLayer;
-exports.default = _default;
+/* harmony default export */ __webpack_exports__["default"] = (RenameLayer);
 
 /***/ }),
 
@@ -63605,36 +63484,21 @@ exports.default = _default;
 /*!*******************************************************!*\
   !*** ./resources/views/components/settings/index.jsx ***!
   \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sketch-module-web-view/client */ "./node_modules/sketch-module-web-view/client.js");
+/* harmony import */ var sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js");
+/* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(mixpanel_browser__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _src_lib_Constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../src/lib/Constants */ "./src/lib/Constants.js");
+/* harmony import */ var _GlobalStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _client = _interopRequireDefault(__webpack_require__(/*! sketch-module-web-view/client */ "./node_modules/sketch-module-web-view/client.js"));
-
-var _mixpanelBrowser = _interopRequireDefault(__webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js"));
-
-var _styledComponents = _interopRequireDefault(__webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js"));
-
-var _Constants = __webpack_require__(/*! ../../../../src/lib/Constants */ "./src/lib/Constants.js");
-
-var _GlobalStyles = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
 
 function _typeof(obj) {
   if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
@@ -63760,12 +63624,23 @@ function _taggedTemplateLiteral(strings, raw) {
     }
   }));
 }
+/*
+ * @Author: Rodrigo Soares 
+ * @Date: 2017-12-25 21:54:20 
+ * @Last Modified by: Rodrigo Soares
+ * @Last Modified time: 2018-11-21 09:45:20
+ */
 
-var H3 = (0, _styledComponents.default)(_GlobalStyles.StyledH3)(_templateObject());
 
-var About = _styledComponents.default.div(_templateObject2(), _GlobalStyles.InputMargin);
 
-var Credits = _styledComponents.default.p(_templateObject3());
+
+
+
+
+
+var H3 = Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["default"])(_GlobalStyles__WEBPACK_IMPORTED_MODULE_5__["StyledH3"])(_templateObject());
+var About = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject2(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_5__["InputMargin"]);
+var Credits = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].p(_templateObject3());
 
 var Settings =
 /*#__PURE__*/
@@ -63779,42 +63654,41 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Settings).call(this, props)); // Tracking
 
-    _mixpanelBrowser.default.init(_Constants.mixpanelId);
-
+    mixpanel_browser__WEBPACK_IMPORTED_MODULE_2___default.a.init(_src_lib_Constants__WEBPACK_IMPORTED_MODULE_4__["mixpanelId"]);
     return _this;
   }
 
   _createClass(Settings, [{
     key: "onClearHistory",
     value: function onClearHistory() {
-      (0, _client.default)("onClearHistory");
+      sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_1___default()("onClearHistory");
     }
   }, {
     key: "moreInfo",
     value: function moreInfo() {
-      (0, _client.default)("externalLinkClicked", "http://rodi01.github.io/RenameIt/");
+      sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_1___default()("externalLinkClicked", "http://rodi01.github.io/RenameIt/");
     }
   }, {
     key: "twitter",
     value: function twitter() {
-      (0, _client.default)("externalLinkClicked", "https://twitter.com/rodi01");
+      sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_1___default()("externalLinkClicked", "https://twitter.com/rodi01");
     }
   }, {
     key: "render",
     value: function render() {
       var _this2 = this;
 
-      return _react.default.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container settings"
-      }, _react.default.createElement(H3, null, "History"), _react.default.createElement(_GlobalStyles.SecondaryButton, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(H3, null, "History"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_5__["SecondaryButton"], {
         onClick: function onClick() {
           return _this2.onClearHistory();
         }
-      }, "Clear History"), _react.default.createElement(About, null, _react.default.createElement(H3, null, "About"), _react.default.createElement(_GlobalStyles.SecondaryButton, {
+      }, "Clear History"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(H3, null, "About"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_5__["SecondaryButton"], {
         onClick: function onClick() {
           return _this2.moreInfo();
         }
-      }, "Plugin Website")), _react.default.createElement(Credits, null, "Rename It is maintained by Rodrigo Soares.", " ", _react.default.createElement("span", {
+      }, "Plugin Website")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Credits, null, "Rename It is maintained by Rodrigo Soares.", " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         onClick: function onClick() {
           return _this2.twitter();
         }
@@ -63823,10 +63697,9 @@ function (_React$Component) {
   }]);
 
   return Settings;
-}(_react.default.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var _default = Settings;
-exports.default = _default;
+/* harmony default export */ __webpack_exports__["default"] = (Settings);
 
 /***/ }),
 
@@ -63834,48 +63707,43 @@ exports.default = _default;
 /*!***********************************!*\
   !*** ./resources/views/index.jsx ***!
   \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _reactDom = _interopRequireDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
-
-var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-
-var _client = _interopRequireDefault(__webpack_require__(/*! sketch-module-web-view/client */ "./node_modules/sketch-module-web-view/client.js"));
-
-var _mixpanelBrowser = _interopRequireDefault(__webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js"));
-
-var _routes = _interopRequireDefault(__webpack_require__(/*! ./routes */ "./resources/views/routes.jsx"));
-
-var _Constants = __webpack_require__(/*! ../../src/lib/Constants */ "./src/lib/Constants.js");
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sketch-module-web-view/client */ "./node_modules/sketch-module-web-view/client.js");
+/* harmony import */ var sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! mixpanel-browser */ "./node_modules/mixpanel-browser/build/mixpanel.cjs.js");
+/* harmony import */ var mixpanel_browser__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(mixpanel_browser__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./routes */ "./resources/views/routes.jsx");
+/* harmony import */ var _src_lib_Constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../src/lib/Constants */ "./src/lib/Constants.js");
 /**
  * @Author: Rodrigo Soares <rodrigo>
  * @Date:   2017-11-27T16:54:48-08:00
  * @Project: Rename It
  * @Last modified time: 2017-12-02T15:29:02-08:00
  */
-// Init Mixpanel
 
 
-_mixpanelBrowser.default.init(_Constants.mixpanelId); // Get data
 
 
-if (_Constants.testData && window.data === undefined) {
-  window.data = _Constants.mockData;
-  window.dataHistory = _Constants.mockHistory;
+
+
+ // Init Mixpanel
+
+mixpanel_browser__WEBPACK_IMPORTED_MODULE_4___default.a.init(_src_lib_Constants__WEBPACK_IMPORTED_MODULE_6__["mixpanelId"]); // Get data
+
+if (_src_lib_Constants__WEBPACK_IMPORTED_MODULE_6__["testData"] && window.data === undefined) {
+  window.data = _src_lib_Constants__WEBPACK_IMPORTED_MODULE_6__["mockData"];
+  window.dataHistory = _src_lib_Constants__WEBPACK_IMPORTED_MODULE_6__["mockHistory"];
 } else if (window.data === undefined) {
-  (0, _client.default)("getData");
+  sketch_module_web_view_client__WEBPACK_IMPORTED_MODULE_3___default()("getData");
 }
 
 if (false) {}
@@ -63886,25 +63754,24 @@ if (window.redirectTo !== undefined) {
   window.location.hash = window.redirectTo;
 
   App = function App() {
-    return _react.default.createElement(_routes.default, null);
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes__WEBPACK_IMPORTED_MODULE_5__["default"], null);
   };
 } else {
   App = function App() {
-    return _react.default.createElement(_routes.default, null);
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes__WEBPACK_IMPORTED_MODULE_5__["default"], null);
   };
 } // Mixpanel super properties
 
 
 if (window.superProps !== undefined) {
-  _mixpanelBrowser.default.register(window.superProps);
+  mixpanel_browser__WEBPACK_IMPORTED_MODULE_4___default.a.register(window.superProps);
 } // Track Page
 
 
-_mixpanelBrowser.default.track("page viewed", {
+mixpanel_browser__WEBPACK_IMPORTED_MODULE_4___default.a.track("page viewed", {
   url: window.redirectTo
 });
-
-_reactDom.default.render(_react.default.createElement(_reactRouterDom.HashRouter, null, _react.default.createElement(App, null)), document.getElementById("root"));
+react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, null)), document.getElementById("root"));
 
 /***/ }),
 
@@ -63912,35 +63779,18 @@ _reactDom.default.render(_react.default.createElement(_reactRouterDom.HashRouter
 /*!************************************!*\
   !*** ./resources/views/routes.jsx ***!
   \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-
-var _styledComponents = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-
-var _renameLayer = _interopRequireDefault(__webpack_require__(/*! ./components/renameLayer */ "./resources/views/components/renameLayer/index.jsx"));
-
-var _findReplaceLayer = _interopRequireDefault(__webpack_require__(/*! ./components/findReplaceLayer */ "./resources/views/components/findReplaceLayer/index.jsx"));
-
-var _settings = _interopRequireDefault(__webpack_require__(/*! ./components/settings */ "./resources/views/components/settings/index.jsx"));
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _components_renameLayer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/renameLayer */ "./resources/views/components/renameLayer/index.jsx");
+/* harmony import */ var _components_findReplaceLayer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/findReplaceLayer */ "./resources/views/components/findReplaceLayer/index.jsx");
+/* harmony import */ var _components_settings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/settings */ "./resources/views/components/settings/index.jsx");
 function _templateObject() {
   var data = _taggedTemplateLiteral(["\n  html {\n    color: ", ";\n    background-color: ", ";\n  }\n"]);
 
@@ -63962,34 +63812,44 @@ function _taggedTemplateLiteral(strings, raw) {
     }
   }));
 }
+/**
+ * @Author: Rodrigo Soares <rodrigo>
+ * @Date:   2017-11-27T16:56:23-08:00
+ * @Project: Rename It
+ * @Last modified time: 2017-12-02T15:28:23-08:00
+ */
 
-var GlobalStyle = (0, _styledComponents.createGlobalStyle)(_templateObject(), function (props) {
+
+
+
+
+
+
+
+var GlobalStyle = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["createGlobalStyle"])(_templateObject(), function (props) {
   return props.theme.text;
 }, function (props) {
   return props.theme.bg;
 });
-
-var _default = function _default() {
-  return _react.default.createElement(_styledComponents.ThemeProvider, {
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(styled_components__WEBPACK_IMPORTED_MODULE_2__["ThemeProvider"], {
     theme: window.theme
-  }, _react.default.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "mainContent"
-  }, _react.default.createElement(GlobalStyle, null), _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(GlobalStyle, null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/find_replace",
-    component: _findReplaceLayer.default
-  }), _react.default.createElement(_reactRouterDom.Route, {
+    component: _components_findReplaceLayer__WEBPACK_IMPORTED_MODULE_4__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/rename",
-    component: _renameLayer.default
-  }), _react.default.createElement(_reactRouterDom.Route, {
+    component: _components_renameLayer__WEBPACK_IMPORTED_MODULE_3__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/settings",
-    component: _settings.default
+    component: _components_settings__WEBPACK_IMPORTED_MODULE_5__["default"]
   }))));
-};
-
-exports.default = _default;
+});
 
 /***/ }),
 
@@ -63997,13 +63857,19 @@ exports.default = _default;
 /*!******************************!*\
   !*** ./resources/webview.js ***!
   \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _views__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./views */ "./resources/views/index.jsx");
+/**
+ * @Author: Rodrigo Soares <rodrigo>
+ * @Date:   2017-10-28T08:09:29-07:00
+ * @Project: Rename It
+ * @Last modified time: 2017-11-28T21:04:14-08:00
+ */
 
-
-__webpack_require__(/*! ./views */ "./resources/views/index.jsx");
 
 /***/ }),
 
@@ -64011,26 +63877,23 @@ __webpack_require__(/*! ./views */ "./resources/views/index.jsx");
 /*!******************************!*\
   !*** ./src/lib/Constants.js ***!
   \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: testData, mixpanelId, mockData, mockHistory, exclamations */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.exclamations = exports.mockHistory = exports.mockData = exports.mixpanelId = exports.testData = void 0;
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "testData", function() { return testData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mixpanelId", function() { return mixpanelId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mockData", function() { return mockData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mockHistory", function() { return mockHistory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exclamations", function() { return exclamations; });
 /**
  * @Author: rodrigo
  * @Date:   2017-11-11T16:21:35-08:00
  * @Last modified time: 2017-12-02T19:14:51-08:00
  */
-
 var testData = false;
-exports.testData = testData;
 var mixpanelId = "d7b7059c7b41c6faf64cb0c694b8f6a3";
-exports.mixpanelId = mixpanelId;
 var mockData = {
   doc: {},
   pageName: "Page Name",
@@ -64050,15 +63913,12 @@ var mockData = {
   }],
   windowTitle: "Rename Selected Layers"
 };
-exports.mockData = mockData;
 var mockHistory = {
   renameHistory: ["Hello", "World", "Item %N", "icon %wX%h", "Boo Hoo"],
   findHistory: [],
   replaceHistory: []
 };
-exports.mockHistory = mockHistory;
 var exclamations = ["Boo-yah!", "Olé!", "Hooray!", "Great Success!", "Abracadabra!", "Geronimo!"];
-exports.exclamations = exclamations;
 
 /***/ })
 

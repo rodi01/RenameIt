@@ -90,17 +90,12 @@
 /*!***************************************!*\
   !*** ./resources/views/theme/dark.js ***!
   \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
   name: "dark",
   text: "#E6E4EB",
   bg: "#2D2D2D",
@@ -130,8 +125,7 @@ var _default = {
     selectedColor: "#1384FF",
     border: "#1384FF"
   }
-};
-exports.default = _default;
+});
 
 /***/ })
 

@@ -90,17 +90,12 @@
 /*!****************************************!*\
   !*** ./resources/views/theme/light.js ***!
   \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
   name: "light",
   text: "#747474",
   bg: "#F7F7F7",
@@ -130,8 +125,7 @@ var _default = {
     selectedColor: "#969696",
     border: "#969696"
   }
-};
-exports.default = _default;
+});
 
 /***/ })
 

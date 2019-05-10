@@ -90,17 +90,12 @@
 /*!***************************************!*\
   !*** ./resources/views/theme/dark.js ***!
   \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
   name: "dark",
   text: "#E6E4EB",
   bg: "#2D2D2D",
@@ -130,8 +125,7 @@ var _default = {
     selectedColor: "#1384FF",
     border: "#1384FF"
   }
-};
-exports.default = _default;
+});
 
 /***/ }),
 
@@ -139,36 +133,22 @@ exports.default = _default;
 /*!****************************************!*\
   !*** ./resources/views/theme/index.js ***!
   \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dark__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dark */ "./resources/views/theme/dark.js");
+/* harmony import */ var _light__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./light */ "./resources/views/theme/light.js");
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _dark = _interopRequireDefault(__webpack_require__(/*! ./dark */ "./resources/views/theme/dark.js"));
-
-var _light = _interopRequireDefault(__webpack_require__(/*! ./light */ "./resources/views/theme/light.js"));
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
-
-var _default = function _default(theme) {
+/* harmony default export */ __webpack_exports__["default"] = (function (theme) {
   if (theme === "dark") {
-    return _dark.default;
+    return _dark__WEBPACK_IMPORTED_MODULE_0__["default"];
   }
 
-  return _light.default;
-};
-
-exports.default = _default;
+  return _light__WEBPACK_IMPORTED_MODULE_1__["default"];
+});
 
 /***/ }),
 
@@ -176,17 +156,12 @@ exports.default = _default;
 /*!****************************************!*\
   !*** ./resources/views/theme/light.js ***!
   \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
   name: "light",
   text: "#747474",
   bg: "#F7F7F7",
@@ -216,8 +191,7 @@ var _default = {
     selectedColor: "#969696",
     border: "#969696"
   }
-};
-exports.default = _default;
+});
 
 /***/ })
 
