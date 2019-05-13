@@ -14,6 +14,7 @@ import Input from "../Input"
 import KeywordButton from "../KeywordButton"
 import Preview from "../Preview"
 import { SubmitButton, SecondaryButton, Footer, StyledH3 } from "../GlobalStyles"
+import { renameData } from "../../../../src/lib/utils"
 
 const KeywordsWrapper = styled.div`
   margin-top: 16px;
@@ -47,7 +48,7 @@ class RenameLayer extends React.Component {
     // Tracking
     mixpanel.init(mixpanelId)
 
-    this.rename = new Rename()
+    this.rename = new Rename({ allowLayerStyle: false, allowTextStyle: false })
   }
 
   componentDidMount() {
@@ -138,17 +139,14 @@ class RenameLayer extends React.Component {
   previewUpdate() {
     const renamed = []
     window.data.selection.forEach((item) => {
-      const options = {
-        layerName: item.name,
-        currIdx: item.idx,
-        width: item.width,
-        height: item.height,
-        selectionCount: window.data.selectionCount,
-        inputName: this.state.valueAttr,
-        startsFrom: Number(this.state.sequence),
-        pageName: window.data.pageName,
-        parentName: item.parentName
-      }
+      const options = renameData(
+        item,
+        window.data.selectionCount,
+        this.state.valueAttr,
+        this.state.sequence,
+        window.data.pageName
+      )
+
       renamed.push(this.rename.layer(options))
     })
     this.setState({ previewData: renamed })
@@ -236,6 +234,14 @@ class RenameLayer extends React.Component {
         text: "Parent Name"
       }
     ]
+
+    if (window.data.hasSymbol) {
+      buttons.push({
+        id: "symbolName",
+        char: "%s",
+        text: "Symbol Name"
+      })
+    }
 
     const listItems = buttons.map((d) => (
       <li key={d.id} className="keywordBtn">
