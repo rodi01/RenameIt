@@ -193,12 +193,13 @@ class FindReplaceLayer extends React.Component {
     const renamed = []
     const sel = this.state.searchScope === "page" ? window.data.allLayers : window.data.selection
     sel.forEach((item) => {
-      const options = {
-        layerName: item.name,
-        caseSensitive: this.state.caseSensitive,
-        findText: this.state.findValue,
-        replaceWith: this.state.replaceValue
-      }
+      const options = findReplaceData(
+        item,
+        this.state.findValue,
+        this.state.replaceValue,
+        Boolean(this.state.caseSensitive)
+      )
+
       if (this.findReplace.match(options)) {
         renamed.push(this.findReplace.layer(options))
       }
