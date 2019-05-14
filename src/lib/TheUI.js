@@ -15,6 +15,7 @@ import {
   clearHistory
 } from "./History"
 import getTheme from "../../resources/views/theme/index"
+import { renameData, findReplaceData } from "./utils"
 
 function showUpdatedMessage(count, data) {
   const layerStr = count === 1 ? "Layer" : "Layers"
@@ -96,20 +97,16 @@ const theUI = (context, data, options) => {
   })
 
   contents.on("onClickRename", o => {
-    const rename = new Rename()
+    const rename = new Rename({ allowLayerStyle: false, allowTextStyle: false })
     const inputData = JSON.parse(o)
     data.selection.forEach(item => {
-      const opts = {
-        layerName: item.name,
-        currIdx: item.idx,
-        width: item.width,
-        height: item.height,
-        selectionCount: data.selectionCount,
-        inputName: inputData.str,
-        startsFrom: Number(inputData.startsFrom),
-        pageName: data.pageName,
-        parentName: item.parentName
-      }
+      const opts = renameData(
+        item,
+        data.selectionCount,
+        inputData.str,
+        Number(inputData.startsFrom),
+        data.pageName
+      )
       const layer = data.selection[opts.currIdx].layer
       layer.name = rename.layer(opts)
     })
@@ -125,13 +122,13 @@ const theUI = (context, data, options) => {
       inputData.searchScope === "page" ? data.allLayers : data.selection
     let totalRenamed = 0
     selData.forEach(item => {
-      const opts = {
-        layerName: item.name,
-        currIdx: item.idx,
-        findText: inputData.findText,
-        replaceWith: inputData.replaceText,
-        caseSensitive: Boolean(inputData.caseSensitive)
-      }
+      const opts = findReplaceData(
+        item,
+        inputData.findText,
+        inputData.replaceText,
+        Boolean(inputData.caseSensitive)
+      )
+
       if (findReplace.match(opts)) {
         const layer = selData[opts.currIdx].layer
         layer.name = findReplace.layer(opts)

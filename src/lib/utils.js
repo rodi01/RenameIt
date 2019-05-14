@@ -2,8 +2,10 @@
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-11-18 12:14:08
+ * @Last Modified time: 2019-05-12 17:25:02
  */
+// import sketch from "sketch"
+// import Settings from "sketch/settings" // eslint-disable-line
 
 /**
  * Check if is artboard
@@ -12,6 +14,30 @@
  */
 function isArtboard(layer) {
   return layer instanceof MSArtboardGroup || layer instanceof MSSymbolMaster
+}
+
+/**
+ * Check if has symbol instance
+ *
+ * @param {Object} layer
+ * @returns {Boolean}
+ */
+function hasSymbolInstance(layer) {
+  return layer instanceof MSSymbolInstance
+}
+
+/**
+ * Get the name of the symbol instance
+ *
+ * @param {Object} layer
+ * @returns {String} Name of the symbol
+ */
+function getSymbolName(layer) {
+  let name = ""
+  if (hasSymbolInstance(layer)) {
+    name = String(layer.symbolMaster().name())
+  }
+  return name
 }
 
 function layerObject(layer, idx) {
@@ -24,7 +50,8 @@ function layerObject(layer, idx) {
     idx,
     width: Math.floor(layer.frame().width()),
     height: Math.floor(layer.frame().height()),
-    parentName: String(parentName)
+    parentName: String(parentName),
+    symbolName: getSymbolName(layer)
   }
 }
 
@@ -35,7 +62,6 @@ function layerObject(layer, idx) {
  */
 export function parseData(context, onlyArtboards = false) {
   let contextData = context.selection
-
   if (onlyArtboards) {
     const aBoards = []
     contextData.forEach(el => {
@@ -55,14 +81,20 @@ export function parseData(context, onlyArtboards = false) {
       : contextData.count(),
     selection: []
   }
+
+  let hasSymbol = false
   contextData.forEach((layer, i) => {
     data.selection[i] = layerObject(layer, i)
+
+    if (!hasSymbol) hasSymbol = hasSymbolInstance(layer)
   })
+
+  data.hasSymbol = hasSymbol
 
   return data
 }
 
-export function findReplaceData(context) {
+export function findReplaceDataParser(context) {
   const data = parseData(context)
   const layers = data.doc.currentPage().children()
   data.allLayers = []
@@ -72,4 +104,56 @@ export function findReplaceData(context) {
   })
 
   return data
+}
+
+/**
+ * Rename data
+ *
+ * @export
+ * @param {Object} item
+ * @param {Number} selectionCount
+ * @param {String} inputName
+ * @param {Number} startFrom
+ * @param {String} pageName
+ * @returns Structured object data
+ */
+export function renameData(
+  item,
+  selectionCount,
+  inputName,
+  startsFrom,
+  pageName
+) {
+  return {
+    layerName: item.name,
+    currIdx: item.idx,
+    width: item.width,
+    height: item.height,
+    selectionCount,
+    inputName,
+    startsFrom,
+    pageName,
+    parentName: item.parentName,
+    symbolName: item.symbolName
+  }
+}
+
+/**
+ * Find and replace data
+ *
+ * @export
+ * @param {Object} item
+ * @param {String} findText
+ * @param {String} replaceWith
+ * @param {Boolean} caseSensitive
+ * @returns
+ */
+export function findReplaceData(item, findText, replaceWith, caseSensitive) {
+  return {
+    layerName: item.name,
+    currIdx: item.idx,
+    findText,
+    replaceWith,
+    caseSensitive
+  }
 }

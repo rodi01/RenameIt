@@ -4,7 +4,7 @@
  * @Project: Rename It
  * @Last modified time: 2017-12-02T11:44:14-08:00
  */
-import { findReplaceData } from "./lib/utils"
+import { findReplaceDataParser } from "./lib/utils"
 import theUI from "./lib/TheUI"
 import { isCompatible, showAlert } from "./lib/VersionAlert"
 
@@ -15,7 +15,7 @@ export default function(context) {
     return
   }
 
-  const data = findReplaceData(context)
+  const data = findReplaceDataParser(context)
 
   const options = {
     identifier: "findReplace.ui",
