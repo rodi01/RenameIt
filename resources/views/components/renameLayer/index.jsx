@@ -8,13 +8,13 @@ import React from "react"
 import pluginCall from "sketch-module-web-view/client"
 import mixpanel from "mixpanel-browser"
 import styled from "styled-components"
-import { mixpanelId } from "../../../../src/lib/Constants"
+import { mixpanelId } from "~/src/lib/Constants"
 import { Rename } from "renameitlib"
 import Input from "../Input"
 import KeywordButton from "../KeywordButton"
 import Preview from "../Preview"
 import { SubmitButton, SecondaryButton, Footer, StyledH3 } from "../GlobalStyles"
-import { renameData } from "../../../../src/lib/utils"
+import { renameData } from "~/src/lib/DataHelper"
 
 const KeywordsWrapper = styled.div`
   margin-top: 16px;
@@ -48,7 +48,7 @@ class RenameLayer extends React.Component {
     // Tracking
     mixpanel.init(mixpanelId)
 
-    this.rename = new Rename({ allowLayerStyle: false, allowTextStyle: false })
+    this.rename = new Rename()
   }
 
   componentDidMount() {
@@ -240,6 +240,14 @@ class RenameLayer extends React.Component {
         id: "symbolName",
         char: "%s",
         text: "Symbol Name"
+      })
+    }
+
+    if (window.data.hasLayerStyle) {
+      buttons.push({
+        id: "styleName",
+        char: "%ls%",
+        text: "Style Name"
       })
     }
 

@@ -2,10 +2,8 @@
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-05-12 17:25:02
+ * @Last Modified time: 2019-05-17 14:59:07
  */
-// import sketch from "sketch"
-// import Settings from "sketch/settings" // eslint-disable-line
 
 /**
  * Check if is artboard
@@ -22,7 +20,7 @@ function isArtboard(layer) {
  * @param {Object} layer
  * @returns {Boolean}
  */
-function hasSymbolInstance(layer) {
+function isSymbolInstance(layer) {
   return layer instanceof MSSymbolInstance
 }
 
@@ -34,15 +32,36 @@ function hasSymbolInstance(layer) {
  */
 function getSymbolName(layer) {
   let name = ""
-  if (hasSymbolInstance(layer)) {
+  if (isSymbolInstance(layer)) {
     name = String(layer.symbolMaster().name())
   }
+  return name
+}
+
+/**
+ * Check if layer styles is applied
+ *
+ * @param {Object} layer
+ * @returns {Boolean}
+ */
+function hasLayerStyle(layer) {
+  return layer.sharedStyle() instanceof MSSharedStyle
+}
+
+function getLayerStyle(layer) {
+  let name = ""
+
+  if (hasLayerStyle(layer)) {
+    name = String(layer.sharedStyle().name())
+  }
+
   return name
 }
 
 function layerObject(layer, idx) {
   const parentName =
     layer.parentGroup() == null ? "" : layer.parentGroup().name()
+
   return {
     layer,
     name: String(layer.name()),
@@ -51,7 +70,8 @@ function layerObject(layer, idx) {
     width: Math.floor(layer.frame().width()),
     height: Math.floor(layer.frame().height()),
     parentName: String(parentName),
-    symbolName: getSymbolName(layer)
+    symbolName: getSymbolName(layer),
+    layerStyle: getLayerStyle(layer)
   }
 }
 
@@ -83,13 +103,16 @@ export function parseData(context, onlyArtboards = false) {
   }
 
   let hasSymbol = false
+  let lStyle = false
   contextData.forEach((layer, i) => {
     data.selection[i] = layerObject(layer, i)
 
-    if (!hasSymbol) hasSymbol = hasSymbolInstance(layer)
+    if (!hasSymbol) hasSymbol = isSymbolInstance(layer)
+    if (!lStyle) lStyle = hasLayerStyle(layer)
   })
 
   data.hasSymbol = hasSymbol
+  data.hasLayerStyle = lStyle
 
   return data
 }
@@ -104,56 +127,4 @@ export function findReplaceDataParser(context) {
   })
 
   return data
-}
-
-/**
- * Rename data
- *
- * @export
- * @param {Object} item
- * @param {Number} selectionCount
- * @param {String} inputName
- * @param {Number} startFrom
- * @param {String} pageName
- * @returns Structured object data
- */
-export function renameData(
-  item,
-  selectionCount,
-  inputName,
-  startsFrom,
-  pageName
-) {
-  return {
-    layerName: item.name,
-    currIdx: item.idx,
-    width: item.width,
-    height: item.height,
-    selectionCount,
-    inputName,
-    startsFrom,
-    pageName,
-    parentName: item.parentName,
-    symbolName: item.symbolName
-  }
-}
-
-/**
- * Find and replace data
- *
- * @export
- * @param {Object} item
- * @param {String} findText
- * @param {String} replaceWith
- * @param {Boolean} caseSensitive
- * @returns
- */
-export function findReplaceData(item, findText, replaceWith, caseSensitive) {
-  return {
-    layerName: item.name,
-    currIdx: item.idx,
-    findText,
-    replaceWith,
-    caseSensitive
-  }
 }

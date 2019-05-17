@@ -32,6 +32,11 @@
       }
     ]
   },
+  "settings": {
+    "import/resolver": {
+      "babel-plugin-root-import": {}
+    }
+  },
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",

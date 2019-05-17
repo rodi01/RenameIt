@@ -1,4 +1,4 @@
-const sketch = require("sketch") // eslint-disable-line
+import sketch from "sketch"
 
 export function isCompatible() {
   return sketch.version.sketch >= 51

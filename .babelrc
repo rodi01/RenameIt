@@ -1,4 +1,14 @@
 {
   "presets": ["@babel/preset-env", "@babel/preset-react"],
-  "plugins": ["react-html-attrs", "transform-class-properties"]
+  "plugins": [
+    "react-html-attrs",
+    "transform-class-properties",
+    [
+      "babel-plugin-root-import",
+      {
+        "rootPathSuffix": "./",
+        "rootPathPrefix": "~"
+      }
+    ]
+  ]
 }

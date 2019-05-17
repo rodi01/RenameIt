@@ -12,12 +12,12 @@ import HistoryDropdown from "./historyDropdown"
 import { LabelStyles, InputMargin } from "./GlobalStyles"
 
 const StyledInput = styled.input`
-  background: ${props => props.theme.input.background};
+  background: ${(props) => props.theme.input.background};
   padding: 0 8px;
   border-radius: 4px;
   height: 24px;
-  border: 1px solid ${props => props.theme.input.border};
-  color: ${props => props.theme.input.color};
+  border: 1px solid ${(props) => props.theme.input.border};
+  color: ${(props) => props.theme.input.color};
   margin-left: 8px;
   font-size: 13px;
   letter-spacing: -0.08px;
@@ -34,13 +34,13 @@ const StyledInput = styled.input`
 
   &:focus {
     outline: none;
-    border-color: ${props => props.theme.input.borderActive};
+    border-color: ${(props) => props.theme.input.borderActive};
   }
 `
 
 const StyledLabel = styled.label`
   ${LabelStyles};
-  width: ${props => props.labelWidth || "100px"};
+  width: ${(props) => props.labelWidth || "100px"};
 `
 
 const InputWrapper = styled.div`
@@ -77,7 +77,7 @@ class Input extends React.Component {
           value={this.props.value}
           onChange={this.props.onChange}
           autoFocus={this.props.autoFocus}
-          ref={ip => (this.myInp = ip)}
+          ref={(ip) => (this.myInp = ip)}
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
