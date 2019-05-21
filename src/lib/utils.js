@@ -2,10 +2,8 @@
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-05-20 21:50:07
+ * @Last Modified time: 2019-05-21 12:54:43
  */
-// import sketch from "sketch"
-// import Settings from "sketch/settings" // eslint-disable-line
 
 /**
  * Check if is artboard
@@ -23,7 +21,7 @@ function isArtboard(layer) {
  * @returns {Boolean}
  */
 function hasSymbolInstance(layer) {
-  return layer instanceof MSSymbolInstance
+  return layer instanceof MSSymbolInstance && layer.symbolMaster() !== undefined
 }
 
 /**
