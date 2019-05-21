@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-05-12 17:25:02
+ * @Last Modified time: 2019-05-20 21:50:07
  */
 // import sketch from "sketch"
 // import Settings from "sketch/settings" // eslint-disable-line
@@ -131,7 +131,7 @@ export function renameData(
     height: item.height,
     selectionCount,
     inputName,
-    startsFrom,
+    startsFrom: Number(startsFrom),
     pageName,
     parentName: item.parentName,
     symbolName: item.symbolName
