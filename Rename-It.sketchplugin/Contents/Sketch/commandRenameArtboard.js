@@ -3512,7 +3512,7 @@ __webpack_require__.r(__webpack_exports__);
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-05-20 21:50:07
+ * @Last Modified time: 2019-05-21 13:35:38
  */
 
 /**
@@ -3532,7 +3532,11 @@ function isArtboard(layer) {
 
 
 function isSymbolInstance(layer) {
-  return layer instanceof MSSymbolInstance;
+  try {
+    return layer instanceof MSSymbolInstance && layer.symbolMaster() !== undefined;
+  } catch (error) {
+    return false;
+  }
 }
 /**
  * Get the name of the symbol instance
@@ -3560,7 +3564,11 @@ function getSymbolName(layer) {
 
 
 function hasLayerStyle(layer) {
-  return layer.sharedStyle() instanceof MSSharedStyle;
+  try {
+    return layer.sharedStyle() instanceof MSSharedStyle;
+  } catch (error) {
+    return false;
+  }
 }
 
 function getLayerStyle(layer) {

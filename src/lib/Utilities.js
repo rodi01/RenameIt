@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-05-20 21:50:07
+ * @Last Modified time: 2019-05-21 13:35:38
  */
 
 /**
@@ -21,7 +21,13 @@ function isArtboard(layer) {
  * @returns {Boolean}
  */
 function isSymbolInstance(layer) {
-  return layer instanceof MSSymbolInstance
+  try {
+    return (
+      layer instanceof MSSymbolInstance && layer.symbolMaster() !== undefined
+    )
+  } catch (error) {
+    return false
+  }
 }
 
 /**
@@ -45,7 +51,11 @@ function getSymbolName(layer) {
  * @returns {Boolean}
  */
 function hasLayerStyle(layer) {
-  return layer.sharedStyle() instanceof MSSharedStyle
+  try {
+    return layer.sharedStyle() instanceof MSSharedStyle
+  } catch (error) {
+    return false
+  }
 }
 
 function getLayerStyle(layer) {
