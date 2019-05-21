@@ -23,7 +23,7 @@ export function renameData(
     height: item.height,
     selectionCount,
     inputName,
-    startsFrom,
+    startsFrom: Number(startsFrom),
     pageName,
     parentName: item.parentName,
     symbolName: item.symbolName,
