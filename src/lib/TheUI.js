@@ -104,7 +104,7 @@ const theUI = (context, data, options) => {
         item,
         data.selectionCount,
         inputData.str,
-        Number(inputData.startsFrom),
+        inputData.startsFrom,
         data.pageName
       )
       const layer = data.selection[opts.currIdx].layer
