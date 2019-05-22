@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-05-21 13:35:38
+ * @Last Modified time: 2019-05-22 09:18:40
  */
 
 /**
@@ -62,7 +62,10 @@ function getLayerStyle(layer) {
   let name = ""
 
   if (hasLayerStyle(layer)) {
-    name = String(layer.sharedStyle().name())
+    try {
+      name = String(layer.sharedStyle().name())
+      // eslint-disable-next-line no-empty
+    } catch (error) {}
   }
 
   return name
