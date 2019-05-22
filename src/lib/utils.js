@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-05-21 12:54:43
+ * @Last Modified time: 2019-05-22 09:00:55
  */
 
 /**
@@ -21,7 +21,13 @@ function isArtboard(layer) {
  * @returns {Boolean}
  */
 function hasSymbolInstance(layer) {
-  return layer instanceof MSSymbolInstance && layer.symbolMaster() !== undefined
+  try {
+    return (
+      layer instanceof MSSymbolInstance && layer.symbolMaster() !== undefined
+    )
+  } catch (error) {
+    return false
+  }
 }
 
 /**
@@ -33,7 +39,10 @@ function hasSymbolInstance(layer) {
 function getSymbolName(layer) {
   let name = ""
   if (hasSymbolInstance(layer)) {
-    name = String(layer.symbolMaster().name())
+    try {
+      name = String(layer.symbolMaster().name())
+      // eslint-disable-next-line no-empty
+    } catch (error) {}
   }
   return name
 }
