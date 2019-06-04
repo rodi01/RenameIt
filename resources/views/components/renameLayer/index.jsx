@@ -232,24 +232,20 @@ class RenameLayer extends React.Component {
         id: "parentName",
         char: "%o",
         text: "Parent Name"
-      }
-    ]
-
-    if (window.data.hasSymbol) {
-      buttons.push({
+      },
+      {
         id: "symbolName",
         char: "%s",
-        text: "Symbol Name"
-      })
-    }
-
-    if (window.data.hasLayerStyle) {
-      buttons.push({
+        text: "Symbol Name",
+        disabled: !window.data.hasSymbol
+      },
+      {
         id: "styleName",
         char: "%ls%",
-        text: "Style Name"
-      })
-    }
+        text: "Style Name",
+        disabled: !window.data.hasLayerStyle
+      }
+    ]
 
     const listItems = buttons.map((d) => (
       <li key={d.id} className="keywordBtn">

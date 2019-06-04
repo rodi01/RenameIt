@@ -43,6 +43,7 @@ const theUI = (context, data, options) => {
     resizable: false,
     fullscreenable: false,
     backgroundColor: theme.bg,
+    alwaysOnTop: true,
     show: false
   }
   let win = new BrowserWindow(winOptions)

@@ -61755,7 +61755,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  height: 24px;\n  background-color: ", ";\n  border: 1px solid ", ";\n  color: ", ";\n  border-radius: 4px;\n  padding: 0 12px;\n  letter-spacing: -0.07px;\n\n  &:active {\n    background-color: ", ";\n  }\n  &:focus {\n    outline: none;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  height: 24px;\n  background-color: ", ";\n  border: 1px solid ", ";\n  color: ", ";\n  border-radius: 4px;\n  padding: 0 12px;\n  letter-spacing: -0.07px;\n\n  &:active {\n    background-color: ", ";\n  }\n  &:focus {\n    outline: none;\n  }\n  &:disabled {\n    opacity: 0.5;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -62167,7 +62167,8 @@ function (_React$Component) {
         "data-char": this.props["char"],
         title: "Shortcut: ".concat(this.props["char"]),
         onClick: this.props.click,
-        type: "button"
+        type: "button",
+        disabled: this.props.disabled
       }, this.props.text);
     }
   }]);
@@ -63493,24 +63494,17 @@ function (_React$Component) {
         id: "parentName",
         "char": "%o",
         text: "Parent Name"
+      }, {
+        id: "symbolName",
+        "char": "%s",
+        text: "Symbol Name",
+        disabled: !window.data.hasSymbol
+      }, {
+        id: "styleName",
+        "char": "%ls%",
+        text: "Style Name",
+        disabled: !window.data.hasLayerStyle
       }];
-
-      if (window.data.hasSymbol) {
-        buttons.push({
-          id: "symbolName",
-          "char": "%s",
-          text: "Symbol Name"
-        });
-      }
-
-      if (window.data.hasLayerStyle) {
-        buttons.push({
-          id: "styleName",
-          "char": "%ls%",
-          text: "Style Name"
-        });
-      }
-
       var listItems = buttons.map(function (d) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: d.id,

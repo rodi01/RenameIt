@@ -3411,6 +3411,7 @@ var theUI = function theUI(context, data, options) {
     resizable: false,
     fullscreenable: false,
     backgroundColor: theme.bg,
+    alwaysOnTop: true,
     show: false
   };
   var win = new sketch_module_web_view__WEBPACK_IMPORTED_MODULE_0___default.a(winOptions);
@@ -3507,7 +3508,7 @@ __webpack_require__.r(__webpack_exports__);
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-05-20 21:50:07
+ * @Last Modified time: 2019-06-04 14:43:26
  */
 
 /**
@@ -3527,7 +3528,11 @@ function isArtboard(layer) {
 
 
 function isSymbolInstance(layer) {
-  return layer instanceof MSSymbolInstance;
+  try {
+    return layer instanceof MSSymbolInstance && layer.symbolMaster() !== undefined;
+  } catch (error) {
+    return false;
+  }
 }
 /**
  * Get the name of the symbol instance
@@ -3541,7 +3546,9 @@ function getSymbolName(layer) {
   var name = "";
 
   if (isSymbolInstance(layer)) {
-    name = String(layer.symbolMaster().name());
+    try {
+      name = String(layer.symbolMaster().name()); // eslint-disable-next-line no-empty
+    } catch (error) {}
   }
 
   return name;
@@ -3555,14 +3562,20 @@ function getSymbolName(layer) {
 
 
 function hasLayerStyle(layer) {
-  return layer.sharedStyle() instanceof MSSharedStyle;
+  try {
+    return layer.sharedStyle() instanceof MSSharedStyle;
+  } catch (error) {
+    return false;
+  }
 }
 
 function getLayerStyle(layer) {
   var name = "";
 
   if (hasLayerStyle(layer)) {
-    name = String(layer.sharedStyle().name());
+    try {
+      name = String(layer.sharedStyle().name()); // eslint-disable-next-line no-empty
+    } catch (error) {}
   }
 
   return name;

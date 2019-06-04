@@ -27393,7 +27393,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  height: 24px;\n  background-color: ", ";\n  border: 1px solid ", ";\n  color: ", ";\n  border-radius: 4px;\n  padding: 0 12px;\n  letter-spacing: -0.07px;\n\n  &:active {\n    background-color: ", ";\n  }\n  &:focus {\n    outline: none;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  height: 24px;\n  background-color: ", ";\n  border: 1px solid ", ";\n  color: ", ";\n  border-radius: 4px;\n  padding: 0 12px;\n  letter-spacing: -0.07px;\n\n  &:active {\n    background-color: ", ";\n  }\n  &:focus {\n    outline: none;\n  }\n  &:disabled {\n    opacity: 0.5;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;

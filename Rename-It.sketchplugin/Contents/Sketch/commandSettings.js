@@ -3408,6 +3408,7 @@ var theUI = function theUI(context, data, options) {
     resizable: false,
     fullscreenable: false,
     backgroundColor: theme.bg,
+    alwaysOnTop: true,
     show: false
   };
   var win = new sketch_module_web_view__WEBPACK_IMPORTED_MODULE_0___default.a(winOptions);

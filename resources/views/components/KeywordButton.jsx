@@ -18,6 +18,7 @@ export default class KeywordButton extends React.Component {
         title={`Shortcut: ${this.props.char}`}
         onClick={this.props.click}
         type="button"
+        disabled={this.props.disabled}
       >
         {this.props.text}
       </Button>
