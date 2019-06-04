@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-05-22 09:18:40
+ * @Last Modified time: 2019-06-04 14:43:26
  */
 
 /**
@@ -39,7 +39,10 @@ function isSymbolInstance(layer) {
 function getSymbolName(layer) {
   let name = ""
   if (isSymbolInstance(layer)) {
-    name = String(layer.symbolMaster().name())
+    try {
+      name = String(layer.symbolMaster().name())
+      // eslint-disable-next-line no-empty
+    } catch (error) {}
   }
   return name
 }
