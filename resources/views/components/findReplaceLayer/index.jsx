@@ -13,7 +13,7 @@ import { mixpanelId } from "../../../../src/lib/Constants"
 import Input from "../Input"
 import { FindReplace } from "renameitlib"
 import Preview from "../Preview"
-import { findReplaceData } from "../../../../src/lib/utils"
+import { findReplaceData } from "~/src/lib/DataHelper"
 import {
   ButtonStyles,
   LabelStyles,

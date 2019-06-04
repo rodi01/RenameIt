@@ -4,7 +4,7 @@
  * @Project: Rename It
  * @Last modified time: 2017-12-02T11:44:14-08:00
  */
-import { findReplaceDataParser } from "./lib/utils"
+import { findReplaceDataParser } from "~/src/lib/Utilities"
 import theUI from "./lib/TheUI"
 import { isCompatible, showAlert } from "./lib/VersionAlert"
 

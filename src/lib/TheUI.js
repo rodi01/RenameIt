@@ -6,6 +6,7 @@
  */
 import BrowserWindow from "sketch-module-web-view"
 import { Rename, FindReplace } from "renameitlib"
+import { renameData, findReplaceData } from "./DataHelper"
 import { exclamations } from "./Constants"
 import {
   addRenameHistory,
@@ -15,7 +16,6 @@ import {
   clearHistory
 } from "./History"
 import getTheme from "../../resources/views/theme/index"
-import { renameData, findReplaceData } from "./utils"
 
 function showUpdatedMessage(count, data) {
   const layerStr = count === 1 ? "Layer" : "Layers"
@@ -98,7 +98,7 @@ const theUI = (context, data, options) => {
   })
 
   contents.on("onClickRename", o => {
-    const rename = new Rename({ allowLayerStyle: false, allowTextStyle: false })
+    const rename = new Rename()
     const inputData = JSON.parse(o)
     data.selection.forEach(item => {
       const opts = renameData(

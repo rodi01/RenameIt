@@ -2,10 +2,10 @@
  * @Author: Rodrigo Soares
  * @Date: 2017-12-26 13:15:01
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-11-21 11:36:17
+ * @Last Modified time: 2019-05-20 22:22:54
  */
 
-import { parseData } from "./lib/utils"
+import { parseData } from "~/src/lib/Utilities"
 import theUI from "./lib/TheUI"
 import { isCompatible, showAlert } from "./lib/VersionAlert"
 

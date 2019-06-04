@@ -10,12 +10,7 @@ import { HashRouter } from "react-router-dom"
 import pluginCall from "sketch-module-web-view/client"
 import mixpanel from "mixpanel-browser"
 import Routes from "./routes"
-import {
-  testData,
-  mockData,
-  mockHistory,
-  mixpanelId
-} from "../../src/lib/Constants"
+import { testData, mockData, mockHistory, mixpanelId } from "~/src/lib/Constants"
 
 // Init Mixpanel
 mixpanel.init(mixpanelId)
@@ -29,7 +24,7 @@ if (testData && window.data === undefined) {
 }
 
 if (process.env.NODE_ENV === "production") {
-  document.addEventListener("contextmenu", e => e.preventDefault())
+  document.addEventListener("contextmenu", (e) => e.preventDefault())
 }
 
 let App

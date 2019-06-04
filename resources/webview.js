@@ -4,4 +4,4 @@
  * @Project: Rename It
  * @Last modified time: 2017-11-28T21:04:14-08:00
  */
-import './views';
+import "./views"
