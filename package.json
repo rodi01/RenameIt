@@ -15,9 +15,7 @@
     "name": "Rename-It",
     "manifest": "src/manifest.json",
     "main": "Rename-It.sketchplugin",
-    "assets": [
-      "assets/**/*"
-    ]
+    "assets": ["assets/**/*"]
   },
   "scripts": {
     "build": "skpm-build",
@@ -47,9 +45,7 @@
     "prettier": "^1.9.2",
     "svg-react-loader": "^0.4.6"
   },
-  "resources": [
-    "resources/**/*.js"
-  ],
+  "resources": ["resources/**/*.js"],
   "dependencies": {
     "mixpanel-browser": "^2.14.0",
     "react": "^16.6.3",
