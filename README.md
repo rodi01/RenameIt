@@ -1,7 +1,7 @@
 # Rename It
 
 Keep your Sketch files organized, batch rename layers and artboards.
-[Checkout the website](http://rodi01.github.io/RenameIt/)
+[Checkout the website](https://renameit.design/sketch/)
 
 ## Rename Selected Layers
 
