@@ -1,6 +1,6 @@
 # Rename It
 
-Keep your Sketch files organized, batch rename layers and artboards.
+Keep your Sketch files always organized, batch rename layers and artboards.
 [Checkout the website](https://renameit.design/sketch/)
 
 ## Rename Selected Layers
@@ -9,7 +9,7 @@ Keep your Sketch files organized, batch rename layers and artboards.
 
 ### Multiple Layers
 
-Rename Multiple layers at once.
+Rename Multiple layers at once command.
 
 ![Rename Multiple Layers](/docs/static/img/gifs/batch_rename.gif)
 
