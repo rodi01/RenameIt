@@ -88,6 +88,6 @@ Rename selected artboards works the same way as rename selected layers. You don'
 
 Rename It is maintained by Rodrigo Soares, follow me [@rodi01](https://twitter.com/rodi01)
 
-[Checkout the website for more](http://rodi01.github.io/RenameIt/)
+[Checkout the website for more](https://renameit.design/sketch)
 
 MIT License © Rodrigo Soares.
