@@ -5,8 +5,8 @@
  * @Last modified time: 2017-12-02T19:17:06-08:00
  */
 import React from "react"
-import pluginCall from "sketch-module-web-view/client"
 import mixpanel from "mixpanel-browser"
+import ReactGA from "react-ga"
 import styled from "styled-components"
 import { mixpanelId } from "~/src/lib/Constants"
 import { Rename } from "renameitlib"
@@ -47,7 +47,6 @@ class RenameLayer extends React.Component {
 
     // Tracking
     mixpanel.init(mixpanelId)
-
     this.rename = new Rename()
   }
 
@@ -97,10 +96,16 @@ class RenameLayer extends React.Component {
       name: `${event.target.id}`,
       value: `${event.target.dataset.char}`
     })
+
+    ReactGA.event({
+      category: "keywordButton",
+      action: `${event.target.id}`,
+      label: `${event.target.dataset.char}`
+    })
   }
 
   onCancel() {
-    pluginCall("close")
+    window.postMessage("close")
   }
 
   onSubmit() {
@@ -112,7 +117,12 @@ class RenameLayer extends React.Component {
     mixpanel.track("input", {
       rename: String(d.str)
     })
-    pluginCall("onClickRename", JSON.stringify(d))
+    ReactGA.event({
+      category: "input",
+      action: "rename",
+      label: String(d.str)
+    })
+    window.postMessage("onClickRename", JSON.stringify(d))
   }
 
   clearInput() {
@@ -127,6 +137,11 @@ class RenameLayer extends React.Component {
 
     // Track clear event
     mixpanel.track("clear", { input: "rename" })
+    ReactGA.event({
+      category: "clear",
+      action: "input",
+      label: "rename"
+    })
   }
 
   enterFunction(event) {

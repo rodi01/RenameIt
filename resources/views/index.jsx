@@ -1,26 +1,27 @@
-/**
- * @Author: Rodrigo Soares <rodrigo>
- * @Date:   2017-11-27T16:54:48-08:00
- * @Project: Rename It
- * @Last modified time: 2017-12-02T15:29:02-08:00
- */
+/* eslint-disable global-require */
 import React from "react"
 import ReactDOM from "react-dom"
 import { HashRouter } from "react-router-dom"
-import pluginCall from "sketch-module-web-view/client"
-import mixpanel from "mixpanel-browser"
+// import mixpanel from "mixpanel-browser"
+// import ReactGA from "react-ga"
 import Routes from "./routes"
-import { testData, mockData, mockHistory, mixpanelId } from "~/src/lib/Constants"
+import { testData, mockData, mockHistory, mixpanelId } from "../../src/lib/Constants"
+// import { track } from "sketch-module-google-analytics"
+// import { ua } from "../../src/lib/Analytics" Init Mixpanel
+// mixpanel.init(mixpanelId)
+// ReactGA.initialize("UA-104184459-2", { debug: process.env.NODE_ENV === "production" })
+// ReactGA.ga("set", "checkProtocolTask", function() {})
 
-// Init Mixpanel
-mixpanel.init(mixpanelId)
+// const track = require("sketch-module-google-analytics");
 
 // Get data
 if (testData && window.data === undefined) {
   window.data = mockData
   window.dataHistory = mockHistory
 } else if (window.data === undefined) {
-  pluginCall("getData")
+  console.log("doesn't have data!");
+  
+  window.postMessage('getData')
 }
 
 if (process.env.NODE_ENV === "production") {
@@ -38,11 +39,17 @@ if (window.redirectTo !== undefined) {
 
 // Mixpanel super properties
 if (window.superProps !== undefined) {
-  mixpanel.register(window.superProps)
+  // mixpanel.register(window.superProps)
+  
+  // ReactGA.ga("set", "dimension1", window.superProps.Platform)
+  // ReactGA.ga("set", "dimension2", window.superProps.pluginVersion)
 }
 
 // Track Page
-mixpanel.track("page viewed", { url: window.redirectTo })
+// mixpanel.track("page viewed", { url: window.redirectTo })
+
+
+// ReactGA.pageview(window.redirectTo)
 
 ReactDOM.render(
   <HashRouter>

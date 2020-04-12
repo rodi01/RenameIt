@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components"
 
+export const defaultPadding = "24px"
+
 export const InputMargin = "20px"
 
 export const ButtonStyles = css`

@@ -4,28 +4,28 @@
  * @Project: Rename It
  * @Last modified time: 2017-12-02T21:18:07-08:00
  */
-import React from "react"
-import mixpanel from "mixpanel-browser"
-import pluginCall from "sketch-module-web-view/client"
-import { FormGroup, Radio } from "react-bootstrap"
-import styled from "styled-components"
-import { mixpanelId } from "../../../../src/lib/Constants"
-import Input from "../Input"
-import { FindReplace } from "renameitlib"
-import Preview from "../Preview"
-import { findReplaceData } from "~/src/lib/DataHelper"
+import React from 'react'
+import mixpanel from 'mixpanel-browser'
+import ReactGA from 'react-ga'
+import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap'
+import styled from 'styled-components'
+import { mixpanelId } from '../../../../src/lib/Constants'
+import Input from '../Input'
+import { FindReplace } from 'renameitlib'
+import Preview from '../Preview'
+import { findReplaceData } from '~/src/lib/DataHelper'
 import {
   ButtonStyles,
   LabelStyles,
   Footer,
   SecondaryButton,
   SubmitButton,
-  InputMargin
-} from "../GlobalStyles"
+  InputMargin,
+} from '../GlobalStyles'
 
-const labelWidth = "60px"
+const labelWidth = '60px'
 
-const Form = styled(FormGroup)`
+const RadioWrapper = styled.div`
   margin-bottom: ${InputMargin};
 
   label {
@@ -74,15 +74,15 @@ class FindReplaceLayer extends React.Component {
     super(props)
     this.hasSelection = window.data.selection.length > 0
     this.state = {
-      findValue: "",
-      replaceValue: "",
-      findClear: "",
-      replaceClear: "",
+      findValue: '',
+      replaceValue: '',
+      findClear: '',
+      replaceClear: '',
       caseSensitive: false,
       findFocus: false,
       replaceFocus: false,
       previewData: [],
-      searchScope: this.hasSelection > 0 ? "layers" : "page"
+      searchScope: this.hasSelection > 0 ? 'layers' : 'page',
     }
     this.findReplace = new FindReplace()
     this.enterFunction = this.enterFunction.bind(this)
@@ -99,41 +99,42 @@ class FindReplaceLayer extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.enterFunction, false)
+    document.addEventListener('keydown', this.enterFunction, false)
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.enterFunction, false)
+    document.removeEventListener('keydown', this.enterFunction, false)
   }
 
   onChange(event) {
-    const isFind = event.target.id === "find"
+    const isFind = event.target.id === 'find'
     this.setState(
       {
         findValue: isFind ? event.target.value : this.state.findValue,
         replaceValue: !isFind ? event.target.value : this.state.replaceValue,
         findFocus: false,
-        replaceFocus: false
+        replaceFocus: false,
       },
       () => this.previewUpdate()
     )
 
-    if (this.state.findValue.length > 0) this.setState({ findClear: "show" })
+    if (this.state.findValue.length > 0) this.setState({ findClear: 'show' })
 
-    if (this.state.replaceValue.length > 0) this.setState({ replaceClear: "show" })
+    if (this.state.replaceValue.length > 0)
+      this.setState({ replaceClear: 'show' })
   }
 
   onCaseSensitiveChange(event) {
     this.setState(
       {
-        caseSensitive: event.target.checked
+        caseSensitive: event.target.checked,
       },
       () => this.previewUpdate()
     )
   }
 
   onCancel() {
-    pluginCall("close")
+    window.postMessage('close')
   }
 
   onSubmit() {
@@ -141,17 +142,34 @@ class FindReplaceLayer extends React.Component {
       findText: this.state.findValue,
       replaceText: this.state.replaceValue,
       caseSensitive: this.state.caseSensitive,
-      searchScope: this.state.searchScope
+      searchScope: this.state.searchScope,
     }
 
     // Track input
-    mixpanel.track("input", {
+    mixpanel.track('input', {
       find: String(d.findText),
       replace: String(d.replaceText),
-      searchScope: String(d.searchScope)
+      searchScope: String(d.searchScope),
     })
 
-    pluginCall("onClickFindReplace", JSON.stringify(d))
+    ReactGA.event({
+      category: 'input',
+      action: 'find',
+      label: String(d.findText),
+    })
+
+    ReactGA.event({
+      category: 'input',
+      action: 'replace',
+      label: String(d.replaceText),
+    })
+
+    ReactGA.event({
+      category: 'input',
+      action: 'searchScope',
+      label: String(d.searchScope),
+    })
+    window.postMessage('onClickFindReplace', JSON.stringify(d))
   }
 
   enterFunction(event) {
@@ -163,36 +181,45 @@ class FindReplaceLayer extends React.Component {
   }
 
   clearInput(event) {
-    const whichInput = event.target.previousSibling.id === "find" ? "find" : "replace"
-    if (event.target.previousSibling.id === "find") {
+    const whichInput =
+      event.target.previousSibling.id === 'find' ? 'find' : 'replace'
+    if (event.target.previousSibling.id === 'find') {
       this.setState(
         {
-          findValue: "",
-          findClear: "",
+          findValue: '',
+          findClear: '',
           replaceFocus: false,
-          findFocus: true
+          findFocus: true,
         },
         () => this.previewUpdate()
       )
     } else {
       this.setState(
         {
-          replaceValue: "",
-          replaceClear: "",
+          replaceValue: '',
+          replaceClear: '',
           findFocus: false,
-          replaceFocus: true
+          replaceFocus: true,
         },
         () => this.previewUpdate()
       )
     }
 
     // Track clear event
-    mixpanel.track("clear", { input: `${whichInput}` })
+    mixpanel.track('clear', { input: `${whichInput}` })
+    ReactGA.event({
+      category: 'clear',
+      action: 'input',
+      label: `${whichInput}`,
+    })
   }
 
   previewUpdate() {
     const renamed = []
-    const sel = this.state.searchScope === "page" ? window.data.allLayers : window.data.selection
+    const sel =
+      this.state.searchScope === 'page'
+        ? window.data.allLayers
+        : window.data.selection
     sel.forEach((item) => {
       const options = findReplaceData(
         item,
@@ -212,7 +239,7 @@ class FindReplaceLayer extends React.Component {
     this.setState(
       {
         findValue: str,
-        findFocus: true
+        findFocus: true,
       },
       () => this.previewUpdate()
     )
@@ -222,16 +249,16 @@ class FindReplaceLayer extends React.Component {
     this.setState(
       {
         replaceValue: str,
-        replaceFocus: true
+        replaceFocus: true,
       },
       () => this.previewUpdate()
     )
   }
 
-  handleRadioSelection(event) {
+  handleRadioSelection(val) {
     this.setState(
       {
-        searchScope: event.target.value
+        searchScope: val,
       },
       () => this.previewUpdate()
     )
@@ -239,10 +266,10 @@ class FindReplaceLayer extends React.Component {
 
   render() {
     const findInputAttr = {
-      id: "find",
-      type: "text",
-      forName: "Find",
-      wrapperClass: "inputName",
+      id: 'find',
+      type: 'text',
+      forName: 'Find',
+      wrapperClass: 'inputName',
       autoFocus: true,
       value: this.state.findValue,
       onChange: this.onChange,
@@ -252,14 +279,14 @@ class FindReplaceLayer extends React.Component {
       dataHistory: window.dataHistory.findHistory,
       showHistory: true,
       handleHistory: this.handleFindHistory,
-      labelWidth
+      labelWidth,
     }
 
     const replaceInputAttr = {
-      id: "replace",
-      type: "text",
-      forName: "Replace",
-      wrapperClass: "inputName",
+      id: 'replace',
+      type: 'text',
+      forName: 'Replace',
+      wrapperClass: 'inputName',
       autoFocus: false,
       value: this.state.replaceValue,
       onChange: this.onChange,
@@ -270,14 +297,40 @@ class FindReplaceLayer extends React.Component {
       showHistory: true,
       handleHistory: this.handleReplaceHistory,
       dropup: true,
-      labelWidth
+      labelWidth,
     }
 
     return (
       <div className="container findReplace">
-        <Form controlId="searchScope">
+        <RadioWrapper>
           <FakeLabel>Search</FakeLabel>
-          <Radio
+
+          <ToggleButtonGroup
+            type="radio"
+            name="options"
+            defaultValue={this.state.searchScope}
+            onChange={this.handleRadioSelection}
+          >
+            <ToggleButton
+              value="page"
+              className={this.state.searchScope === 'page' ? 'isSelected' : ''}
+            >
+              Current Page
+            </ToggleButton>
+            <ToggleButton
+              value="layers"
+              className={
+                this.state.searchScope === 'layers' ? 'isSelected' : ''
+              }
+              disabled={!this.hasSelection}
+            >
+              Selected Layers
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </RadioWrapper>
+        {/* <Form controlId="searchScope">
+          <FakeLabel>Search</FakeLabel>
+          <Form.Radio
             name="radioGroup"
             value="page"
             className={this.state.searchScope === "page" ? "isSelected" : ""}
@@ -286,8 +339,8 @@ class FindReplaceLayer extends React.Component {
             inline
           >
             Current Page
-          </Radio>
-          <Radio
+          </Form.Radio>
+          <Form.Radio
             name="radioGroup"
             value="layers"
             className={this.state.searchScope === "layers" ? "isSelected" : ""}
@@ -297,8 +350,8 @@ class FindReplaceLayer extends React.Component {
             inline
           >
             Selected Layers
-          </Radio>
-        </Form>
+          </Form.Radio>
+        </Form> */}
         <Input {...findInputAttr} />
         <Input {...replaceInputAttr} />
 

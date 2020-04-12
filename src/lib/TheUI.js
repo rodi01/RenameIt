@@ -49,16 +49,6 @@ const theUI = (context, data, options) => {
   let win = new BrowserWindow(winOptions)
   const contents = win.webContents
 
-  win.once("ready-to-show", () => {
-    win.show()
-  })
-
-  win.on("closed", () => {
-    win = null
-  })
-
-  win.loadURL(require("../../resources/webview.html"))
-
   const getSuperProperties = () => {
     const manifestPath = context.plugin
       .url()
@@ -77,12 +67,36 @@ const theUI = (context, data, options) => {
     }
   }
 
+  const history = getHistory()
+  const whereTo = options.redirectTo
+  const superProps = getSuperProperties()
+  contents.insertJS(
+    `
+    window.theme=${JSON.stringify(theme)};
+    window.redirectTo="${whereTo}";
+          window.data=${JSON.stringify(data)};
+          window.dataHistory=${JSON.stringify(history)};
+          window.superProps=${JSON.stringify(superProps)};
+    `
+  )
+
+  win.once("ready-to-show", () => {
+    win.show()
+  })
+
+  win.on("closed", () => {
+    win = null
+  })
+
+  win.loadURL(require("../../resources/webview.html"))
+
+  
+
   const getData = () => {
     const history = getHistory()
     const whereTo = options.redirectTo
     const superProps = getSuperProperties()
     contents.executeJavaScript(`
-          window.theme=${JSON.stringify(theme)};
           window.redirectTo="${whereTo}";
           window.data=${JSON.stringify(data)};
           window.dataHistory=${JSON.stringify(history)};

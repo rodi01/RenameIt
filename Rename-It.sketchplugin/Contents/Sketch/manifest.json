@@ -11,7 +11,7 @@
       "shortcut": "ctrl cmd r",
       "description": "Rename Selected layer(s) or artboard(s) all at once.",
       "icon": "renameit_ic.png",
-      "script": "commandRenameLayer.js"
+      "script": "__commandRenameLayer.js"
     },
     {
       "name": "Find and Replace Layers/Artboards Names",

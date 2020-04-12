@@ -2,32 +2,41 @@
  * @Author: Rodrigo Soares 
  * @Date: 2017-12-25 21:54:20 
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-11-21 09:45:20
+ * @Last Modified time: 2019-10-27 17:44:51
  */
 import React from "react"
-import pluginCall from "sketch-module-web-view/client"
 import mixpanel from "mixpanel-browser"
 import styled from "styled-components"
 import { mixpanelId } from "../../../../src/lib/Constants"
-import { SecondaryButton, StyledH3, InputMargin } from "../GlobalStyles"
+import { SecondaryButton, StyledH3, InputMargin, defaultPadding } from "../GlobalStyles"
+
+const SettingsWrapper = styled.div`
+  display: block;
+  padding: ${defaultPadding};
+`
 
 const H3 = styled(StyledH3)`
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 `
 
 const About = styled.div`
   margin-top: ${InputMargin};
-  display: flex;
-  flex-direction: column;
 `
 
 const Credits = styled.p`
   font-size: 12px;
   line-height: 1.3em;
-  align-self: flex-end;
-  margin-top: auto;
+  margin-top: ${defaultPadding};
   span {
     text-decoration: underline;
+  }
+`
+
+const Analitics = styled.div`
+  margin-top: ${defaultPadding};
+  font-size: 13px;
+  p {
+    margin-bottom: 8px;
   }
 `
 
@@ -37,40 +46,59 @@ class Settings extends React.Component {
 
     // Tracking
     mixpanel.init(mixpanelId)
+
+    this.toggleChange = this.toggleChange.bind(this)
+
+    this.state = {
+      isChecked: true
+    }
   }
 
   onClearHistory() {
-    pluginCall("onClearHistory")
+    window.postMessage("onClearHistory")
   }
 
   moreInfo() {
-    pluginCall("externalLinkClicked", "http://rodi01.github.io/RenameIt/")
+    window.postMessage("externalLinkClicked", "http://rodi01.github.io/RenameIt/")
   }
 
   twitter() {
-    pluginCall("externalLinkClicked", "https://twitter.com/rodi01")
+    window.postMessage("externalLinkClicked", "https://twitter.com/rodi01")
+  }
+
+  toggleChange() {
+    this.setState({
+      isChecked: !this.state.isChecked
+    })
   }
 
   render() {
     return (
-      <div className="container settings">
+      <SettingsWrapper>
         <H3>History</H3>
-        <SecondaryButton onClick={() => this.onClearHistory()}>
-          Clear History
-        </SecondaryButton>
+        <SecondaryButton onClick={() => this.onClearHistory()}>Clear History</SecondaryButton>
+
+        <Analitics>
+          <H3>Analytics</H3>
+          <p>
+            Help Rename It improve its product by automatically sending diagnotics and usage data.
+          </p>
+          <label>
+            <input type="checkbox" checked={this.state.isChecked} onChange={this.toggleChange} />{" "}
+            Send usage data.
+          </label>
+        </Analitics>
+
         <About>
           <H3>About</H3>
-
-          <SecondaryButton onClick={() => this.moreInfo()}>
-            Plugin Website
-          </SecondaryButton>
+          <SecondaryButton onClick={() => this.moreInfo()}>Plugin Website</SecondaryButton>
         </About>
 
         <Credits>
           Rename It is maintained by Rodrigo Soares.{" "}
           <span onClick={() => this.twitter()}>@rodi01</span>
         </Credits>
-      </div>
+      </SettingsWrapper>
     )
   }
 }

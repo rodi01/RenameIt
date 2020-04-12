@@ -2,11 +2,12 @@
  * @Author: Rodrigo Soares
  * @Date: 2017-12-25 19:52:04
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-11-18 12:05:46
+ * @Last Modified time: 2019-10-13 10:09:54
  */
 import React from "react"
 import mixpanel from "mixpanel-browser"
-import { Dropdown, MenuItem } from "react-bootstrap"
+import ReactGA from "react-ga"
+import { Dropdown, DropdownItem } from "react-bootstrap"
 import { withTheme } from "styled-components"
 import { mixpanelId } from "../../../../src/lib/Constants"
 import GlobalStyles from "./historyStyles"
@@ -30,6 +31,11 @@ class HistoryDropdown extends React.Component {
     mixpanel.track("history", {
       dropdown: `${this.props.dropdownId}`
     })
+    ReactGA.event({
+      category: "history",
+      action: "dropdown",
+      label: `${this.props.dropdownId}`
+    })
   }
 
   render() {
@@ -37,33 +43,25 @@ class HistoryDropdown extends React.Component {
     let menuItems
     if (this.props.menuData.length > 0) {
       menuItems = this.props.menuData.map((d, idx) => (
-        <MenuItem
-          key={`menu-${idx}`}
-          eventKey={`${d}`}
-          onSelect={() => this.onTargetSelect(d)}
-        >
+        <DropdownItem key={`menu-${idx}`} eventKey={`${d}`} onSelect={() => this.onTargetSelect(d)}>
           {d}
-        </MenuItem>
+        </DropdownItem>
       ))
     } else {
       menuItems = (
-        <MenuItem key="disabled-menu" disabled>
+        <DropdownItem key="disabled-menu" disabled>
           Empty History
-        </MenuItem>
+        </DropdownItem>
       )
     }
     return (
-      <Dropdown
-        id={this.props.dropdownId}
-        pullRight
-        onToggle={() => this.onToggle(this)}
-      >
+      <Dropdown id={this.props.dropdownId} onToggle={() => this.onToggle(this)}>
         <GlobalStyles />
-        <Dropdown.Toggle bsStyle="primary" bsSize="xsmall">
+        <Dropdown.Toggle>
           <Icon />
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
-          <MenuItem header>Recently used</MenuItem>
+          <DropdownItem header>Recently used</DropdownItem>
           {menuItems}
         </Dropdown.Menu>
       </Dropdown>

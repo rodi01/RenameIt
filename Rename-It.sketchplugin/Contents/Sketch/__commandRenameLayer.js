@@ -88,7 +88,7 @@ var exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/commandFindReplace.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/commandRenameLayer.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -3792,9 +3792,9 @@ module.exports = "file://" + String(context.scriptPath).split(".sketchplugin/Con
 
 /***/ }),
 
-/***/ "./src/commandFindReplace.js":
+/***/ "./src/commandRenameLayer.js":
 /*!***********************************!*\
-  !*** ./src/commandFindReplace.js ***!
+  !*** ./src/commandRenameLayer.js ***!
   \***********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -3804,11 +3804,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_Utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/Utilities */ "./src/lib/Utilities.js");
 /* harmony import */ var _lib_TheUI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/TheUI */ "./src/lib/TheUI.js");
 /* harmony import */ var _lib_VersionAlert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/VersionAlert */ "./src/lib/VersionAlert.js");
-/**
- * @Author: Rodrigo Soares <rodrigo>
- * @Date:   2017-11-17T19:54:56-08:00
- * @Project: Rename It
- * @Last modified time: 2017-12-02T11:44:14-08:00
+/*
+ * @Author: Rodrigo Soares
+ * @Date: 2017-12-26 13:14:56
+ * @Last Modified by: Rodrigo Soares
+ * @Last Modified time: 2019-05-20 22:22:55
  */
 
 
@@ -3820,14 +3820,20 @@ __webpack_require__.r(__webpack_exports__);
     return;
   }
 
-  var data = Object(_lib_Utilities__WEBPACK_IMPORTED_MODULE_0__["findReplaceDataParser"])(context);
+  var data = Object(_lib_Utilities__WEBPACK_IMPORTED_MODULE_0__["parseData"])(context); // Return if there is no selection and show message
+
+  if (data.selectionCount <= 0) {
+    context.document.showMessage("Rename it: You need to select at least one layer or artboard");
+    return;
+  }
+
   var options = {
-    identifier: "findReplace.ui",
-    title: "Find & Replace Layers",
-    redirectTo: "/find_replace",
-    width: 480,
-    height: 335
-  }; // Load UI
+    identifier: "renameLayers.ui",
+    title: "Rename Selected Layers",
+    redirectTo: "/rename",
+    width: 392,
+    height: 420
+  }; // Show UI
 
   Object(_lib_TheUI__WEBPACK_IMPORTED_MODULE_1__["default"])(context, data, options);
 });
@@ -4407,4 +4413,4 @@ module.exports = require("sketch/settings");
 }
 globalThis['onRun'] = __skpm_run.bind(this, 'default')
 
-//# sourceMappingURL=commandFindReplace.js.map
+//# sourceMappingURL=__commandRenameLayer.js.map

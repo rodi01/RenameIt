@@ -17,7 +17,6 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${props => props.theme.bg};
   }
 `
-
 export default () => (
   <ThemeProvider theme={window.theme}>
     <div id="mainContent">
