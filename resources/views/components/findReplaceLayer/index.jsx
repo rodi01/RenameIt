@@ -5,11 +5,8 @@
  * @Last modified time: 2017-12-02T21:18:07-08:00
  */
 import React from 'react'
-import mixpanel from 'mixpanel-browser'
-import ReactGA from 'react-ga'
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap'
 import styled from 'styled-components'
-import { mixpanelId } from '../../../../src/lib/Constants'
 import Input from '../Input'
 import { FindReplace } from 'renameitlib'
 import Preview from '../Preview'
@@ -98,9 +95,6 @@ class FindReplaceLayer extends React.Component {
     this.handleReplaceHistory = this.handleReplaceHistory.bind(this)
     this.onChange = this.onChange.bind(this)
     this.clearInput = this.clearInput.bind(this)
-
-    // Tracking
-    mixpanel.init(mixpanelId)
   }
 
   componentDidMount() {
@@ -151,29 +145,41 @@ class FindReplaceLayer extends React.Component {
     }
 
     // Track input
-    mixpanel.track('input', {
-      find: String(d.findText),
-      replace: String(d.replaceText),
-      searchScope: String(d.searchScope),
-    })
+    window.postMessage(
+      'track',
+      JSON.stringify({
+        hitType: 'event',
+        payload: {
+          ec: 'input',
+          ea: 'searchScope',
+          el: String(d.searchScope),
+        },
+      })
+    )
 
-    ReactGA.event({
-      category: 'input',
-      action: 'find',
-      label: String(d.findText),
-    })
+    window.postMessage(
+      'track',
+      JSON.stringify({
+        hitType: 'event',
+        payload: {
+          ec: 'input',
+          ea: 'find',
+          el: String(d.findText),
+        },
+      })
+    )
 
-    ReactGA.event({
-      category: 'input',
-      action: 'replace',
-      label: String(d.replaceText),
-    })
-
-    ReactGA.event({
-      category: 'input',
-      action: 'searchScope',
-      label: String(d.searchScope),
-    })
+    window.postMessage(
+      'track',
+      JSON.stringify({
+        hitType: 'event',
+        payload: {
+          ec: 'input',
+          ea: 'replace',
+          el: String(d.replaceText),
+        },
+      })
+    )
     window.postMessage('onClickFindReplace', JSON.stringify(d))
   }
 
@@ -211,12 +217,17 @@ class FindReplaceLayer extends React.Component {
     }
 
     // Track clear event
-    mixpanel.track('clear', { input: `${whichInput}` })
-    ReactGA.event({
-      category: 'clear',
-      action: 'input',
-      label: `${whichInput}`,
-    })
+    window.postMessage(
+      'track',
+      JSON.stringify({
+        hitType: 'event',
+        payload: {
+          ec: 'clear',
+          ea: 'input',
+          el: `${whichInput}`,
+        },
+      })
+    )
   }
 
   previewUpdate() {
@@ -333,30 +344,6 @@ class FindReplaceLayer extends React.Component {
             </ToggleButton>
           </ToggleButtonGroup>
         </RadioWrapper>
-        {/* <Form controlId="searchScope">
-          <FakeLabel>Search</FakeLabel>
-          <Form.Radio
-            name="radioGroup"
-            value="page"
-            className={this.state.searchScope === "page" ? "isSelected" : ""}
-            checked={this.state.searchScope === "page"}
-            onChange={this.handleRadioSelection}
-            inline
-          >
-            Current Page
-          </Form.Radio>
-          <Form.Radio
-            name="radioGroup"
-            value="layers"
-            className={this.state.searchScope === "layers" ? "isSelected" : ""}
-            checked={this.state.searchScope === "layers"}
-            onChange={this.handleRadioSelection}
-            disabled={!this.hasSelection}
-            inline
-          >
-            Selected Layers
-          </Form.Radio>
-        </Form> */}
         <Input {...findInputAttr} />
         <Input {...replaceInputAttr} />
 

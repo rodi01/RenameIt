@@ -4,21 +4,22 @@
  * @Project: Rename It
  * @Last modified time: 2017-12-02T21:22:22-08:00
  */
-import BrowserWindow from "sketch-module-web-view"
-import { Rename, FindReplace } from "renameitlib"
-import { renameData, findReplaceData } from "./DataHelper"
-import { exclamations } from "./Constants"
+import BrowserWindow from 'sketch-module-web-view'
+import { Rename, FindReplace } from 'renameitlib'
+import { renameData, findReplaceData } from './DataHelper'
+import { exclamations } from './Constants'
 import {
   addRenameHistory,
   addFindHistory,
   addReplaceHistory,
   getHistory,
-  clearHistory
-} from "./History"
-import getTheme from "../../resources/views/theme/index"
+  clearHistory,
+} from './History'
+import getTheme from '../../resources/views/theme/index'
+import track from 'sketch-module-google-analytics'
 
 function showUpdatedMessage(count, data) {
-  const layerStr = count === 1 ? "Layer" : "Layers"
+  const layerStr = count === 1 ? 'Layer' : 'Layers'
   data.doc.showMessage(
     `${
       exclamations[Math.floor(Math.random() * exclamations.length)]
@@ -28,9 +29,9 @@ function showUpdatedMessage(count, data) {
 
 const theUI = (context, data, options) => {
   const themeColor =
-    typeof MSTheme !== "undefined" && MSTheme.sharedTheme().isDark()
-      ? "dark"
-      : "light"
+    typeof MSTheme !== 'undefined' && MSTheme.sharedTheme().isDark()
+      ? 'dark'
+      : 'light'
   const theme = getTheme(themeColor)
 
   const winOptions = {
@@ -44,77 +45,52 @@ const theUI = (context, data, options) => {
     fullscreenable: false,
     backgroundColor: theme.bg,
     alwaysOnTop: true,
-    show: false
+    show: false,
   }
   let win = new BrowserWindow(winOptions)
   const contents = win.webContents
-
-  const getSuperProperties = () => {
-    const manifestPath = context.plugin
-      .url()
-      .URLByAppendingPathComponent("Contents")
-      .URLByAppendingPathComponent("Sketch")
-      .URLByAppendingPathComponent("manifest.json")
-      .path()
-    const manifest = NSJSONSerialization.JSONObjectWithData_options_error(
-      NSData.dataWithContentsOfFile(manifestPath),
-      0,
-      nil
-    )
-    return {
-      Platform: "Sketch",
-      pluginVersion: String(manifest.version)
-    }
-  }
-
   const history = getHistory()
   const whereTo = options.redirectTo
-  const superProps = getSuperProperties()
   contents.insertJS(
     `
     window.theme=${JSON.stringify(theme)};
     window.redirectTo="${whereTo}";
-          window.data=${JSON.stringify(data)};
-          window.dataHistory=${JSON.stringify(history)};
-          window.superProps=${JSON.stringify(superProps)};
+    window.data=${JSON.stringify(data)};
+    window.dataHistory=${JSON.stringify(history)};
     `
   )
 
-  win.once("ready-to-show", () => {
+  win.once('ready-to-show', () => {
     win.show()
   })
 
-  win.on("closed", () => {
+  win.on('closed', () => {
     win = null
   })
 
-  win.loadURL(require("../../resources/webview.html"))
-
-  
+  win.loadURL(require('../../resources/webview.html'))
 
   const getData = () => {
     const history = getHistory()
     const whereTo = options.redirectTo
-    const superProps = getSuperProperties()
     contents.executeJavaScript(`
           window.redirectTo="${whereTo}";
           window.data=${JSON.stringify(data)};
-          window.dataHistory=${JSON.stringify(history)};
-          window.superProps=${JSON.stringify(superProps)};`)
+          window.dataHistory=${JSON.stringify(history)};`)
   }
 
-  contents.on("did-start-loading", () => getData())
+  contents.on('did-start-loading', () => getData())
 
-  contents.on("getData", () => getData())
+  contents.on('getData', () => getData())
 
-  contents.on("close", () => {
+  contents.on('close', () => {
     win.close()
   })
 
-  contents.on("onClickRename", o => {
+  contents.on('onClickRename', (o) => {
     const rename = new Rename()
     const inputData = JSON.parse(o)
-    data.selection.forEach(item => {
+    data.selection.forEach((item) => {
       const opts = renameData(
         item,
         data.selectionCount,
@@ -130,13 +106,13 @@ const theUI = (context, data, options) => {
     showUpdatedMessage(data.selectionCount, data)
   })
 
-  contents.on("onClickFindReplace", o => {
+  contents.on('onClickFindReplace', (o) => {
     const findReplace = new FindReplace()
     const inputData = JSON.parse(o)
     const selData =
-      inputData.searchScope === "page" ? data.allLayers : data.selection
+      inputData.searchScope === 'page' ? data.allLayers : data.selection
     let totalRenamed = 0
-    selData.forEach(item => {
+    selData.forEach((item) => {
       const opts = findReplaceData(
         item,
         inputData.findText,
@@ -156,13 +132,18 @@ const theUI = (context, data, options) => {
     showUpdatedMessage(totalRenamed, data)
   })
 
-  contents.on("onClearHistory", () => {
+  contents.on('onClearHistory', () => {
     clearHistory()
     win.close()
   })
 
-  contents.on("externalLinkClicked", url => {
+  contents.on('externalLinkClicked', (url) => {
     NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString(url))
+  })
+
+  contents.on('track', (options) => {
+    const parsedOptions = JSON.parse(options)
+    track('UA-104184459-2', parsedOptions.hitType, parsedOptions.payload)
   })
 }
 

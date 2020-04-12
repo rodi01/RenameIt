@@ -1,14 +1,17 @@
 /*
- * @Author: Rodrigo Soares 
- * @Date: 2017-12-25 21:54:20 
+ * @Author: Rodrigo Soares
+ * @Date: 2017-12-25 21:54:20
  * @Last Modified by: Rodrigo Soares
  * @Last Modified time: 2019-10-27 17:44:51
  */
-import React from "react"
-import mixpanel from "mixpanel-browser"
-import styled from "styled-components"
-import { mixpanelId } from "../../../../src/lib/Constants"
-import { SecondaryButton, StyledH3, InputMargin, defaultPadding } from "../GlobalStyles"
+import React from 'react'
+import styled from 'styled-components'
+import {
+  SecondaryButton,
+  StyledH3,
+  InputMargin,
+  defaultPadding,
+} from '../GlobalStyles'
 
 const SettingsWrapper = styled.div`
   display: block;
@@ -32,43 +35,35 @@ const Credits = styled.p`
   }
 `
 
-const Analitics = styled.div`
-  margin-top: ${defaultPadding};
-  font-size: 13px;
-  p {
-    margin-bottom: 8px;
-  }
-`
-
 class Settings extends React.Component {
   constructor(props) {
     super(props)
 
-    // Tracking
-    mixpanel.init(mixpanelId)
-
     this.toggleChange = this.toggleChange.bind(this)
 
     this.state = {
-      isChecked: true
+      isChecked: true,
     }
   }
 
   onClearHistory() {
-    window.postMessage("onClearHistory")
+    window.postMessage('onClearHistory')
   }
 
   moreInfo() {
-    window.postMessage("externalLinkClicked", "http://rodi01.github.io/RenameIt/")
+    window.postMessage(
+      'externalLinkClicked',
+      'http://rodi01.github.io/RenameIt/'
+    )
   }
 
   twitter() {
-    window.postMessage("externalLinkClicked", "https://twitter.com/rodi01")
+    window.postMessage('externalLinkClicked', 'https://twitter.com/rodi01')
   }
 
   toggleChange() {
     this.setState({
-      isChecked: !this.state.isChecked
+      isChecked: !this.state.isChecked,
     })
   }
 
@@ -76,26 +71,19 @@ class Settings extends React.Component {
     return (
       <SettingsWrapper>
         <H3>History</H3>
-        <SecondaryButton onClick={() => this.onClearHistory()}>Clear History</SecondaryButton>
-
-        <Analitics>
-          <H3>Analytics</H3>
-          <p>
-            Help Rename It improve its product by automatically sending diagnotics and usage data.
-          </p>
-          <label>
-            <input type="checkbox" checked={this.state.isChecked} onChange={this.toggleChange} />{" "}
-            Send usage data.
-          </label>
-        </Analitics>
+        <SecondaryButton onClick={() => this.onClearHistory()}>
+          Clear History
+        </SecondaryButton>
 
         <About>
           <H3>About</H3>
-          <SecondaryButton onClick={() => this.moreInfo()}>Plugin Website</SecondaryButton>
+          <SecondaryButton onClick={() => this.moreInfo()}>
+            Plugin Website
+          </SecondaryButton>
         </About>
 
         <Credits>
-          Rename It is maintained by Rodrigo Soares.{" "}
+          Rename It is maintained by Rodrigo Soares.{' '}
           <span onClick={() => this.twitter()}>@rodi01</span>
         </Credits>
       </SettingsWrapper>

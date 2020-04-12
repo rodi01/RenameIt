@@ -4,17 +4,19 @@
  * @Project: Rename It
  * @Last modified time: 2017-12-02T19:17:06-08:00
  */
-import React from "react"
-import mixpanel from "mixpanel-browser"
-import ReactGA from "react-ga"
-import styled from "styled-components"
-import { mixpanelId } from "~/src/lib/Constants"
-import { Rename } from "renameitlib"
-import Input from "../Input"
-import KeywordButton from "../KeywordButton"
-import Preview from "../Preview"
-import { SubmitButton, SecondaryButton, Footer, StyledH3 } from "../GlobalStyles"
-import { renameData } from "~/src/lib/DataHelper"
+import React from 'react'
+import styled from 'styled-components'
+import { Rename } from 'renameitlib'
+import Input from '../Input'
+import KeywordButton from '../KeywordButton'
+import Preview from '../Preview'
+import {
+  SubmitButton,
+  SecondaryButton,
+  Footer,
+  StyledH3,
+} from '../GlobalStyles'
+import { renameData } from '~/src/lib/DataHelper'
 
 const KeywordsWrapper = styled.div`
   margin-top: 16px;
@@ -37,35 +39,33 @@ class RenameLayer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      valueAttr: "",
-      showClear: "",
+      valueAttr: '',
+      showClear: '',
       sequence: 1,
       inputFocus: false,
-      previewData: []
+      previewData: [],
     }
     this.enterFunction = this.enterFunction.bind(this)
 
-    // Tracking
-    mixpanel.init(mixpanelId)
     this.rename = new Rename()
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.enterFunction, false)
+    document.addEventListener('keydown', this.enterFunction, false)
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.enterFunction, false)
+    document.removeEventListener('keydown', this.enterFunction, false)
   }
 
   onChange(event) {
     this.setState(
       {
-        valueAttr: event.target.value
+        valueAttr: event.target.value,
       },
       () => this.previewUpdate()
     )
     if (this.state.valueAttr.length > 0) {
-      this.setState({ showClear: "show" })
+      this.setState({ showClear: 'show' })
     }
   }
 
@@ -73,7 +73,7 @@ class RenameLayer extends React.Component {
     this.setState(
       {
         sequence: event.target.value,
-        inputFocus: false
+        inputFocus: false,
       },
       () => this.previewUpdate()
     )
@@ -86,62 +86,72 @@ class RenameLayer extends React.Component {
       {
         valueAttr: val,
         inputFocus: true,
-        showClear: "show"
+        showClear: 'show',
       },
       () => this.previewUpdate()
     )
 
     // Track button event
-    mixpanel.track("keywordButton", {
-      name: `${event.target.id}`,
-      value: `${event.target.dataset.char}`
-    })
-
-    ReactGA.event({
-      category: "keywordButton",
-      action: `${event.target.id}`,
-      label: `${event.target.dataset.char}`
-    })
+    window.postMessage(
+      'track',
+      JSON.stringify({
+        hitType: 'event',
+        payload: {
+          ec: 'keywordButton',
+          ea: `${event.target.id}`,
+          el: `${event.target.dataset.char}`,
+        },
+      })
+    )
   }
 
   onCancel() {
-    window.postMessage("close")
+    window.postMessage('close')
   }
 
   onSubmit() {
     const d = {
       str: this.state.valueAttr,
-      startsFrom: this.state.sequence
+      startsFrom: this.state.sequence,
     }
     // Track input event
-    mixpanel.track("input", {
-      rename: String(d.str)
-    })
-    ReactGA.event({
-      category: "input",
-      action: "rename",
-      label: String(d.str)
-    })
-    window.postMessage("onClickRename", JSON.stringify(d))
+    window.postMessage(
+      'track',
+      JSON.stringify({
+        hitType: 'event',
+        payload: {
+          ec: 'input',
+          ea: 'rename',
+          el: String(d.str),
+        },
+      })
+    )
+
+    window.postMessage('onClickRename', JSON.stringify(d))
   }
 
   clearInput() {
     this.setState(
       {
-        valueAttr: "",
-        showClear: "",
-        inputFocus: true
+        valueAttr: '',
+        showClear: '',
+        inputFocus: true,
       },
       () => this.previewUpdate()
     )
 
     // Track clear event
-    mixpanel.track("clear", { input: "rename" })
-    ReactGA.event({
-      category: "clear",
-      action: "input",
-      label: "rename"
-    })
+    window.postMessage(
+      'track',
+      JSON.stringify({
+        hitType: 'event',
+        payload: {
+          ec: 'clear',
+          ea: 'input',
+          el: 'rename',
+        },
+      })
+    )
   }
 
   enterFunction(event) {
@@ -171,19 +181,19 @@ class RenameLayer extends React.Component {
     this.setState(
       {
         valueAttr: str,
-        inputFocus: true
+        inputFocus: true,
       },
       () => this.previewUpdate()
     )
   }
 
   render() {
-    const labelWidth = "70px"
+    const labelWidth = '70px'
     const nameInputAttr = {
-      id: "name",
-      type: "text",
-      forName: "Name",
-      wrapperClass: "inputName",
+      id: 'name',
+      type: 'text',
+      forName: 'Name',
+      wrapperClass: 'inputName',
       autoFocus: true,
       value: this.state.valueAttr,
       onChange: this.onChange.bind(this),
@@ -193,73 +203,73 @@ class RenameLayer extends React.Component {
       dataHistory: window.dataHistory.renameHistory,
       showHistory: true,
       handleHistory: this.handleHistory.bind(this),
-      labelWidth
+      labelWidth,
     }
 
     const sequenceInputAttr = {
-      id: "sequence",
-      type: "number",
-      forName: "Start from",
-      wrapperClass: "inputRight",
+      id: 'sequence',
+      type: 'number',
+      forName: 'Start from',
+      wrapperClass: 'inputRight',
       value: this.state.sequence,
       autoFocus: false,
       onChange: this.onChangeSequence.bind(this),
-      labelWidth
+      labelWidth,
     }
 
     const buttons = [
       {
-        id: "currentLayer",
-        char: "%*",
-        text: "Layer Name"
+        id: 'currentLayer',
+        char: '%*',
+        text: 'Layer Name',
       },
       {
-        id: "layerWidth",
-        char: "%w",
-        text: "Layer Width"
+        id: 'layerWidth',
+        char: '%w',
+        text: 'Layer Width',
       },
       {
-        id: "layerHeight",
-        char: "%h",
-        text: "Layer Height"
+        id: 'layerHeight',
+        char: '%h',
+        text: 'Layer Height',
       },
       {
-        id: "sequenceAsc",
-        char: "%n",
-        text: "Num. Sequence ASC"
+        id: 'sequenceAsc',
+        char: '%n',
+        text: 'Num. Sequence ASC',
       },
       {
-        id: "sequenceDesc",
-        char: "%N",
-        text: "Num. Sequence DESC"
+        id: 'sequenceDesc',
+        char: '%N',
+        text: 'Num. Sequence DESC',
       },
       {
-        id: "sequenceAlpha",
-        char: "%A",
-        text: "Alphabet Sequence"
+        id: 'sequenceAlpha',
+        char: '%A',
+        text: 'Alphabet Sequence',
       },
       {
-        id: "pageName",
-        char: "%p",
-        text: "Page Name"
+        id: 'pageName',
+        char: '%p',
+        text: 'Page Name',
       },
       {
-        id: "parentName",
-        char: "%o",
-        text: "Parent Name"
+        id: 'parentName',
+        char: '%o',
+        text: 'Parent Name',
       },
       {
-        id: "symbolName",
-        char: "%s",
-        text: "Symbol Name",
-        disabled: !window.data.hasSymbol
+        id: 'symbolName',
+        char: '%s',
+        text: 'Symbol Name',
+        disabled: !window.data.hasSymbol,
       },
       {
-        id: "styleName",
-        char: "%ls%",
-        text: "Style Name",
-        disabled: !window.data.hasLayerStyle
-      }
+        id: 'styleName',
+        char: '%ls%',
+        text: 'Style Name',
+        disabled: !window.data.hasLayerStyle,
+      },
     ]
 
     const listItems = buttons.map((d) => (

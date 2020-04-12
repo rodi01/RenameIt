@@ -1261,6 +1261,98 @@ module.exports = function (value, locale) {
 
 /***/ }),
 
+/***/ "./node_modules/sketch-module-google-analytics/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/sketch-module-google-analytics/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Settings = __webpack_require__(/*! sketch/settings */ "sketch/settings");
+
+var kUUIDKey = "google.analytics.uuid";
+var uuid = null
+var uuid = NSUserDefaults.standardUserDefaults().objectForKey(kUUIDKey);
+if (!uuid) {
+  uuid = NSUUID.UUID().UUIDString();
+  NSUserDefaults.standardUserDefaults().setObject_forKey(uuid, kUUIDKey)
+}
+
+var variant = MSApplicationMetadata.metadata().variant;
+var source =
+  "Sketch " +
+  (variant == "NONAPPSTORE" ? "" : variant + " ") +
+  Settings.version.sketch;
+
+function jsonToQueryString(json) {
+  return Object.keys(json)
+    .map(function(key) {
+      return encodeURIComponent(key) + "=" + encodeURIComponent(json[key]);
+    })
+    .join("&");
+}
+
+function makeRequest(url, options) {
+  if (!url) {
+    return
+  }
+
+  if (options && options.makeRequest) {
+    return options.makeRequest(url)
+  }
+  if (options && options.debug) {
+    var request = NSURLRequest.requestWithURL(url)
+    var responsePtr = MOPointer.alloc().init();
+    var errorPtr = MOPointer.alloc().init();
+
+    var data = NSURLConnection.sendSynchronousRequest_returningResponse_error(request, responsePtr, errorPtr)
+    return data ? NSString.alloc().initWithData_encoding(data, NSUTF8StringEncoding) : errorPtr.value()
+  }
+
+  NSURLSession.sharedSession()
+    .dataTaskWithURL(url)
+    .resume();
+}
+
+module.exports = function(trackingId, hitType, props, options) {
+  if (!Settings.globalSettingForKey("analyticsEnabled")) {
+    // the user didn't enable sharing analytics
+    return 'the user didn\'t enable sharing analytics';
+  }
+
+  var payload = {
+    v: 1,
+    tid: trackingId,
+    ds: source,
+    cid: uuid,
+    t: hitType
+  };
+
+  if (typeof __command !== "undefined") {
+    payload.an = __command.pluginBundle().name();
+    payload.aid = __command.pluginBundle().identifier();
+    payload.av = __command.pluginBundle().version();
+  }
+
+  if (props) {
+    Object.keys(props).forEach(function(key) {
+      payload[key] = props[key];
+    });
+  }
+
+  var url = NSURL.URLWithString(
+    "https://www.google-analytics.com/" + (options && options.debug ? "debug/" : "") + "collect?" +
+      jsonToQueryString(payload) +
+      "&z=" +
+      NSUUID.UUID().UUIDString()
+  );
+
+  return makeRequest(url, options)
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/sketch-module-web-view/lib/browser-api.js":
 /*!****************************************************************!*\
   !*** ./node_modules/sketch-module-web-view/lib/browser-api.js ***!
@@ -3854,32 +3946,32 @@ __webpack_require__.r(__webpack_exports__);
  * @Last modified time: 2017-12-02T19:14:51-08:00
  */
 var testData = false;
-var mixpanelId = "d7b7059c7b41c6faf64cb0c694b8f6a3";
+var mixpanelId = 'd7b7059c7b41c6faf64cb0c694b8f6a3';
 var mockData = {
   doc: {},
-  pageName: "Page Name",
+  pageName: 'Page Name',
   selectionCount: 2,
   selection: [{
-    name: "Rectangle 1",
+    name: 'Rectangle 1',
     frame: {},
     idx: 0,
     width: 160,
     height: 116
   }, {
-    name: "Rectangle 2",
+    name: 'Rectangle 2',
     frame: {},
     idx: 1,
     width: 160,
     height: 160
   }],
-  windowTitle: "Rename Selected Layers"
+  windowTitle: 'Rename Selected Layers'
 };
 var mockHistory = {
-  renameHistory: ["Hello", "World", "Item %N", "icon %wX%h", "Boo Hoo"],
+  renameHistory: ['Hello', 'World', 'Item %N', 'icon %wX%h', 'Boo Hoo'],
   findHistory: [],
   replaceHistory: []
 };
-var exclamations = ["Boo-yah!", "Olé!", "Hooray!", "Great Success!", "Abracadabra!", "Geronimo!"];
+var exclamations = ['Boo-yah!', 'Olé!', 'Hooray!', 'Great Success!', 'Abracadabra!', 'Geronimo!'];
 
 /***/ }),
 
@@ -4041,6 +4133,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Constants */ "./src/lib/Constants.js");
 /* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./History */ "./src/lib/History.js");
 /* harmony import */ var _resources_views_theme_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../resources/views/theme/index */ "./resources/views/theme/index.js");
+/* harmony import */ var sketch_module_google_analytics__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! sketch-module-google-analytics */ "./node_modules/sketch-module-google-analytics/index.js");
+/* harmony import */ var sketch_module_google_analytics__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(sketch_module_google_analytics__WEBPACK_IMPORTED_MODULE_6__);
 /**
  * @Author: Rodrigo Soares <rodrigo>
  * @Date:   2017-11-17T20:46:17-08:00
@@ -4054,13 +4148,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function showUpdatedMessage(count, data) {
-  var layerStr = count === 1 ? "Layer" : "Layers";
+  var layerStr = count === 1 ? 'Layer' : 'Layers';
   data.doc.showMessage("".concat(_Constants__WEBPACK_IMPORTED_MODULE_3__["exclamations"][Math.floor(Math.random() * _Constants__WEBPACK_IMPORTED_MODULE_3__["exclamations"].length)], " ").concat(count, " ").concat(layerStr, " renamed."));
 }
 
 var theUI = function theUI(context, data, options) {
-  var themeColor = typeof MSTheme !== "undefined" && MSTheme.sharedTheme().isDark() ? "dark" : "light";
+  var themeColor = typeof MSTheme !== 'undefined' && MSTheme.sharedTheme().isDark() ? 'dark' : 'light';
   var theme = Object(_resources_views_theme_index__WEBPACK_IMPORTED_MODULE_5__["default"])(themeColor);
   var winOptions = {
     identifier: options.identifier,
@@ -4077,24 +4172,13 @@ var theUI = function theUI(context, data, options) {
   };
   var win = new sketch_module_web_view__WEBPACK_IMPORTED_MODULE_0___default.a(winOptions);
   var contents = win.webContents;
-
-  var getSuperProperties = function getSuperProperties() {
-    var manifestPath = context.plugin.url().URLByAppendingPathComponent("Contents").URLByAppendingPathComponent("Sketch").URLByAppendingPathComponent("manifest.json").path();
-    var manifest = NSJSONSerialization.JSONObjectWithData_options_error(NSData.dataWithContentsOfFile(manifestPath), 0, nil);
-    return {
-      Platform: "Sketch",
-      pluginVersion: String(manifest.version)
-    };
-  };
-
   var history = Object(_History__WEBPACK_IMPORTED_MODULE_4__["getHistory"])();
   var whereTo = options.redirectTo;
-  var superProps = getSuperProperties();
-  contents.insertJS("\n    window.theme=".concat(JSON.stringify(theme), ";\n    window.redirectTo=\"").concat(whereTo, "\";\n          window.data=").concat(JSON.stringify(data), ";\n          window.dataHistory=").concat(JSON.stringify(history), ";\n          window.superProps=").concat(JSON.stringify(superProps), ";\n    "));
-  win.once("ready-to-show", function () {
+  contents.insertJS("\n    window.theme=".concat(JSON.stringify(theme), ";\n    window.redirectTo=\"").concat(whereTo, "\";\n    window.data=").concat(JSON.stringify(data), ";\n    window.dataHistory=").concat(JSON.stringify(history), ";\n    "));
+  win.once('ready-to-show', function () {
     win.show();
   });
-  win.on("closed", function () {
+  win.on('closed', function () {
     win = null;
   });
   win.loadURL(__webpack_require__(/*! ../../resources/webview.html */ "./resources/webview.html"));
@@ -4102,20 +4186,19 @@ var theUI = function theUI(context, data, options) {
   var getData = function getData() {
     var history = Object(_History__WEBPACK_IMPORTED_MODULE_4__["getHistory"])();
     var whereTo = options.redirectTo;
-    var superProps = getSuperProperties();
-    contents.executeJavaScript("\n          window.redirectTo=\"".concat(whereTo, "\";\n          window.data=").concat(JSON.stringify(data), ";\n          window.dataHistory=").concat(JSON.stringify(history), ";\n          window.superProps=").concat(JSON.stringify(superProps), ";"));
+    contents.executeJavaScript("\n          window.redirectTo=\"".concat(whereTo, "\";\n          window.data=").concat(JSON.stringify(data), ";\n          window.dataHistory=").concat(JSON.stringify(history), ";"));
   };
 
-  contents.on("did-start-loading", function () {
+  contents.on('did-start-loading', function () {
     return getData();
   });
-  contents.on("getData", function () {
+  contents.on('getData', function () {
     return getData();
   });
-  contents.on("close", function () {
+  contents.on('close', function () {
     win.close();
   });
-  contents.on("onClickRename", function (o) {
+  contents.on('onClickRename', function (o) {
     var rename = new renameitlib__WEBPACK_IMPORTED_MODULE_1__["Rename"]();
     var inputData = JSON.parse(o);
     data.selection.forEach(function (item) {
@@ -4127,10 +4210,10 @@ var theUI = function theUI(context, data, options) {
     win.close();
     showUpdatedMessage(data.selectionCount, data);
   });
-  contents.on("onClickFindReplace", function (o) {
+  contents.on('onClickFindReplace', function (o) {
     var findReplace = new renameitlib__WEBPACK_IMPORTED_MODULE_1__["FindReplace"]();
     var inputData = JSON.parse(o);
-    var selData = inputData.searchScope === "page" ? data.allLayers : data.selection;
+    var selData = inputData.searchScope === 'page' ? data.allLayers : data.selection;
     var totalRenamed = 0;
     selData.forEach(function (item) {
       var opts = Object(_DataHelper__WEBPACK_IMPORTED_MODULE_2__["findReplaceData"])(item, inputData.findText, inputData.replaceText, Boolean(inputData.caseSensitive));
@@ -4146,12 +4229,16 @@ var theUI = function theUI(context, data, options) {
     win.close();
     showUpdatedMessage(totalRenamed, data);
   });
-  contents.on("onClearHistory", function () {
+  contents.on('onClearHistory', function () {
     Object(_History__WEBPACK_IMPORTED_MODULE_4__["clearHistory"])();
     win.close();
   });
-  contents.on("externalLinkClicked", function (url) {
+  contents.on('externalLinkClicked', function (url) {
     NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString(url));
+  });
+  contents.on('track', function (options) {
+    var parsedOptions = JSON.parse(options);
+    sketch_module_google_analytics__WEBPACK_IMPORTED_MODULE_6___default()('UA-104184459-2', parsedOptions.hitType, parsedOptions.payload);
   });
 };
 

@@ -1,1 +1,0 @@
-import Settings from "sketch/settings" // eslint-disable-line

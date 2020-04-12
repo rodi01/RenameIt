@@ -49,7 +49,7 @@
     "svg-react-loader": "^0.4.6"
   },
   "resources": [
-    "resources/webview.js"
+    "resources/**/*.js"
   ],
   "dependencies": {
     "mixpanel-browser": "^2.35.0",
