@@ -60528,7 +60528,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  margin-bottom: ", ";\n\n  label {\n    ", ";\n    display: inline-block;\n    line-height: 24px;\n    font-size: 12px;\n    border-right-width: 0;\n    border-radius: 4px 0 0 4px;\n\n    &:last-child {\n      border-radius: 0 4px 4px 0;\n      border-right-width: 1px;\n    }\n\n    input {\n      display: none;\n    }\n  }\n\n  .isSelected {\n    background-color: ", ";\n    color: ", ";\n    border-color: ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-bottom: ", ";\n\n  label {\n    ", ";\n    display: inline-block;\n    line-height: 24px;\n    font-size: 12px;\n    border-right-width: 0;\n    border-radius: 4px 0 0 4px;\n\n    &:last-child {\n      border-radius: 0 4px 4px 0;\n      border-right-width: 1px;\n    }\n\n    input {\n      display: none;\n    }\n\n    &.disabled {\n      opacity: 0.2;\n    }\n  }\n\n  .isSelected {\n    background-color: ", ";\n    color: ", ";\n    border-color: ", ";\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;

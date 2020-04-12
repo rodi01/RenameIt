@@ -26,6 +26,7 @@ import {
 const labelWidth = '60px'
 
 const RadioWrapper = styled.div`
+  display: flex;
   margin-bottom: ${InputMargin};
 
   label {
@@ -43,6 +44,10 @@ const RadioWrapper = styled.div`
 
     input {
       display: none;
+    }
+
+    &.disabled {
+      opacity: 0.2;
     }
   }
 
