@@ -88,7 +88,7 @@ var exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/commandRenameArtboard.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/commandRenameLayer.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -3884,10 +3884,10 @@ module.exports = "file://" + String(context.scriptPath).split(".sketchplugin/Con
 
 /***/ }),
 
-/***/ "./src/commandRenameArtboard.js":
-/*!**************************************!*\
-  !*** ./src/commandRenameArtboard.js ***!
-  \**************************************/
+/***/ "./src/commandRenameLayer.js":
+/*!***********************************!*\
+  !*** ./src/commandRenameLayer.js ***!
+  \***********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3898,33 +3898,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_VersionAlert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/VersionAlert */ "./src/lib/VersionAlert.js");
 /*
  * @Author: Rodrigo Soares
- * @Date: 2017-12-26 13:15:01
+ * @Date: 2017-12-26 13:14:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-05-20 22:22:54
+ * @Last Modified time: 2019-05-20 22:22:55
  */
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function (context) {
+  // Check compatibility
   if (!Object(_lib_VersionAlert__WEBPACK_IMPORTED_MODULE_2__["isCompatible"])()) {
     Object(_lib_VersionAlert__WEBPACK_IMPORTED_MODULE_2__["showAlert"])();
     return;
   }
 
-  var data = Object(_lib_Utilities__WEBPACK_IMPORTED_MODULE_0__["parseData"])(context, true); // Return if there is no selection and show message
+  var data = Object(_lib_Utilities__WEBPACK_IMPORTED_MODULE_0__["parseData"])(context); // Return if there is no selection and show message
 
   if (data.selectionCount <= 0) {
-    context.document.showMessage("Rename it: You need to select at least one artboard or layer in an artboard");
+    context.document.showMessage("Rename it: You need to select at least one layer or artboard");
     return;
   }
 
   var options = {
     identifier: "renameLayers.ui",
-    title: "Rename Selected Artboards",
+    title: "Rename Selected Layers",
     redirectTo: "/rename",
     width: 392,
     height: 420
-  }; // Load UI
+  }; // Show UI
 
   Object(_lib_TheUI__WEBPACK_IMPORTED_MODULE_1__["default"])(context, data, options);
 });
@@ -4499,4 +4500,4 @@ module.exports = require("sketch/settings");
 }
 globalThis['onRun'] = __skpm_run.bind(this, 'default')
 
-//# sourceMappingURL=commandRenameArtboard.js.map
+//# sourceMappingURL=__commandRenameLayer.js.map
