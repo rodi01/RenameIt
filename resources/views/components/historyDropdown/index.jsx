@@ -2,24 +2,19 @@
  * @Author: Rodrigo Soares
  * @Date: 2017-12-25 19:52:04
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2018-11-18 12:05:46
+ * @Last Modified time: 2019-10-13 10:09:54
  */
-import React from "react"
-import mixpanel from "mixpanel-browser"
-import { Dropdown, MenuItem } from "react-bootstrap"
-import { withTheme } from "styled-components"
-import { mixpanelId } from "../../../../src/lib/Constants"
-import GlobalStyles from "./historyStyles"
-import IconLight from "./history_ic_light.svg"
-import IconDark from "./history_ic_dark.svg"
+import React from 'react'
+import { Dropdown, DropdownItem } from 'react-bootstrap'
+import { withTheme } from 'styled-components'
+import GlobalStyles from './historyStyles'
+import IconLight from './history_ic_light.svg'
+import IconDark from './history_ic_dark.svg'
 
 class HistoryDropdown extends React.Component {
   constructor(props) {
     super(props)
     this.onTargetSelect = this.onTargetSelect.bind(this)
-
-    // Tracking
-    mixpanel.init(mixpanelId)
   }
 
   onTargetSelect(target) {
@@ -27,43 +22,47 @@ class HistoryDropdown extends React.Component {
   }
 
   onToggle() {
-    mixpanel.track("history", {
-      dropdown: `${this.props.dropdownId}`
-    })
+    window.postMessage(
+      'track',
+      JSON.stringify({
+        hitType: 'event',
+        payload: {
+          ec: 'history',
+          ea: 'dropdown',
+          el: `${this.props.dropdownId}`,
+        },
+      })
+    )
   }
 
   render() {
-    const Icon = this.props.theme.name === "dark" ? IconDark : IconLight
+    const Icon = this.props.theme.name === 'dark' ? IconDark : IconLight
     let menuItems
     if (this.props.menuData.length > 0) {
       menuItems = this.props.menuData.map((d, idx) => (
-        <MenuItem
+        <Dropdown.Item
           key={`menu-${idx}`}
           eventKey={`${d}`}
           onSelect={() => this.onTargetSelect(d)}
         >
           {d}
-        </MenuItem>
+        </Dropdown.Item>
       ))
     } else {
       menuItems = (
-        <MenuItem key="disabled-menu" disabled>
+        <DropdownItem key="disabled-menu" disabled>
           Empty History
-        </MenuItem>
+        </DropdownItem>
       )
     }
     return (
-      <Dropdown
-        id={this.props.dropdownId}
-        pullRight
-        onToggle={() => this.onToggle(this)}
-      >
+      <Dropdown id={this.props.dropdownId} onToggle={() => this.onToggle(this)}>
         <GlobalStyles />
-        <Dropdown.Toggle bsStyle="primary" bsSize="xsmall">
+        <Dropdown.Toggle>
           <Icon />
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropMenu">
-          <MenuItem header>Recently used</MenuItem>
+          <Dropdown.Header>Recently used</Dropdown.Header>
           {menuItems}
         </Dropdown.Menu>
       </Dropdown>
