@@ -3935,13 +3935,12 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************!*\
   !*** ./src/lib/Constants.js ***!
   \******************************/
-/*! exports provided: testData, mixpanelId, mockData, mockHistory, exclamations */
+/*! exports provided: testData, mockData, mockHistory, exclamations */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "testData", function() { return testData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mixpanelId", function() { return mixpanelId; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mockData", function() { return mockData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mockHistory", function() { return mockHistory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exclamations", function() { return exclamations; });
@@ -3951,7 +3950,6 @@ __webpack_require__.r(__webpack_exports__);
  * @Last modified time: 2017-12-02T19:14:51-08:00
  */
 var testData = false;
-var mixpanelId = 'd7b7059c7b41c6faf64cb0c694b8f6a3';
 var mockData = {
   doc: {},
   pageName: 'Page Name',
