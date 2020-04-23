@@ -99,7 +99,8 @@ function getChildLayer(layer) {
 
   if (hasChildLayer(layer)) {
     try {
-      name = String(layer.layers()[0].name())
+      const idx = layer.layers().length - 1
+      name = String(layer.layers()[idx].name())
 
       // eslint-disable-next-line no-empty
     } catch (error) {
