@@ -5,6 +5,7 @@
 		}
 	],
 	"settings": {
-		"javascript.format.enable": false
+		"javascript.format.enable": false,
+		"workbench.colorTheme": "Blink Contrast (rainglow)"
 	}
 }

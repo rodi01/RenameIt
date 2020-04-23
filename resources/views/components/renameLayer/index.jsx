@@ -6,7 +6,7 @@
  */
 import React from 'react'
 import styled from 'styled-components'
-import { Rename } from 'renameitlib'
+import { Rename } from '@rodi01/renameitlib'
 import Input from '../Input'
 import KeywordButton from '../KeywordButton'
 import Preview from '../Preview'
@@ -47,7 +47,7 @@ class RenameLayer extends React.Component {
     }
     this.enterFunction = this.enterFunction.bind(this)
 
-    this.rename = new Rename()
+    this.rename = new Rename({ allowChildLayer: true })
   }
 
   componentDidMount() {
@@ -257,6 +257,12 @@ class RenameLayer extends React.Component {
         id: 'parentName',
         char: '%o',
         text: 'Parent Name',
+      },
+      {
+        id: 'childLayer',
+        char: '%ch%',
+        text: 'Child Layer',
+        disabled: !window.data.hasChildLayer,
       },
       {
         id: 'symbolName',

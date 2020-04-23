@@ -8,7 +8,7 @@ import React from 'react'
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap'
 import styled from 'styled-components'
 import Input from '../Input'
-import { FindReplace } from 'renameitlib'
+import { FindReplace } from '@rodi01/renameitlib'
 import Preview from '../Preview'
 import { findReplaceData } from '~/src/lib/DataHelper'
 import {

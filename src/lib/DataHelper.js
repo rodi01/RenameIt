@@ -27,7 +27,8 @@ export function renameData(
     pageName,
     parentName: item.parentName,
     symbolName: item.symbolName,
-    layerStyle: item.layerStyle
+    layerStyle: item.layerStyle,
+    childLayer: item.childLayer,
   }
 }
 
@@ -47,6 +48,6 @@ export function findReplaceData(item, findText, replaceWith, caseSensitive) {
     currIdx: item.idx,
     findText,
     replaceWith,
-    caseSensitive
+    caseSensitive,
   }
 }

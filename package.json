@@ -51,11 +51,11 @@
     "resources/**/*.js"
   ],
   "dependencies": {
+    "@rodi01/renameitlib": "^1.2.3",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
-    "renameitlib": "github:rodi01/RenameIt-Lib",
     "sketch-module-google-analytics": "^0.2.1",
     "sketch-module-user-preferences": "^1.0.2",
     "sketch-module-web-view": "^3.4.1",
