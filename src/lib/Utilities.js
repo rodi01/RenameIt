@@ -110,7 +110,13 @@ function getChildLayer(layer) {
   return name
 }
 
-// Layer Object
+/**
+ * The Layer Object builder
+ *
+ * @param {Object} layer
+ * @param {Integer} idx
+ * @returns {Object}
+ */
 function layerObject(layer, idx) {
   const parentName =
     layer.parentGroup() == null ? '' : layer.parentGroup().name()
