@@ -5,7 +5,7 @@
  * @Last modified time: 2017-12-02T21:22:22-08:00
  */
 import BrowserWindow from 'sketch-module-web-view'
-import { Rename, FindReplace } from 'renameitlib'
+import { Rename, FindReplace } from '@rodi01/renameitlib'
 import { renameData, findReplaceData } from './DataHelper'
 import { exclamations } from './Constants'
 import {
@@ -88,7 +88,8 @@ const theUI = (context, data, options) => {
   })
 
   contents.on('onClickRename', (o) => {
-    const rename = new Rename()
+    const rename = new Rename({ allowChildLayer: true })
+
     const inputData = JSON.parse(o)
     data.selection.forEach((item) => {
       const opts = renameData(

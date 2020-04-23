@@ -37,7 +37,7 @@ function isSymbolInstance(layer) {
  * @returns {String} Name of the symbol
  */
 function getSymbolName(layer) {
-  let name = ""
+  let name = ''
   if (isSymbolInstance(layer)) {
     try {
       name = String(layer.symbolMaster().name())
@@ -62,7 +62,7 @@ function hasLayerStyle(layer) {
 }
 
 function getLayerStyle(layer) {
-  let name = ""
+  let name = ''
 
   if (hasLayerStyle(layer)) {
     try {
@@ -74,9 +74,46 @@ function getLayerStyle(layer) {
   return name
 }
 
+/**
+ * Check if has child layer
+ *
+ * @param {Object} layer
+ * @returns {Boolean}
+ */
+function hasChildLayer(layer) {
+  try {
+    return layer.layers() !== undefined && layer.layers().length > 0
+  } catch (error) {
+    return false
+  }
+}
+
+/**
+ * Find first layer and return it
+ *
+ * @param {Object} layer
+ * @returns {String}
+ */
+function getChildLayer(layer) {
+  let name = ''
+
+  if (hasChildLayer(layer)) {
+    try {
+      name = String(layer.layers()[0].name())
+
+      // eslint-disable-next-line no-empty
+    } catch (error) {
+      console.log('ERROR CHILD LAYER')
+    }
+  }
+
+  return name
+}
+
+// Layer Object
 function layerObject(layer, idx) {
   const parentName =
-    layer.parentGroup() == null ? "" : layer.parentGroup().name()
+    layer.parentGroup() == null ? '' : layer.parentGroup().name()
 
   return {
     layer,
@@ -87,7 +124,8 @@ function layerObject(layer, idx) {
     height: Math.floor(layer.frame().height()),
     parentName: String(parentName),
     symbolName: getSymbolName(layer),
-    layerStyle: getLayerStyle(layer)
+    layerStyle: getLayerStyle(layer),
+    childLayer: getChildLayer(layer),
   }
 }
 
@@ -100,7 +138,7 @@ export function parseData(context, onlyArtboards = false) {
   let contextData = context.selection
   if (onlyArtboards) {
     const aBoards = []
-    contextData.forEach(el => {
+    contextData.forEach((el) => {
       while (el && !isArtboard(el)) {
         el = el.parentGroup()
       }
@@ -115,20 +153,24 @@ export function parseData(context, onlyArtboards = false) {
     selectionCount: Array.isArray(contextData)
       ? contextData.length
       : contextData.count(),
-    selection: []
+    selection: [],
   }
 
   let hasSymbol = false
   let lStyle = false
+  let childLayer = false
+
   contextData.forEach((layer, i) => {
     data.selection[i] = layerObject(layer, i)
 
     if (!hasSymbol) hasSymbol = isSymbolInstance(layer)
     if (!lStyle) lStyle = hasLayerStyle(layer)
+    if (!childLayer) childLayer = hasChildLayer(layer)
   })
 
   data.hasSymbol = hasSymbol
   data.hasLayerStyle = lStyle
+  data.hasChildLayer = childLayer
 
   return data
 }
