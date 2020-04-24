@@ -99,6 +99,11 @@ const theUI = (context, data, options) => {
         inputData.startsFrom,
         data.pageName
       )
+
+      if (inputData.sequenceType === 'xPos') {
+        opts.currIdx = opts.xIdx
+      }
+
       const layer = data.selection[opts.currIdx].layer
       layer.name = rename.layer(opts)
     })

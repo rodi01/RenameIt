@@ -5,11 +5,13 @@
  * @Last modified time: 2017-12-02T19:17:06-08:00
  */
 import React from 'react'
+import { Form, Col } from 'react-bootstrap'
 import styled from 'styled-components'
 import { Rename } from '@rodi01/renameitlib'
 import Input from '../Input'
 import KeywordButton from '../KeywordButton'
 import Preview from '../Preview'
+
 import {
   SubmitButton,
   SecondaryButton,
@@ -44,8 +46,10 @@ class RenameLayer extends React.Component {
       sequence: 1,
       inputFocus: false,
       previewData: [],
+      selectValue: 'layerList',
     }
     this.enterFunction = this.enterFunction.bind(this)
+    this.onSelectChange = this.onSelectChange.bind(this)
 
     this.rename = new Rename({ allowChildLayer: true })
   }
@@ -113,6 +117,7 @@ class RenameLayer extends React.Component {
     const d = {
       str: this.state.valueAttr,
       startsFrom: this.state.sequence,
+      sequenceType: this.state.selectValue,
     }
     // Track input event
     window.postMessage(
@@ -172,6 +177,10 @@ class RenameLayer extends React.Component {
         window.data.pageName
       )
 
+      if (this.state.selectValue === 'xPos') {
+        options.currIdx = options.xIdx
+      }
+
       renamed.push(this.rename.layer(options))
     })
     this.setState({ previewData: renamed })
@@ -184,6 +193,12 @@ class RenameLayer extends React.Component {
         inputFocus: true,
       },
       () => this.previewUpdate()
+    )
+  }
+
+  onSelectChange(event) {
+    this.setState({ selectValue: event.target.value }, () =>
+      this.previewUpdate()
     )
   }
 
@@ -287,7 +302,24 @@ class RenameLayer extends React.Component {
     return (
       <div className="container rename">
         <Input {...nameInputAttr} />
-        <Input {...sequenceInputAttr} />
+
+        <Form.Row>
+          <Col>
+            <Input {...sequenceInputAttr} />
+          </Col>
+          <Col>
+            <Form.Control
+              as="select"
+              size="sm"
+              custom
+              value={this.state.selectValue}
+              onChange={this.onSelectChange}
+            >
+              <option value="layerList">Layer List</option>
+              <option value="xPos">X Position</option>
+            </Form.Control>
+          </Col>
+        </Form.Row>
 
         <KeywordsWrapper>
           <StyledH3>Keywords</StyledH3>
