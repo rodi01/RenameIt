@@ -2,8 +2,10 @@
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-06-04 14:43:26
+ * @Last Modified time: 2020-04-24 11:24:45
  */
+
+import { sortByX, sortByY } from './RenameHelpers'
 
 /**
  * Check if is artboard
@@ -111,99 +113,6 @@ function getChildLayer(layer) {
   return name
 }
 
-function getOrigin(layers) {
-  const minX = layers.reduce(
-    (prev, current) => (prev.x < current.x ? prev : current),
-    1
-  )
-
-  const minY = layers.reduce(
-    (prev, current) => (prev.y < current.y ? prev : current),
-    1
-  )
-  return {
-    x: minX.x,
-    y: minY.y,
-  }
-}
-
-function sortByX(layers) {
-  const origin = getOrigin(layers)
-  let rowStarterLayers = []
-
-  layers.forEach((ab) => {
-    let leftMostInRow = true
-    layers.forEach((ab2) => {
-      if (ab === ab2) return
-
-      if (ab2.x < ab.x) {
-        if (ab.y <= ab2.maxY && ab2.y <= ab.maxY) {
-          leftMostInRow = false
-          return
-        }
-      }
-    })
-
-    if (leftMostInRow) {
-      rowStarterLayers.push(ab)
-    }
-  })
-
-  // Sort starting layers
-  rowStarterLayers.sort((a, b) => a.y - b.y)
-
-  // start a list of layers for each row
-  let rows = rowStarterLayers.map((ab) => [ab])
-  let rowHeights = rowStarterLayers.map((ab) => ab.maxY - ab.y)
-  rowStarterLayers.forEach((ab, i) => {
-    ab.row = i
-  })
-
-  // assign all other artboards to a row by
-  // computing shortest distance between artboard vertical centers
-  layers
-    .filter((ab) => !rowStarterLayers.includes(ab))
-    .forEach((ab) => {
-      rowStarterLayers.forEach((abStarter) => {
-        abStarter._tmpDistance = Math.abs(
-          (abStarter.y + abStarter.maxY) / 2 - (ab.y + ab.maxY) / 2
-        )
-      })
-
-      const curStarterAb = rowStarterLayers.reduce((prev, current) =>
-        prev._tmpDistance < current._tmpDistance ? prev : current
-      )
-      rows[curStarterAb.row].push(ab)
-
-      // update row height
-      rowHeights[curStarterAb.row] = Math.max(
-        rowHeights[curStarterAb.row],
-        ab.maxY - ab.y
-      )
-    })
-
-  // sort each row by x position
-  rows.forEach((abInRow) => {
-    abInRow.sort((a, b) => a.x - b.x)
-  })
-
-  // finally, arrange everything
-  let y = origin.y
-  let index = 0
-  let arr = []
-
-  rows.forEach((abInRows, r) => {
-    let x = origin.x
-    abInRows.forEach((ab, idx) => {
-      ab.xIdx = index
-      index++
-      arr.push(ab)
-    })
-    y += rowHeights[r]
-  })
-  return arr
-}
-
 /**
  * The Layer Object builder
  *
@@ -281,6 +190,9 @@ export function parseData(context, onlyArtboards = false) {
 
   // Sort by X
   data.selection = sortByX(data.selection)
+
+  // Sort by Y
+  data.selection = sortByY(data.selection)
 
   return data
 }

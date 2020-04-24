@@ -4834,7 +4834,8 @@ function renameData(item, selectionCount, inputName, startsFrom, pageName) {
     childLayer: item.childLayer,
     x: item.x,
     y: item.y,
-    xIdx: item.xIdx
+    xIdx: item.xIdx,
+    yIdx: item.yIdx
   };
 }
 /**
@@ -5033,6 +5034,8 @@ var theUI = function theUI(context, data, options) {
 
       if (inputData.sequenceType === 'xPos') {
         opts.currIdx = opts.xIdx;
+      } else if (inputData.sequenceType === 'yPos') {
+        opts.currIdx = opts.yIdx;
       }
 
       var layer = data.selection[opts.currIdx].layer;

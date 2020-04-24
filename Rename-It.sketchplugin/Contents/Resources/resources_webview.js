@@ -53611,10 +53611,12 @@ var RenameLayer = /*#__PURE__*/function (_React$Component) {
 
       var renamed = [];
       window.data.selection.forEach(function (item) {
-        var options = Object(_src_lib_DataHelper__WEBPACK_IMPORTED_MODULE_8__["renameData"])(item, window.data.selectionCount, _this6.state.valueAttr, _this6.state.sequence, window.data.pageName);
+        var options = Object(_src_lib_DataHelper__WEBPACK_IMPORTED_MODULE_8__["renameData"])(item, window.data.selectionCount, _this6.state.valueAttr, _this6.state.sequence, window.data.pageName); // check for sequnce type
 
         if (_this6.state.selectValue === 'xPos') {
           options.currIdx = options.xIdx;
+        } else if (_this6.state.selectValue === 'yPos') {
+          options.currIdx = options.yIdx;
         }
 
         renamed.push(_this6.rename.layer(options));
@@ -53692,11 +53694,11 @@ var RenameLayer = /*#__PURE__*/function (_React$Component) {
         text: 'Layer Height'
       }, {
         id: 'sequenceAsc',
-        "char": '%n',
+        "char": '%N',
         text: 'Num. Sequence ASC'
       }, {
         id: 'sequenceDesc',
-        "char": '%N',
+        "char": '%n',
         text: 'Num. Sequence DESC'
       }, {
         id: 'sequenceAlpha',
@@ -53746,7 +53748,9 @@ var RenameLayer = /*#__PURE__*/function (_React$Component) {
         value: "layerList"
       }, "Layer List"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "xPos"
-      }, "X Position")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(KeywordsWrapper, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["StyledH3"], null, "Keywords"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, listItems)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Preview__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }, "X Position"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "yPos"
+      }, "Y Position")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(KeywordsWrapper, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["StyledH3"], null, "Keywords"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, listItems)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Preview__WEBPACK_IMPORTED_MODULE_6__["default"], {
         data: this.state.previewData
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["Footer"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["SecondaryButton"], {
         onClick: this.onCancel
@@ -54146,7 +54150,8 @@ function renameData(item, selectionCount, inputName, startsFrom, pageName) {
     childLayer: item.childLayer,
     x: item.x,
     y: item.y,
-    xIdx: item.xIdx
+    xIdx: item.xIdx,
+    yIdx: item.yIdx
   };
 }
 /**

@@ -32,6 +32,7 @@ export function renameData(
     x: item.x,
     y: item.y,
     xIdx: item.xIdx,
+    yIdx: item.yIdx,
   }
 }
 

@@ -102,6 +102,8 @@ const theUI = (context, data, options) => {
 
       if (inputData.sequenceType === 'xPos') {
         opts.currIdx = opts.xIdx
+      } else if (inputData.sequenceType === 'yPos') {
+        opts.currIdx = opts.yIdx
       }
 
       const layer = data.selection[opts.currIdx].layer

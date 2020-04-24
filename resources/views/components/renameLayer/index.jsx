@@ -177,8 +177,11 @@ class RenameLayer extends React.Component {
         window.data.pageName
       )
 
+      // check for sequnce type
       if (this.state.selectValue === 'xPos') {
         options.currIdx = options.xIdx
+      } else if (this.state.selectValue === 'yPos') {
+        options.currIdx = options.yIdx
       }
 
       renamed.push(this.rename.layer(options))
@@ -250,12 +253,12 @@ class RenameLayer extends React.Component {
       },
       {
         id: 'sequenceAsc',
-        char: '%n',
+        char: '%N',
         text: 'Num. Sequence ASC',
       },
       {
         id: 'sequenceDesc',
-        char: '%N',
+        char: '%n',
         text: 'Num. Sequence DESC',
       },
       {
@@ -317,6 +320,7 @@ class RenameLayer extends React.Component {
             >
               <option value="layerList">Layer List</option>
               <option value="xPos">X Position</option>
+              <option value="yPos">Y Position</option>
             </Form.Control>
           </Col>
         </Form.Row>
