@@ -4955,27 +4955,133 @@ function clearHistory() {
 /*!**********************************!*\
   !*** ./src/lib/RenameHelpers.js ***!
   \**********************************/
-/*! exports provided: sortByX, sortByY, sortBy */
+/*! exports provided: isArtboard, isSymbolInstance, getSymbolName, hasLayerStyle, getLayerStyle, hasChildLayer, getChildLayer, getPositionalSequence */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sortByX", function() { return sortByX; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sortByY", function() { return sortByY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sortBy", function() { return sortBy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isArtboard", function() { return isArtboard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isSymbolInstance", function() { return isSymbolInstance; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSymbolName", function() { return getSymbolName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hasLayerStyle", function() { return hasLayerStyle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLayerStyle", function() { return getLayerStyle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hasChildLayer", function() { return hasChildLayer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getChildLayer", function() { return getChildLayer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPositionalSequence", function() { return getPositionalSequence; });
 /*
  * @Author: Rodrigo Soares
  * @Date: 2020-04-24 10:42:03
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-04-24 11:25:10
+ * @Last Modified time: 2020-04-25 01:36:49
  */
 
+/**
+ * Check if is artboard
+ * @param  {Object}  layer The layers
+ * @return {Boolean}
+ */
+function isArtboard(layer) {
+  return layer instanceof MSArtboardGroup || layer instanceof MSSymbolMaster;
+}
+/**
+ * Check if has symbol instance
+ *
+ * @param {Object} layer
+ * @returns {Boolean}
+ */
+
+function isSymbolInstance(layer) {
+  try {
+    return layer instanceof MSSymbolInstance && layer.symbolMaster() !== undefined;
+  } catch (error) {
+    return false;
+  }
+}
+/**
+ * Get the name of the symbol instance
+ *
+ * @param {Object} layer
+ * @returns {String} Name of the symbol
+ */
+
+function getSymbolName(layer) {
+  var name = '';
+
+  if (isSymbolInstance(layer)) {
+    try {
+      name = String(layer.symbolMaster().name()); // eslint-disable-next-line no-empty
+    } catch (error) {}
+  }
+
+  return name;
+}
+/**
+ * Check if layer styles is applied
+ *
+ * @param {Object} layer
+ * @returns {Boolean}
+ */
+
+function hasLayerStyle(layer) {
+  try {
+    return layer.sharedStyle() instanceof MSSharedStyle;
+  } catch (error) {
+    return false;
+  }
+}
+function getLayerStyle(layer) {
+  var name = '';
+
+  if (hasLayerStyle(layer)) {
+    try {
+      name = String(layer.sharedStyle().name()); // eslint-disable-next-line no-empty
+    } catch (error) {}
+  }
+
+  return name;
+}
+/**
+ * Check if has child layer
+ *
+ * @param {Object} layer
+ * @returns {Boolean}
+ */
+
+function hasChildLayer(layer) {
+  try {
+    return layer.layers() !== undefined && layer.layers().length > 0;
+  } catch (error) {
+    return false;
+  }
+}
+/**
+ * Find first layer and return it
+ *
+ * @param {Object} layer
+ * @returns {String}
+ */
+
+function getChildLayer(layer) {
+  var name = '';
+
+  if (hasChildLayer(layer)) {
+    try {
+      var idx = layer.layers().length - 1;
+      name = String(layer.layers()[idx].name()); // eslint-disable-next-line no-empty
+    } catch (error) {
+      console.log('ERROR CHILD LAYER');
+    }
+  }
+
+  return name;
+}
 /**
  * Get Origin of layers and retunr the minX and minY
  *
  * @param {*} layers
  * @returns
  */
+
 function getOrigin(layers) {
   var minX = layers.reduce(function (prev, current) {
     return prev.x < current.x ? prev : current;
@@ -4988,6 +5094,83 @@ function getOrigin(layers) {
     y: minY.y
   };
 }
+
+function sortBy(layers, direction) {
+  var origin = getOrigin(layers);
+  var starterLayers = [];
+  var maxPos = direction === 'x' ? 'maxY' : 'maxX';
+  var opDirection = direction === 'x' ? 'y' : 'x';
+  layers.forEach(function (ly) {
+    var leftMostLayer = true;
+    layers.forEach(function (ly2) {
+      if (ly === ly2) return;
+
+      if (ly2[direction] < ly[direction]) {
+        if (ly[opDirection] <= ly2[maxPos] && ly2[opDirection] <= ly[maxPos]) {
+          leftMostLayer = false;
+          return;
+        }
+      }
+    });
+
+    if (leftMostLayer) {
+      starterLayers.push(ly);
+    }
+  }); // Sort starting layers
+
+  starterLayers.sort(function (a, b) {
+    return a[opDirection] - b[opDirection];
+  }); // start a list of layers for each row
+
+  var groups = starterLayers.map(function (ly) {
+    return [ly];
+  });
+  var groupHeights = starterLayers.map(function (ly) {
+    return ly[maxPos] - ly[opDirection];
+  });
+  starterLayers.forEach(function (ly, i) {
+    ly.group = i;
+  }); // assign all other artboards to a row by
+  // computing shortest distance between artboard vertical centers
+
+  layers.filter(function (ly) {
+    return !starterLayers.includes(ly);
+  }).forEach(function (ly) {
+    starterLayers.forEach(function (lyStarter) {
+      lyStarter._tmpDistance = Math.abs((lyStarter[opDirection] + lyStarter[maxPos]) / 2 - (ly[opDirection] + ly[maxPos]) / 2);
+    });
+    var curStarterLy = starterLayers.reduce(function (prev, current) {
+      return prev._tmpDistance < current._tmpDistance ? prev : current;
+    });
+    groups[curStarterLy.group].push(ly); // update row height
+
+    groupHeights[curStarterLy.group] = Math.max(groupHeights[curStarterLy.group], ly[maxPos] - ly[opDirection]);
+  }); // sort each row by x position
+
+  groups.forEach(function (lyInGroup) {
+    lyInGroup.sort(function (a, b) {
+      return a[direction] - b[direction];
+    });
+  }); // finally, arrange everything
+
+  var opPos = origin[opDirection];
+  var index = 0;
+  var arr = [];
+  groups.forEach(function (lyInRows, r) {
+    lyInRows.forEach(function (ly) {
+      if (direction === 'x') {
+        ly.xIdx = index;
+      } else {
+        ly.yIdx = index;
+      }
+
+      index++;
+      arr.push(ly);
+    });
+    opPos += groupHeights[r];
+  });
+  return arr;
+}
 /**
  *  Find the X or Y positions of the layers and add them as object properties
  *
@@ -4997,217 +5180,10 @@ function getOrigin(layers) {
  */
 
 
-function sortByX(layers) {
-  var origin = getOrigin(layers);
-  var rowStarterLayers = [];
-  layers.forEach(function (ab) {
-    var leftMostInRow = true;
-    layers.forEach(function (ab2) {
-      if (ab === ab2) return;
-
-      if (ab2.x < ab.x) {
-        if (ab.y <= ab2.maxY && ab2.y <= ab.maxY) {
-          leftMostInRow = false;
-          return;
-        }
-      }
-    });
-
-    if (leftMostInRow) {
-      rowStarterLayers.push(ab);
-    }
-  }); // Sort starting layers
-
-  rowStarterLayers.sort(function (a, b) {
-    return a.y - b.y;
-  }); // start a list of layers for each row
-
-  var rows = rowStarterLayers.map(function (ab) {
-    return [ab];
-  });
-  var rowHeights = rowStarterLayers.map(function (ab) {
-    return ab.maxY - ab.y;
-  });
-  rowStarterLayers.forEach(function (ab, i) {
-    ab.row = i;
-  }); // assign all other artboards to a row by
-  // computing shortest distance between artboard vertical centers
-
-  layers.filter(function (ab) {
-    return !rowStarterLayers.includes(ab);
-  }).forEach(function (ab) {
-    rowStarterLayers.forEach(function (abStarter) {
-      abStarter._tmpDistance = Math.abs((abStarter.y + abStarter.maxY) / 2 - (ab.y + ab.maxY) / 2);
-    });
-    var curStarterAb = rowStarterLayers.reduce(function (prev, current) {
-      return prev._tmpDistance < current._tmpDistance ? prev : current;
-    });
-    rows[curStarterAb.row].push(ab); // update row height
-
-    rowHeights[curStarterAb.row] = Math.max(rowHeights[curStarterAb.row], ab.maxY - ab.y);
-  }); // sort each row by x position
-
-  rows.forEach(function (abInRow) {
-    abInRow.sort(function (a, b) {
-      return a.x - b.x;
-    });
-  }); // finally, arrange everything
-
-  var y = origin.y;
-  var index = 0;
-  var arr = [];
-  rows.forEach(function (abInRows, r) {
-    var x = origin.x;
-    abInRows.forEach(function (ab, idx) {
-      ab.xIdx = index;
-      index++;
-      arr.push(ab);
-    });
-    y += rowHeights[r];
-  });
-  return arr;
-}
-function sortByY(layers) {
-  var origin = getOrigin(layers);
-  var rowStarterLayers = [];
-  layers.forEach(function (ab) {
-    var leftMostInRow = true;
-    layers.forEach(function (ab2) {
-      if (ab === ab2) return;
-
-      if (ab2.y < ab.y) {
-        if (ab.x <= ab2.maxX && ab2.x <= ab.maxX) {
-          leftMostInRow = false;
-          return;
-        }
-      }
-    });
-
-    if (leftMostInRow) {
-      rowStarterLayers.push(ab);
-    }
-  }); // Sort starting layers
-
-  rowStarterLayers.sort(function (a, b) {
-    return a.x - b.x;
-  }); // start a list of layers for each row
-
-  var rows = rowStarterLayers.map(function (ab) {
-    return [ab];
-  });
-  var rowHeights = rowStarterLayers.map(function (ab) {
-    return ab.maxX - ab.x;
-  });
-  rowStarterLayers.forEach(function (ab, i) {
-    ab.row = i;
-  }); // assign all other artboards to a row by
-  // computing shortest distance between artboard vertical centers
-
-  layers.filter(function (ab) {
-    return !rowStarterLayers.includes(ab);
-  }).forEach(function (ab) {
-    rowStarterLayers.forEach(function (abStarter) {
-      abStarter._tmpDistance = Math.abs((abStarter.x + abStarter.maxX) / 2 - (ab.x + ab.maxX) / 2);
-    });
-    var curStarterAb = rowStarterLayers.reduce(function (prev, current) {
-      return prev._tmpDistance < current._tmpDistance ? prev : current;
-    });
-    rows[curStarterAb.row].push(ab); // update row height
-
-    rowHeights[curStarterAb.row] = Math.max(rowHeights[curStarterAb.row], ab.maxX - ab.x);
-  }); // sort each row by x position
-
-  rows.forEach(function (abInRow) {
-    abInRow.sort(function (a, b) {
-      return a.y - b.y;
-    });
-  }); // finally, arrange everything
-
-  var x = origin.x;
-  var index = 0;
-  var arr = [];
-  rows.forEach(function (abInRows, r) {
-    var y = origin.y;
-    abInRows.forEach(function (ab, idx) {
-      ab.yIdx = index;
-      index++;
-      arr.push(ab); // console.log(
-      //   `Name: ${ab.name} | yIdx: ${ab.yIdx} | y: ${ab.y} | x: ${ab.x}`
-      // )
-    });
-    x += rowHeights[r];
-  });
-  return arr;
-}
-function sortBy(layers, direction) {
-  var origin = getOrigin(layers);
-  var rowStarterLayers = [];
-  layers.forEach(function (ab) {
-    var leftMostInRow = true;
-    layers.forEach(function (ab2) {
-      if (ab === ab2) return;
-
-      if (ab2.x < ab.x) {
-        if (ab.y <= ab2.maxY && ab2.y <= ab.maxY) {
-          leftMostInRow = false;
-          return;
-        }
-      }
-    });
-
-    if (leftMostInRow) {
-      rowStarterLayers.push(ab);
-    }
-  }); // Sort starting layers
-
-  rowStarterLayers.sort(function (a, b) {
-    return a.y - b.y;
-  }); // start a list of layers for each row
-
-  var rows = rowStarterLayers.map(function (ab) {
-    return [ab];
-  });
-  var rowHeights = rowStarterLayers.map(function (ab) {
-    return ab.maxY - ab.y;
-  });
-  rowStarterLayers.forEach(function (ab, i) {
-    ab.row = i;
-  }); // assign all other artboards to a row by
-  // computing shortest distance between artboard vertical centers
-
-  layers.filter(function (ab) {
-    return !rowStarterLayers.includes(ab);
-  }).forEach(function (ab) {
-    rowStarterLayers.forEach(function (abStarter) {
-      abStarter._tmpDistance = Math.abs((abStarter.y + abStarter.maxY) / 2 - (ab.y + ab.maxY) / 2);
-    });
-    var curStarterAb = rowStarterLayers.reduce(function (prev, current) {
-      return prev._tmpDistance < current._tmpDistance ? prev : current;
-    });
-    rows[curStarterAb.row].push(ab); // update row height
-
-    rowHeights[curStarterAb.row] = Math.max(rowHeights[curStarterAb.row], ab.maxY - ab.y);
-  }); // sort each row by x position
-
-  rows.forEach(function (abInRow) {
-    abInRow.sort(function (a, b) {
-      return a.x - b.x;
-    });
-  }); // finally, arrange everything
-
-  var y = origin.y;
-  var index = 0;
-  var arr = [];
-  rows.forEach(function (abInRows, r) {
-    var x = origin.x;
-    abInRows.forEach(function (ab, idx) {
-      ab.xIdx = index;
-      index++;
-      arr.push(ab);
-    });
-    y += rowHeights[r];
-  });
-  return arr;
+function getPositionalSequence(layers) {
+  var lrs = sortBy(layers, 'x');
+  lrs = sortBy(layers, 'y');
+  return lrs;
 }
 
 /***/ }),
@@ -5308,7 +5284,7 @@ var theUI = function theUI(context, data, options) {
         opts.currIdx = opts.yIdx;
       }
 
-      var layer = data.selection[opts.currIdx].layer;
+      var layer = item.layer;
       layer.name = rename.layer(opts);
     });
     Object(_History__WEBPACK_IMPORTED_MODULE_4__["addRenameHistory"])(inputData.str);
@@ -5367,116 +5343,9 @@ __webpack_require__.r(__webpack_exports__);
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-04-24 11:24:45
+ * @Last Modified time: 2020-04-25 00:46:27
  */
 
-/**
- * Check if is artboard
- * @param  {Object}  layer The layers
- * @return {Boolean}
- */
-
-function isArtboard(layer) {
-  return layer instanceof MSArtboardGroup || layer instanceof MSSymbolMaster;
-}
-/**
- * Check if has symbol instance
- *
- * @param {Object} layer
- * @returns {Boolean}
- */
-
-
-function isSymbolInstance(layer) {
-  try {
-    return layer instanceof MSSymbolInstance && layer.symbolMaster() !== undefined;
-  } catch (error) {
-    return false;
-  }
-}
-/**
- * Get the name of the symbol instance
- *
- * @param {Object} layer
- * @returns {String} Name of the symbol
- */
-
-
-function getSymbolName(layer) {
-  var name = '';
-
-  if (isSymbolInstance(layer)) {
-    try {
-      name = String(layer.symbolMaster().name()); // eslint-disable-next-line no-empty
-    } catch (error) {}
-  }
-
-  return name;
-}
-/**
- * Check if layer styles is applied
- *
- * @param {Object} layer
- * @returns {Boolean}
- */
-
-
-function hasLayerStyle(layer) {
-  try {
-    return layer.sharedStyle() instanceof MSSharedStyle;
-  } catch (error) {
-    return false;
-  }
-}
-
-function getLayerStyle(layer) {
-  var name = '';
-
-  if (hasLayerStyle(layer)) {
-    try {
-      name = String(layer.sharedStyle().name()); // eslint-disable-next-line no-empty
-    } catch (error) {}
-  }
-
-  return name;
-}
-/**
- * Check if has child layer
- *
- * @param {Object} layer
- * @returns {Boolean}
- */
-
-
-function hasChildLayer(layer) {
-  try {
-    return layer.layers() !== undefined && layer.layers().length > 0;
-  } catch (error) {
-    return false;
-  }
-}
-/**
- * Find first layer and return it
- *
- * @param {Object} layer
- * @returns {String}
- */
-
-
-function getChildLayer(layer) {
-  var name = '';
-
-  if (hasChildLayer(layer)) {
-    try {
-      var idx = layer.layers().length - 1;
-      name = String(layer.layers()[idx].name()); // eslint-disable-next-line no-empty
-    } catch (error) {
-      console.log('ERROR CHILD LAYER');
-    }
-  }
-
-  return name;
-}
 /**
  * The Layer Object builder
  *
@@ -5484,7 +5353,6 @@ function getChildLayer(layer) {
  * @param {Integer} idx
  * @returns {Object}
  */
-
 
 function layerObject(layer, idx) {
   var parentName = layer.parentGroup() == null ? '' : layer.parentGroup().name();
@@ -5496,9 +5364,9 @@ function layerObject(layer, idx) {
     width: Math.floor(layer.frame().width()),
     height: Math.floor(layer.frame().height()),
     parentName: String(parentName),
-    symbolName: getSymbolName(layer),
-    layerStyle: getLayerStyle(layer),
-    childLayer: getChildLayer(layer),
+    symbolName: Object(_RenameHelpers__WEBPACK_IMPORTED_MODULE_0__["getSymbolName"])(layer),
+    layerStyle: Object(_RenameHelpers__WEBPACK_IMPORTED_MODULE_0__["getLayerStyle"])(layer),
+    childLayer: Object(_RenameHelpers__WEBPACK_IMPORTED_MODULE_0__["getChildLayer"])(layer),
     x: layer.frame().x(),
     y: layer.frame().y()
   };
@@ -5520,7 +5388,7 @@ function parseData(context) {
   if (onlyArtboards) {
     var aBoards = [];
     contextData.forEach(function (el) {
-      while (el && !isArtboard(el)) {
+      while (el && !Object(_RenameHelpers__WEBPACK_IMPORTED_MODULE_0__["isArtboard"])(el)) {
         el = el.parentGroup();
       }
 
@@ -5540,17 +5408,15 @@ function parseData(context) {
   var childLayer = false;
   contextData.forEach(function (layer, i) {
     data.selection[i] = layerObject(layer, i);
-    if (!hasSymbol) hasSymbol = isSymbolInstance(layer);
-    if (!lStyle) lStyle = hasLayerStyle(layer);
-    if (!childLayer) childLayer = hasChildLayer(layer);
+    if (!hasSymbol) hasSymbol = Object(_RenameHelpers__WEBPACK_IMPORTED_MODULE_0__["isSymbolInstance"])(layer);
+    if (!lStyle) lStyle = Object(_RenameHelpers__WEBPACK_IMPORTED_MODULE_0__["hasLayerStyle"])(layer);
+    if (!childLayer) childLayer = Object(_RenameHelpers__WEBPACK_IMPORTED_MODULE_0__["hasChildLayer"])(layer);
   });
   data.hasSymbol = hasSymbol;
   data.hasLayerStyle = lStyle;
-  data.hasChildLayer = childLayer; // Sort by X
+  data.hasChildLayer = childLayer; // Positional Sequence
 
-  data.selection = Object(_RenameHelpers__WEBPACK_IMPORTED_MODULE_0__["sortByX"])(data.selection); // Sort by Y
-
-  data.selection = Object(_RenameHelpers__WEBPACK_IMPORTED_MODULE_0__["sortByY"])(data.selection);
+  data.selection = Object(_RenameHelpers__WEBPACK_IMPORTED_MODULE_0__["getPositionalSequence"])(data.selection);
   return data;
 }
 function findReplaceDataParser(context) {

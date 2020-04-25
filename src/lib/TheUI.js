@@ -91,6 +91,7 @@ const theUI = (context, data, options) => {
     const rename = new Rename({ allowChildLayer: true })
 
     const inputData = JSON.parse(o)
+
     data.selection.forEach((item) => {
       const opts = renameData(
         item,
@@ -105,8 +106,7 @@ const theUI = (context, data, options) => {
       } else if (inputData.sequenceType === 'yPos') {
         opts.currIdx = opts.yIdx
       }
-
-      const layer = data.selection[opts.currIdx].layer
+      const layer = item.layer
       layer.name = rename.layer(opts)
     })
     addRenameHistory(inputData.str)

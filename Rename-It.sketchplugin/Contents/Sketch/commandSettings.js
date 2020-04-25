@@ -5038,7 +5038,7 @@ var theUI = function theUI(context, data, options) {
         opts.currIdx = opts.yIdx;
       }
 
-      var layer = data.selection[opts.currIdx].layer;
+      var layer = item.layer;
       layer.name = rename.layer(opts);
     });
     Object(_History__WEBPACK_IMPORTED_MODULE_4__["addRenameHistory"])(inputData.str);

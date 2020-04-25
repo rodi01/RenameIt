@@ -2,116 +2,19 @@
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-04-24 11:24:45
+ * @Last Modified time: 2020-04-25 00:46:27
  */
 
-import { sortByX, sortByY } from './RenameHelpers'
-
-/**
- * Check if is artboard
- * @param  {Object}  layer The layers
- * @return {Boolean}
- */
-function isArtboard(layer) {
-  return layer instanceof MSArtboardGroup || layer instanceof MSSymbolMaster
-}
-
-/**
- * Check if has symbol instance
- *
- * @param {Object} layer
- * @returns {Boolean}
- */
-function isSymbolInstance(layer) {
-  try {
-    return (
-      layer instanceof MSSymbolInstance && layer.symbolMaster() !== undefined
-    )
-  } catch (error) {
-    return false
-  }
-}
-
-/**
- * Get the name of the symbol instance
- *
- * @param {Object} layer
- * @returns {String} Name of the symbol
- */
-function getSymbolName(layer) {
-  let name = ''
-  if (isSymbolInstance(layer)) {
-    try {
-      name = String(layer.symbolMaster().name())
-      // eslint-disable-next-line no-empty
-    } catch (error) {}
-  }
-  return name
-}
-
-/**
- * Check if layer styles is applied
- *
- * @param {Object} layer
- * @returns {Boolean}
- */
-function hasLayerStyle(layer) {
-  try {
-    return layer.sharedStyle() instanceof MSSharedStyle
-  } catch (error) {
-    return false
-  }
-}
-
-function getLayerStyle(layer) {
-  let name = ''
-
-  if (hasLayerStyle(layer)) {
-    try {
-      name = String(layer.sharedStyle().name())
-      // eslint-disable-next-line no-empty
-    } catch (error) {}
-  }
-
-  return name
-}
-
-/**
- * Check if has child layer
- *
- * @param {Object} layer
- * @returns {Boolean}
- */
-function hasChildLayer(layer) {
-  try {
-    return layer.layers() !== undefined && layer.layers().length > 0
-  } catch (error) {
-    return false
-  }
-}
-
-/**
- * Find first layer and return it
- *
- * @param {Object} layer
- * @returns {String}
- */
-function getChildLayer(layer) {
-  let name = ''
-
-  if (hasChildLayer(layer)) {
-    try {
-      const idx = layer.layers().length - 1
-      name = String(layer.layers()[idx].name())
-
-      // eslint-disable-next-line no-empty
-    } catch (error) {
-      console.log('ERROR CHILD LAYER')
-    }
-  }
-
-  return name
-}
+import {
+  getPositionalSequence,
+  isArtboard,
+  isSymbolInstance,
+  getSymbolName,
+  hasLayerStyle,
+  getLayerStyle,
+  hasChildLayer,
+  getChildLayer,
+} from './RenameHelpers'
 
 /**
  * The Layer Object builder
@@ -188,11 +91,8 @@ export function parseData(context, onlyArtboards = false) {
   data.hasLayerStyle = lStyle
   data.hasChildLayer = childLayer
 
-  // Sort by X
-  data.selection = sortByX(data.selection)
-
-  // Sort by Y
-  data.selection = sortByY(data.selection)
+  // Positional Sequence
+  data.selection = getPositionalSequence(data.selection)
 
   return data
 }
