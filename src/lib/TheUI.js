@@ -5,6 +5,7 @@
  * @Last modified time: 2017-12-02T21:22:22-08:00
  */
 import BrowserWindow from 'sketch-module-web-view'
+import track from 'sketch-module-google-analytics'
 import { Rename, FindReplace } from '@rodi01/renameitlib'
 import { renameData, findReplaceData } from './DataHelper'
 import { exclamations } from './Constants'
@@ -16,7 +17,7 @@ import {
   clearHistory,
 } from './History'
 import getTheme from '../../resources/views/theme/index'
-import track from 'sketch-module-google-analytics'
+import { setSequenceType } from './RenameHelpers'
 
 function showUpdatedMessage(count, data) {
   const layerStr = count === 1 ? 'Layer' : 'Layers'
@@ -110,6 +111,10 @@ const theUI = (context, data, options) => {
       layer.name = rename.layer(opts)
     })
     addRenameHistory(inputData.str)
+
+    // Set Sequence Type
+    setSequenceType(inputData.sequenceType)
+
     win.close()
     showUpdatedMessage(data.selectionCount, data)
   })

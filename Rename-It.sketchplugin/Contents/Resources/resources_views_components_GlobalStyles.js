@@ -5549,7 +5549,7 @@ if ( true && typeof window !== 'undefined') {
 /*!****************************************************!*\
   !*** ./resources/views/components/GlobalStyles.js ***!
   \****************************************************/
-/*! exports provided: defaultPadding, InputMargin, ButtonStyles, LabelStyles, StyledH3, Button, SecondaryButton, SubmitButton, Footer */
+/*! exports provided: defaultPadding, InputMargin, ButtonStyles, LabelStyles, StyledH3, Button, SecondaryButton, SubmitButton, Footer, inputCss, StyledInput */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5563,7 +5563,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecondaryButton", function() { return SecondaryButton; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SubmitButton", function() { return SubmitButton; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Footer", function() { return Footer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inputCss", function() { return inputCss; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StyledInput", function() { return StyledInput; });
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+function _templateObject9() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject9 = function _templateObject9() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject8() {
+  var data = _taggedTemplateLiteral(["\n  background: ", ";\n  padding: 0 8px;\n  border-radius: 4px;\n  height: 24px;\n  border: 1px solid ", ";\n  color: ", ";\n  margin-left: 8px;\n  font-size: 13px;\n  letter-spacing: -0.08px;\n  flex-grow: 1;\n  margin-right: 8px;\n  -webkit-user-select: auto;\n  user-select: auto;\n\n  &[type='number'] {\n    width: 50px;\n    flex-grow: 0;\n    padding-right: 2px;\n  }\n\n  &:focus {\n    outline: none;\n    border-color: ", ";\n  }\n"]);
+
+  _templateObject8 = function _templateObject8() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject7() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-top: auto;\n  justify-content: flex-end;\n  button {\n    margin-left: 12px;\n  }\n"]);
 
@@ -5637,8 +5659,8 @@ function _templateObject() {
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var defaultPadding = "24px";
-var InputMargin = "20px";
+var defaultPadding = '24px';
+var InputMargin = '20px';
 var ButtonStyles = Object(styled_components__WEBPACK_IMPORTED_MODULE_0__["css"])(_templateObject(), function (props) {
   return props.theme.button.bgColor;
 }, function (props) {
@@ -5664,6 +5686,16 @@ var SubmitButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_0__["defaul
   return props.theme.CTAButton.bgActive;
 });
 var Footer = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject7());
+var inputCss = Object(styled_components__WEBPACK_IMPORTED_MODULE_0__["css"])(_templateObject8(), function (props) {
+  return props.theme.input.background;
+}, function (props) {
+  return props.theme.input.border;
+}, function (props) {
+  return props.theme.input.color;
+}, function (props) {
+  return props.theme.input.borderActive;
+});
+var StyledInput = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].input(_templateObject9(), inputCss);
 
 /***/ })
 

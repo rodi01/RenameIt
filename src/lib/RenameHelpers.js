@@ -2,8 +2,11 @@
  * @Author: Rodrigo Soares
  * @Date: 2020-04-24 10:42:03
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-04-25 01:36:49
+ * @Last Modified time: 2020-04-27 00:25:13
  */
+
+import Settings from 'sketch/settings' // eslint-disable-line
+const SEQUENCE_KEY = 'sequenceType'
 
 /**
  * Check if is artboard
@@ -228,4 +231,12 @@ export function getPositionalSequence(layers) {
   let lrs = sortBy(layers, 'x')
   lrs = sortBy(layers, 'y')
   return lrs
+}
+
+export function getSequenceType() {
+  return Settings.settingForKey(SEQUENCE_KEY) || 'layerList'
+}
+
+export function setSequenceType(type) {
+  Settings.setSettingForKey(SEQUENCE_KEY, type)
 }

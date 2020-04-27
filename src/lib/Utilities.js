@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-04-25 00:46:27
+ * @Last Modified time: 2020-04-27 00:00:47
  */
 
 import {
@@ -14,6 +14,7 @@ import {
   getLayerStyle,
   hasChildLayer,
   getChildLayer,
+  getSequenceType,
 } from './RenameHelpers'
 
 /**
@@ -90,6 +91,7 @@ export function parseData(context, onlyArtboards = false) {
   data.hasSymbol = hasSymbol
   data.hasLayerStyle = lStyle
   data.hasChildLayer = childLayer
+  data.sequenceType = getSequenceType()
 
   // Positional Sequence
   data.selection = getPositionalSequence(data.selection)

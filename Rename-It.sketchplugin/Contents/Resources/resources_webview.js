@@ -52362,7 +52362,7 @@ module.exports = g;
 /*!****************************************************!*\
   !*** ./resources/views/components/GlobalStyles.js ***!
   \****************************************************/
-/*! exports provided: defaultPadding, InputMargin, ButtonStyles, LabelStyles, StyledH3, Button, SecondaryButton, SubmitButton, Footer */
+/*! exports provided: defaultPadding, InputMargin, ButtonStyles, LabelStyles, StyledH3, Button, SecondaryButton, SubmitButton, Footer, inputCss, StyledInput */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -52376,7 +52376,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecondaryButton", function() { return SecondaryButton; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SubmitButton", function() { return SubmitButton; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Footer", function() { return Footer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inputCss", function() { return inputCss; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StyledInput", function() { return StyledInput; });
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+function _templateObject9() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject9 = function _templateObject9() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject8() {
+  var data = _taggedTemplateLiteral(["\n  background: ", ";\n  padding: 0 8px;\n  border-radius: 4px;\n  height: 24px;\n  border: 1px solid ", ";\n  color: ", ";\n  margin-left: 8px;\n  font-size: 13px;\n  letter-spacing: -0.08px;\n  flex-grow: 1;\n  margin-right: 8px;\n  -webkit-user-select: auto;\n  user-select: auto;\n\n  &[type='number'] {\n    width: 50px;\n    flex-grow: 0;\n    padding-right: 2px;\n  }\n\n  &:focus {\n    outline: none;\n    border-color: ", ";\n  }\n"]);
+
+  _templateObject8 = function _templateObject8() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject7() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-top: auto;\n  justify-content: flex-end;\n  button {\n    margin-left: 12px;\n  }\n"]);
 
@@ -52450,8 +52472,8 @@ function _templateObject() {
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var defaultPadding = "24px";
-var InputMargin = "20px";
+var defaultPadding = '24px';
+var InputMargin = '20px';
 var ButtonStyles = Object(styled_components__WEBPACK_IMPORTED_MODULE_0__["css"])(_templateObject(), function (props) {
   return props.theme.button.bgColor;
 }, function (props) {
@@ -52477,6 +52499,16 @@ var SubmitButton = Object(styled_components__WEBPACK_IMPORTED_MODULE_0__["defaul
   return props.theme.CTAButton.bgActive;
 });
 var Footer = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject7());
+var inputCss = Object(styled_components__WEBPACK_IMPORTED_MODULE_0__["css"])(_templateObject8(), function (props) {
+  return props.theme.input.background;
+}, function (props) {
+  return props.theme.input.border;
+}, function (props) {
+  return props.theme.input.color;
+}, function (props) {
+  return props.theme.input.borderActive;
+});
+var StyledInput = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].input(_templateObject9(), inputCss);
 
 /***/ }),
 
@@ -52512,18 +52544,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-bottom: ", ";\n"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  ", ";\n  width: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-bottom: ", ";\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -52533,7 +52555,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  background: ", ";\n  padding: 0 8px;\n  border-radius: 4px;\n  height: 24px;\n  border: 1px solid ", ";\n  color: ", ";\n  margin-left: 8px;\n  font-size: 13px;\n  letter-spacing: -0.08px;\n  flex-grow: 1;\n  margin-right: 8px;\n  -webkit-user-select: auto;\n  user-select: auto;\n\n  &[type=\"number\"] {\n    width: 50px;\n    flex-grow: 0;\n    padding-right: 2px;\n  }\n\n  &:focus {\n    outline: none;\n    border-color: ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", ";\n  width: ", ";\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -52555,19 +52577,10 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
-var StyledInput = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].input(_templateObject(), function (props) {
-  return props.theme.input.background;
-}, function (props) {
-  return props.theme.input.border;
-}, function (props) {
-  return props.theme.input.color;
-}, function (props) {
-  return props.theme.input.borderActive;
+var StyledLabel = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].label(_templateObject(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_3__["LabelStyles"], function (props) {
+  return props.labelWidth || '100px';
 });
-var StyledLabel = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].label(_templateObject2(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_3__["LabelStyles"], function (props) {
-  return props.labelWidth || "100px";
-});
-var InputWrapper = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject3(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_3__["InputMargin"]);
+var InputWrapper = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject2(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_3__["InputMargin"]);
 
 var Input = /*#__PURE__*/function (_React$Component) {
   _inherits(Input, _React$Component);
@@ -52604,7 +52617,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledLabel, {
         htmlFor: this.props.id,
         labelWidth: this.props.labelWidth
-      }, this.props.forName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledInput, {
+      }, this.props.forName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_3__["StyledInput"], {
         type: this.props.type,
         id: this.props.id,
         value: this.props.value,
@@ -53433,6 +53446,36 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n  flex-grow: 0;\n  -webkit-appearance: none;\n  background-image: url(", ");\n  background-repeat: no-repeat;\n  background-position: right 6px top 50%;\n  background-size: 8px auto;\n  padding-right: 24px;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  ", ";\n  width: 70px;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin-bottom: ", ";\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
   var data = _taggedTemplateLiteral(["\n  margin-top: 16px;\n\n  ul {\n    margin-top: 10px;\n    display: flex;\n    flex-flow: wrap;\n    margin-left: -6px;\n    list-style: inside;\n  }\n\n  li {\n    margin: 6px;\n    list-style: none;\n  }\n"]);
 
@@ -53461,6 +53504,11 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 var KeywordsWrapper = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject());
+var InputWrapper = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject2(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["InputMargin"]);
+var StyledLabel = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].label(_templateObject3(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["LabelStyles"]);
+var StyledSelect = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].select(_templateObject4(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["inputCss"], function (props) {
+  return props.theme.select.arrow;
+});
 
 var RenameLayer = /*#__PURE__*/function (_React$Component) {
   _inherits(RenameLayer, _React$Component);
@@ -53477,7 +53525,7 @@ var RenameLayer = /*#__PURE__*/function (_React$Component) {
       sequence: 1,
       inputFocus: false,
       previewData: [],
-      selectValue: 'layerList'
+      selectValue: window.data.sequenceType
     };
     _this.enterFunction = _this.enterFunction.bind(_assertThisInitialized(_this));
     _this.onSelectChange = _this.onSelectChange.bind(_assertThisInitialized(_this));
@@ -53670,16 +53718,6 @@ var RenameLayer = /*#__PURE__*/function (_React$Component) {
         handleHistory: this.handleHistory.bind(this),
         labelWidth: labelWidth
       };
-      var sequenceInputAttr = {
-        id: 'sequence',
-        type: 'number',
-        forName: 'Start from',
-        wrapperClass: 'inputRight',
-        value: this.state.sequence,
-        autoFocus: false,
-        onChange: this.onChangeSequence.bind(this),
-        labelWidth: labelWidth
-      };
       var buttons = [{
         id: 'currentLayer',
         "char": '%*',
@@ -53738,10 +53776,20 @@ var RenameLayer = /*#__PURE__*/function (_React$Component) {
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container rename"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Input__WEBPACK_IMPORTED_MODULE_4__["default"], nameInputAttr), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Row, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Col"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Input__WEBPACK_IMPORTED_MODULE_4__["default"], sequenceInputAttr)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Col"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control, {
-        as: "select",
-        size: "sm",
-        custom: true,
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Input__WEBPACK_IMPORTED_MODULE_4__["default"], nameInputAttr), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(InputWrapper, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledLabel, {
+        htmlFor: "sequence"
+      }, "Sequence"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["StyledInput"], {
+        type: "number",
+        id: "sequence",
+        value: this.state.sequence,
+        onChange: this.onChangeSequence.bind(this) // ref={(ip) => (this.myInp = ip)}
+        ,
+        autoComplete: "off",
+        autoCorrect: "off",
+        autoCapitalize: "off",
+        spellCheck: "false",
+        min: "0"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledSelect, {
         value: this.state.selectValue,
         onChange: this.onSelectChange
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -53750,7 +53798,7 @@ var RenameLayer = /*#__PURE__*/function (_React$Component) {
         value: "xPos"
       }, "X Position"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "yPos"
-      }, "Y Position")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(KeywordsWrapper, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["StyledH3"], null, "Keywords"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, listItems)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Preview__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }, "Y Position"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(KeywordsWrapper, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["StyledH3"], null, "Keywords"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, listItems)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Preview__WEBPACK_IMPORTED_MODULE_6__["default"], {
         data: this.state.previewData
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["Footer"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["SecondaryButton"], {
         onClick: this.onCancel

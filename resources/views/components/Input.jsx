@@ -6,41 +6,14 @@
  * @Last modified time: 2017-12-02T17:57:44-08:00
  */
 
-import React from "react"
-import styled from "styled-components"
-import HistoryDropdown from "./historyDropdown"
-import { LabelStyles, InputMargin } from "./GlobalStyles"
-
-const StyledInput = styled.input`
-  background: ${(props) => props.theme.input.background};
-  padding: 0 8px;
-  border-radius: 4px;
-  height: 24px;
-  border: 1px solid ${(props) => props.theme.input.border};
-  color: ${(props) => props.theme.input.color};
-  margin-left: 8px;
-  font-size: 13px;
-  letter-spacing: -0.08px;
-  flex-grow: 1;
-  margin-right: 8px;
-  -webkit-user-select: auto;
-  user-select: auto;
-
-  &[type="number"] {
-    width: 50px;
-    flex-grow: 0;
-    padding-right: 2px;
-  }
-
-  &:focus {
-    outline: none;
-    border-color: ${(props) => props.theme.input.borderActive};
-  }
-`
+import React from 'react'
+import styled from 'styled-components'
+import HistoryDropdown from './historyDropdown'
+import { LabelStyles, InputMargin, StyledInput } from './GlobalStyles'
 
 const StyledLabel = styled.label`
   ${LabelStyles};
-  width: ${(props) => props.labelWidth || "100px"};
+  width: ${(props) => props.labelWidth || '100px'};
 `
 
 const InputWrapper = styled.div`
@@ -91,7 +64,7 @@ class Input extends React.Component {
 }
 
 Input.defaultProps = {
-  dropup: false
+  dropup: false,
 }
 
 export default Input

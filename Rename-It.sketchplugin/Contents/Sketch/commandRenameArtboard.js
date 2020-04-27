@@ -4600,34 +4600,37 @@ function upperCaseFirst(input) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "dark",
-  text: "#E6E4EB",
-  bg: "#2D2D2D",
-  previewColor: "#F3F2F5",
+  name: 'dark',
+  text: '#E6E4EB',
+  bg: '#2D2D2D',
+  previewColor: '#F3F2F5',
   input: {
-    background: "#373737",
-    color: "#F3F2F5",
-    border: "#454545",
-    borderActive: "#1384FF"
+    background: '#373737',
+    color: '#F3F2F5',
+    border: '#454545',
+    borderActive: '#1384FF'
   },
   button: {
-    color: "#F3F2F5",
-    bgColor: "rgba(255,255,255,0.25)",
-    border: "#636363",
-    bgActive: "rgba(255,255,255,0.10)"
+    color: '#F3F2F5',
+    bgColor: 'rgba(255,255,255,0.25)',
+    border: '#636363',
+    bgActive: 'rgba(255,255,255,0.10)'
   },
   secondaryButton: {
-    borderColor: "#636363",
-    textColor: "#F3F2F5"
+    borderColor: '#636363',
+    textColor: '#F3F2F5'
   },
   CTAButton: {
-    bgColor: "#1384FF",
-    textColor: "#fff",
-    bgActive: "#0F72DB"
+    bgColor: '#1384FF',
+    textColor: '#fff',
+    bgActive: '#0F72DB'
   },
   radio: {
-    selectedColor: "#1384FF",
-    border: "#1384FF"
+    selectedColor: '#1384FF',
+    border: '#1384FF'
+  },
+  select: {
+    arrow: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNnB4IiBoZWlnaHQ9IjEwcHgiIHZpZXdCb3g9IjAgMCA2IDEwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA2NCAoOTM1MzcpIC0gaHR0cHM6Ly9za2V0Y2guY29tIC0tPgogICAgPHRpdGxlPnNlbGVjdF9hcnJvd19kYXJrPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTguODgxNzg0MmUtMTYsNiBMNiw2IEwzLDEwIEw4Ljg4MTc4NDJlLTE2LDYgWiBNMywwIEw2LDQgTDAsNCBMMywwIFoiIGlkPSJzZWxlY3RfYXJyb3dfZGFyayIgZmlsbD0iI0ZGRkZGRiI+PC9wYXRoPgogICAgPC9nPgo8L3N2Zz4='
   }
 });
 
@@ -4666,34 +4669,37 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "light",
-  text: "#747474",
-  bg: "#F7F7F7",
-  previewColor: "#242424",
+  name: 'light',
+  text: '#747474',
+  bg: '#F7F7F7',
+  previewColor: '#242424',
   input: {
-    background: "#FBFBFB",
-    color: "#505050",
-    border: "#E4E4E4",
-    borderActive: "#1384FF"
+    background: '#FBFBFB',
+    color: '#505050',
+    border: '#E4E4E4',
+    borderActive: '#1384FF'
   },
   button: {
-    color: "#505050",
-    bgColor: "#FBFBFB",
-    border: "#E4E4E4",
-    bgActive: "#F3F2F5"
+    color: '#505050',
+    bgColor: '#FBFBFB',
+    border: '#E4E4E4',
+    bgActive: '#F3F2F5'
   },
   secondaryButton: {
-    borderColor: "#B2AEBD",
-    textColor: "#817B8F"
+    borderColor: '#B2AEBD',
+    textColor: '#817B8F'
   },
   CTAButton: {
-    bgColor: "#1384FF",
-    textColor: "#fff",
-    bgActive: "#0F72DB"
+    bgColor: '#1384FF',
+    textColor: '#fff',
+    bgActive: '#0F72DB'
   },
   radio: {
-    selectedColor: "#969696",
-    border: "#969696"
+    selectedColor: '#969696',
+    border: '#969696'
+  },
+  select: {
+    arrow: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNnB4IiBoZWlnaHQ9IjEwcHgiIHZpZXdCb3g9IjAgMCA2IDEwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA2NCAoOTM1MzcpIC0gaHR0cHM6Ly9za2V0Y2guY29tIC0tPgogICAgPHRpdGxlPnNlbGVjdF9hcnJvd19kYXJrPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTguODgxNzg0MmUtMTYsNiBMNiw2IEwzLDEwIEw4Ljg4MTc4NDJlLTE2LDYgWiBNMywwIEw2LDQgTDAsNCBMMywwIFoiIGlkPSJzZWxlY3RfYXJyb3dfZGFyayIgZmlsbD0iIzc0NzQ3NCI+PC9wYXRoPgogICAgPC9nPgo8L3N2Zz4='
   }
 });
 
@@ -4954,7 +4960,7 @@ function clearHistory() {
 /*!**********************************!*\
   !*** ./src/lib/RenameHelpers.js ***!
   \**********************************/
-/*! exports provided: isArtboard, isSymbolInstance, getSymbolName, hasLayerStyle, getLayerStyle, hasChildLayer, getChildLayer, getPositionalSequence */
+/*! exports provided: isArtboard, isSymbolInstance, getSymbolName, hasLayerStyle, getLayerStyle, hasChildLayer, getChildLayer, getPositionalSequence, getSequenceType, setSequenceType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4967,18 +4973,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hasChildLayer", function() { return hasChildLayer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getChildLayer", function() { return getChildLayer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPositionalSequence", function() { return getPositionalSequence; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSequenceType", function() { return getSequenceType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSequenceType", function() { return setSequenceType; });
+/* harmony import */ var sketch_settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch/settings */ "sketch/settings");
+/* harmony import */ var sketch_settings__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch_settings__WEBPACK_IMPORTED_MODULE_0__);
 /*
  * @Author: Rodrigo Soares
  * @Date: 2020-04-24 10:42:03
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-04-25 01:36:49
+ * @Last Modified time: 2020-04-27 00:25:13
  */
+ // eslint-disable-line
 
+var SEQUENCE_KEY = 'sequenceType';
 /**
  * Check if is artboard
  * @param  {Object}  layer The layers
  * @return {Boolean}
  */
+
 function isArtboard(layer) {
   return layer instanceof MSArtboardGroup || layer instanceof MSSymbolMaster;
 }
@@ -5184,6 +5197,12 @@ function getPositionalSequence(layers) {
   lrs = sortBy(layers, 'y');
   return lrs;
 }
+function getSequenceType() {
+  return sketch_settings__WEBPACK_IMPORTED_MODULE_0___default.a.settingForKey(SEQUENCE_KEY) || 'layerList';
+}
+function setSequenceType(type) {
+  sketch_settings__WEBPACK_IMPORTED_MODULE_0___default.a.setSettingForKey(SEQUENCE_KEY, type);
+}
 
 /***/ }),
 
@@ -5198,14 +5217,15 @@ function getPositionalSequence(layers) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sketch_module_web_view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch-module-web-view */ "./node_modules/sketch-module-web-view/lib/index.js");
 /* harmony import */ var sketch_module_web_view__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch_module_web_view__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _rodi01_renameitlib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @rodi01/renameitlib */ "./node_modules/@rodi01/renameitlib/lib/index.js");
-/* harmony import */ var _rodi01_renameitlib__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_rodi01_renameitlib__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _DataHelper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DataHelper */ "./src/lib/DataHelper.js");
-/* harmony import */ var _Constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Constants */ "./src/lib/Constants.js");
-/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./History */ "./src/lib/History.js");
-/* harmony import */ var _resources_views_theme_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../resources/views/theme/index */ "./resources/views/theme/index.js");
-/* harmony import */ var sketch_module_google_analytics__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! sketch-module-google-analytics */ "./node_modules/sketch-module-google-analytics/index.js");
-/* harmony import */ var sketch_module_google_analytics__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(sketch_module_google_analytics__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var sketch_module_google_analytics__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sketch-module-google-analytics */ "./node_modules/sketch-module-google-analytics/index.js");
+/* harmony import */ var sketch_module_google_analytics__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sketch_module_google_analytics__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _rodi01_renameitlib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @rodi01/renameitlib */ "./node_modules/@rodi01/renameitlib/lib/index.js");
+/* harmony import */ var _rodi01_renameitlib__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_rodi01_renameitlib__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _DataHelper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DataHelper */ "./src/lib/DataHelper.js");
+/* harmony import */ var _Constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Constants */ "./src/lib/Constants.js");
+/* harmony import */ var _History__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./History */ "./src/lib/History.js");
+/* harmony import */ var _resources_views_theme_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../resources/views/theme/index */ "./resources/views/theme/index.js");
+/* harmony import */ var _RenameHelpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./RenameHelpers */ "./src/lib/RenameHelpers.js");
 /**
  * @Author: Rodrigo Soares <rodrigo>
  * @Date:   2017-11-17T20:46:17-08:00
@@ -5220,14 +5240,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function showUpdatedMessage(count, data) {
   var layerStr = count === 1 ? 'Layer' : 'Layers';
-  data.doc.showMessage("".concat(_Constants__WEBPACK_IMPORTED_MODULE_3__["exclamations"][Math.floor(Math.random() * _Constants__WEBPACK_IMPORTED_MODULE_3__["exclamations"].length)], " ").concat(count, " ").concat(layerStr, " renamed."));
+  data.doc.showMessage("".concat(_Constants__WEBPACK_IMPORTED_MODULE_4__["exclamations"][Math.floor(Math.random() * _Constants__WEBPACK_IMPORTED_MODULE_4__["exclamations"].length)], " ").concat(count, " ").concat(layerStr, " renamed."));
 }
 
 var theUI = function theUI(context, data, options) {
   var themeColor = typeof MSTheme !== 'undefined' && MSTheme.sharedTheme().isDark() ? 'dark' : 'light';
-  var theme = Object(_resources_views_theme_index__WEBPACK_IMPORTED_MODULE_5__["default"])(themeColor);
+  var theme = Object(_resources_views_theme_index__WEBPACK_IMPORTED_MODULE_6__["default"])(themeColor);
   var winOptions = {
     identifier: options.identifier,
     title: options.title,
@@ -5243,7 +5264,7 @@ var theUI = function theUI(context, data, options) {
   };
   var win = new sketch_module_web_view__WEBPACK_IMPORTED_MODULE_0___default.a(winOptions);
   var contents = win.webContents;
-  var history = Object(_History__WEBPACK_IMPORTED_MODULE_4__["getHistory"])();
+  var history = Object(_History__WEBPACK_IMPORTED_MODULE_5__["getHistory"])();
   var whereTo = options.redirectTo;
   contents.insertJS("\n    window.theme=".concat(JSON.stringify(theme), ";\n    window.redirectTo=\"").concat(whereTo, "\";\n    window.data=").concat(JSON.stringify(data), ";\n    window.dataHistory=").concat(JSON.stringify(history), ";\n    "));
   win.once('ready-to-show', function () {
@@ -5255,7 +5276,7 @@ var theUI = function theUI(context, data, options) {
   win.loadURL(__webpack_require__(/*! ../../resources/webview.html */ "./resources/webview.html"));
 
   var getData = function getData() {
-    var history = Object(_History__WEBPACK_IMPORTED_MODULE_4__["getHistory"])();
+    var history = Object(_History__WEBPACK_IMPORTED_MODULE_5__["getHistory"])();
     var whereTo = options.redirectTo;
     contents.executeJavaScript("\n          window.redirectTo=\"".concat(whereTo, "\";\n          window.data=").concat(JSON.stringify(data), ";\n          window.dataHistory=").concat(JSON.stringify(history), ";"));
   };
@@ -5270,12 +5291,12 @@ var theUI = function theUI(context, data, options) {
     win.close();
   });
   contents.on('onClickRename', function (o) {
-    var rename = new _rodi01_renameitlib__WEBPACK_IMPORTED_MODULE_1__["Rename"]({
+    var rename = new _rodi01_renameitlib__WEBPACK_IMPORTED_MODULE_2__["Rename"]({
       allowChildLayer: true
     });
     var inputData = JSON.parse(o);
     data.selection.forEach(function (item) {
-      var opts = Object(_DataHelper__WEBPACK_IMPORTED_MODULE_2__["renameData"])(item, data.selectionCount, inputData.str, inputData.startsFrom, data.pageName);
+      var opts = Object(_DataHelper__WEBPACK_IMPORTED_MODULE_3__["renameData"])(item, data.selectionCount, inputData.str, inputData.startsFrom, data.pageName);
 
       if (inputData.sequenceType === 'xPos') {
         opts.currIdx = opts.xIdx;
@@ -5286,17 +5307,19 @@ var theUI = function theUI(context, data, options) {
       var layer = item.layer;
       layer.name = rename.layer(opts);
     });
-    Object(_History__WEBPACK_IMPORTED_MODULE_4__["addRenameHistory"])(inputData.str);
+    Object(_History__WEBPACK_IMPORTED_MODULE_5__["addRenameHistory"])(inputData.str); // Set Sequence Type
+
+    Object(_RenameHelpers__WEBPACK_IMPORTED_MODULE_7__["setSequenceType"])(inputData.sequenceType);
     win.close();
     showUpdatedMessage(data.selectionCount, data);
   });
   contents.on('onClickFindReplace', function (o) {
-    var findReplace = new _rodi01_renameitlib__WEBPACK_IMPORTED_MODULE_1__["FindReplace"]();
+    var findReplace = new _rodi01_renameitlib__WEBPACK_IMPORTED_MODULE_2__["FindReplace"]();
     var inputData = JSON.parse(o);
     var selData = inputData.searchScope === 'page' ? data.allLayers : data.selection;
     var totalRenamed = 0;
     selData.forEach(function (item) {
-      var opts = Object(_DataHelper__WEBPACK_IMPORTED_MODULE_2__["findReplaceData"])(item, inputData.findText, inputData.replaceText, Boolean(inputData.caseSensitive));
+      var opts = Object(_DataHelper__WEBPACK_IMPORTED_MODULE_3__["findReplaceData"])(item, inputData.findText, inputData.replaceText, Boolean(inputData.caseSensitive));
 
       if (findReplace.match(opts)) {
         var layer = selData[opts.currIdx].layer;
@@ -5304,13 +5327,13 @@ var theUI = function theUI(context, data, options) {
         totalRenamed += 1;
       }
     });
-    Object(_History__WEBPACK_IMPORTED_MODULE_4__["addFindHistory"])(inputData.findText);
-    Object(_History__WEBPACK_IMPORTED_MODULE_4__["addReplaceHistory"])(inputData.replaceText);
+    Object(_History__WEBPACK_IMPORTED_MODULE_5__["addFindHistory"])(inputData.findText);
+    Object(_History__WEBPACK_IMPORTED_MODULE_5__["addReplaceHistory"])(inputData.replaceText);
     win.close();
     showUpdatedMessage(totalRenamed, data);
   });
   contents.on('onClearHistory', function () {
-    Object(_History__WEBPACK_IMPORTED_MODULE_4__["clearHistory"])();
+    Object(_History__WEBPACK_IMPORTED_MODULE_5__["clearHistory"])();
     win.close();
   });
   contents.on('externalLinkClicked', function (url) {
@@ -5318,7 +5341,7 @@ var theUI = function theUI(context, data, options) {
   });
   contents.on('track', function (options) {
     var parsedOptions = JSON.parse(options);
-    sketch_module_google_analytics__WEBPACK_IMPORTED_MODULE_6___default()('UA-104184459-2', parsedOptions.hitType, parsedOptions.payload);
+    sketch_module_google_analytics__WEBPACK_IMPORTED_MODULE_1___default()('UA-104184459-2', parsedOptions.hitType, parsedOptions.payload);
   });
 };
 
@@ -5342,7 +5365,7 @@ __webpack_require__.r(__webpack_exports__);
  * @Author: Rodrigo Soares
  * @Date: 2018-01-03 17:48:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-04-25 00:46:27
+ * @Last Modified time: 2020-04-27 00:00:47
  */
 
 /**
@@ -5413,7 +5436,8 @@ function parseData(context) {
   });
   data.hasSymbol = hasSymbol;
   data.hasLayerStyle = lStyle;
-  data.hasChildLayer = childLayer; // Positional Sequence
+  data.hasChildLayer = childLayer;
+  data.sequenceType = Object(_RenameHelpers__WEBPACK_IMPORTED_MODULE_0__["getSequenceType"])(); // Positional Sequence
 
   data.selection = Object(_RenameHelpers__WEBPACK_IMPORTED_MODULE_0__["getPositionalSequence"])(data.selection);
   return data;

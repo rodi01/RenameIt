@@ -17,6 +17,10 @@ import {
   SecondaryButton,
   Footer,
   StyledH3,
+  StyledInput,
+  LabelStyles,
+  inputCss,
+  InputMargin,
 } from '../GlobalStyles'
 import { renameData } from '~/src/lib/DataHelper'
 
@@ -37,6 +41,26 @@ const KeywordsWrapper = styled.div`
   }
 `
 
+const InputWrapper = styled.div`
+  display: flex;
+  margin-bottom: ${InputMargin};
+`
+const StyledLabel = styled.label`
+  ${LabelStyles};
+  width: 70px;
+`
+
+const StyledSelect = styled.select`
+  ${inputCss}
+  flex-grow: 0;
+  -webkit-appearance: none;
+  background-image: url(${(props) => props.theme.select.arrow});
+  background-repeat: no-repeat;
+  background-position: right 6px top 50%;
+  background-size: 8px auto;
+  padding-right: 24px;
+`
+
 class RenameLayer extends React.Component {
   constructor(props) {
     super(props)
@@ -46,7 +70,7 @@ class RenameLayer extends React.Component {
       sequence: 1,
       inputFocus: false,
       previewData: [],
-      selectValue: 'layerList',
+      selectValue: window.data.sequenceType,
     }
     this.enterFunction = this.enterFunction.bind(this)
     this.onSelectChange = this.onSelectChange.bind(this)
@@ -224,17 +248,6 @@ class RenameLayer extends React.Component {
       labelWidth,
     }
 
-    const sequenceInputAttr = {
-      id: 'sequence',
-      type: 'number',
-      forName: 'Start from',
-      wrapperClass: 'inputRight',
-      value: this.state.sequence,
-      autoFocus: false,
-      onChange: this.onChangeSequence.bind(this),
-      labelWidth,
-    }
-
     const buttons = [
       {
         id: 'currentLayer',
@@ -305,26 +318,30 @@ class RenameLayer extends React.Component {
     return (
       <div className="container rename">
         <Input {...nameInputAttr} />
+        <InputWrapper>
+          <StyledLabel htmlFor="sequence">Sequence</StyledLabel>
+          <StyledInput
+            type="number"
+            id="sequence"
+            value={this.state.sequence}
+            onChange={this.onChangeSequence.bind(this)}
+            // ref={(ip) => (this.myInp = ip)}
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck="false"
+            min="0"
+          />
 
-        <Form.Row>
-          <Col>
-            <Input {...sequenceInputAttr} />
-          </Col>
-          <Col>
-            <Form.Control
-              as="select"
-              size="sm"
-              custom
-              value={this.state.selectValue}
-              onChange={this.onSelectChange}
-            >
-              <option value="layerList">Layer List</option>
-              <option value="xPos">X Position</option>
-              <option value="yPos">Y Position</option>
-            </Form.Control>
-          </Col>
-        </Form.Row>
-
+          <StyledSelect
+            value={this.state.selectValue}
+            onChange={this.onSelectChange}
+          >
+            <option value="layerList">Layer List</option>
+            <option value="xPos">X Position</option>
+            <option value="yPos">Y Position</option>
+          </StyledSelect>
+        </InputWrapper>
         <KeywordsWrapper>
           <StyledH3>Keywords</StyledH3>
           <ul>{listItems}</ul>
