@@ -2,14 +2,14 @@
  * @Author: Rodrigo Soares
  * @Date: 2017-12-26 13:14:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-05-20 22:22:55
+ * @Last Modified time: 2020-04-30 02:51:12
  */
 
-import { parseData } from "~/src/lib/Utilities"
-import theUI from "./lib/TheUI"
-import { isCompatible, showAlert } from "./lib/VersionAlert"
+import { parseData } from '~/src/lib/Utilities'
+import theUI from './lib/TheUI'
+import { isCompatible, showAlert } from './lib/VersionAlert'
 
-export default function(context) {
+export default function (context) {
   // Check compatibility
   if (!isCompatible()) {
     showAlert()
@@ -21,17 +21,17 @@ export default function(context) {
   // Return if there is no selection and show message
   if (data.selectionCount <= 0) {
     context.document.showMessage(
-      "Rename it: You need to select at least one layer or artboard"
+      'Rename it: You need to select at least one layer or artboard'
     )
     return
   }
 
   const options = {
-    identifier: "renameLayers.ui",
-    title: "Rename Selected Layers",
-    redirectTo: "/rename",
+    identifier: 'renameLayers.ui',
+    title: 'Rename Selected Layers',
+    redirectTo: '/rename',
     width: 392,
-    height: 420
+    height: 480,
   }
 
   // Show UI

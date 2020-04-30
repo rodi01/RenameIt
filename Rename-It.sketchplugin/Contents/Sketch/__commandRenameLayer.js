@@ -4712,7 +4712,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "file://" + String(context.scriptPath).split(".sketchplugin/Contents/Sketch")[0] + ".sketchplugin/Contents/Resources/_webpack_resources/197306115518bec1f27e9eeab9dd547c.html";
+module.exports = "file://" + String(context.scriptPath).split(".sketchplugin/Contents/Sketch")[0] + ".sketchplugin/Contents/Resources/_webpack_resources/10d9d67b1a75a3322741ab7ce39ac4f5.html";
 
 /***/ }),
 
@@ -4732,7 +4732,7 @@ __webpack_require__.r(__webpack_exports__);
  * @Author: Rodrigo Soares
  * @Date: 2017-12-26 13:14:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-05-20 22:22:55
+ * @Last Modified time: 2020-04-30 02:51:12
  */
 
 
@@ -4747,16 +4747,16 @@ __webpack_require__.r(__webpack_exports__);
   var data = Object(_lib_Utilities__WEBPACK_IMPORTED_MODULE_0__["parseData"])(context); // Return if there is no selection and show message
 
   if (data.selectionCount <= 0) {
-    context.document.showMessage("Rename it: You need to select at least one layer or artboard");
+    context.document.showMessage('Rename it: You need to select at least one layer or artboard');
     return;
   }
 
   var options = {
-    identifier: "renameLayers.ui",
-    title: "Rename Selected Layers",
-    redirectTo: "/rename",
+    identifier: 'renameLayers.ui',
+    title: 'Rename Selected Layers',
+    redirectTo: '/rename',
     width: 392,
-    height: 420
+    height: 480
   }; // Show UI
 
   Object(_lib_TheUI__WEBPACK_IMPORTED_MODULE_1__["default"])(context, data, options);

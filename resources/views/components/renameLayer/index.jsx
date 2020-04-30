@@ -5,13 +5,12 @@
  * @Last modified time: 2017-12-02T19:17:06-08:00
  */
 import React from 'react'
-import { Form, Col } from 'react-bootstrap'
 import styled from 'styled-components'
+import { Dropdown } from 'react-bootstrap'
 import { Rename } from '@rodi01/renameitlib'
 import Input from '../Input'
 import KeywordButton from '../KeywordButton'
 import Preview from '../Preview'
-
 import {
   SubmitButton,
   SecondaryButton,
@@ -44,10 +43,11 @@ const KeywordsWrapper = styled.div`
 const InputWrapper = styled.div`
   display: flex;
   margin-bottom: ${InputMargin};
+  flex-direction: column;
 `
 const StyledLabel = styled.label`
   ${LabelStyles};
-  width: 70px;
+  // width: 70px;
 `
 
 const StyledSelect = styled.select`
@@ -59,6 +59,13 @@ const StyledSelect = styled.select`
   background-position: right 6px top 50%;
   background-size: 8px auto;
   padding-right: 24px;
+`
+
+const SequenceWrapper = styled.div`
+  margin-top: 10px;
+  display: flex;
+  height: 32px;
+  align-items: center;
 `
 
 class RenameLayer extends React.Component {
@@ -74,6 +81,7 @@ class RenameLayer extends React.Component {
     }
     this.enterFunction = this.enterFunction.bind(this)
     this.onSelectChange = this.onSelectChange.bind(this)
+    this.onSequenceTypeChange = this.onSequenceTypeChange.bind(this)
 
     this.rename = new Rename({ allowChildLayer: true })
   }
@@ -229,6 +237,28 @@ class RenameLayer extends React.Component {
     )
   }
 
+  getSequenceName(type) {
+    let name
+    switch (type) {
+      case 'layerList':
+        name = 'Layer order: Top to bottom'
+        break
+      case 'xPos':
+        name = 'Postion: Left to right, top to bottom'
+        break
+      case 'yPos':
+        name = 'Positon: Top to bottom, left to right'
+      default:
+        break
+    }
+
+    return name
+  }
+
+  onSequenceTypeChange(type) {
+    this.setState({ selectValue: type }, () => this.previewUpdate())
+  }
+
   render() {
     const labelWidth = '70px'
     const nameInputAttr = {
@@ -319,28 +349,52 @@ class RenameLayer extends React.Component {
       <div className="container rename">
         <Input {...nameInputAttr} />
         <InputWrapper>
-          <StyledLabel htmlFor="sequence">Sequence</StyledLabel>
-          <StyledInput
-            type="number"
-            id="sequence"
-            value={this.state.sequence}
-            onChange={this.onChangeSequence.bind(this)}
-            // ref={(ip) => (this.myInp = ip)}
-            autoComplete="off"
-            autoCorrect="off"
-            autoCapitalize="off"
-            spellCheck="false"
-            min="0"
-          />
+          <StyledH3>Sequence</StyledH3>
+          <SequenceWrapper>
+            <StyledLabel htmlFor="sequence">From</StyledLabel>
+            <StyledInput
+              type="number"
+              id="sequence"
+              value={this.state.sequence}
+              onChange={this.onChangeSequence.bind(this)}
+              // ref={(ip) => (this.myInp = ip)}
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
+              min="0"
+            />
 
-          <StyledSelect
+            <Dropdown
+              onSelect={this.onSequenceTypeChange}
+              className="sequenceDD"
+            >
+              <Dropdown.Toggle id="seqTypeDD">
+                {this.getSequenceName(this.state.selectValue)}
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item eventKey="layerList">
+                  {this.getSequenceName('layerList')}
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="xPos">
+                  {this.getSequenceName('xPos')}
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="yPos">
+                  {this.getSequenceName('yPos')}
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+
+            {/* <StyledSelect
             value={this.state.selectValue}
             onChange={this.onSelectChange}
           >
             <option value="layerList">Layer List</option>
             <option value="xPos">X Position</option>
             <option value="yPos">Y Position</option>
-          </StyledSelect>
+          </StyledSelect> */}
+          </SequenceWrapper>
         </InputWrapper>
         <KeywordsWrapper>
           <StyledH3>Keywords</StyledH3>

@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components"
-import { ButtonStyles } from "../GlobalStyles"
+import { createGlobalStyle } from 'styled-components'
+import { ButtonStyles } from '../GlobalStyles'
 
 export default createGlobalStyle`
     .dropdown {
@@ -19,10 +19,10 @@ export default createGlobalStyle`
       min-width: 10rem;
       padding: 8px 0;
       margin: 2px 0 0;
-      color: ${props => props.theme.input.color};
+      color: ${(props) => props.theme.input.color};
       text-align: left;
       list-style: none;
-      background-color: ${props => props.theme.input.background};
+      background-color: ${(props) => props.theme.input.background};
       background-clip: padding-box;
       border: 1px solid rgba(0, 0, 0, 0.15);
       border-radius: 4px;
@@ -31,14 +31,14 @@ export default createGlobalStyle`
 
     .dropdown-menu a, .dropdown-menu a:link, .dropdown-menu a:visited { 
       display: block;
-      color: ${props => props.theme.previewColor};
+      color: ${(props) => props.theme.previewColor};
       padding: 6px 8px;
       text-decoration: none;
       cursor: default;
 
       &:active, &:focus {
         outline: 0;
-        background-color: ${props => props.theme.button.bgActive};
+        background-color: ${(props) => props.theme.button.bgActive};
        }
      }
 
@@ -75,11 +75,29 @@ export default createGlobalStyle`
       display: block;
       padding: 0 8px 8px;
       margin-bottom: 0;
-      color: ${props => props.theme.textColor};
+      color: ${(props) => props.theme.textColor};
       white-space: nowrap;
       opacity: 0.8;
     }
 
     .dropdown.open .dropdown-menu { display: block; }
 
+    #seqTypeDD { width: 100%; padding: 0 10px; text-align: left; }
+
+    #seqTypeDD:after {
+      display: inline-block;
+      margin-left: 8px;
+      vertical-align: 1px;
+      content: "";
+      border-top: 5px solid;
+      border-right: 5px solid transparent;
+      border-bottom: 0;
+      border-left: 5px solid transparent;
+      position: absolute;
+      right: 8px;
+      top: 9px;
+      }
+    
+    .sequenceDD { flex-grow: 1; }
+    .sequenceDD .dropdown-menu { padding: 0; width: 100%; }
 `
