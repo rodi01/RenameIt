@@ -25,7 +25,8 @@
     "start": "skpm-build --watch --run",
     "postinstall": "npm run build && skpm-link",
     "lint": "eslint '**/*.{js,jsx}' --quiet",
-    "format": "prettier --write '**/*.{js,jsx}'"
+    "format": "prettier --write '**/*.{js,jsx}'",
+    "release": "standard-version"
   },
   "devDependencies": {
     "@skpm/babel-preset": "^0.2.1",
@@ -45,6 +46,7 @@
     "eslint-plugin-react": "^7.19.0",
     "html-loader": "^0.5.5",
     "prettier": "^2.0.4",
+    "standard-version": "^7.1.0",
     "svg-react-loader": "^0.4.6"
   },
   "resources": [

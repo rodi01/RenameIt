@@ -6,6 +6,8 @@
 	],
 	"settings": {
 		"javascript.format.enable": false,
-		"workbench.colorTheme": "Blink Contrast (rainglow)"
+		"workbench.colorTheme": "Ayu Mirage Bordered",
+		"fileheader.LastModifiedBy": "Rodrigo Soares",
+		"fileheader.Author": "Rodrigo Soares"
 	}
 }

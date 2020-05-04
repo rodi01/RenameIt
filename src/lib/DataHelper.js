@@ -29,6 +29,10 @@ export function renameData(
     symbolName: item.symbolName,
     layerStyle: item.layerStyle,
     childLayer: item.childLayer,
+    x: item.x,
+    y: item.y,
+    xIdx: item.xIdx,
+    yIdx: item.yIdx,
   }
 }
 

@@ -6,6 +6,7 @@
  */
 import React from 'react'
 import styled from 'styled-components'
+import { Dropdown } from 'react-bootstrap'
 import { Rename } from '@rodi01/renameitlib'
 import Input from '../Input'
 import KeywordButton from '../KeywordButton'
@@ -15,8 +16,15 @@ import {
   SecondaryButton,
   Footer,
   StyledH3,
+  StyledInput,
+  LabelStyles,
+  inputCss,
+  InputMargin,
 } from '../GlobalStyles'
 import { renameData } from '~/src/lib/DataHelper'
+import XPosIc from '../../../images/xPosIc.svg'
+import YPosIc from '../../../images/yPosIc.svg'
+import LayerListIc from '../../../images/layerListIc.svg'
 
 const KeywordsWrapper = styled.div`
   margin-top: 16px;
@@ -35,6 +43,43 @@ const KeywordsWrapper = styled.div`
   }
 `
 
+const InputWrapper = styled.div`
+  display: flex;
+  margin-bottom: ${InputMargin};
+  flex-direction: column;
+`
+const StyledLabel = styled.label`
+  ${LabelStyles};
+  // width: 70px;
+`
+
+const StyledSelect = styled.select`
+  ${inputCss}
+  flex-grow: 0;
+  -webkit-appearance: none;
+  background-image: url(${(props) => props.theme.select.arrow});
+  background-repeat: no-repeat;
+  background-position: right 6px top 50%;
+  background-size: 8px auto;
+  padding-right: 24px;
+`
+
+const SequenceWrapper = styled.div`
+  margin-top: 10px;
+  display: flex;
+  height: 32px;
+  align-items: center;
+`
+
+const DDWrapper = styled.span`
+  display: flex;
+`
+
+const DDText = styled.span`
+  margin-left: 8px;
+  line-height: 24px;
+`
+
 class RenameLayer extends React.Component {
   constructor(props) {
     super(props)
@@ -44,8 +89,11 @@ class RenameLayer extends React.Component {
       sequence: 1,
       inputFocus: false,
       previewData: [],
+      selectValue: window.data.sequenceType,
     }
     this.enterFunction = this.enterFunction.bind(this)
+    this.onSelectChange = this.onSelectChange.bind(this)
+    this.onSequenceTypeChange = this.onSequenceTypeChange.bind(this)
 
     this.rename = new Rename({ allowChildLayer: true })
   }
@@ -113,6 +161,7 @@ class RenameLayer extends React.Component {
     const d = {
       str: this.state.valueAttr,
       startsFrom: this.state.sequence,
+      sequenceType: this.state.selectValue,
     }
     // Track input event
     window.postMessage(
@@ -172,6 +221,13 @@ class RenameLayer extends React.Component {
         window.data.pageName
       )
 
+      // check for sequnce type
+      if (this.state.selectValue === 'xPos') {
+        options.currIdx = options.xIdx
+      } else if (this.state.selectValue === 'yPos') {
+        options.currIdx = options.yIdx
+      }
+
       renamed.push(this.rename.layer(options))
     })
     this.setState({ previewData: renamed })
@@ -185,6 +241,49 @@ class RenameLayer extends React.Component {
       },
       () => this.previewUpdate()
     )
+  }
+
+  onSelectChange(event) {
+    this.setState({ selectValue: event.target.value }, () =>
+      this.previewUpdate()
+    )
+  }
+
+  getSequenceName(type) {
+    let name
+    switch (type) {
+      case 'layerList':
+        name = (
+          <DDWrapper>
+            <LayerListIc className="dropIc" />
+            <DDText>Layer order: Top to bottom</DDText>
+          </DDWrapper>
+        )
+        break
+      case 'xPos':
+        name = (
+          <DDWrapper>
+            <XPosIc className="dropIc" />
+            <DDText>Postion: Left to right, top to bottom</DDText>
+          </DDWrapper>
+        )
+        break
+      case 'yPos':
+        name = (
+          <DDWrapper>
+            <YPosIc className="dropIc" />
+            <DDText>Positon: Top to bottom, left to right</DDText>
+          </DDWrapper>
+        )
+      default:
+        break
+    }
+
+    return name
+  }
+
+  onSequenceTypeChange(type) {
+    this.setState({ selectValue: type }, () => this.previewUpdate())
   }
 
   render() {
@@ -206,17 +305,6 @@ class RenameLayer extends React.Component {
       labelWidth,
     }
 
-    const sequenceInputAttr = {
-      id: 'sequence',
-      type: 'number',
-      forName: 'Start from',
-      wrapperClass: 'inputRight',
-      value: this.state.sequence,
-      autoFocus: false,
-      onChange: this.onChangeSequence.bind(this),
-      labelWidth,
-    }
-
     const buttons = [
       {
         id: 'currentLayer',
@@ -235,12 +323,12 @@ class RenameLayer extends React.Component {
       },
       {
         id: 'sequenceAsc',
-        char: '%n',
+        char: '%N',
         text: 'Num. Sequence ASC',
       },
       {
         id: 'sequenceDesc',
-        char: '%N',
+        char: '%n',
         text: 'Num. Sequence DESC',
       },
       {
@@ -287,8 +375,48 @@ class RenameLayer extends React.Component {
     return (
       <div className="container rename">
         <Input {...nameInputAttr} />
-        <Input {...sequenceInputAttr} />
+        <InputWrapper>
+          <StyledH3>Sequence</StyledH3>
+          <SequenceWrapper>
+            <StyledLabel htmlFor="sequence">From</StyledLabel>
+            <StyledInput
+              type="number"
+              id="sequence"
+              value={this.state.sequence}
+              onChange={this.onChangeSequence.bind(this)}
+              // ref={(ip) => (this.myInp = ip)}
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
+              min="0"
+            />
 
+            <Dropdown
+              onSelect={this.onSequenceTypeChange}
+              className="sequenceDD"
+            >
+              <Dropdown.Toggle id="seqTypeDD">
+                {this.getSequenceName(this.state.selectValue)}
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  eventKey="layerList"
+                  className="menuIcon layerListIc"
+                >
+                  {this.getSequenceName('layerList')}
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="xPos" className="menuIcon xPosIc">
+                  {this.getSequenceName('xPos')}
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="yPos" className="menuIcon yPosIc">
+                  {this.getSequenceName('yPos')}
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </SequenceWrapper>
+        </InputWrapper>
         <KeywordsWrapper>
           <StyledH3>Keywords</StyledH3>
           <ul>{listItems}</ul>
