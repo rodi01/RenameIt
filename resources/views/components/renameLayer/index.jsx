@@ -22,6 +22,9 @@ import {
   InputMargin,
 } from '../GlobalStyles'
 import { renameData } from '~/src/lib/DataHelper'
+import XPosIc from '../../../images/xPosIc.svg'
+import YPosIc from '../../../images/yPosIc.svg'
+import LayerListIc from '../../../images/layerListIc.svg'
 
 const KeywordsWrapper = styled.div`
   margin-top: 16px;
@@ -66,6 +69,15 @@ const SequenceWrapper = styled.div`
   display: flex;
   height: 32px;
   align-items: center;
+`
+
+const DDWrapper = styled.span`
+  display: flex;
+`
+
+const DDText = styled.span`
+  margin-left: 8px;
+  line-height: 24px;
 `
 
 class RenameLayer extends React.Component {
@@ -241,13 +253,28 @@ class RenameLayer extends React.Component {
     let name
     switch (type) {
       case 'layerList':
-        name = 'Layer order: Top to bottom'
+        name = (
+          <DDWrapper>
+            <LayerListIc className="dropIc" />
+            <DDText>Layer order: Top to bottom</DDText>
+          </DDWrapper>
+        )
         break
       case 'xPos':
-        name = 'Postion: Left to right, top to bottom'
+        name = (
+          <DDWrapper>
+            <XPosIc className="dropIc" />
+            <DDText>Postion: Left to right, top to bottom</DDText>
+          </DDWrapper>
+        )
         break
       case 'yPos':
-        name = 'Positon: Top to bottom, left to right'
+        name = (
+          <DDWrapper>
+            <YPosIc className="dropIc" />
+            <DDText>Positon: Top to bottom, left to right</DDText>
+          </DDWrapper>
+        )
       default:
         break
     }
@@ -374,26 +401,20 @@ class RenameLayer extends React.Component {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item eventKey="layerList">
+                <Dropdown.Item
+                  eventKey="layerList"
+                  className="menuIcon layerListIc"
+                >
                   {this.getSequenceName('layerList')}
                 </Dropdown.Item>
-                <Dropdown.Item eventKey="xPos">
+                <Dropdown.Item eventKey="xPos" className="menuIcon xPosIc">
                   {this.getSequenceName('xPos')}
                 </Dropdown.Item>
-                <Dropdown.Item eventKey="yPos">
+                <Dropdown.Item eventKey="yPos" className="menuIcon yPosIc">
                   {this.getSequenceName('yPos')}
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-
-            {/* <StyledSelect
-            value={this.state.selectValue}
-            onChange={this.onSelectChange}
-          >
-            <option value="layerList">Layer List</option>
-            <option value="xPos">X Position</option>
-            <option value="yPos">Y Position</option>
-          </StyledSelect> */}
           </SequenceWrapper>
         </InputWrapper>
         <KeywordsWrapper>

@@ -5577,7 +5577,7 @@ function _templateObject9() {
 }
 
 function _templateObject8() {
-  var data = _taggedTemplateLiteral(["\n  background: ", ";\n  padding: 0 8px;\n  border-radius: 4px;\n  height: 24px;\n  border: 1px solid ", ";\n  color: ", ";\n  margin-left: 8px;\n  font-size: 13px;\n  letter-spacing: -0.08px;\n  flex-grow: 1;\n  margin-right: 8px;\n  -webkit-user-select: auto;\n  user-select: auto;\n\n  &[type='number'] {\n    width: 50px;\n    flex-grow: 0;\n    padding-right: 2px;\n  }\n\n  &:focus {\n    outline: none;\n    border-color: ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  background: ", ";\n  padding: 0 8px;\n  border-radius: 4px;\n  height: 30px;\n  border: 1px solid ", ";\n  color: ", ";\n  margin-left: 8px;\n  font-size: 13px;\n  letter-spacing: -0.08px;\n  flex-grow: 1;\n  margin-right: 8px;\n  -webkit-user-select: auto;\n  user-select: auto;\n\n  &[type='number'] {\n    width: 50px;\n    flex-grow: 0;\n    padding-right: 2px;\n  }\n\n  &:focus {\n    outline: none;\n    border-color: ", ";\n  }\n"]);
 
   _templateObject8 = function _templateObject8() {
     return data;

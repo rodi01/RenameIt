@@ -52358,6 +52358,72 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./resources/images/layerListIc.svg":
+/*!******************************************!*\
+  !*** ./resources/images/layerListIc.svg ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+function LayerListIc (props) {
+    return React.createElement("svg",props,[React.createElement("title",{"key":0},"layerList_ic"),React.createElement("desc",{"key":1},"Created with Sketch."),React.createElement("g",{"id":"Page-1","stroke":"none","strokeWidth":"1","fill":"none","fillRule":"evenodd","key":2},React.createElement("g",{"id":"layerList_ic","transform":"translate(10.500000, 10.500000) scale(1, -1) rotate(-90.000000) translate(-10.500000, -10.500000) translate(-0.000000, 0.000000)"},[React.createElement("rect",{"id":"Rectangle","fill":"#78909C","opacity":"0.3","x":"0","y":"0","width":"2","height":"21","rx":"1","key":0}),React.createElement("rect",{"id":"Rectangle","fill":"#78909C","opacity":"0.3","x":"3.8","y":"0","width":"2","height":"21","rx":"1","key":1}),React.createElement("rect",{"id":"Rectangle","fill":"#78909C","opacity":"0.3","x":"7.6","y":"0","width":"2","height":"21","rx":"1","key":2}),React.createElement("rect",{"id":"Rectangle","fill":"#78909C","opacity":"0.3","x":"11.4","y":"0","width":"2","height":"10","rx":"1","key":3}),React.createElement("rect",{"id":"Rectangle","fill":"#78909C","opacity":"0.3","x":"15.2","y":"0","width":"2","height":"10","rx":"1","key":4}),React.createElement("rect",{"id":"Rectangle","fill":"#78909C","opacity":"0.3","x":"19","y":"0","width":"2","height":"10","rx":"1","key":5}),React.createElement("line",{"x1":"15.5","y1":"12.5","x2":"15.5","y2":"19.5","id":"Path","stroke":"#1384FF","strokeWidth":"2","strokeLinecap":"round","strokeLinejoin":"round","transform":"translate(15.500000, 16.000000) rotate(-90.000000) translate(-15.500000, -16.000000) ","key":6}),React.createElement("polyline",{"id":"Path","stroke":"#1384FF","strokeWidth":"2","strokeLinecap":"round","strokeLinejoin":"round","transform":"translate(17.474874, 15.974874) rotate(-45.000000) translate(-17.474874, -15.974874) ","points":"19.2248737 14.2248737 19.2248737 17.7248737 15.7248737 17.7248737","key":7})]))]);
+}
+
+LayerListIc.defaultProps = {"width":"21px","height":"21px","viewBox":"0 0 21 21","version":"1.1"};
+
+module.exports = LayerListIc;
+
+LayerListIc.default = LayerListIc;
+
+
+/***/ }),
+
+/***/ "./resources/images/xPosIc.svg":
+/*!*************************************!*\
+  !*** ./resources/images/xPosIc.svg ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+function XPosIc (props) {
+    return React.createElement("svg",props,[React.createElement("title",{"key":0},"xPos_Ic"),React.createElement("desc",{"key":1},"Created with Sketch."),React.createElement("g",{"id":"Page-1","stroke":"none","strokeWidth":"1","fill":"none","fillRule":"evenodd","key":2},React.createElement("g",{"id":"xPos_Ic","transform":"translate(10.500000, 10.500000) scale(1, -1) rotate(-90.000000) translate(-10.500000, -10.500000) translate(-0.000000, 0.000000)"},[React.createElement("rect",{"id":"Rectangle","fill":"#78909C","opacity":"0.3","x":"0","y":"0","width":"10","height":"10","rx":"1","key":0}),React.createElement("rect",{"id":"Rectangle","fill":"#78909C","opacity":"0.3","x":"11","y":"0","width":"10","height":"10","rx":"1","key":1}),React.createElement("rect",{"id":"Rectangle","fill":"#78909C","opacity":"0.3","x":"11","y":"11","width":"10","height":"10","rx":"1","key":2}),React.createElement("rect",{"id":"Rectangle","fill":"#78909C","opacity":"0.3","x":"0","y":"11","width":"10","height":"10","rx":"1","key":3}),React.createElement("polyline",{"id":"Path-2","stroke":"#1384FF","strokeWidth":"2","strokeLinecap":"round","strokeLinejoin":"round","points":"5 5 5 16 16 5 16 16","key":4}),React.createElement("polyline",{"id":"Path","stroke":"#1384FF","strokeWidth":"2","strokeLinecap":"round","strokeLinejoin":"round","transform":"translate(15.995584, 15.750000) rotate(-315.000000) translate(-15.995584, -15.750000) ","points":"17.7455844 14 17.7455844 17.5 14.2455844 17.5","key":5})]))]);
+}
+
+XPosIc.defaultProps = {"width":"21px","height":"21px","viewBox":"0 0 21 21","version":"1.1"};
+
+module.exports = XPosIc;
+
+XPosIc.default = XPosIc;
+
+
+/***/ }),
+
+/***/ "./resources/images/yPosIc.svg":
+/*!*************************************!*\
+  !*** ./resources/images/yPosIc.svg ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+function YPosIc (props) {
+    return React.createElement("svg",props,[React.createElement("title",{"key":0},"yPosIc"),React.createElement("desc",{"key":1},"Created with Sketch."),React.createElement("g",{"id":"Page-1","stroke":"none","strokeWidth":"1","fill":"none","fillRule":"evenodd","key":2},React.createElement("g",{"id":"yPosIc"},[React.createElement("rect",{"id":"Rectangle","fill":"#78909C","opacity":"0.3","x":"0","y":"0","width":"10","height":"10","rx":"1","key":0}),React.createElement("rect",{"id":"Rectangle","fill":"#78909C","opacity":"0.3","x":"11","y":"0","width":"10","height":"10","rx":"1","key":1}),React.createElement("rect",{"id":"Rectangle","fill":"#78909C","opacity":"0.3","x":"11","y":"11","width":"10","height":"10","rx":"1","key":2}),React.createElement("rect",{"id":"Rectangle","fill":"#78909C","opacity":"0.3","x":"0","y":"11","width":"10","height":"10","rx":"1","key":3}),React.createElement("polyline",{"id":"Path-2","stroke":"#1384FF","strokeWidth":"2","strokeLinecap":"round","strokeLinejoin":"round","points":"5 5 5 16 16 5 16 16","key":4}),React.createElement("polyline",{"id":"Path","stroke":"#1384FF","strokeWidth":"2","strokeLinecap":"round","strokeLinejoin":"round","transform":"translate(15.995584, 15.750000) rotate(-315.000000) translate(-15.995584, -15.750000) ","points":"17.7455844 14 17.7455844 17.5 14.2455844 17.5","key":5})]))]);
+}
+
+YPosIc.defaultProps = {"width":"21px","height":"21px","viewBox":"0 0 21 21","version":"1.1"};
+
+module.exports = YPosIc;
+
+YPosIc.default = YPosIc;
+
+
+/***/ }),
+
 /***/ "./resources/views/components/GlobalStyles.js":
 /*!****************************************************!*\
   !*** ./resources/views/components/GlobalStyles.js ***!
@@ -52390,7 +52456,7 @@ function _templateObject9() {
 }
 
 function _templateObject8() {
-  var data = _taggedTemplateLiteral(["\n  background: ", ";\n  padding: 0 8px;\n  border-radius: 4px;\n  height: 24px;\n  border: 1px solid ", ";\n  color: ", ";\n  margin-left: 8px;\n  font-size: 13px;\n  letter-spacing: -0.08px;\n  flex-grow: 1;\n  margin-right: 8px;\n  -webkit-user-select: auto;\n  user-select: auto;\n\n  &[type='number'] {\n    width: 50px;\n    flex-grow: 0;\n    padding-right: 2px;\n  }\n\n  &:focus {\n    outline: none;\n    border-color: ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  background: ", ";\n  padding: 0 8px;\n  border-radius: 4px;\n  height: 30px;\n  border: 1px solid ", ";\n  color: ", ";\n  margin-left: 8px;\n  font-size: 13px;\n  letter-spacing: -0.08px;\n  flex-grow: 1;\n  margin-right: 8px;\n  -webkit-user-select: auto;\n  user-select: auto;\n\n  &[type='number'] {\n    width: 50px;\n    flex-grow: 0;\n    padding-right: 2px;\n  }\n\n  &:focus {\n    outline: none;\n    border-color: ", ";\n  }\n"]);
 
   _templateObject8 = function _templateObject8() {
     return data;
@@ -53213,7 +53279,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _GlobalStyles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n    .dropdown {\n      position: relative;\n      display: inline-block;\n      align-self: center;\n      font-size: 12px;\n    }\n    \n    .dropdown-menu {\n      position: absolute;\n      top: 100%;\n      left: 0;\n      z-index: 1000;\n      display: none;\n      float: left;\n      min-width: 10rem;\n      padding: 8px 0;\n      margin: 2px 0 0;\n      color: ", ";\n      text-align: left;\n      list-style: none;\n      background-color: ", ";\n      background-clip: padding-box;\n      border: 1px solid rgba(0, 0, 0, 0.15);\n      border-radius: 4px;\n      box-shadow: 0px 3px 15px 0px rgba(0,0,0,0.15);\n    }\n\n    .dropdown-menu a, .dropdown-menu a:link, .dropdown-menu a:visited { \n      display: block;\n      color: ", ";\n      padding: 6px 8px;\n      text-decoration: none;\n      cursor: default;\n\n      &:active, &:focus {\n        outline: 0;\n        background-color: ", ";\n       }\n     }\n\n    .dropdown-toggle {\n      ", "\n      padding: 0;\n      width: 40px;\n      .caret { display: none; }\n      svg { margin-top: 2px; }\n    }\n\n    .dropdown-menu-right {\n      right: 0;\n      left: auto;\n    }\n\n    .dropdown-menu[x-placement^=\"top\"], .dropdown-menu[x-placement^=\"right\"], .dropdown-menu[x-placement^=\"bottom\"], .dropdown-menu[x-placement^=\"left\"] {\n      right: auto;\n      bottom: auto;\n    }\n\n    .dropdown-divider {\n      height: 0;\n      margin: 0.5rem 0;\n      overflow: hidden;\n      border-top: 1px solid #e9ecef;\n    }\n\n    .dropdown-menu.show {\n      display: block;\n    }\n\n    .dropdown-header {\n      display: block;\n      padding: 0 8px 8px;\n      margin-bottom: 0;\n      color: ", ";\n      white-space: nowrap;\n      opacity: 0.8;\n    }\n\n    .dropdown.open .dropdown-menu { display: block; }\n\n    #seqTypeDD { width: 100%; padding: 0 10px; text-align: left; }\n\n    #seqTypeDD:after {\n      display: inline-block;\n      margin-left: 8px;\n      vertical-align: 1px;\n      content: \"\";\n      border-top: 5px solid;\n      border-right: 5px solid transparent;\n      border-bottom: 0;\n      border-left: 5px solid transparent;\n      position: absolute;\n      right: 8px;\n      top: 9px;\n      }\n    \n    .sequenceDD { flex-grow: 1; }\n    .sequenceDD .dropdown-menu { padding: 0; width: 100%; }\n"]);
+  var data = _taggedTemplateLiteral(["\n    .dropdown {\n      position: relative;\n      display: inline-block;\n      align-self: center;\n      font-size: 12px;\n    }\n    \n    .dropdown-menu {\n      position: absolute;\n      top: 100%;\n      left: 0;\n      z-index: 1000;\n      display: none;\n      float: left;\n      min-width: 10rem;\n      padding: 8px 0;\n      margin: 2px 0 0;\n      color: ", ";\n      text-align: left;\n      list-style: none;\n      background-color: ", ";\n      background-clip: padding-box;\n      border: 1px solid rgba(0, 0, 0, 0.15);\n      border-radius: 4px;\n      box-shadow: 0px 3px 15px 0px rgba(0,0,0,0.15);\n    }\n\n    .dropdown-menu a, .dropdown-menu a:link, .dropdown-menu a:visited { \n      display: block;\n      color: ", ";\n      padding: 6px 8px;\n      text-decoration: none;\n      cursor: default;\n\n      &:active, &:focus {\n        outline: 0;\n        background-color: ", ";\n       }\n     }\n\n    .dropdown-toggle {\n      ", "\n      height: 30px;\n      padding: 0;\n      width: 40px;\n      .caret { display: none; }\n      svg { margin-top: 2px; }\n    }\n\n    .dropdown-menu-right {\n      right: 0;\n      left: auto;\n    }\n\n    .dropdown-menu[x-placement^=\"top\"], .dropdown-menu[x-placement^=\"right\"], .dropdown-menu[x-placement^=\"bottom\"], .dropdown-menu[x-placement^=\"left\"] {\n      right: auto;\n      bottom: auto;\n    }\n\n    .dropdown-divider {\n      height: 0;\n      margin: 0.5rem 0;\n      overflow: hidden;\n      border-top: 1px solid #e9ecef;\n    }\n\n    .dropdown-menu.show {\n      display: block;\n    }\n\n    .dropdown-header {\n      display: block;\n      padding: 0 8px 8px;\n      margin-bottom: 0;\n      color: ", ";\n      white-space: nowrap;\n      opacity: 0.8;\n    }\n\n    .dropdown.open .dropdown-menu { display: block; }\n\n    #seqTypeDD { width: 100%; padding: 0 10px; text-align: left; padding: 2px 8px; height: auto; }\n\n    #seqTypeDD:after {\n      display: inline-block;\n      margin-left: 8px;\n      vertical-align: 1px;\n      content: \"\";\n      border-top: 5px solid;\n      border-right: 5px solid transparent;\n      border-bottom: 0;\n      border-left: 5px solid transparent;\n      position: absolute;\n      right: 8px;\n      top: 12px;\n      }\n    \n    .sequenceDD { flex-grow: 1;  }\n    .sequenceDD .dropdown-menu { padding: 0; width: 100%; }\n    .sequenceDD .menuIcon {  }\n    .dropdown-menu a.menuIcon { line-height: 24px; }\n    .dropIc { marging-right: 8px; }\n    // .dropdown-menu a.layerListIc { background: url(\"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjFweCIgaGVpZ2h0PSIyMXB4IiB2aWV3Qm94PSIwIDAgMjEgMjEiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDY0ICg5MzUzNykgLSBodHRwczovL3NrZXRjaC5jb20gLS0+CiAgICA8dGl0bGU+bGF5ZXJMaXN0X2ljPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9ImxheWVyTGlzdF9pYyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAuNTAwMDAwLCAxMC41MDAwMDApIHNjYWxlKDEsIC0xKSByb3RhdGUoLTkwLjAwMDAwMCkgdHJhbnNsYXRlKC0xMC41MDAwMDAsIC0xMC41MDAwMDApIHRyYW5zbGF0ZSgtMC4wMDAwMDAsIDAuMDAwMDAwKSI+CiAgICAgICAgICAgIDxyZWN0IGlkPSJSZWN0YW5nbGUiIGZpbGw9IiM3ODkwOUMiIG9wYWNpdHk9IjAuMyIgeD0iMCIgeT0iMCIgd2lkdGg9IjIiIGhlaWdodD0iMjEiIHJ4PSIxIj48L3JlY3Q+CiAgICAgICAgICAgIDxyZWN0IGlkPSJSZWN0YW5nbGUiIGZpbGw9IiM3ODkwOUMiIG9wYWNpdHk9IjAuMyIgeD0iMy44IiB5PSIwIiB3aWR0aD0iMiIgaGVpZ2h0PSIyMSIgcng9IjEiPjwvcmVjdD4KICAgICAgICAgICAgPHJlY3QgaWQ9IlJlY3RhbmdsZSIgZmlsbD0iIzc4OTA5QyIgb3BhY2l0eT0iMC4zIiB4PSI3LjYiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9IjIxIiByeD0iMSI+PC9yZWN0PgogICAgICAgICAgICA8cmVjdCBpZD0iUmVjdGFuZ2xlIiBmaWxsPSIjNzg5MDlDIiBvcGFjaXR5PSIwLjMiIHg9IjExLjQiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9IjEwIiByeD0iMSI+PC9yZWN0PgogICAgICAgICAgICA8cmVjdCBpZD0iUmVjdGFuZ2xlIiBmaWxsPSIjNzg5MDlDIiBvcGFjaXR5PSIwLjMiIHg9IjE1LjIiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9IjEwIiByeD0iMSI+PC9yZWN0PgogICAgICAgICAgICA8cmVjdCBpZD0iUmVjdGFuZ2xlIiBmaWxsPSIjNzg5MDlDIiBvcGFjaXR5PSIwLjMiIHg9IjE5IiB5PSIwIiB3aWR0aD0iMiIgaGVpZ2h0PSIxMCIgcng9IjEiPjwvcmVjdD4KICAgICAgICAgICAgPGxpbmUgeDE9IjE1LjUiIHkxPSIxMi41IiB4Mj0iMTUuNSIgeTI9IjE5LjUiIGlkPSJQYXRoIiBzdHJva2U9IiMxMzg0RkYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNS41MDAwMDAsIDE2LjAwMDAwMCkgcm90YXRlKC05MC4wMDAwMDApIHRyYW5zbGF0ZSgtMTUuNTAwMDAwLCAtMTYuMDAwMDAwKSAiPjwvbGluZT4KICAgICAgICAgICAgPHBvbHlsaW5lIGlkPSJQYXRoIiBzdHJva2U9IiMxMzg0RkYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNy40NzQ4NzQsIDE1Ljk3NDg3NCkgcm90YXRlKC00NS4wMDAwMDApIHRyYW5zbGF0ZSgtMTcuNDc0ODc0LCAtMTUuOTc0ODc0KSAiIHBvaW50cz0iMTkuMjI0ODczNyAxNC4yMjQ4NzM3IDE5LjIyNDg3MzcgMTcuNzI0ODczNyAxNS43MjQ4NzM3IDE3LjcyNDg3MzciPjwvcG9seWxpbmU+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=\") no-repeat 8px 50%; }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -53426,6 +53492,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Preview__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Preview */ "./resources/views/components/Preview.jsx");
 /* harmony import */ var _GlobalStyles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../GlobalStyles */ "./resources/views/components/GlobalStyles.js");
 /* harmony import */ var _src_lib_DataHelper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../src/lib/DataHelper */ "./src/lib/DataHelper.js");
+/* harmony import */ var _images_xPosIc_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../images/xPosIc.svg */ "./resources/images/xPosIc.svg");
+/* harmony import */ var _images_xPosIc_svg__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_images_xPosIc_svg__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _images_yPosIc_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../images/yPosIc.svg */ "./resources/images/yPosIc.svg");
+/* harmony import */ var _images_yPosIc_svg__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_images_yPosIc_svg__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _images_layerListIc_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../images/layerListIc.svg */ "./resources/images/layerListIc.svg");
+/* harmony import */ var _images_layerListIc_svg__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_images_layerListIc_svg__WEBPACK_IMPORTED_MODULE_11__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -53445,6 +53517,26 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["\n  margin-left: 8px;\n  line-height: 24px;\n"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
 
 function _templateObject5() {
   var data = _taggedTemplateLiteral(["\n  margin-top: 10px;\n  display: flex;\n  height: 32px;\n  align-items: center;\n"]);
@@ -53513,6 +53605,9 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
+
+
+
 var KeywordsWrapper = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject());
 var InputWrapper = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject2(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["InputMargin"]);
 var StyledLabel = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].label(_templateObject3(), _GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["LabelStyles"]);
@@ -53520,6 +53615,8 @@ var StyledSelect = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].sel
   return props.theme.select.arrow;
 });
 var SequenceWrapper = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject5());
+var DDWrapper = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].span(_templateObject6());
+var DDText = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].span(_templateObject7());
 
 var RenameLayer = /*#__PURE__*/function (_React$Component) {
   _inherits(RenameLayer, _React$Component);
@@ -53715,15 +53812,21 @@ var RenameLayer = /*#__PURE__*/function (_React$Component) {
 
       switch (type) {
         case 'layerList':
-          name = 'Layer order: Top to bottom';
+          name = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DDWrapper, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_images_layerListIc_svg__WEBPACK_IMPORTED_MODULE_11___default.a, {
+            className: "dropIc"
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DDText, null, "Layer order: Top to bottom"));
           break;
 
         case 'xPos':
-          name = 'Postion: Left to right, top to bottom';
+          name = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DDWrapper, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_images_xPosIc_svg__WEBPACK_IMPORTED_MODULE_9___default.a, {
+            className: "dropIc"
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DDText, null, "Postion: Left to right, top to bottom"));
           break;
 
         case 'yPos':
-          name = 'Positon: Top to bottom, left to right';
+          name = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DDWrapper, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_images_yPosIc_svg__WEBPACK_IMPORTED_MODULE_10___default.a, {
+            className: "dropIc"
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DDText, null, "Positon: Top to bottom, left to right"));
 
         default:
           break;
@@ -53841,11 +53944,14 @@ var RenameLayer = /*#__PURE__*/function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Dropdown"].Toggle, {
         id: "seqTypeDD"
       }, this.getSequenceName(this.state.selectValue)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Dropdown"].Menu, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Dropdown"].Item, {
-        eventKey: "layerList"
+        eventKey: "layerList",
+        className: "menuIcon layerListIc"
       }, this.getSequenceName('layerList')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Dropdown"].Item, {
-        eventKey: "xPos"
+        eventKey: "xPos",
+        className: "menuIcon xPosIc"
       }, this.getSequenceName('xPos')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Dropdown"].Item, {
-        eventKey: "yPos"
+        eventKey: "yPos",
+        className: "menuIcon yPosIc"
       }, this.getSequenceName('yPos')))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(KeywordsWrapper, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["StyledH3"], null, "Keywords"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, listItems)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Preview__WEBPACK_IMPORTED_MODULE_6__["default"], {
         data: this.state.previewData
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["Footer"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_GlobalStyles__WEBPACK_IMPORTED_MODULE_7__["SecondaryButton"], {

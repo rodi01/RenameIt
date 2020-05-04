@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2017-12-26 13:14:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-04-30 02:51:12
+ * @Last Modified time: 2020-05-04 02:30:00
  */
 
 import { parseData } from '~/src/lib/Utilities'
@@ -30,7 +30,7 @@ export default function (context) {
     identifier: 'renameLayers.ui',
     title: 'Rename Selected Layers',
     redirectTo: '/rename',
-    width: 392,
+    width: 405,
     height: 480,
   }
 

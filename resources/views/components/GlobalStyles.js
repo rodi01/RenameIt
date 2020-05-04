@@ -72,7 +72,7 @@ export const inputCss = css`
   background: ${(props) => props.theme.input.background};
   padding: 0 8px;
   border-radius: 4px;
-  height: 24px;
+  height: 30px;
   border: 1px solid ${(props) => props.theme.input.border};
   color: ${(props) => props.theme.input.color};
   margin-left: 8px;

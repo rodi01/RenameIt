@@ -108,7 +108,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   button: {
     color: '#F3F2F5',
-    bgColor: 'rgba(255,255,255,0.25)',
+    bgColor: 'rgba(255,255,255,0.15)',
     border: '#636363',
     bgActive: 'rgba(255,255,255,0.10)'
   },

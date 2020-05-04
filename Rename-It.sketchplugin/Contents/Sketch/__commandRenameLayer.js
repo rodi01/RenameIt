@@ -4612,7 +4612,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   button: {
     color: '#F3F2F5',
-    bgColor: 'rgba(255,255,255,0.25)',
+    bgColor: 'rgba(255,255,255,0.15)',
     border: '#636363',
     bgActive: 'rgba(255,255,255,0.10)'
   },
@@ -4732,7 +4732,7 @@ __webpack_require__.r(__webpack_exports__);
  * @Author: Rodrigo Soares
  * @Date: 2017-12-26 13:14:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-04-30 02:51:12
+ * @Last Modified time: 2020-05-04 02:30:00
  */
 
 
@@ -4755,7 +4755,7 @@ __webpack_require__.r(__webpack_exports__);
     identifier: 'renameLayers.ui',
     title: 'Rename Selected Layers',
     redirectTo: '/rename',
-    width: 392,
+    width: 405,
     height: 480
   }; // Show UI
 
