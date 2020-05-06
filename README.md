@@ -19,8 +19,8 @@ Sequentially rename layers in either ascending or descending order.
 
 ![Rename in Sequence](/docs/static/img/gifs/sequence_rename.gif)
 
-* **Keyword %n** - Ascending numbered sequence
-* **Keyword %N** - Descending numbered sequence
+* **Keyword %N** - Ascending numbered sequence
+* **Keyword %n** - Descending numbered sequence
 * **Keyword %A** - Alphabet sequence
 
 ##### Pro Tip
