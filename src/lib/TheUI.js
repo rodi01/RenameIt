@@ -134,7 +134,7 @@ const theUI = (context, data, options) => {
       )
 
       if (findReplace.match(opts)) {
-        const layer = selData[opts.currIdx].layer
+        const layer = item.layer
         layer.name = findReplace.layer(opts)
         totalRenamed += 1
       }
