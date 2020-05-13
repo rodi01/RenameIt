@@ -84,6 +84,7 @@ Rename selected artboards works the same way as rename selected layers. You don'
 
 [![Direct Download](/docs/static/img/download_btn.png "Direct Download")](https://github.com/rodi01/RenameIt/releases/latest)
 
+
 ## More Info
 
 Rename It is maintained by Rodrigo Soares, follow me [@rodi01](https://twitter.com/rodi01)
@@ -91,3 +92,6 @@ Rename It is maintained by Rodrigo Soares, follow me [@rodi01](https://twitter.c
 [Checkout the website for more](https://renameit.design/sketch)
 
 MIT License © Rodrigo Soares.
+
+## Donate
+[Buy me a pizza 🍕](https://www.buymeacoffee.com/rodi01) or donate via [PayPal](https://www.paypal.me/rodi01/5).
