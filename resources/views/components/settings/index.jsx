@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2017-12-25 21:54:20
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-10-27 17:44:51
+ * @Last Modified time: 2020-05-24 02:25:56
  */
 import React from 'react'
 import styled from 'styled-components'
@@ -24,6 +24,9 @@ const H3 = styled(StyledH3)`
 
 const About = styled.div`
   margin-top: ${InputMargin};
+  & button {
+    margin-right: 8px;
+  }
 `
 
 const Credits = styled.p`
@@ -51,10 +54,11 @@ class Settings extends React.Component {
   }
 
   moreInfo() {
-    window.postMessage(
-      'externalLinkClicked',
-      'http://rodi01.github.io/RenameIt/'
-    )
+    window.postMessage('externalLinkClicked', 'https://renameit.design/sketch/')
+  }
+
+  donate() {
+    window.postMessage('externalLinkClicked', 'https://www.paypal.me/rodi01/5')
   }
 
   twitter() {
@@ -78,7 +82,10 @@ class Settings extends React.Component {
         <About>
           <H3>About</H3>
           <SecondaryButton onClick={() => this.moreInfo()}>
-            Plugin Website
+            Website
+          </SecondaryButton>
+          <SecondaryButton onClick={() => this.donate()}>
+            Donate
           </SecondaryButton>
         </About>
 

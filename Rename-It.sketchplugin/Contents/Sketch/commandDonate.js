@@ -1,3 +1,10 @@
+var globalThis = this;
+var global = this;
+function __skpm_run (key, context) {
+  globalThis.context = context;
+  try {
+
+var exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -81,56 +88,48 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./resources/views/theme/light.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/commandDonate.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/views/theme/light.js":
-/*!****************************************!*\
-  !*** ./resources/views/theme/light.js ***!
-  \****************************************/
+/***/ "./src/commandDonate.js":
+/*!******************************!*\
+  !*** ./src/commandDonate.js ***!
+  \******************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'light',
-  text: '#747474',
-  bg: '#F7F7F7',
-  previewColor: '#242424',
-  input: {
-    background: '#FBFBFB',
-    color: '#505050',
-    border: '#E4E4E4',
-    borderActive: '#1384FF'
-  },
-  button: {
-    color: '#505050',
-    bgColor: '#FBFBFB',
-    border: '#E4E4E4',
-    bgActive: '#F3F2F5'
-  },
-  secondaryButton: {
-    borderColor: '#B2AEBD',
-    textColor: '#817B8F'
-  },
-  CTAButton: {
-    bgColor: '#1384FF',
-    textColor: '#fff',
-    bgActive: '#0F72DB'
-  },
-  radio: {
-    selectedColor: '#969696',
-    border: '#969696'
-  },
-  select: {
-    arrow: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNnB4IiBoZWlnaHQ9IjEwcHgiIHZpZXdCb3g9IjAgMCA2IDEwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA2NCAoOTM1MzcpIC0gaHR0cHM6Ly9za2V0Y2guY29tIC0tPgogICAgPHRpdGxlPnNlbGVjdF9hcnJvd19kYXJrPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTguODgxNzg0MmUtMTYsNiBMNiw2IEwzLDEwIEw4Ljg4MTc4NDJlLTE2LDYgWiBNMywwIEw2LDQgTDAsNCBMMywwIFoiIGlkPSJzZWxlY3RfYXJyb3dfZGFyayIgZmlsbD0iIzc0NzQ3NCI+PC9wYXRoPgogICAgPC9nPgo8L3N2Zz4='
-  }
+/*
+ * @Author: Rodrigo Soares
+ * @Date: 2017-12-25 14:32:21
+ * @Last Modified by: Rodrigo Soares
+ * @Last Modified time: 2020-05-24 02:20:54
+ */
+/* harmony default export */ __webpack_exports__["default"] = (function (context) {
+  NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString('https://www.paypal.me/rodi01/5'));
 });
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=resources_views_theme_light.js.map
+    if (key === 'default' && typeof exports === 'function') {
+      exports(context);
+    } else if (typeof exports[key] !== 'function') {
+      throw new Error('Missing export named "' + key + '". Your command should contain something like `export function " + key +"() {}`.');
+    } else {
+      exports[key](context);
+    }
+  } catch (err) {
+    if (typeof process !== 'undefined' && process.listenerCount && process.listenerCount('uncaughtException')) {
+      process.emit("uncaughtException", err, "uncaughtException");
+    } else {
+      throw err
+    }
+  }
+}
+globalThis['onRun'] = __skpm_run.bind(this, 'default')
+
+//# sourceMappingURL=commandDonate.js.map
