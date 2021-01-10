@@ -1,3 +1,8 @@
+# Update
+Unfortunately, Rename It for Sketch is no longer being maintained. I no longer use Sketch as my design tool, and I can't justify paying for the license. The latest tested Sketch version is 67.2. 
+
+The plugin is still being maintained for Figma and Adobe XD.
+
 # Rename It
 
 Keep your Sketch files always organized, batch rename layers and artboards.
