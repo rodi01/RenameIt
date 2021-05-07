@@ -39,7 +39,6 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.1",
-    "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
@@ -58,7 +57,7 @@
     "react-bootstrap": "^1.0.0",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
-    "sketch-module-google-analytics": "^0.2.1",
+    "sketch-module-google-analytics": "^0.2.2",
     "sketch-module-user-preferences": "^1.0.2",
     "sketch-module-web-view": "^3.4.1",
     "styled-components": "^5.1.0"
